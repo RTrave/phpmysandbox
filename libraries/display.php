@@ -116,11 +116,12 @@ class MySBDisplay {
      * @param   integer     $refresh_time   delay to load index.php in seconds
      */
     public function header($refresh_time=0) {
+        global $app;
         if( $this->level<MYSB_DISPLAY_LEVEL_HEADER_START and
             !$this->overlay and !$this->hidelay and !$this->itemlay and !$this->blanklay ) {
             $this->level<MYSB_DISPLAY_LEVEL_HEADER_START;
             echo '<!DOCTYPE html>
-<html>
+<html lang="'.$app->locales->t_locale.'">
 <head>';
             _incI('head');
             foreach($this->custom_headers as $custom_header) 
