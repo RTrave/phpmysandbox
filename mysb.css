@@ -1,0 +1,846 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+* {
+margin: 0px;
+}
+
+/*
+*   COLOR SETTINGS
+*/
+body, a, input {
+color: #000000;
+}
+body {
+background-color: #cccccc;
+}
+div#allshadow {
+background-color: #555555;
+}
+#overlayBg {
+background-color: rgba(70,70,70,0.7);
+}
+
+div#mysbTop,
+div#mysbMiddle,
+div#mysbBottom {
+background-color: #eeeeee;
+}
+
+div#logbox,
+div#menu2box,
+#mysbTop ul.menu li,
+.mysb_overlay .close,
+div.overHead .action,
+div.overFoot input[type=submit].action,
+div.overFoot a.action {
+background-color: #dddddd;
+}
+
+.mysb_overlay,
+#mysbMiddle div.list_support div.row,
+#mysbMiddle div.boxed div.row,
+div.overHead,
+div.overFoot,
+div.overBody,
+div.overBodyFoot {
+background-color: #ffffff;
+}
+
+.mysb_overlay {
+border: 2px solid #111111;
+box-shadow:0 0 90px 5px #000;
+-moz-box-shadow:0 0 90px 5px #000;
+-webkit-box-shadow: 0 0 90px #000;
+}
+
+#mysbMiddle h1,
+#mysbMiddle h2,
+#mysbMiddle h3,
+#mysbMiddle div.list_support div.title,
+#mysbMiddle div.boxed div.title,
+#mysbTopMenu a,
+#mysbMenuLevel a,
+input[type=submit],
+input[type=submit]:active,
+input[type=button],
+.button,
+.cell {
+background-color: #dddddd;
+}
+
+#mysbMiddle h4,
+#mysbMiddle p,
+#mysbMiddle ul,
+#mysbMiddle div.table_support {
+background-color: transparent;
+}
+
+a:hover {
+color: #222222;
+}
+#mysbTopMenu a:hover,
+input[type=submit]:hover,
+.button:hover,
+#mysbMenuLevel a:hover,
+input[type=button]:hover,
+div.overHead .action:hover,
+.mysb_overlay .close:hover,
+div.overFoot .button:hover,
+div.overFoot input[type=submit]:hover,
+#mysbTop ul.menu li:hover,
+.mysb_overlay .close:hover,
+div.overHead .action:hover,
+div.overFoot input[type=submit].action:hover {
+background-color: #f2f2f2;
+color: #222222;
+}
+textarea, 
+input[type=text],
+input[type=password],
+input[type=checkbox],
+input[type=email],
+input[type=tel], 
+input[type=url], 
+select,
+body.tinymce {
+background: #eeeeee;
+}
+
+#mysbTop div.authbox,
+#mysbMiddle div.authbox {
+background-color: #aaaaaa;
+}
+
+#mysbMiddle div.table_support table {
+background-color: #888888;
+}
+#mysbMiddle div.table_support tr {
+background-color: #eeeeee;
+}
+#mysbMiddle div.table_support tr.title {
+background-color: #aaaaaa;
+}
+#mysbMiddle div.table_support tr.odd {
+background-color: #dddddd;
+}
+#mysbMiddle div.table_support tr.notodd {
+background-color: #eeeeee;
+}
+
+#mysbMiddle div.advert {
+border: 2px solid red;
+background-color: #ffdb95;
+}
+
+div#mysbMessages {
+background-color: #ffe4e7;
+border: 4px solid red;
+}
+#mysbMessages p {
+background-color: #ffe4e7;
+}
+
+div#mysbAlerts {
+background-color: #ffe4e7;
+border: 4px solid #ffab67;
+}
+#mysbAlerts p {
+background-color: #ffe4e7;
+}
+
+/*  GRADIENT *//*
+div.overHead {
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ /
+    background: -ms-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.25) 100%); /* IE10+ /
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 70%,rgba(0,0,0,0.3) 100%);
+}
+div.overFoot {
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0) 50%); /* Chrome10+,Safari5.1+ /
+    background: -ms-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0) 50%); /* IE10+ /
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 30%);
+}
+*/
+
+
+/*
+*   GLOBAL SETTINGS
+*/
+body,
+input {
+font: 14px sans-serif;
+}
+textarea {
+font: 12px sans-serif;
+}
+body {
+margin: 0px;
+padding: 10px 10px 15px;
+text-align: center;
+overflow-y: scroll;
+}
+img {
+border: 0px;
+}
+img.icon24 {
+width: 24px;
+}
+div#allshadow {
+width: 100%;
+max-width: 1000px;
+right: auto;
+left: auto;
+display: inline-block;
+padding: 0px;
+/* CSS3 styling for latest browsers */
+moz-box-shadow:0 0 10px 5px #000;
+webkit-box-shadow: 0 0 10px #000;
+box-shadow: 2px 2px 8px 3px #000;
+border-radius: 6px;
+text-align: justify;
+}
+div#mysbTop1,
+div#mysbMiddle,
+div#mysbBottom {
+position: relative;
+width: auto;
+}
+div#mysbTop,
+div#mysbMiddle {
+border-bottom: 2px solid #333333;
+}
+.roundtop,
+#overlay div.contentWrap div.overHead  {
+-moz-border-radius-topleft: 4px;
+-webkit-border-top-left-radius: 4px;
+border-top-left-radius: 6px;
+-moz-border-radius-topright: 4px;
+-webkit-border-top-right-radius: 4px;
+border-top-right-radius: 6px;
+}
+.roundbottom {
+-moz-border-radius-bottomleft: 4px;
+-webkit-border-bottom-left-radius: 4px;
+border-bottom-left-radius: 4px;
+-moz-border-radius-bottomright: 4px;
+-webkit-border-bottom-right-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+div.content {
+position: relative;
+width: 100%;
+vertical-align: top;
+padding: 0px;
+margin-bottom: 0px;
+bottom: 0px;
+display: inline-block;
+}
+#mysbMiddle ul li {
+margin: 0px 35px 0px 35px;
+}
+input,
+select,
+input {
+font-size: 100%;
+}
+input[type=submit],
+input[type=button] {
+border: 1px solid #333333;
+margin: 0px;
+padding: 4px 10px;
+cursor: pointer;
+font-weight: bold;
+border-radius: 4px;
+}
+select,
+input[type=text],
+input[type=password],
+input[type=checkbox],
+input[type=email],
+input[type=tel],
+input[type=url] {
+text-align: left;
+margin: 1px;
+padding: 2px;
+}
+.button {
+display: inline-block;
+border: 1px solid #333333;
+margin: 0px;
+padding: 5px 10px;
+cursor: pointer;
+text-decoration: none;
+font-weight: bold;
+text-align: center;
+border-radius: 4px;
+}
+input[type=file] {
+margin: 0px;
+padding: 0px 5px;
+}
+
+
+/*
+*   TOP BOX
+*/
+
+div.roundtop#mysbTop {
+}
+#mysbTop div.content {
+}
+
+#mysbTop ul.menu {
+list-style-type: none;
+font-size: 90%;
+padding: 0px;
+}
+#mysbTop ul.menu.left {
+float: left;
+}
+#mysbTop ul.menu.right {
+float: right;
+}
+
+#mysbTop ul.menu li {
+float: left;
+max-width: 100px;
+height: 100%;
+vertical-align: middle;
+cursor: pointer;
+padding: 0px;
+}
+#mysbTop ul.menu.left li {
+border-right: 2px solid #333333;
+}
+#mysbTop ul.menu.right li {
+border-left: 2px solid #333333;
+}
+#mysbTop ul.menu li.top.first {
+border-top-left-radius: 6px;
+}
+#mysbTop ul.menu li.top.last {
+border-top-right-radius: 6px;
+}
+#mysbTop ul.menu li.bottom.first {
+border-bottom-left-radius: 6px;
+}
+#mysbTop ul.menu li.bottom.last {
+border-bottom-right-radius: 6px;
+}
+
+#mysbTop ul.menu li div.item {
+display: inline-block;
+height: 100%;
+vertical-align: middle;
+}
+
+#mysbTop ul.menu li div.item a {
+display: table-cell;
+position: relative;
+vertical-align: middle;
+min-width: 50px;
+height: 60px;
+text-decoration: none;
+padding: 0px 5px;
+text-align: center;
+font-weight: bold;
+}
+
+div#logbox {
+z-index: 1001;
+display: inline-block;
+position: absolute;
+top: 62px;
+right: 0px;
+left: auto;
+border-radius: 0px;
+border-bottom-left-radius: 6px;
+box-shadow: -2px 2px 8px 3px #000;
+}
+
+div#menu2box {
+z-index: 1000;
+display: inline-block;
+position: absolute;
+top: 62px;
+left: 0px;
+right: auto;
+border-radius: 0px;
+border-bottom-right-radius: 6px;
+box-shadow: 2px 2px 8px 3px #000;
+}
+
+
+/*
+*   MIDDLE BOX
+*/
+
+div#mysbMiddle {
+font-size: 90%;
+padding: 2px;
+}
+#mysbMiddle div.content {
+min-height: 120px;
+}
+
+div#mysbMenuSwitch {
+display: inline-block;
+width: 180px;
+border-bottom-left-radius: 0px;
+border-bottom-right-radius: 0px;
+}
+
+div#mysbMenuLevel {
+text-align: center;
+padding: 0px 5px;
+margin-bottom: 5px;
+}
+
+#mysbMenuLevel ul {
+display: inline-block;
+list-style-type: none;
+margin: 0px;
+padding: 6px 0px 2px;
+}
+#mysbMenuLevel ul li {
+display: inline-block;
+margin: 0px 0px;
+float: left;
+}
+#mysbMenuLevel ul li.first {
+margin-left: 3px;
+}
+#mysbMenuLevel ul li.last {
+margin-right: 3px;
+}
+#mysbMenuLevel a {
+border: 1px solid #333333;
+margin: 0px;
+padding: 2px 10px;
+cursor: pointer;
+text-decoration: none;
+font-weight: bold;
+}
+#mysbMenuLevel ul li.first a {
+border-top-left-radius: 4px;
+border-bottom-left-radius: 4px;
+}
+#mysbMenuLevel ul li.last a {
+border-top-right-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+
+#mysbMiddle h1 {
+margin: 0px 0px 10px 0px;
+padding: 5px 10px 5px 10px;
+font-size: 150%;
+text-align: center;
+}
+#mysbMiddle h2 {
+margin: 8px 0px 0px 0px;
+padding: 10px 5px 5px 5px;
+width: auto;
+font-size: 130%;
+}
+#mysbMiddle h3 {
+margin: 0px 0px 0px 0px;
+padding: 10px 15px 5px 15px;
+font-size: 100%;
+}
+#mysbMiddle h4 {
+margin: 0px 0px 0px 0px;
+padding: 5px 15px 0px 15px;
+}
+#mysbMiddle p {
+margin: 0px 0px 0px 0px;
+padding: 3px 15px;
+}
+#mysbMiddle ul {
+margin: 0px 0px 0px 0px;
+}
+
+#mysbMiddle div.list_support {
+text-align: center;
+padding: 5px 15px 1px;
+}
+
+#mysbMiddle div.cell {
+margin: 3px 2px;
+padding: 2px;
+}
+
+#mysbMiddle div.cell_hide {
+display: block;
+}
+#mysbMiddle div.cell_show {
+display: none;
+}
+#mysbMiddle div.incell_hide {
+display: inline-block;
+}
+#mysbMiddle div.incell_show {
+display: none;
+}
+#mysbMiddle span.cell_hide {
+display: inline;
+}
+#mysbMiddle span.cell_show {
+display: none;
+}
+
+#mysbMiddle div.table_support {
+margin: 0px;
+padding: 10px 15px 15px 15px;
+}
+#mysbMiddle table {
+margin: 0px auto 0px auto;
+border:0px;
+border-spacing: 1px;
+}
+#mysbMiddle tr.title {
+font-weight: bold;
+}
+#mysbMiddle td {
+}
+
+#mysbMiddle div.advert {
+display: inline-block;
+margin: 5px auto 10px;
+right: auto;
+left: auto;
+padding: 10px 20px;
+font-size: 80%;
+text-align: justify;
+border-radius: 4px;
+}
+
+div#mysbMessages {
+position: fixed;
+display: none;
+padding: 5px;
+width: 200px;
+text-align: left;
+z-index: 10005;
+right: 20px;
+bottom: 20px;
+-moz-border-radius: 5px;
+-webkit-border: 5px;
+border-radius: 5px;
+cursor:default;
+}
+
+div#mysbMessages p img {
+padding-right: 15px;
+}
+
+div#mysbAlerts {
+/*position: relative;*/
+display: table;
+margin: 10px auto 10px auto;
+border-radius: 6px;
+}
+
+div#mysbAlerts img {
+padding-left: 15px;
+/*padding-bottom: 10px;*/
+}
+
+#mysbMiddle div.authbox {
+text-align: center;
+margin: 0px 20px 0px 20px;
+padding: 4px 5px;
+vertical-align: top;
+border: 0px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
+border-radius: 10px;
+}
+
+div.boxed {
+/*display: inline-block;*/
+width: 420px;
+max-width: 95%;
+margin: 5px auto 10px;
+}
+
+div.list_support div.title,
+div.boxed div.title {
+text-align: center;
+padding: 4px 5px 5px;
+min-height: 30px;
+}
+div.list_support div.row,
+div.boxed div.row {
+padding: 2px 2px 6px;
+text-align: left;
+border-bottom: 1px solid #aaaaaa;
+min-height: 30px;
+}
+div.list_support div.row div.right,
+div.boxed div.row div.right {
+float: right;
+}
+div.list_support div.row div.label,
+div.boxed div.row div.label {
+display1: inline-block;
+margin-left: 10px;
+overflow-y1: hidden;
+overflow-x1: hidden;
+}
+
+div.row input[type=submit],
+div.row a.button {
+margin-top: 5px;
+}
+div.row input[type=text],
+div.row input[type=password],
+div.row input[type=email],
+div.row input[type=tel]
+div.row input[type=url] {
+margin-top: 2px;
+}
+div.row input[type=checkbox] {
+margin-top: 0px;
+}
+div.row select {
+text-align: right;
+}
+
+.help {
+font-size: 80%;
+font-style: italic;
+color: #333333;
+display: inline-block;
+}
+
+
+/*
+*   BOTTOM BOX
+*/
+div#mysbBottom {
+padding: 5px 10px;
+}
+#mysbBottom div.content {
+text-align: center;
+vertical-align: middle;
+font-size: 85%;
+}
+
+
+#mysbBottom div.techinfo {
+text-align: right;
+font-size: 70%;
+}
+
+
+
+/*
+*   SQL LOG BOX
+*/
+
+div#mysbLogSql {
+display:block;
+width: 80%;
+margin: 5px 0px 5px 0px;
+padding: 10px 10px 25px 10px;
+margin-left: auto;
+margin-right: auto;
+text-align: left;
+}
+
+#mysbLogSql p {
+margin: 0px auto 0px auto;
+width: 70%;
+padding: 10px;
+color: white;
+background-color: #bb0000;
+font-size: 80%;
+}
+
+
+/*
+*   RTEDITOR SPECIFICS STYLES
+*/
+
+body#tinymce,
+#tinymce.td,
+#tinymce.pre {
+font-size: 12px;
+}
+#mysbMiddle .mceEditor,
+#mysbMiddle .mceRichText,
+#mysbMiddle .mceLayout {
+}
+#mysbMiddle table.mceLayout {
+border: 1px;
+background: none repeat scroll 0% 0% transparent;
+}
+#mysbMiddle table.mceToolbar {
+background: none repeat scroll 0% 0% transparent;
+}
+
+#mysbMiddle p.rteditor {
+margin-top: 0px;
+margin-bottom: 0px;
+padding-top: 0px;
+padding-bottom: 0px;
+}
+.mce-container, .mce-container *, .mce-widget, .mce-widget * {
+font-size: 12px !important;
+}
+
+
+/* the overlayed element */
+
+#overlayBg {
+    position: fixed;
+    z-index: 9995;
+    width: 200%;
+    height: 200%;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+
+.mysb_overlay {
+    display:none;
+    position: fixed;
+    z-index: 10000;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+}
+
+div#overlaySize {
+    display:none;
+}
+
+/* default close button positioned on upper right corner */
+.mysb_overlay .close {
+    position:absolute;
+    float: right;
+    z-index: 10010;
+    right:0px;
+    top:0px;
+    cursor:pointer;
+    height:32px;
+    padding: 1px 3px;
+    border-left: 2px solid #555555;
+    border-bottom: 2px solid #555555;
+    border-top-right-radius: 5px;
+}
+.mysb_overlay .action {
+    float: left;
+    height:32px;
+    border-right: 2px solid #555555;
+    padding: 1px 3px;
+}
+.mysb_overlay .action.first {
+    border-top-left-radius: 5px;
+}
+
+div.overHead1 img,
+div.overHead1 input[type=image] {
+    padding: 2px 5px;
+    margin: 2px 5px;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+div.overHead {
+    height: 34px;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    padding-right: 46px;
+    border-bottom: 2px solid #555555;
+}
+
+div.overBody {
+    display: inline-block;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin-bottom: 0px; /*  */
+}
+.mysb_overlay div.overBody,
+.mysb_overlay div.overBodyFoot {
+    overflow-y:auto;
+}
+
+div.overFoot {
+    display: inline-block;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 0px;
+    border-top: 2px solid #555555;
+}
+div.overFoot input[type=submit].action,
+div.overFoot a.action {
+    margin: 0;
+    padding: 0;
+    border-radius: 0px; 
+    border: 0; 
+    height: 100%;
+}
+div.overFoot input[type=submit].action.right,
+div.overFoot a.action.right {
+    border-left: 2px solid #555555;
+}
+div.overFoot input[type=submit].action.left,
+div.overFoot a.action.left {
+    border-right: 2px solid #555555;
+}
+
+div.overBodyFoot {
+    display: inline-block;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+
+div.overBody input[type=submit],
+div.overFoot input[type=submit],
+div.overBodyFoot input[type=submit],
+div.overFoot .button {
+    font-size: 12px;
+    margin: 1px 5px;
+}
+
+
+/* the hided element */
+
+#hidelayer {
+    display: none;
+}
+
+/* the spin element */
+
+#spinlayer {
+    display: none;
+    position: fixed;
+    z-index: 5000000;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    background-color: transparent;
+}
+
+

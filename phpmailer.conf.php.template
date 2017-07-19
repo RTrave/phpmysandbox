@@ -1,0 +1,38 @@
+<?php
+/***************************************************************************
+ *
+ *   phpMySandBox - TRoman<abadcafe@free.fr> - 2012
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+// No direct access.
+defined('_MySBEXEC') or die;
+
+/**
+ * phpMailer SMTP configs.
+ */
+$phpmailer_path = '';               // absolute or relative path to phpmailer
+                                    // eg: /usr/share/php/libphp-phpmailer
+$phpmailer_Mail = '';
+$phpmailer_Host = '';
+$phpmailer_Port = '';
+$phpmailer_SMTPAuth = false;
+$phpmailer_SMTPSecure = '';
+$phpmailer_Username = '';
+$phpmailer_Password = '';
+$phpmailer_SMTPDebug = 0;
+
+
+/**
+ * IMAP configs (configure it to force copy of sent mails in Sent Folder).
+ * see http://www.php.net/manual/en/function.imap-open.php for more informations
+ */
+//$phpmailer_ImapHost = 'localhost';
+//$phpmailer_ImapPort = '143';
+//$phpmailer_ImapFolder = 'Sent';
+
+?>

@@ -1,0 +1,36 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+body {
+font: 90% serif;
+background-color: #555511;
+}
+input {
+font: 90% serif;
+}
+div#mysbTop,
+div#mysbMiddle,
+div#mysbBottom {
+background-color: #aaaa11;
+}
+/*
+#mysbTop div.authbox {
+background-color: green;
+}
+
+#mysbMiddle div.content {
+background-color: #8888dd;
+}
+
+.userdisplay {
+margin: 5px;
+padding: 10px;
+background: white;
+}
+*/

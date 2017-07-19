@@ -1,0 +1,1924 @@
+2017-06-12  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-6a. Welcome on GitHub.
+
+2017-06-26  Roman Trave  <abadcafe@free.fr>
+
+	* __init.php, install/dbinit.php, libraries/application.php:
+	Merged __init.php upgrades in install/dbinit.php.
+
+2017-06-25  Roman Trave  <abadcafe@free.fr>
+
+	* mysb.css: rows padding changes to fit well with some large themes.
+
+2017-06-12  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-5f.
+
+2017-06-11  Roman Trave  <abadcafe@free.fr>
+
+	* includes/admin/user_display.php, locales/en/core.ini, locales/fr/core.ini:
+	Fixed locales and users display.
+
+	* templates/admin/user_edit.php, templates/admin/user_edit_process.php, templates/admin/users_process.php:
+	Admin can now create user without mail and reset user's password.
+
+	* libraries/role.php: Fixed isset() missing in ::isAssignToGroup().
+
+	* includes/head.php, jscripts/jquery-1.11.1.min.js, jscripts/jquery-3.2.1.min.js:
+	JQuery updated from 1.11.1 to 3.2.1
+
+	* mysb.css: Few input dispay tweaks.
+
+	* libraries/value.php: Mobile icon removed from tel display.
+
+2017-06-10  Roman Trave  <abadcafe@free.fr>
+
+	* install/dbinit.php: Unique property of *_users.login dropped.
+
+2017-04-17  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/value.php:
+	Added a $directlink parameter on MySBValue::htmlForm().
+
+2017-03-04  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-5e.
+
+2017-02-21  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/role.php:
+	Make MySBRoleHelper::checkAccess($role,false) do not push alert message anymore, preventing unlogged errors on frontpage.
+
+2017-02-02  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/role.php:
+	Fix potential security problem in CheckAccess() process.
+
+2017-01-22  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-5d.
+
+	* libraries/display.php:
+	Added an alert if browser don't have Javascript activated.
+
+	* libraries/auth.php, libraries/user.php, locales/en/core.ini, locales/fr/core.ini, templates/users/profile.php, templates/users/profile_process.php:
+	Users can delete their own profile now.
+
+2017-01-09  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-5c.
+
+	* images/icons/preferences-system-time.png: Added system time icon.
+
+2016-11-28  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/application.php: Cosmetic fix.
+
+	* libraries/application.php, libraries/display.php, libraries/utils.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, mysbprint.css:
+	Alerts fix and update.
+
+2016-11-24  Roman Trave  <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini: Minor locales changes.
+
+	* libraries/utils.php:
+	Fix *_process templates handling (no more fatals).
+
+	* includes/admin/menu.php, libraries/locale.php, libraries/utils.php, locales/en/core.ini, locales/fr/core.ini, templates/admin/groups.php, templates/admin/plugins.php, templates/admin/user_edit.php, templates/admin/user_edit_process.php, templates/admin/users.php:
+	Few localization fixes and updates.
+
+2016-11-21  Roman Trave  <abadcafe@free.fr>
+
+	* images/icons/dialog-error.png, images/icons/dialog-warning.png, images/icons/emblem-important.png, libraries/application.php, libraries/role.php, mysb.css:
+	Messages and alerts filter fixed, using private method.
+
+2016-10-30  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-5b.
+
+	* libraries/application.php: Now messages and alerts are strict texts.
+
+2016-09-30  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/value.php: Fix phone number format loop.
+
+2016-09-28  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/user.php, libraries/value.php: Typo fixes.
+
+2016-09-04  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/value.php: Fix bad call to Val2SQLType method.
+
+2016-06-13  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Removed style from "simple" configuration of TinyMCE.
+
+	* ChangeLog, includes/bottom.php: Project tagged rel0-5a
+
+2016-06-08  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/db.php, libraries/dblayer_pdo.php, libraries/pluggables/useroption.php, libraries/value.php, templates/admin/plugins_process.php:
+	Add MySBValue::Val2SQLType() to clarify SQL types handling in values.
+	Fix checks on declarations tests.
+	Fix DB query errors handling, and in DB::exists().
+
+2016-05-18  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/utils.php: Add semicolon handling in str2db.
+
+2016-05-13  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/pdf.php:
+	Change AddPage() to NewPage() to fix TCPDF::AddPage() method compliance.
+
+	* libraries/plugin.php, libraries/role.php, libraries/user.php, libraries/utils.php, libraries/db.php, libraries/group.php, libraries/locale.php, libraries/module.php, libraries/config.php, libraries/datetime.php, install/install_helper.php:
+	Turn helpers to explicit statics functions to comply with strict PHP.
+
+	* libraries/object.php, libraries/value.php:
+	Switch update() to __update() for POO PHP compliance.
+	Fix varchar(512) values handling.
+
+2016-01-25  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/display.php:
+	Suppress logging from blank layer to perform tests correctly.
+
+2016-01-14  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/dblayer_pdo.php:
+	Add explicit error logging on queries fails.
+
+	* templates/admin/users_process.php: Fix minor missing variable init.
+
+2015-08-16  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/application.php: Fix missing $sql_queriesnb property.
+
+2015-05-26  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-4e
+
+2015-05-08  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	New "custom" usage implemented in TinyMCE support.
+
+2015-04-30  Roman Trave  <abadcafe@free.fr>
+
+	* images/icons/printer.png: Printer icon added.
+
+2015-04-24  Roman Trave  <abadcafe@free.fr>
+
+	* libraries/pdf.php: Bad include handling fixed.
+
+2015-04-23  Roman Trave  <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-4d
+
+	* libraries/pdf.php, templates/admin/admin.php:
+	TCPDF integration closed.
+
+2015-04-22  Roman Trave <abadcafe@free.fr>
+
+	* framework.php, libraries/pdf.php, mysb.css, tmp/index.html:
+	PDF support added (via TCPDF library: www.tcpdf.org).
+
+	* libraries/display.php: New headerADD() feature added.
+
+	* templates/admin/user_edit_process.php: Fix unset POST usage.
+
+2015-03-03  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-4c
+
+	* __init.php, install/dbinit.php, libraries/user.php:
+	Initialization fixes.
+
+	* libraries/mail_phpmailer.php, templates/admin/admin.php:
+	PHPMailer config test fix.
+
+2015-03-02  Roman Trave <abadcafe@free.fr>
+
+	* libraries/auth.php, libraries/user.php: Wrong authentication fixed.
+	Few code cleaned.
+
+2015-02-28  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Project tagged rel0-4b
+
+	* libraries/utils.php, locales/en/core.ini, locales/fr/core.ini:
+	Finalized strverif() usage.
+
+	* libraries/mail_phpmailer.php: Minor fix around the debug config.
+
+	* libraries/auth.php: Cleaned code.
+
+2015-02-21  Roman Trave <abadcafe@free.fr>
+
+	* templates/users/profile_process.php: Security fix.
+
+2015-02-18  Roman Trave <abadcafe@free.fr>
+
+	* libraries/auth.php, libraries/utils.php, locales/en/core.ini, locales/fr/core.ini, templates/users/profile_process.php:
+	Injection security fix.
+
+	* ChangeLog, includes/bottom.php: Project tagged rel0-4a
+
+2015-02-16  Roman Trave <abadcafe@free.fr>
+
+	* libraries/auth.php, libraries/utils.php, libraries/value.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, templates/users/profile.php, templates/users/profile_process.php, templates/users/registration.php, templates/users/registration_process.php, templates/users/reset_pw.php, templates/users/reset_pw_process.php:
+	Some important entrant fields and values forms new security check (code injection).
+
+2015-02-15  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/document-send.png: New icon added.
+
+	* images/icons/emblem-system-stop.png, jscripts/mysb.js, libraries/display.php:
+	Icon added.
+	Item loaded is now sliding.
+
+2015-02-11  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php: Reduced icon size, to fit rows height.
+
+	* libraries/utils.php: New MCEditor optional features enabled.
+
+	* libraries/user.php: Reseting password now reinitialize logattempt_nb.
+
+2015-02-10  Roman Trave <abadcafe@free.fr>
+
+	* includes/admin/user_display.php, mysb.css, templates/admin/plugins.php, templates/admin/users.php:
+	Few tweaks around boxed DIVs and new .label DIV.
+
+2015-02-01  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/dialog-password.png, includes/top.php, mysb.css:
+	Clarified front authentication ui.
+
+2015-01-28  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php, mysbhandheld.css: Textarea handheld-mode fix.
+
+	* mysb.css: Table padding fix.
+
+	* includes/top.php, mysb.css:
+	Last changes and cleaning of new theme code.
+
+	* images/icons/go-home.png, locales/en/core.ini, locales/fr/core.ini:
+	New "Home" icon added.
+
+	* libraries/pluggables/menuitem.php, templates/admin/plugins.php:
+	MenuItem values configuration added.
+
+	* jscripts/mysb.js: Fix a style confused interpretation in IE10.
+
+2015-01-26  Roman Trave <abadcafe@free.fr>
+
+	* config.php.template, includes/top.php, mysb.css:
+	Few fixs and changes.
+
+	* images/icons/avatar-default.png, images/icons/emblem-system.png, images/icons/view-list.png:
+	New icons added.
+
+	* images/icons/call-start.png, images/icons/dialog-information.png, images/icons/emblem-ok.png, images/icons/go-bottom.png, images/icons/go-down.png, images/icons/go-first.png, images/icons/go-last.png, images/icons/go-next.png, images/icons/go-previous.png, images/icons/go-top.png, images/icons/go-up.png, images/icons/list-add.png, images/icons/list-remove.png, images/icons/mail-unread.png, images/icons/phone.png, images/icons/preferences-system.png, images/icons/system-run.png, images/icons/system-shutdown.png, images/icons/text-editor.png, images/icons/user-info.png, images/icons/user-trash.png, images/icons/web-browser.png, includes/admin/menu.php, includes/admin/user_display.php, includes/top.php, jscripts/mysb.js, libraries/auth.php, libraries/user.php, libraries/value.php, locales/en/core.ini, locales/fr/core.ini, modules/example/example.css, mysb.css, mysbhandheld.css, templates/admin/admin.php, templates/admin/groups.php, templates/admin/user_edit.php, templates/users/authentication.php, templates/users/authentication_process.php:
+	Intermediate version of the new theme/paradigm: rewrited top parts, larger inputs and buttons, revamped overWindows, ...
+
+2015-01-19  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/display.php, mysb.css, mysbhandheld.css:
+	New overlayed window clear theme.
+
+	* templates/admin/user_edit.php:
+	User overlayed window is now persistent.
+
+2015-01-16  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js: Fix bad overlay handling in hidelayed callbacks.
+
+2015-01-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/display.php, libraries/utils.php, libraries/application.php:
+	Fix messages tips display in hidelay mode.
+	Fix max string size check in str2abbrv().
+
+2015-01-05  Roman Trave <abadcafe@free.fr>
+
+	* includes/mailcss.php: Mail background is now white.
+
+	* templates/admin/admin.php: Typo fix.
+
+2015-01-04  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail_phpmailer.php, locales/en/core.ini, locales/en/mail_tplfoot.php, locales/fr/core.ini, locales/fr/mail_tplfoot.php, templates/admin/admin.php, templates/admin/admin_process.php, phpmailer.conf.php.template:
+	Bugfixes in PHPMailer support, and mail test available.
+
+2014-12-13  Roman Trave <abadcafe@free.fr>
+
+	* templates/admin/user_edit.php: Fix variable typo.
+
+2014-12-11  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css, mysbhandheld.css: Cosmetic changes.
+
+2014-12-09  Roman Trave <abadcafe@free.fr>
+
+	* templates/admin/user_edit.php, templates/users/registration.php:
+	Tweaks around user management.
+
+	* includes/admin/menu.php: New MenuLevel usage (drop down menu).
+
+	* modules/example/includes/item.php, modules/example/templates/admin_example.php, modules/example/templates/example_file1.php, modules/example/templates/example_file2.php:
+	Updated example module.
+
+	* jscripts/mysb.js, mysb.css, mysbhandheld.css:
+	JS and CSS changes and cleaned code.
+	wrapLayerCalls() now replace overWinLoad().
+	new *_slide() hide/show functions added.
+
+	* libraries/display.php: Hidelayers don't handle overlays anymore.
+
+2014-11-18  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, mysb.css: Fix 2 minor bugs.
+
+	* jscripts/mysb.js, libraries/display.php, mysbhandheld.css, templates/admin/user_edit.php, mysb.css:
+	Rewrited overlay structure handling: HTML5, CSS ans JS.
+
+	* modules/example/templates/admin_example.php, modules/example/templates/example_file2.php:
+	Updated example files.
+
+2014-11-17  Roman Trave <abadcafe@free.fr>
+
+	* libraries/display.php:
+	Now SQL log is displayed for over/item/hide/blank layers too.
+
+2014-11-16  Roman Trave <abadcafe@free.fr>
+
+	* mysbhandheld.css: Fix overFoot size.
+
+2014-11-14  Roman Trave <abadcafe@free.fr>
+
+	* libraries/display.php, mysb.css: Few CSS fixes in overlay.
+
+	* jscripts/mysb.js, libraries/display.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, mysbhandheld.css, templates/admin/user_edit.php:
+	JS code cleaned.
+	OverLay JS/CSS support clarified and optmized.
+
+	* jscripts/spin.min.js:
+	Upgrade spin.min.js (http://fgnass.github.io/spin.js) to version 2.0.1
+
+2014-11-06  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php, templates/admin/admin.php:
+	Display version of TinyMCE if present.
+
+	* templates/admin/admin.php:
+	Fix a condition error on PHPMailer summary.
+
+2014-11-04  Roman Trave <abadcafe@free.fr>
+
+	* templates/admin/admin.php: HTML5 compliance in admin forms.
+
+	* libraries/utils.php: TinyMCE presence test added.
+
+	* libraries/pluggables/frontpage.php, libraries/pluggables/header.php, libraries/pluggables/include.php, libraries/pluggables/menuitem.php, libraries/pluggables/useroption.php, libraries/role.php, libraries/user.php, libraries/utils.php, libraries/value.php, libraries/application.php, libraries/auth.php, libraries/cache.php, libraries/config.php, libraries/datetime.php, libraries/db.php, libraries/dblayer_mysql.php, libraries/dblayer_pdo.php, libraries/display.php, libraries/group.php, libraries/locale.php, libraries/mail.php, libraries/mail_phpmailer.php, libraries/module.php, libraries/object.php, libraries/plugin.php:
+	Completed documentation of libraries/.
+
+2014-10-22  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php: Fix typo.
+
+	* mysbprint.css: Add a printing rule, correcting rounded shadow.
+
+2014-10-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Remove avdlist from inymce to prevent a bug with the WebKit2 engine.
+
+2014-10-07  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Typo fix.
+
+	* ChangeLog: Ready to tag rel0-3b
+
+2014-07-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/config.php, libraries/role.php:
+	Fix 2 "null" assertions ambiguities.
+
+2014-06-28  Roman Trave <abadcafe@free.fr>
+
+	* includes/admin/index.html, includes/admin/menu.php, includes/admin/user_display.php, includes/admin_menu.php, libraries/pluggables/useroption.php, libraries/role.php, locales/en/core.ini, templates/admin/admin.php, templates/admin/groups.php, templates/admin/groups_process.php, templates/admin/plugins.php, templates/admin/plugins_process.php, templates/admin/roles.php, templates/admin/roles_process.php, templates/admin/user_edit.php, templates/admin/user_edit_process.php, templates/admin/users.php, templates/admin/users_process.php:
+	Complete rewrite of users, groups&roles and plugins administration pages.
+
+2014-06-19  Roman Trave <abadcafe@free.fr>
+
+	* mysbhandheld.css: Top div size modified.
+
+	* script.php:
+	Logging completely removed, preventing root's mailing during cron exec.
+
+2014-06-16  Roman Trave <abadcafe@free.fr>
+
+	* libraries/display.php:
+	Fix overlay display, preventing a flash on the first load.
+
+	* libraries/locale.php, libraries/mail.php:
+	Mail and locales fix: date field in MySBMailNative are now OK.
+
+2014-06-12  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, modules/example/includes/item.php:
+	Fix a display order problem in loadItem() jscript function.
+
+2014-06-10  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css: Fix missing class "title".
+
+	* jscripts/mysb.js:
+	Add a height constraint when width<520px, preventing hided textareas on smartphone.
+
+2014-06-08  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css, mysbhandheld.css: "row" class usage extended to pages.
+
+	* jscripts/mysb.js: Added hide_instant() and show_auto() functions.
+
+2014-05-20  Roman Trave <abadcafe@free.fr>
+
+	* includes/head.php, jscripts/jquery-1.11.0.min.js, jscripts/jquery-1.11.1.min.js:
+	Update JQuery to 1.11.1 (from 1.11.0).
+
+2014-05-19  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css, mysbhandheld.css, templates/users/profile.php, templates/users/registration.php:
+	New "boxed" css and class introduced.
+
+	* libraries/datetime.php: Now Y-M-D and H:M can truncate correctly.
+
+	* jscripts/mysb.js: Order of CSS style processing fixed.
+
+2014-05-19  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css, mysbhandheld.css, templates/users/profile.php, templates/users/registration.php:
+	New "boxed" css and class introduced.
+
+	* libraries/datetime.php: Now Y-M-D and H:M can truncate correctly.
+
+	* jscripts/mysb.js: Order of CSS style processing fixed.
+
+2014-04-30  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/system-run.png: system-run icon added.
+
+2014-04-26  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Typo fix and log control added in loadInclude().
+
+2014-03-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Add strtolower() before DB call process.
+
+	* script.php: Fix bug in template loading.
+
+2014-03-06  Roman Trave <abadcafe@free.fr>
+
+	* includes/bottom.php: Display new version.
+
+	* ChangeLog: Ready to tag rel0-3a.
+
+	* libraries/utils.php: Security restrictions on template namespace.
+
+2014-03-06  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Security restrictions on template namespace.
+
+2014-03-05  Roman Trave <abadcafe@free.fr>
+
+	* __init.php, libraries/user.php, locales/en/core.ini, locales/fr/core.ini, templates/users/reset_pw_process.php:
+	Security 24h cooldown on password reset.
+
+2014-03-03  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini: Link fix.
+
+2014-02-20  Roman Trave <abadcafe@free.fr>
+
+	* includes/head.php, jscripts/jquery-1.10.2.min.js, jscripts/jquery-1.11.0.min.js:
+	New JQuery 1.11.0 implemented.
+
+	* libraries/utils.php: MySBEditor JBImages/MoxieManager support fixed.
+
+	* libraries/user.php, locales/en/core.ini, locales/fr/core.ini:
+	Failed logging let now 10s and give a new password access.
+
+2014-02-19  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Add optional JBImages plugin support for tinymce.
+
+	* includes/head.php, mysbprint.css: Fix printing css typos.
+
+2014-01-30  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/display.php: Hide layer code fixed.
+
+2014-01-29  Roman Trave <abadcafe@free.fr>
+
+	* images/blank.png, images/icons/go-bottom.png, images/icons/go-down.png, images/icons/go-first.png, images/icons/go-last.png, images/icons/go-next.png, images/icons/go-previous.png, images/icons/go-top.png, images/icons/go-up.png, locales/en/core.ini, locales/fr/core.ini:
+	New set of action icons added.
+
+2014-01-27  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/display.php, mysb.css:
+	Few responsive adaptations to complies with most web clients.
+
+2014-01-24  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: Fix lack of global $app reference.
+
+	* templates/admin/roles_process.php: Fix condition test.
+
+	* libraries/mail.php, libraries/user.php: Fix 2 untested conditions.
+
+	* libraries/mail.php:
+	Mail footer template is handled in core, no more in modules.
+
+	* install/dbinit.php, libraries/application.php, libraries/group.php:
+	Few fixs around init process.
+
+2014-01-21  Roman Trave <abadcafe@free.fr>
+
+	* index.php, libraries/application.php, libraries/pluggables/menuitem.php:
+	Remove old references to _GET['plg'] datas.
+
+	* libraries/plugin.php:
+	Existing plugins are now rewrited when create is called.
+
+	* libraries/value.php: Fix unsafe tests in conditions.
+
+	* libraries/auth.php, libraries/display.php, libraries/role.php, modules/example/templates/adduo_process.php:
+	Fix a regression bug when request come from disconnected client.
+
+2014-01-17  Roman Trave <abadcafe@free.fr>
+
+	* includes/mailcss.php, libraries/application.php, libraries/display.php, libraries/mail_phpmailer.php, libraries/pluggables/frontpage.php, libraries/plugin.php, libraries/utils.php, templates/mailcss.php, templates/users/reset_pw.php, templates/users/reset_pw_process.php:
+	Few tweaks and fixes around the new template mecanism.
+
+2014-01-16  Roman Trave <abadcafe@free.fr>
+
+	* modules/example/__init.php, modules/example/adduo.php, modules/example/adduo_process.php, modules/example/admin_example.php, modules/example/admin_example_process.php, modules/example/example_file1.php, modules/example/example_file2.php, modules/example/includes/index.html, modules/example/includes/item.php, modules/example/index_example.php, modules/example/template2.php, modules/example/templates/adduo.php, modules/example/templates/adduo_process.php, modules/example/templates/admin_example.php, modules/example/templates/admin_example_process.php, modules/example/templates/example_file1.php, modules/example/templates/example_file2.php, modules/example/templates/index_example.php, modules/example/templates/item.php, modules/example/templates/template2.php:
+	Example module update.
+
+	* jscripts/mysb.js, mysb.css:
+	Fix bug on form scrolling with smartphones.
+
+2014-01-15  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php, libraries/display.php, libraries/utils.php:
+	Direct HTML output debug now contains LOG() messages.
+
+2014-01-14  Roman Trave <abadcafe@free.fr>
+
+	* libraries/user.php, libraries/utils.php, templates/admin/admin.php, templates/admin/admin_process.php, templates/admin/groups.php, templates/admin/groups_process.php, templates/admin/index.html, templates/admin/plugins.php, templates/admin/plugins_process.php, templates/admin/roles.php, templates/admin/roles_process.php, templates/admin/users.php, templates/admin/users_process.php, templates/users/authentication.php, templates/users/authentication_process.php, templates/users/index.html, templates/users/profile.php, templates/users/profile_process.php, templates/users/registration.php, templates/users/registration_process.php, templates/users/reset_pw.php, templates/users/reset_pw_process.php, users/authbox.php, users/authbox_process.php, users/index.html, users/profile.php, users/profile_process.php, users/registration.php, users/registration_process.php, users/reset_pw.php, users/reset_pw_process.php, admin/admin.php, admin/admin_process.php, admin/groups.php, admin/groups_process.php, admin/index.html, admin/plugins.php, admin/plugins_process.php, admin/roles.php, admin/roles_process.php, admin/users.php, admin/users_process.php, blank.php, framework.php, includes/admin_menu.php, includes/head.php, includes/headers.php, includes/top.php, includes/top_admin.php, includes/top_womenu.php, index.php, index_wom.php, libraries/application.php, libraries/auth.php, libraries/config.php, libraries/display.php, mysbhandheld.css, script.php:
+	Major changes in code design: HTML display is now splitted
+	from the Application class.
+	Templates are now in templates/ and includes in includes/:
+	few code and files hierarchy must be rewrited in modules, fixing
+	lot of code confusion.
+	We're on the way of rel-0.4, the sourgeforge entrance version.
+
+2014-01-07  Roman Trave <abadcafe@free.fr>
+
+	* mysbhandheld.css: Size optimization for responsive design.
+
+2013-12-28  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/locale.php, libraries/utils.php, mysb.css:
+	First language support for TinyMCE editor.
+
+2013-12-18  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/utils.php:
+	New MySBEditor:: init() and active() methods to support multiples editor loadings.
+
+2013-12-11  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, mysb.css:
+	Move overWin from absolute to fixed positioning.
+
+	* admin/groups.php, blank.php, includes/headers.php, index.php, jscripts/mysb.js, jscripts/spin.min.js, libraries/application.php, mysb.css:
+	Add new spin and hided layer.
+	Fix overwin sizing.
+
+	* modules/example/adduo.php, modules/example/adduo_process.php, modules/example/templates/index.html, modules/example/templates/item.php:
+	New example files.
+
+	* modules/example/example.css, modules/example/example_file1.php:
+	New item loading test.
+
+2013-12-03  Roman Trave <abadcafe@free.fr>
+
+	* index.php, index_wom.php, mysb.css: Fix typo in SQL logging.
+
+	* mysb.css: table_support class updated.
+
+	* locales/fr/core.ini, mysb.css, users/registration.php:
+	Fix registration form.
+
+2013-12-02  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, mysbhandheld.css, users/profile.php, users/registration.php, users/registration_process.php:
+	Registration and profile code rewrited.
+	Few overlay sizes fixes.
+
+2013-11-30  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/preferences-system.png, images/icons/system-shutdown.png, images/icons/user-info.png, includes/top.php, includes/top_admin.php, index.php, index_wom.php, libraries/application.php, mysb.css, mysbhandheld.css:
+	div#allshadow added for display syze purposes.
+	New icons introduced, handling user actions.
+	Few HTML5 and CSS3 fixes and updates.
+
+2013-11-29  Roman Trave <abadcafe@free.fr>
+
+	* modules/example/admin_example.php, modules/example/admin_example_process.php, modules/example/example_file1.php, modules/example/example_file2.php:
+	Example module updates.
+
+	* jscripts/mysb.js, libraries/application.php, mysb.css, mysbhandheld.css:
+	Improved overlay sizes and modals API.
+	Fix non-JS formatted texts in Messages.
+
+2013-11-21  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php: Fix logout/errors message display.
+
+2013-11-11  Roman Trave <abadcafe@free.fr>
+
+	* index.php, index_wom.php, jscripts/mysb.js, libraries/application.php, mysb.css, mysbhandheld.css:
+	New hidelayer container: null display.
+	Tooltip layer centralized on main DOM object.
+
+2013-11-10  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/mysb.js, libraries/application.php, mysb.css:
+	Messages are now tips, in right-bottom corner, with a 5s fadeout.
+
+	* libraries/utils.php, mysb.css, mysbhandheld.css:
+	TinyMCE v4 support update.
+
+2013-11-08  Roman Trave <abadcafe@free.fr>
+
+	* index.php, index_wom.php, jscripts/mysb.js, libraries/application.php, mysb.css, mysbhandheld.css:
+	Overlay: typo fixes, size controls, handheld support and animations enhancements.
+
+2013-11-07  Roman Trave <abadcafe@free.fr>
+
+	* modules/example/admin_example.php, modules/example/example_file1.php, modules/example/example_file2.php:
+	Test and examples with new dialogs.
+
+	* blank.php, images/window-close32.png, includes/headers.php, index.php, index_wom.php, jscripts/jquery-1.10.2.min.js, jscripts/mysb.js, libraries/application.php, mysb.css, mysbhandheld.css:
+	JQuery 1.10.2 implementation.
+	Javascript code splitted to jscript/mysb.js
+	New overlay for modal dialogs.
+
+2013-11-01  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/list-add.png, images/icons/list-remove.png:
+	List icons added.
+
+	* libraries/value.php: New bugfix in null values evaluation.
+
+	* images/icons/emblem-ok.png: Emblem OK icon added.
+
+	* libraries/value.php: Ehanced values display.
+	Fix bad typo in null values whereclause() process.
+
+2013-10-24  Roman Trave <abadcafe@free.fr>
+
+	* images/icons/dialog-information.png, libraries/value.php:
+	Clean HTML values output code.
+	Add new icon.
+
+	* images/icons/call-start.png, libraries/value.php, mysb.css, mysbhandheld.css:
+	Improved Values management, with url and tel.
+
+2013-10-20  Roman Trave <abadcafe@free.fr>
+
+	* admin/users.php, users/profile.php, users/registration.php, users/reset_pw.php:
+	Mail input fields are now email types.
+
+	* images/icons/index.html, images/icons/mail-unread.png, images/icons/phone.png, images/icons/text-editor.png, images/icons/user-trash.png, images/icons/web-browser.png, libraries/value.php, mysbhandheld.css:
+	New input types for MySBValues: tel and url.
+
+	* libraries/mail_phpmailer.php: Fix PHPMailer root path.
+
+2013-10-14  Roman Trave <abadcafe@free.fr>
+
+	* script.php: Fix unloaded modules in script usage.
+
+2013-10-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/db.php: Fix test in table_exists().
+
+2013-10-08  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css: Forgotten styles added for buttons.
+
+	* includes/top.php: Removed lost password link from generic authbox.
+
+2013-09-23  Roman Trave <abadcafe@free.fr>
+
+	* libraries/dblayer_pdo.php: Fix closeCursor() error in init sequence.
+
+	* admin/admin.php, libraries/mail_phpmailer.php, mysb.css, phpmailer.conf.php.template, templates/mailcss.php:
+	Add a optional IMAP process to copy sent messages in Sent folder when SMTP don't support this functionality.
+	Now apply a template CSS in HTML mails (customisable).
+
+	* users/authbox.php: Cosmetic padding change.
+
+2013-09-22  Roman Trave <abadcafe@free.fr>
+
+	* admin/users.php, admin/users_process.php:
+	Add an UserOption mail export process.
+
+2013-09-21  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php: Show the DB host information.
+
+2013-09-19  Roman Trave <abadcafe@free.fr>
+
+	* includes/top.php, libraries/value.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, mysbhandheld.css, users/profile.php, users/profile_process.php, users/registration.php, users/registration_process.php:
+	Improved registration, profile and password usage on smartphones.
+	New common CSS rules for DIV.cell
+
+2013-09-16  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php, libraries/auth.php, libraries/value.php, mysb.css, mysbhandheld.css, users/authbox.php:
+	Headers support for modules/*/*_handheld.css (and *_printing.css).
+	Values and Auth html forms adapted for smartphones.
+
+	* libraries/application.php, libraries/cache.php:
+	Cache init sequence fixed.
+
+2013-09-14  Roman Trave <abadcafe@free.fr>
+
+	* script.php: Re-introduction of script.php
+
+2013-09-11  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php, includes/top.php, index.php, libraries/application.php, libraries/auth.php, locales/en/core.ini, locales/fr/core.ini, mysb.css, mysbhandheld.css, users/authbox.php:
+	New html5 design for smartphones (handheld and <600px).
+	Changes in auth process, allowing usage or tiny screens and multiples authentication frameworks.
+
+2013-09-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php: Typo fix.
+
+	* libraries/application.php: Fixed log files path.
+
+	* libraries/application.php, locales/en/core.ini, modules/example/script_ex.php, __init.php:
+	Protected embeded script support added.
+
+	* libraries/module.php:
+	Check module class existence, preventing errors on modules directory moves.
+
+	* admin/admin.php: Config comments localized.
+
+2013-08-13  Roman Trave <abadcafe@free.fr>
+
+	* index.php, index_wom.php:
+	Removed DIV logsql section when debug is off.
+
+2013-07-20  Roman Trave <abadcafe@free.fr>
+
+	* libraries/dblayer_pdo.php: isset() fix, preventing PHP notices.
+
+	* libraries/dblayer_pdo.php, install/dbinit.php, libraries/db.php:
+	Few typo fixes.
+	table_exists() modified to support old PDO code.
+
+2013-07-19  Roman Trave <abadcafe@free.fr>
+
+	* libraries/dblayer_pdo.php:
+	Fix the num_rows() bug against PDOStatement::rowCount().
+
+	* libraries/config.php, libraries/db.php, libraries/dblayer_pdo.php:
+	Improved PDO support on php<5.3, cache is enabled.
+
+2013-07-15  Roman Trave <abadcafe@free.fr>
+
+	* libraries/dblayer_pdo.php: Few ugly logs removed.
+
+	* admin/admin.php, config.php.template, framework.php, libraries/application.php, libraries/db.php, libraries/dblayer_mysql.php, libraries/dblayer_pdo.php:
+	New DB handler and API, to support both mysql and PHP DB Object (PDO).
+	PDO disables dbcache for now, as it's need an update.
+
+2013-07-09  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini: Typo fix.
+
+	* libraries/db.php: Check added in data_seek().
+
+2013-07-06  Roman Trave <abadcafe@free.fr>
+
+	* libraries/datetime.php:
+	Fix sign in absDiff(), which must be positive or negative!
+
+	* libraries/auth.php, libraries/user.php, locales/en/core.ini, locales/fr/core.ini:
+	Security ehancement: 5 mins login lock for 5 attemps failed.
+
+	* __init.php, users/registration_process.php: New login_vs_mail config.
+
+2013-07-05  Roman Trave <abadcafe@free.fr>
+
+	* libraries/datetime.php: New absDiff() function, removing getRest().
+	Few fixes, cleaning and documented code.
+
+2013-07-02  Roman Trave <abadcafe@free.fr>
+
+	* libraries/plugin.php: Fix plugin with childclass creation.
+
+2013-06-28  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Ehanced filtering in html2str().
+
+2013-06-24  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php, libraries/mail_phpmailer.php:
+	Log mail debug when an error occurs.
+
+2013-06-22  Roman Trave <abadcafe@free.fr>
+
+	* libraries/pluggables/useroption.php: Fix UserOption mail geckos.
+
+	* libraries/pluggables/useroption.php, locales/en/mail_register.php, locales/en/mail_reset_pw.php, locales/en/mail_useroption.php, locales/fr/mail_register.php, locales/fr/mail_reset_pw.php, locales/fr/mail_useroption.php, users/registration_process.php, users/reset_pw_process.php:
+	Mail geckos handling fixed.
+
+	* libraries/locale.php, libraries/mail_phpmailer.php, libraries/user.php, libraries/value.php, users/profile_process.php, users/reset_pw.php, users/reset_pw_process.php:
+	Few isset() checks added, reducing PHP notices.
+
+	* blank.php, index.php, index_wom.php: Check plg var existence.
+
+	* libraries/mail.php: Fix mail templates API.
+
+2013-06-19  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Updated Changelog.
+
+	* ChangeLog: Ready for rel0-2e tag.
+
+2013-06-19  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Ready for rel0-2e tag.
+
+2013-06-15  Roman Trave <abadcafe@free.fr>
+
+	* libraries/plugin.php: Plugin deletion improved.
+
+2013-06-14  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/mail_blank.php: Blank mail template added.
+
+2013-06-13  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: Add method MySBMail::addFooter($footer).
+
+2013-06-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php, libraries/utils.php, locales/en/mail_tplfoot.php, locales/fr/mail_tplfoot.php:
+	New typo fixes in mails.
+
+	* libraries/mail.php, libraries/mail_phpmailer.php, locales/en/mail_tplfoot.php, locales/fr/mail_tplfoot.php:
+	Mail handling completed.
+	Documented sources.
+
+	* libraries/utils.php: Add MySBUtil::extractEmails() method.
+
+2013-06-11  Roman Trave <abadcafe@free.fr>
+
+	* blank.php, index.php, index_wom.php, libraries/application.php:
+	Modified setlocale() usage.
+
+2013-06-09  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php: New typo fix.
+
+2013-06-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail_phpmailer.php: Fix typos in PHPMailer support.
+
+2013-06-07  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php, libraries/mail_phpmailer.php, admin/admin.php, blank.php, config.php.template, framework.php, index.php, index_wom.php, phpmailer.conf.php.template:
+	Improved mailing interface, more plugable.
+	PHPMailer implementation splitted.
+
+2013-06-03  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php:
+	New implicit usage of CSS from modules, for print and handheld media.
+
+2013-05-29  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Added new MySBUtil::str2abbrv() parameterizable function.
+
+2013-05-28  Roman Trave <abadcafe@free.fr>
+
+	* admin/users_process.php:
+	Fix string transformation in UserOption form.
+
+2013-05-27  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	MySBCSValues handle floats variables instead of integers.
+
+	* libraries/object.php: MySBObject is now an abstract class.
+
+	* install/dbinit.php: Increase initial size for users datas in DB.
+
+	* mysb.css: Buttons are now css'ed too.
+
+2013-05-14  Roman Trave <abadcafe@free.fr>
+
+	* __init.php, admin/plugins.php, framework.php, includes/top.php, libraries/application.php, libraries/auth.php, libraries/plugin.php, libraries/user.php, users/authbox.php, users/authbox_process.php:
+	New native auth class (MySBPluginAuthLayer), replacing MySBAuth.
+	Authentication process is now plugable.
+	Changes in few templates, handling multiple auth checks.
+
+2013-05-06  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php, libraries/config.php, users/authbox_process.php:
+	Few fixes around install process and script usage.
+
+	* config.php.template: New config template.
+
+	* phpmailer.conf.php.template: Modified config.
+
+	* libraries/mail.php: Explicit mail in phpMailer config.
+
+2013-04-25  Roman Trave <abadcafe@free.fr>
+
+	* admin/users.php, admin/users_process.php, libraries/pluggables/useroption.php, libraries/plugin.php, users/profile.php, users/profile_process.php, users/registration.php, users/registration_process.php:
+	Fixes and default value added in UserOption plugin.
+	Updated phpdoc usage.
+
+	* libraries/mail.php: Fix mail error handling.
+	Fix ugly SMTP server error: 5.1.1, causing mail reject, dealing with
+	adresses.
+
+2013-04-23  Roman Trave <abadcafe@free.fr>
+
+	* blank.php, dbinit.php, index.php, index_wom.php, install/dbinit.php, install/index.html, install/install_helper.php:
+	Appli and database setup fixed.
+	New install/ repository can be deleted when setup is completed.
+
+2013-04-16  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/index.html, locales/en/mail_register.php, locales/en/mail_register_notif.php, locales/en/mail_reset_pw.php, locales/en/mail_tplfoot.php, locales/en/mail_useroption.php, locales/fr/mail_register.php, locales/fr/mail_register_notif.php, locales/fr/mail_reset_pw.php, locales/fr/mail_useroption.php:
+	Mails updated to hmtl.
+
+	* admin/users.php, admin/users_process.php, libraries/pluggables/useroption.php, libraries/value.php, locales/en/core.ini, locales/fr/core.ini, locales/fr/mail_tplfoot.php, users/profile.php, users/profile_process.php:
+	UserOption plugin enhanced: editable, localized and used with mail.
+
+	* modules/example/__init.php, modules/example/example.css, modules/example/locales/en/example.ini, modules/example/locales/fr/example.ini:
+	Example module updated.
+
+	* admin/plugins.php, admin/plugins_process.php, libraries/plugin.php:
+	Plugin edition introduced as admin.
+
+2013-04-15  Roman Trave <abadcafe@free.fr>
+
+	* index_wom.php, libraries/application.php, mysb.css:
+	Fix few CSS problems.
+
+2013-04-13  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php:
+	Fixed multiple registration of existings select options.
+
+	* users/reset_pw.php, PIE.htc, includes/headers.php, index_wom.php, mysb.css, mysb_ie678.css:
+	Few fixes in HTML5 transition.
+	Add html5 PIE support for IE6-IE8 (thanks to css3pie.com).
+
+2013-04-09  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php, admin/groups.php, admin/plugins.php, admin/roles.php, images/favicon_32.png, images/logo.png, includes/bottom.php, includes/headers.php, includes/top.php, includes/top_admin.php, index.php, index_wom.php, libraries/application.php, libraries/pluggables/menuitem.php, libraries/utils.php, mysb.css, mysbprint.css, users/authbox.php, users/profile.php, users/registration.php:
+	Major HTML format update, bringing HTML5 compliance.
+	IE6 no more supported for now.
+
+2013-03-16  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Add <p> tags around non-HTML strings in str2html().
+
+	* libraries/db.php: htmlspecialchars() usage for logs.
+
+	* libraries/db.php, libraries/mail.php, libraries/utils.php, mysb.css:
+	CSS fix.
+	MySBUtil re-introduced methods html2str() and str2html(), handling text
+	and html formats.
+	Mails now deals with HTML bodys by default.
+
+2013-03-14  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php, mysb.css: Few adaptation styles for tinyEditor.
+
+2013-03-12  Roman Trave <abadcafe@free.fr>
+
+	* jscripts/index.html, libraries/utils.php:
+	New MySBEditor, first support for tiny_mce editor (tiny repo in jscripts/).
+
+2013-03-10  Roman Trave <abadcafe@free.fr>
+
+	* framework.php, libraries/datetime.php, libraries/utils.php, locales/en/core.ini, locales/fr/core.ini:
+	MySBDatetime splited from util.php, cleaned and localised.
+
+	* admin/users.php, libraries/pluggables/useroption.php, libraries/plugin.php:
+	Few UserOption plugin adaptations.
+
+	* mysb.css: Cosmetic on button.
+
+2013-02-19  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Added have() method to MySBCSValues.
+
+2013-02-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	MySBDateTime::getRest() now support another MySBDateTime in argument,
+	calculing resting time from it (default is always 'now' date).
+
+	* includes/headers.php: Auto loading of modules CSS added.
+
+2013-01-28  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	MySBDateTime::html_form() now returns code in string, no more direct
+	output.
+
+2013-01-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: Multiple mail address support, coma separated.
+
+2012-12-29  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Updated ChangeLog.
+
+	* ChangeLog: Ready for rel0-2d tag.
+
+	* dbinit.php, libraries/config.php: Fix DB initialisation includes.
+
+	* framework.php, libraries/application.php, libraries/cache.php, libraries/config.php, libraries/db.php, libraries/group.php, libraries/role.php, libraries/user.php, libraries/value.php:
+	Important fix in PHPSESSION and login cookies handling.
+	New 'per page' cache, preventing few multiples SQL query.
+
+2012-12-10  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php, mysb.css, mysbhandheld.css, mysbprint.css:
+	Add print and handheld CSS.
+
+2012-12-07  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php: Display PHPMailer version when present.
+
+2012-11-29  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: Mail attachments now can be rename.
+
+2012-11-20  Roman Trave <abadcafe@free.fr>
+
+	* includes/top_admin.php, admin/plugins.php, admin/plugins_process.php:
+	Plugin admin page added, handling priorities.
+
+	* libraries/plugin.php: Plugin::update() added.
+	PluginHelper::load() now sort plugins by type,priority.
+
+	* libraries/value.php:
+	Fixed missing break of switch in htmlFormWhereClause().
+
+2012-11-18  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: Objectized mail class for PHPMailer support.
+
+2012-11-14  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php:
+	Mail class, rewritted, is now Native and PHPMailer pluggable.
+
+2012-10-22  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: ChangeLog update.
+
+	* ChangeLog: Ready for rel0-2c tag.
+
+	* locales/fr/core.ini, libraries/value.php, locales/en/core.ini:
+	Add a non-null and a null option search for Values.
+
+2012-10-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php:
+	Integer values whereclause are now '<=' and '>=', no more '<' and '>'.
+
+	* libraries/plugin.php: Another plugin validity check.
+
+2012-10-04  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php: Fix backquote bug in select values whereclause.
+
+2012-10-02  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php: ID select valueoption (value0) bug fix.
+
+	* libraries/utils.php, libraries/value.php:
+	Fix "\'" handling usage in value.
+
+	* config.php.template, dbinit.php: Fixed errors in init process.
+
+	* libraries/value.php, locales/en/core.ini:
+	SELECT values localized, and now have a blank default option.
+
+2012-09-27  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php:
+	Value methods are now object'ID independant: using "keyname".
+
+	* locales/index.html: Missing index.html added.
+
+2012-09-24  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: ChangeLog update.
+
+	* ChangeLog, includes/bottom.php: Released ready for rel0-2b tag.
+
+2012-09-23  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php: Display tables base version in admin board.
+
+	* libraries/user.php: Bug in User::assignToGroup() fixed.
+
+2012-09-22  Roman Trave <abadcafe@free.fr>
+
+	* libraries/db.php: firstID() bug fixed.
+
+	* libraries/mail.php: Multiple mail attachments (with PHPMailer).
+
+2012-09-21  Roman Trave <abadcafe@free.fr>
+
+	* libraries/config.php, libraries/db.php, libraries/group.php, libraries/plugin.php, libraries/role.php, libraries/user.php, libraries/utils.php:
+	Util::lastid() moved to DB::lastID(), and DB::firstID() introduced.
+
+	* libraries/locale.php:
+	Removed '+' tag for unsupported locales strings.
+
+2012-09-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php: Selection option deletion fixed.
+
+	* __init.php: id removed from valueoptions table.
+
+2012-09-06  Roman Trave <abadcafe@free.fr>
+
+	* libraries/module.php, libraries/value.php: Fix 2 typo errors.
+
+	* libraries/config.php, libraries/value.php, modules/example/__init.php, __init.php, dbinit.php:
+	MySBValue now support <select> values.
+	New valueoptions table, handling <select> options.
+	TYPE_LINES changed to TYPE_TEXT.
+	MySBConfig and example module updated, using it.
+
+2012-07-30  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css: CSS modif.
+
+2012-07-25  Roman Trave <abadcafe@free.fr>
+
+	* libraries/plugin.php: Fix cache refresh.
+	::get() function added
+
+2012-07-22  Roman Trave <abadcafe@free.fr>
+
+	* blank.php, index.php, index_wom.php:
+	Include plugin processed after modules includes (update).
+
+	* includes/headers.php: JS show/hide code rewrited.
+
+2012-07-21  Roman Trave <abadcafe@free.fr>
+
+	* libraries/module.php:
+	Module's framework.php is loaded earlier in *init().
+
+2012-07-19  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php, libraries/module.php:
+	Auto include of /framework.php if exists for loaded modules.
+
+2012-07-18  Roman Trave <abadcafe@free.fr>
+
+	* libraries/value.php:
+	New htmlFormNonEditable() displaying a non-editable value.
+
+	* libraries/utils.php:
+	Fix bad space char returned by isChecked and isSelected.
+
+	* dbinit.php:
+	Changed type for configs types oO in DB initialisation: type is now int.
+
+	* libraries/value.php:
+	SQL WHERE clause can now be generate and handled by value object.
+
+2012-07-17  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php, libraries/config.php, libraries/value.php:
+	Few changes to MySBValue HTML handling to be used as layer by modules.
+
+	* admin/admin.php, admin/admin_process.php, dbinit.php, framework.php, libraries/config.php, libraries/object.php, libraries/plugin.php, libraries/value.php, modules/example/__init.php:
+	New MySBValue layer class, to handle sql and html forms.
+	Admin page rewrited with objects handling.
+
+2012-07-14  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php: Modified size of the editwindow popup.
+
+2012-07-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/group.php: Group get methods use cache now.
+
+	* libraries/pluggables/menuitem.php, locales/en/core.ini, locales/fr/core.ini, admin/admin.php, admin/groups.php, admin/roles.php, admin/top_admin.php, admin/users.php, includes/top_admin.php, libraries/application.php, blank.php, index.php, index_wom.php:
+	New MenuItem 'admin' type, inserting a 'plg' GET value.
+	Modules unloaded can't accessibles anymore.
+
+	* modules/example/locales/fr/example.ini, modules/example/__init.php, modules/example/admin_example.php, modules/example/admin_example_process.php, modules/example/locales/en/example.ini:
+	New admin MenuItem plugin usage.
+
+2012-07-11  Roman Trave <abadcafe@free.fr>
+
+	* libraries/pluggables/menuitem.php, modules/example/__init.php, users/registration_process.php, admin/admin.php, admin/admin_process.php, admin/roles_process.php, admin/users.php, admin/users_process.php, blank.php, dbinit.php, includes/bottom.php, includes/headers.php, includes/top.php, index.php, index_wom.php, libraries/application.php, libraries/auth.php, libraries/config.php, libraries/group.php, libraries/module.php, libraries/plugin.php, libraries/role.php, libraries/user.php:
+	Most changes around the class Helper API.
+	Cache handling generalised to Plugin and Module.
+
+	* users/registration_process.php, libraries/application.php, libraries/auth.php, libraries/group.php, libraries/role.php, libraries/user.php, modules/example/__init.php, admin/groups_process.php, admin/users_process.php, dbinit.php:
+	User, Group and Role have now a Helper class, handling caches.
+	Few API changes around this class.
+
+2012-07-10  Roman Trave <abadcafe@free.fr>
+
+	* libraries/group.php, libraries/plugin.php, libraries/role.php, libraries/user.php:
+	Few changes to permit smooth updates in set/unset modules operations.
+
+	* includes/headers.php: Edit popup now have toolbar.
+
+2012-07-09  Roman Trave <abadcafe@free.fr>
+
+	* blank.php, index_wom.php: Frontpage plugin modif.
+
+	* modules/example/__init.php, index.php, libraries/pluggables/frontpage.php:
+	Frontpage plugin modified to handle *_process.php too.
+
+2012-07-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	MySBUtil str2whereclause() and str2upper() methods added.
+
+	* users/profile.php: Fix form typo.
+
+2012-07-03  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Released rel0-2a tag.
+
+	* libraries/pluggables/useroption.php, modules/example/__init.php, users/registration_process.php, users/reset_pw_process.php, admin/admin.php, admin/groups.php, admin/roles.php, admin/roles_process.php, admin/users.php, admin/users_process.php, dbinit.php, framework.php, index.php, index_wom.php, libraries/application.php, libraries/auth.php, libraries/config.php, libraries/db.php, libraries/group.php, libraries/object.php, libraries/plugin.php, libraries/role.php, libraries/user.php, libraries/utils.php:
+	New DB layer (db.php)
+	DB class usage implemented in all project.
+	dbinit.php cleaned.
+	Minor typo changes.
+
+2012-06-24  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini, users/profile_process.php:
+	User message for profile modifications added.
+
+	* libraries/mail.php:
+	Mail attachment function (need PHPMailer support).
+
+2012-06-22  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Fix stupid sign error.
+
+	* libraries/utils.php: Fix bug due to absolute result in Date::diff().
+
+2012-06-21  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: str2strict now clean HTML markup.
+	Fix typo in date diff() usage when ::diff() don't exists.
+
+	* mysb.css, users/profile.php, users/registration.php, users/reset_pw.php:
+	CSS changes, colors attributes are now grouped to simplify themes.
+
+2012-06-18  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini, users/authbox.php, includes/top.php, mysb.css:
+	Profile access moved from menu to authbox.
+
+	* includes/headers.php:
+	Automatic loading of custom/ CSS if exists (core and modules).
+
+2012-06-15  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Released rel0-1b tag.
+
+2012-06-14  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini, users/registration_process.php:
+	Simplified message redirection when login on registration page.
+
+	* modules/example/example_file1.php, modules/example/example_file2.php, modules/example/index_example.php, modules/example/template2.php, users/authbox_process.php, users/profile_process.php, users/registration.php, users/registration_process.php, users/reset_pw.php, users/reset_pw_process.php, admin/admin_process.php, admin/groups_process.php, admin/roles_process.php, admin/users_process.php, includes/top.php, locales/en/core.ini, locales/fr/core.ini, mysb.css:
+	Usage of new message and permission functions implemented.
+
+	* libraries/pluggables/frontpage.php, libraries/pluggables/menuitem.php, blank.php, index.php, index_wom.php, libraries/application.php, libraries/role.php, libraries/user.php:
+	New Application::pushMessage(), pushAlert() and displayStopAlert(),
+	handling messages to user.
+	New Role::checkAccess() and User::haveRole() to check user permissions.
+
+2012-06-12  Roman Trave <abadcafe@free.fr>
+
+	* libraries/plugin.php: Fix a bad cache usage for plugins.
+
+2012-06-08  Roman Trave <abadcafe@free.fr>
+
+	* locales/en/core.ini, locales/fr/core.ini, users/reset_pw.php:
+	Typo fix in reset_pw process.
+
+2012-06-07  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php, mysb.css: Infos popup size increased.
+
+	* locales/fr/mail_register.php: Fix typo.
+
+	* admin/locale.php, admin/locale_process.php, admin/top_admin.php, dbinit.php:
+	Complete removing of old locale table and locale admin pages.
+
+	* modules/example/locales/en/example.ini, modules/example/locales/en/template1.php, modules/example/locales/fr/example.ini, modules/example/locales/fr/template1.php, locales/en/core.ini, locales/fr/core.ini, modules/example/__init.php, modules/example/example_file1.php, modules/example/template1.php, modules/example/template2.php, includes/top.php, index.php, libraries/application.php, libraries/pluggables/menuitem.php:
+	Lot of minor changes to implement new locale system.
+	Templates and mail moved.
+
+	* libraries/locale.php: Cleaned file and fixed typos.
+
+	* libraries/utils.php:
+	Clean file and add MySBTemplate class handling customisable templates.
+
+	* templates/mail_register.php, templates/mail_register_notif.php, templates/mail_reset_pw.php, templates/mail_tplfoot.php, libraries/locale.php, libraries/mail.php, locales/en/mail_register.php, locales/en/mail_register_notif.php, locales/en/mail_reset_pw.php, locales/en/mail_tplfoot.php:
+	New MySBLocales::includeTemplate() to deal with localised templates.
+	Mail templates moved in locales/en/.
+
+2012-06-05  Roman Trave <abadcafe@free.fr>
+
+	* users/authbox.php, users/authbox_process.php, users/profile.php, users/registration.php, users/reset_pw.php, libraries/application.php, libraries/locale.php, libraries/utils.php, locales/en/core.ini, locales/fr/_users_registration.php, locales/fr/_users_reset_pw.php, locales/fr/core.ini, locales/fr/users_profile_form.php, templates/_users_registration.php, templates/_users_reset_pw.php, templates/users_profile_form.php:
+	Major changes in localisation.
+	New MySBLocales class to handle INI files language support.
+	Removing old templating system (for non-mail).
+
+	* blank.php, index.php, index_wom.php:
+	Setlocale() now called before authenticate().
+
+2012-05-30  Roman Trave <abadcafe@free.fr>
+
+	* libraries/mail.php: PHPMailer WordWrap is set to 80.
+
+	* locales/fr/_users_registration.php, locales/fr/users_registration_form.php, locales/fr/users_registration_result.php, templates/_users_registration.php, templates/users_registration_form.php, templates/users_registration_result.php, users/registration.php:
+	Re-writed users/registration.php with login check.
+
+	* locales/fr/_users_reset_pw.php, locales/fr/users_reset_pw_withmail.php, templates/_users_reset_pw.php, templates/users_reset_pw_withmail.php, users/reset_pw.php:
+	Re-writed reset_pw.php page.
+
+	* libraries/mail.php: Fix mails sending to tech_contact.
+
+	* libraries/locale.php:
+	New getTemplateLocale() file-array method for localisation.
+
+2012-05-29  Roman Trave <abadcafe@free.fr>
+
+	* locales/fr/mail_register.php, locales/fr/users_registration_form.php, locales/fr/users_registration_result.php, templates/mail_register.php, templates/users_registration_form.php, templates/users_registration_result.php:
+	HOTMAIL warning changed.
+
+	* libraries/mail.php, phpmailer.conf.php.template:
+	PHPMailer implemented, with its own config file.
+
+	* libraries/mail.php, libraries/utils.php, locales/fr/mail_register.php, locales/fr/mail_register_notif.php, locales/fr/mail_reset_pw.php, locales/fr/mail_tplfoot.php, templates/mail_register.php, templates/mail_register_notif.php, templates/mail_reset_pw.php, templates/mail_tplfoot.php, users/registration.php, users/reset_pw.php, framework.php:
+	New MySBMail class, handling mails as objects.
+	Mail footer template added.
+
+2012-05-27  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Released rel0-1a tag.
+
+	* libraries/utils.php: Few mail headers added.
+
+	* templates/mail_register.php, templates/mail_register_notif.php, templates/mail_reset_pw.php, templates/users_registration_form.php, templates/users_registration_result.php, users/registration.php, libraries/application.php, libraries/utils.php, locales/fr/mail_register.php, locales/fr/mail_register_notif.php, locales/fr/mail_reset_pw.php, locales/fr/users_registration_form.php, locales/fr/users_registration_result.php:
+	Improved mail function and templates.
+	Unfixed hotmail ugly filtering problem.
+
+	* admin/admin.php, blank.php, config.php.template, framework.php, index.php, index_wom.php:
+	PHPMailer support added, not yet implemented.
+
+2012-05-18  Roman Trave <abadcafe@free.fr>
+
+	* libraries/plugin.php: Fixed null array when no plugin exists.
+
+2012-05-17  Roman Trave <abadcafe@free.fr>
+
+	* templates/users_registration_result.php, locales/fr/users_registration_result.php:
+	Warn hotmail users for spam box check.
+
+	* includes/bottom.php, mysb.css:
+	Bottom box show version and modules in use.
+
+	* ChangeLog: Released rel0-0c tag.
+
+	* includes/bottom.php, includes/top.php, libraries/application.php, mysb.css, users/authbox.php, users/authbox_process.php:
+	Ergonomic changes in top_box and authentication process.
+
+	* dbinit.php, includes/bottom.php, mysb.css:
+	Technical links added in bottom box.
+
+2012-05-13  Roman Trave <abadcafe@free.fr>
+
+	* libraries/auth.php, libraries/user.php:
+	Cache user fetched datas to optimize users calls.
+
+	* libraries/plugin.php: Plugins loading optimisation.
+
+	* libraries/user.php: Cache optimization of roles checking.
+
+	* libraries/application.php, config.php.template, index.php, index_wom.php:
+	Improved sql debug logging for modules.
+
+2012-05-12  Roman Trave <abadcafe@free.fr>
+
+	* includes/headers.php, includes/top_womenu.php: Popup windows changes.
+
+	* mysb.css, index_wom.php:
+	Add index_wom.php global template: index without top menu.
+
+2012-05-10  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: New DateTime display functions.
+
+	* templates/users_reset_pw_withmail.php, users/authbox.php, users/reset_pw.php, locales/fr/users_reset_pw_withmail.php:
+	Reset password page now localized.
+
+2012-05-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Fix DateTime display, and str2strict().
+
+2012-05-08  Roman Trave <abadcafe@free.fr>
+
+	* templates/mail_register.php, templates/mail_register_notif.php, templates/mail_reset_pw.php, locales/fr/index.html, locales/fr/mail_register.php, locales/fr/mail_register_notif.php, locales/fr/mail_reset_pw.php, locales/fr/users_profile_form.php, locales/fr/users_registration_form.php, locales/fr/users_registration_result.php, locales/fr/users_reset_pw_withmail.php:
+	"fr" locales added.
+
+	* libraries/utils.php: Fix PHP>5.3 DateTime::diff usage.
+
+2012-05-07  Roman Trave <abadcafe@free.fr>
+
+	* templates/users_profile_form.php: Added template for profile edition.
+
+	* libraries/utils.php: New strDMY() and getRest() MySBDateTime methods.
+
+	* mysb.css: Fix display on old IE.
+
+	* libraries/utils.php: New str2strict() function.
+	Fix "\n" to "\r\n" replacements.
+
+2012-05-04  Roman Trave <abadcafe@free.fr>
+
+	* libraries/application.php, libraries/utils.php, users/authbox.php, users/authbox_process.php, admin/admin.php, includes/bottom.php, includes/top.php, index.php, mysb.css:
+	Modules usage improved CSS and display.
+
+2012-05-02  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css, users/profile.php, users/registration.php:
+	Profile edition localisable.
+
+	* libraries/locale.php, modules/example/example_file1.php:
+	Fix in _T() call.
+	Update example conforming to locale.php API changes.
+
+	* includes/bottom.php, includes/headers.php, includes/top.php, includes/top_womenu.php:
+	Moved includes files.
+
+	* users/profile.php, users/registration.php, users/reset_pw.php, libraries/application.php, libraries/locale.php, libraries/utils.php, templates/index.html, templates/mail_register.php, templates/mail_register_notif.php, templates/mail_reset_pw.php, templates/users_registration_form.php, templates/users_registration_result.php, templates/users_reset_pw_withmail.php, mysb.css:
+	Major changes in locale.php and utils.php, implying new folder
+	strucuture.
+	templates/ stores now localisables contents.
+	includes/templates go to includes/
+	includes/mail go to templates/
+	New "advert" css class.
+
+2012-04-30  Roman Trave <abadcafe@free.fr>
+
+	* libraries/pluggables/useroption.php: Fix UserOption query call.
+
+2012-04-29  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php: Add a optional path for mail template.
+
+	* blank.php:
+	Blank.php display page added: same as index.php, without any output.
+	Useful for printing and other specific rendering outputs.
+
+2012-04-28  Roman Trave <abadcafe@free.fr>
+
+	* index.php, mysb.css:
+	Changes in error display to conform with standard HTML.
+
+2012-04-07  Roman Trave <abadcafe@free.fr>
+
+	* ChangeLog: Changelog created.
+
+	* custom/locales/index.html, libraries/application.php, libraries/locale.php, modules/example/example_file1.php, modules/example/locales/fr/template1.php, modules/example/template1.php, admin/locale.php, custom/index.html, index.php, mysb.css:
+	MySBLocale::includeTemplate() implemented.
+
+2012-03-28  Roman Trave <abadcafe@free.fr>
+
+	* libraries/locale.php, libraries/utils.php, admin/locale_process.php, dbinit.php, framework.php:
+	Split locale.php library from utils.php.
+
+2012-03-27  Roman Trave <abadcafe@free.fr>
+
+	* libraries/pluggables/useroption.php, libraries/auth.php, libraries/group.php, libraries/object.php, libraries/user.php:
+	All libraries now uses Sql query log.
+
+	* libraries/plugin.php: Sql query log usage, optimising DB queries.
+
+	* admin/admin.php, libraries/config.php, modules/example/__init.php:
+	Existent Config creation fixed. Modules can keep their config.
+
+	* libraries/utils.php:
+	Locales queries logging, and values are stored in SESSION.
+
+	* libraries/application.php: Sql queries logs now support $die or not.
+
+	* libraries/application.php, libraries/config.php, libraries/module.php, libraries/object.php, libraries/plugin.php, modules/example/__init.php, admin/admin.php, admin/admin_process.php, dbinit.php, includes/templates/bottom.php, includes/templates/headers.php, includes/templates/top.php, index.php:
+	MySBConfig improved.
+	MySBModule completly recoded.
+	Few DB access optimisations.
+
+2012-03-26  Roman Trave <abadcafe@free.fr>
+
+	* dbinit.php, framework.php, libraries/application.php, libraries/config.php:
+	New class file in libraries, config.php, from splitted application.php.
+
+2012-03-24  Roman Trave <abadcafe@free.fr>
+
+	* libraries/module.php, libraries/pluggables/include.php, libraries/pluggables/useroption.php, libraries/plugin.php, modules/example/__init.php, admin/users.php, includes/templates/headers.php:
+	Pluggins now have methods post_create() and pre_delete().
+	Induced changes in modules __init.php.
+
+	* config.php.template: New DEBUG conf.
+
+	* index.php, libraries/application.php, mysb.css:
+	Error logging improved.
+	SQL query logging introduced, with a DEBUG flag, and applied on Config.
+
+	* admin/groups.php, admin/locale.php, admin/roles.php, admin/top_admin.php, admin/users.php, mysb.css:
+	Few changes in CSS, cleaning.
+
+	* users/profile.php: Fix JS confirmation.
+
+2012-03-23  Roman Trave <abadcafe@free.fr>
+
+	* mysb.css: Changes and clean CSS.
+
+	* modules/example/example.css, modules/example/index_example.php, users/authbox.php, users/profile.php, users/registration.php, users/reset_pw.php, admin/admin.php, admin/groups.php, admin/locale.php, admin/roles.php, admin/top_admin.php, admin/users.php, includes/templates/bottom.php, includes/templates/top.php, includes/templates/top_womenu.php, index.php, libraries/application.php, mysb.css:
+	HTML structure changed from tables to div boxes.
+	CSS cleaned.
+	Lot of typo fixes due to that change.
+
+2012-03-22  Roman Trave <abadcafe@free.fr>
+
+	* dbinit.php: Object include added.
+
+	* libraries/application.php, libraries/utils.php:
+	ERROR messages parsed in html, using php support.
+
+	* admin/admin.php: Typo fixed in empty lists.
+
+	* includes/templates/top.php, users/authbox.php:
+	Authentication integration modified in top box.
+
+2012-03-15  Roman Trave <abadcafe@free.fr>
+
+	* dbinit.php, libraries/user.php:
+	PHP session is now launched when user is authenticated.
+	Authentication process use now PHP session ID, no more random int.
+
+	* libraries/object.php: Object now support values with prefix.
+	Object can be update with a different id, not only object id.
+
+2012-03-13  Roman Trave <abadcafe@free.fr>
+
+	* admin/users.php, libraries/group.php, libraries/object.php, libraries/pluggables/frontpage.php, libraries/pluggables/header.php, libraries/pluggables/include.php, libraries/pluggables/menuitem.php, libraries/pluggables/useroption.php, libraries/plugin.php, libraries/role.php, libraries/user.php, framework.php:
+	New parent 'DB' Object implemented, handling values.
+
+2012-03-08  Roman Trave <abadcafe@free.fr>
+
+	* users/registration.php: Self registration improved.
+
+	* libraries/user.php: Fix a too verbose LOG.
+	Default groups bug in column names fixed.
+
+2012-03-07  Roman Trave <abadcafe@free.fr>
+
+	* admin/groups.php, admin/groups_process.php, admin/users.php, admin/users_process.php:
+	User and Group class usage in admin sections.
+	JS script usage.
+
+	* modules/example/__init.php, admin/admin.php, admin/admin_process.php, includes/templates/headers.php, libraries/module.php:
+	Module init/reinit/create/delete methods improved.
+	JS confirm() usage to delay changes.
+
+	* libraries/application.php:
+	Config::get() direct function to get value.
+	App::table_exist() to check if a table exists.
+
+	* dbinit.php: Include files completed.
+
+	* images/index.html: New images folders, with 'rw' perms for www user.
+
+	* libraries/plugin.php:
+	Usage of $app->plugins array to avoid reloading of table.
+
+	* libraries/user.php: Add user class 'UserOption's name' declaration.
+
+	* libraries/utils.php: DateTime::html localised.
+
+2012-03-05  Roman Trave <abadcafe@free.fr>
+
+	* libraries/pluggables/useroption.php, admin/users.php, admin/users_process.php:
+	MySBPluginUserOption added, handling users extra columns.
+
+	* framework.php:
+	MySBPluginUserOption added, handling users extra columns.
+
+2012-03-04  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	Extended DateTime class, MySBDateTime added, with html usage.
+
+	* admin/users.php, includes/templates/bottom.php, config.php.template, index.php:
+	Locale and Timezone usage added.
+
+2012-03-03  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	MySBCSValues added: Coma-separated values handling.
+
+2012-02-23  Roman Trave <abadcafe@free.fr>
+
+	* modules/example/libraries/example_inc.php, modules/example/libraries/index.html, modules/example/__init.php, modules/example/example.css, modules/example/example_file1.php, modules/example/example_file2.php, modules/example/index.html, modules/example/index_example.php:
+	Example module added.
+
+	* libraries/application.php, libraries/module.php, libraries/user.php:
+	Inserted Core version handling, to manage upgrades in a easy way.
+	Fix output in User.
+	Change module version to int, not bool.
+
+	* __init.php, dbinit.php, index.php:
+	Inserted Core version handling, to manage upgrades in a easy way.
+
+	* users/profile.php, users/profile_process.php, users/registration.php, users/reset_pw.php, admin/groups_process.php, admin/users.php, admin/users_process.php, dbinit.php:
+	Changes to conform new User/Group/Role API.
+
+	* admin/locale.php: Title added.
+
+	* libraries/user.php: getByID() deleted.
+	isMyRole() optimised.
+
+	* libraries/group.php, libraries/role.php:
+	Changes around Groups and Roles DB/Object handling.
+
+2012-02-20  Roman Trave <abadcafe@free.fr>
+
+	* libraries/user.php: Changes around Users DB/Object handling.
+	Default groups for new users works (default_user)
+
+2012-02-19  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php, admin/admin_process.php, libraries/application.php, libraries/module.php, dbinit.php, framework.php, index.php:
+	Module class added and used.
+	Admin module handling modified.
+	New $app->set() methode to initialize config, module and plugin array.
+
+	* libraries/plugin.php: Fix ID's unset.
+
+	* framework.php, index.php, libraries/pluggables/frontpage.php, libraries/pluggables/header.php, libraries/pluggables/include.php, libraries/pluggables/menuitem.php:
+	PluginFrontPage added.
+	Pluggables code cleaning.
+
+	* libraries/pluggables/menuitem.php: Clean code and fix link.
+
+	* libraries/pluggables/css.php, libraries/pluggables/header.php, framework.php, includes/templates/headers.php, index.php:
+	PluginCSS removed in flavour of PluginHeader.
+
+	* libraries/pluggables/menuitem.php: Typo fix.
+
+	* libraries/pluggables/include.php, framework.php, index.php, libraries/plugin.php:
+	New framework file, including core libraries.
+	Include plugin implemented.
+
+	* dbinit.php, includes/templates/headers.php, index.php, libraries/pluggables/css.php:
+	PluginCSS added and implemented.
+
+	* includes/templates/top.php: MenuItem usage inserted in top template.
+
+	* libraries/pluggables/index.html, libraries/pluggables/menuitem.php:
+	MySBPluggin ehanced.
+	Plugin object usage implemented.
+	MenuItem pluggin added.
+
+	* libraries/application.php, libraries/plugin.php, dbinit.php, index.php:
+	MySBPluggin ehanced.
+	Plugin object usage implemented.
+
+2012-02-16  Roman Trave <abadcafe@free.fr>
+
+	* admin/users.php: default_user undeletable.
+
+2012-02-14  Roman Trave <abadcafe@free.fr>
+
+	* libraries/user.php: User creation and deletion added in admin board.
+	User::delete() implemented.
+
+	* admin/users.php, admin/users_process.php:
+	User creation and deletion added in admin board.
+
+2012-02-13  Roman Trave <abadcafe@free.fr>
+
+	* includes/mail/reset_pw.php, users/reset_pw.php:
+	Reset password feature added.
+
+	* libraries/user.php:
+	New User::resetPassword() design to accept user by id.
+
+	* users/registration.php, includes/mail/index.html, includes/mail/register.php, includes/mail/register_notif.php, libraries/utils.php:
+	Mailing utils added: usage in register.
+
+	* includes/templates/top.php, users/registration.php:
+	Auto registration process added.
+
+	* includes/templates/headers.php, libraries/application.php, libraries/user.php, users/authbox_process.php:
+	Improved authentication COOKIE verification.
+	Refresh usage implemented in HTML headers.
+
+	* libraries/application.php, libraries/user.php:
+	Authentication process improved, new content headers usage.
+	Application::displayERR() added.
+
+	* admin/admin_process.php, admin/groups_process.php, admin/locale_process.php, admin/roles_process.php, admin/users_process.php, users/profile_process.php:
+	Authentication process improved, new content headers usage.
+
+	* users/authbox_process.php:
+	Fixed error when logout process is called without user logged.
+
+2012-02-11  Roman Trave <abadcafe@free.fr>
+
+	* users/profile.php, users/profile_process.php: Profile edition added.
+
+	* libraries/application.php: Users module implemented (in /users/).
+
+	* admin/locale.php, admin/locale_process.php, admin/roles.php, admin/roles_process.php, admin/users.php, admin/users_process.php:
+	Added users, roles and locale administration (in /admin/).
+
+2012-02-09  Roman Trave <abadcafe@free.fr>
+
+	* libraries/group.php, libraries/user.php:
+	Group administration added (/admin/groups*).
+	Group getByID() added.
+
+	* admin/admin.php, admin/groups.php, admin/groups_process.php:
+	Group administration added (/admin/groups*).
+
+	* users/authbox.php, users/authbox_process.php, users/index.html:
+	New authentication implemented (templates).
+
+	* libraries/application.php, libraries/auth.php, libraries/user.php:
+	New authentication implemented.
+	MySBAuth class added.
+	User cookies handling.
+
+	* includes/templates/top.php, index.php:
+	New authentication implemented.
+
+2012-02-08  Roman Trave <abadcafe@free.fr>
+
+	* libraries/user.php: User getByLogin() and assignToGroups() added.
+	User assignToGroup() modified.
+
+	* libraries/role.php: Role delete() added.
+	Roles assignToGroup() and assignToGroups() improved.
+
+	* libraries/group.php: Group delete() added. getByID() modified.
+
+2012-02-06  Roman Trave <abadcafe@free.fr>
+
+	* admin/admin.php, admin/admin_process.php, dbinit.php, index.php, libraries/plugin.php:
+	Added plugin class and admin usage.
+	Module handling introduction.
+
+	* libraries/application.php:
+	configLoad() can now handle arrays of keys by groups.
+
+	* index.php:
+	Verify $_POST[] indexes before use them, avoiding apache errors.
+
+	* config.php.template, dbinit.php, index.php:
+	Defined MySB_* constants moved in root document (index and dbinit).
+
+	* admin/admin_process.php:
+	Verify $_POST[] indexes before use them, avoiding apache errors.
+
+	* libraries/application.php:
+	Fix Application __construct() when tables not yet made, with the $dbinit var.
+	More verbosity in LOG/ERR fopen().
+
+	* config.php.template: MySB_ROOTPATH defined.
+
+	* config.php.template: Fix define error.
+
+	* log/index.html: Log repository added.
+
+	* admin/top_admin.php: New top bar admin template added.
+
+	* admin/admin.php, admin/admin_process.php, admin/index.html, includes/templates/bottom.php, includes/templates/headers.php, includes/templates/top.php, includes/templates/top_womenu.php:
+	Admin repository added.
+	Config values handling.
+	Templates cleaned.
+
+	* modules/index.html: Add modules repository.
+
+	* dbinit.php, index.php, libraries/application.php:
+	Application and Config class improved.
+	Config array introduced in Application.
+	displayBody() and processForms() implemented.
+	index.php and dbinit.php adapted.
+
+	* libraries/user.php: Improved creation user.
+	user getByID(), assignToGroup() and ismyRole() added.
+
+	* libraries/utils.php: Add select, check and bool functions (SQL/HTML).
+
+2012-02-05  Roman Trave <abadcafe@free.fr>
+
+	* includes/templates/headers.php, includes/templates/top.php:
+	Templates modified to follow new code.
+	Roles assignments handling.
+
+	* libraries/application.php: Templates modified to follow new code.
+	New reference to authentified user.
+
+	* libraries/group.php: Log changes.
+	Default assignment for groups created.
+	getIDByName() added.
+
+	* libraries/role.php: Log changes.
+	Role assignToGroup() implemented.
+
+	* libraries/utils.php: Internal localisation handling: API and DB.
+
+2012-02-04  Roman Trave <abadcafe@free.fr>
+
+	* libraries/utils.php:
+	String transformation handling, to conform to SQL and HTML formats.
+
+	* libraries/group.php, libraries/role.php:
+	New group and role class, with creation and update methodes.
+
+	* dbinit.php, libraries/user.php:
+	New user class MySBUser, with creation and update methodes.
+
+	* libraries/utils.php:
+	MySBUtil utilities class added, with lastid() method.
+
+	* libraries/application.php: Config now have group param, no extension.
+	Global vars usage.
+	LOG and ERR facility methodes added.
+
+2012-02-03  Roman Trave <abadcafe@free.fr>
+
+	* includes/templates/bottom.php, includes/templates/headers.php, includes/templates/top.php, includes/templates/top_womenu.php, dbinit.php, index.php, mysb.css:
+	Import of CSS, DB init and templates code from old repo.
+
+	* libraries/application.php:
+	MySBApplication and MySBConfig classes added.
+
+2012-02-01  Roman Trave <abadcafe@free.fr>
+
+	* config.php.template, includes/index.html, index.php, libraries/index.html:
+	First files, re-writing phpMySandBox project.
+
+
+	* config.php.template, includes/index.html, index.php, libraries/index.html:
+	New file.
+
