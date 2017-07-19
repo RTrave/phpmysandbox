@@ -27,7 +27,7 @@ echo '
 <?php 
 echo '
     <a href="mailto:'.MySBConfigHelper::Value('technical_contact').'">Contact</a> - 
-    <a href="ChangeLog" target="_blank">PhpMySandBox 0.5</a>';
+    <a href="https://github.com/RTrave/phpmysandbox" target="_blank">PhpMySandBox 0.6</a>';
 
 $modules = MySBModuleHelper::load();
 if(count($modules)!=0) {
