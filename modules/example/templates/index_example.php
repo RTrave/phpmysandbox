@@ -14,7 +14,7 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-if(!MySBRoleHelper::checkAccess('example_role')) return;
+if(!MySBRoleHelper::checkAccess('example_role',false)) return;
 
 echo 'index_example.php loaded !!! <br>';
 ?>
