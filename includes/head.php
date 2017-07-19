@@ -18,12 +18,8 @@ global $app;
     <title><?php echo MySBConfigHelper::Value('website_name'); ?></title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <link rel="stylesheet" type="text/css" href="mysb.css" media="all">
-    <link rel="stylesheet" type="text/css" href="mysbhandheld.css" media="handheld,(max-width: 520px)">
+    <link rel="stylesheet" type="text/css" href="mysbhandheld.css" media="(max-width: 520px)">
     <link rel="stylesheet" type="text/css" href="mysbprint.css" media="print">
-    <!--[if lte IE 8]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <link rel="stylesheet" type="text/css" href="mysb_ie678.css" media="all">
-    <![endif]--> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" href="images/favicon_32.png" type="image/x-icon" >
 <?php //if($app->display_data['refresh_seconds']!=0) echo '    <meta http-equiv="refresh" content="'.$refresh_time.'; URL=index.php">';
