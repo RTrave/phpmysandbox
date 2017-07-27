@@ -40,6 +40,26 @@ class MySBPluginFrontPage extends MySBPlugin {
     /**
      * Process form section
      * @param
+     * @return  string     true if controler is loaded
+     */
+    public function callControler() {
+        global $app;
+        if( !isset($app->auth_user) or 
+            MySBRoleHelper::checkAccess($this->role,false) ) {
+            $content = _incV($this->value0.'_ctrl',$this->module,false);
+            return $content;
+        }
+        return '';
+        /* else {
+            return false;
+        }
+        return true;
+        */
+    }
+
+    /**
+     * Process form section
+     * @param
      */
     public function processForms() {
         global $app;

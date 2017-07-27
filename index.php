@@ -46,8 +46,10 @@ foreach($pluginsInclude as $plugin)
 $app->setlocale();
 $app->authenticate();
 
-$app->process();
-$app->display();
+if( !$app->ctrl_route() ) {
+    $app->process();
+    $app->display();
+}
 
 $app->close();
 ?>

@@ -342,9 +342,41 @@ class MySBUserHelper {
             $app->cache_users[$userbylogin->id] = $userbylogin;
         } else {
             $userbylogin = null;
-            $app->ERR( 'MySBUserHelper::getByLogin(): login '.$login.' don\'t exists !!!' );
+            //$app->ERR( 'MySBUserHelper::getByLogin(): login '.$login.' don\'t exists !!!' );
         }
         return $userbylogin;
+    }
+
+    /**
+     * Get user by mail
+     * @param   $login            Search user login
+     * @return  MySBUser
+     */
+    public static function getByMail($mail) {
+        global $app;
+        $users = array();
+        if(!isset($app->cache_users)) 
+            $app->cache_users = array();
+        else {
+            foreach($app->cache_users as $user)
+                if($user->mail==$mail) $users[] = $user;
+            return $users;
+        }
+        $req_bymail = MySBDB::query('SELECT * FROM '.MySB_DBPREFIX."users ".
+            "WHERE mail='".$mail."'",
+            "MySBUserHelper::getByMail($mail)" );
+        while( $data_bymail = MySBDB::fetch_array($req_bymail) ) {
+        //if(MySBDB::num_rows($req_bymail)>=1) {
+            //$data_bymail = MySBDB::fetch_array($req_bymail);
+            $userbymail = new MySBUser(-1,$data_bymail);
+            $app->cache_users[$userbymail->id] = $userbymail;
+            $users[] = $userbymail;
+        //} else {
+        //    $userbymail = null;
+            //$app->ERR( 'MySBUserHelper::getByMail(): login '.$mail.' don\'t exists !!!' );
+        }
+        //return $userbymail;
+        return $users;
     }
 
     /**
@@ -372,6 +404,50 @@ class MySBUserHelper {
         }
         return $userbyid;
     }
+
+    /**
+     * Search user by keyword
+     * @param   $login            Search user login
+     * @return  MySBUser
+     */
+    public static function searchBy($pattern,$col='login') {
+        global $app;
+        $users = array();
+        $users_whereclause = '';
+        if( $pattern!='' )
+            $users_whereclause .= $col.' RLIKE \''.$pattern.'\'';
+        //else $users_whereclause = '';
+/*
+        if( $_POST['bylogin']!='' ) {
+        $users_whereclause .= 'login RLIKE \''.$_POST['bylogin'].'\'';
+        $bylogin = $_POST['bylogin'];
+    } elseif( $_POST['bylastname']!='' ) {
+        $users_whereclause .= 'lastname RLIKE \''.$_POST['bylastname'].'\'';
+        $bylastname = $_POST['bylastname'];
+    } elseif( $_POST['bymail']!='' ) {
+        $users_whereclause .= 'mail RLIKE \''.$_POST['bymail'].'\'';
+        $bymail = $_POST['bymail'];
+    }
+*/
+    if( $users_whereclause!='' ) 
+        $users_whereclause = 'WHERE '.$users_whereclause;
+
+        $req_bymail = MySBDB::query('SELECT * FROM '.MySB_DBPREFIX."users ".
+            $users_whereclause,
+            "MySBUserHelper::searchBy($pattern,$col)" );
+        while( $data_bymail = MySBDB::fetch_array($req_bymail) ) {
+            $userbymail = new MySBUser(-1,$data_bymail);
+            $app->cache_users[$userbymail->id] = $userbymail;
+            $users[] = $userbymail;
+        //} else {
+        //    $userbymail = null;
+            //$app->ERR( 'MySBUserHelper::getByMail(): login '.$mail.' don\'t exists !!!' );
+        }
+        //return $userbymail;
+        return $users;
+    }
+
+
 
     /**
      * Get user by login

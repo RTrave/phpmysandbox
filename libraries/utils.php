@@ -273,14 +273,14 @@ class MySBUtil {
  * @param   string  $module     module containing the template
  * @param   string  $log        log of the *_process* par loading
 */
-function _incT($name,$module='',$log=true) { return MySBUtil::loadTemplate($name,$module,$log); }
+function _incTOBS($name,$module='',$log=true) { return MySBUtil::loadTemplate($name,$module,$log); }
 /**
  * Load a customisable include (sequential form of MySBUtil::loadInclude())
  * @param   string  $name       name of the include (mytpl for includes/myinc.php)
  * @param   string  $module     module containing the include
  * @param   string  $log        log of the *_process* par loading
 */
-function _incI($name,$module='',$log=true) { return MySBUtil::loadInclude($name,$module,$log); }
+function _incIOBS($name,$module='',$log=true) { return MySBUtil::loadInclude($name,$module,$log); }
 
 
 /**

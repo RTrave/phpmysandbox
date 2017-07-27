@@ -216,7 +216,7 @@ wrapLayerCalls();
     /**
      * Messages and Alerts (die) writing.
      */
-    private function msgWrite() {
+    public function msgWrite() {
         global $app;
         $output = '';
         if(!empty($this->Messages)) {
@@ -298,7 +298,7 @@ wrapLayerCalls();
     /**
      * SQL log writing.
      */
-    private function logsqlWrite() {
+    public function logsqlWrite() {
         global $app;
         $output = '';
         include MySB_ROOTPATH.'/config.php';
