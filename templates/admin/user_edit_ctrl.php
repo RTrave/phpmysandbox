@@ -28,7 +28,7 @@ $app->data['user'] = $user;
 if( isset($_POST['user_delete']) and $_POST['user_delete']==1 ) {
     $app->pushMessage( _G('SBGT_adminuser_delete').':<br>'.$user->lastname." (".$user->login.")" );
     MySBUserHelper::delete($_GET['user_id']);
-    return;
+    //return;
 }
 
 if( isset($_POST['user_newpasswd']) AND $_POST['user_newpasswd']==1) {
@@ -75,5 +75,7 @@ if( isset($_POST['user_edition']) and $_POST['user_edition']==1 ) {
     $user->assignToGroups($groupmod);
     $app->pushMessage( _G('SBGT_adminuser_modif').':<br>'.$user->login );
 }
+
+include( _pathT('admin/user_edit') );
 
 ?>

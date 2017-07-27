@@ -22,40 +22,15 @@ echo '
 <h1>'._G('SBGT_adminusers').'</h1>
 <div class="list_support">';
 
-$bylogin = '';
-$bylastname = '';
-$bymail = '';
 if( isset($_POST['users_search']) ) {
-    $users_whereclause = '';
-    if( $_POST['bylogin']!='' ) {
-        $users_whereclause .= 'login RLIKE \''.$_POST['bylogin'].'\'';
-        $bylogin = $_POST['bylogin'];
-    } elseif( $_POST['bylastname']!='' ) {
-        $users_whereclause .= 'lastname RLIKE \''.$_POST['bylastname'].'\'';
-        $bylastname = $_POST['bylastname'];
-    } elseif( $_POST['bymail']!='' ) {
-        $users_whereclause .= 'mail RLIKE \''.$_POST['bymail'].'\'';
-        $bymail = $_POST['bymail'];
-    }
-    if( $users_whereclause!='' ) 
-        $users_whereclause = 'WHERE '.$users_whereclause;
-
-    $req_users = MySBDB::query("SELECT * FROM ".MySB_DBPREFIX.'users '.
-        ''.$users_whereclause.' '.
-        'ORDER By id',
-        "admin/users.php");
-    while($data_user = MySBDB::fetch_array($req_users)) {
-        //echo $data_user['login'].'<br>';
-        $app->admindata['user'] = new MySBUser(-1, $data_user);
+    foreach( $found_users as $user ) {
         echo '
-<div id="user'.$data_user['id'].'" style="display: inline-block; width: 600px; max-width: 90%;">';
-        _incI('admin/user_display');
+<div id="user'.$user->id.'" style="display: inline-block; width: 600px; max-width: 90%;">';
+        include( _pathI('admin/user_display_ctrl') );
         echo '
 </div>';
     }
-echo '<br><br>';
 }
-
 
 echo '
 <form action="index.php?tpl=admin/users" method="post">

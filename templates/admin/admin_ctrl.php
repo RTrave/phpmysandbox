@@ -57,4 +57,36 @@ if(isset($_POST['test_mail'])) {
 }
 
 
+$infos_php = array();
+$infos_php[] = array('PHP version',phpversion());
+if(function_exists('imap_open')) 
+    $infos_php[] = array( 'IMAP support','present');
+else $infos_php[] = array( 'IMAP support','not present');
+if(class_exists('MySBPDF')) {
+    $mypdf = new MySBPDF();
+    $infos_php[] = array( 'TCPDF class',$mypdf->mytcpdf_version.' present' );
+} else  $infos_php[] = array( 'TCPDF class','not present' );
+if(class_exists('PHPMailer')) {
+    $mailerobj = new PHPMailer();
+    echo $mailerobj->Version;
+    if( $mysb_ext_mail=="PHPMailer" ) 
+         $infos_php[] = array( 'PHPMailer class',' ('.$phpmailer_Mail.' on '.$phpmailer_Host.')');
+    else
+        $infos_php[] = array( 'PHPMailer class','not used');
+} else $infos_php[] = array( 'PHPMailer class','not present');
+$editor = new MySBEditor();
+if( $editor->tmce_present ) 
+    $infos_php[] = array( 'TinyMCE',$editor->tmce_version.' present');
+else $infos_php[] = array( 'TinyMCE','not present');
+
+$infos_db = array();
+include(MySB_ROOTPATH.'/config.php');
+$infos_db[] = array( 'db layer<br><span class="help">(from config.php)</span>',$mysb_dblayer );
+$infos_db[] = array( 'db<br><span class="help">(from config.php)</span>',$mysb_dbname.'@'.$mysb_dbhost );
+$infos_db[] = array( 'dbuser<br><span class="help">(from config.php)</span>',$mysb_dbuser );
+$infos_db[] = array( 'table_prefix<br><span class="help">(from config.php)</span>',$mysb_table_prefix );
+$infos_db[] = array( 'tables version',MySBConfigHelper::Value('core_version','modules') );
+
+include('admin.php');
+
 ?>

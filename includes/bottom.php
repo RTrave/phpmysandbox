@@ -12,7 +12,7 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-global $app;
+//global $app;
 ?>
 
 

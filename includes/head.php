@@ -12,7 +12,7 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-global $app;
+//global $app;
 ?>
 
     <title><?php echo MySBConfigHelper::Value('website_name'); ?></title>
@@ -53,10 +53,10 @@ foreach($modules as $module) {
         //for handheld media
         if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_handheld.css')) 
             echo '
-    <link rel="stylesheet" type="text/css" href="modules/'.$module->name.'/'.$module->name.'_handheld.css" media="handheld,(max-width: 520px)">';
+    <link rel="stylesheet" type="text/css" href="modules/'.$module->name.'/'.$module->name.'_handheld.css" media="(max-width: 520px)">';
         if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'_handheld.css')) 
             echo '
-    <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'_handheld.css" media="handheld,(max-width: 520px)">';
+    <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'_handheld.css" media="(max-width: 520px)">';
         //for printers media
         if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_print.css')) 
             echo '
@@ -66,5 +66,12 @@ foreach($modules as $module) {
     <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'_print.css" media="print">';
     }
 }
+
+foreach($app->custom_headers as $custom_header) 
+    echo '
+'.$custom_header;
+if( $app->refresh_time!=0 ) 
+    echo '
+    <meta http-equiv="refresh" content="'.$app->refresh_time.'; URL=index.php">';
 
 ?>

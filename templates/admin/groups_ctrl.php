@@ -35,4 +35,6 @@ if( isset($_POST['group_edit']) ) {
     }
 }
 
+include( _pathT('admin/groups') );
+
 ?>

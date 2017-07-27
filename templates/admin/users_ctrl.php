@@ -36,4 +36,24 @@ if( isset($_POST['user_add']) AND isset($_POST['user_login']) AND isset($_POST['
     $app->pushMessage( _G('SBGT_adminusers_newmsg').':<br>'.$new_user->login.' &lt;'.$new_user->mail.'&gt;' );
 }
 
+$bylogin = '';
+$bylastname = '';
+$bymail = '';
+if( isset($_POST['users_search']) ) {
+    $users_whereclause = '';
+    if( $_POST['bylogin']!='' ) {
+        $found_users = MySBUserHelper::searchBy($_POST['bylogin']);
+        $bylogin = $_POST['bylogin'];
+    } elseif( $_POST['bylastname']!='' ) {
+        $found_users = MySBUserHelper::searchBy($_POST['bylastname'],'lastname');
+        $bylastname = $_POST['bylastname'];
+    } elseif( $_POST['bymail']!='' ) {
+        $found_users = MySBUserHelper::searchBy($_POST['bymail'],'mail');
+        $bymail = $_POST['bymail'];
+    } else
+        $found_users = MySBUserHelper::searchBy('');
+}
+
+include( _pathT('admin/users') );
+
 ?>

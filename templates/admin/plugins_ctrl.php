@@ -81,4 +81,6 @@ if( isset($_POST['option_export']) and $_POST['option_export']==1 ) {
     $app->pushMessage( _G('SBGT_exportuo_msg').' '.$app->auth_user->mail );
 }
 
+include( _pathT('admin/plugins') );
+
 ?>

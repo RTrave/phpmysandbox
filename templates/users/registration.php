@@ -15,7 +15,10 @@ defined('_MySBEXEC') or die;
 global $app;
 
 
-if($app->empty_field>=1) {
+if($empty_field==0) return;
+
+
+if($empty_field>=1) {
 
     if( !isset($_POST['newlogin']) ) $_POST['newlogin'] = '';
     if( !isset($_POST['newlastname']) ) $_POST['newlastname'] = '';
@@ -43,7 +46,7 @@ if($app->empty_field>=1) {
             <input type="text" name="newlogin" size="24" maxlength="64" value="'.$_POST['newlogin'].'">
         </div>
         <span>'._G('SBGT_login').'</span>';
-    if($app->empty_field==2 and empty($_POST['newlogin'])) echo '
+    if($empty_field==2 and empty($_POST['newlogin'])) echo '
         <br><span style="color: red;">!!!'._G('SBGT_empty').'!!!</span>';
     echo '
     </div>
@@ -53,7 +56,7 @@ if($app->empty_field>=1) {
             <input type="text" name="newlastname" size="24" maxlength="64" value="'.$_POST['newlastname'].'">
         </div>
         <span>'._G('SBGT_lastname').'</span>';
-    if($app->empty_field==2 and empty($_POST['newlastname'])) echo '
+    if($empty_field==2 and empty($_POST['newlastname'])) echo '
         <br><span style="color: red;">!!!'._G('SBGT_empty').'!!!</span>';
     echo '
     </div>
@@ -63,7 +66,7 @@ if($app->empty_field>=1) {
             <input type="text" name="newfirstname" size="24" maxlength="64" value="'.$_POST['newfirstname'].'">
         </div>
         <span>'._G('SBGT_firstname').'</span>';
-    if($app->empty_field==2 and empty($_POST['newfirstname'])) echo '
+    if($empty_field==2 and empty($_POST['newfirstname'])) echo '
         <br><span style="color: red;">!!!'._G('SBGT_empty').'!!!</span>';
     echo '
     </div>
@@ -73,7 +76,7 @@ if($app->empty_field>=1) {
             <input type="email" name="newmail" size="24" maxlength="128" value="'.$_POST['newmail'].'">
         </div>
         <span>'._G('SBGT_mail').'</span>';
-    if($app->empty_field==2 and empty($_POST['newmail'])) echo '
+    if($empty_field==2 and empty($_POST['newmail'])) echo '
         <br><span style="color: red;">!!!'._G('SBGT_empty').'!!!</span>';
     echo '
     </div>';

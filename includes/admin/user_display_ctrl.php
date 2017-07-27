@@ -17,9 +17,7 @@ global $app;
 if(!MySBRoleHelper::checkAccess('admin')) return;
 
 
-if( isset($app->admindata['user']) )
-    $user = $app->admindata['user'];
-else 
+if( isset($_GET['user_id']) )
     $user = MySBUserHelper::getByID($_GET['user_id']);
 
 echo '
