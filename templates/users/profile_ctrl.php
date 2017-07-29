@@ -66,13 +66,6 @@ if( isset($_POST['deluser_flag']) ) {
         $app->pushMessage(_G('SBGT_profile_passwordconfirm_nomatch'));
     }
 }
-//ob_start();
-//MySBUtil::loadTemplate('users/profile1');
-//$app->loadView('users/profile1');
-//echo _incV('users/profile', '');
-//$app->view_render(_incV('users/profile', ''));
-//$content = ob_get_clean();
-//echo $content;
 
 include( _pathT('users/profile') );
 

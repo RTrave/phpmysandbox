@@ -21,7 +21,7 @@
 defined('_MySBEXEC') or die;
 
 /**
- * Application class.
+ * Loging facilities class.
  *
  * @package    phpMySandBox
  * @subpackage Libraries\Core
@@ -37,6 +37,11 @@ class MySBLog {
      * @var         integer           Optional queries logger
      */
     public $sql_queriesnb = 0;
+
+    /**
+     * @var         array           Optional LOG entry
+     */
+    public $log_entries = array();
 
 
     /**
@@ -90,22 +95,12 @@ class MySBLog {
     public function displayStopAlert($message,$refresh_time=0,$with_menu=true) {
         if( $this->hidelay )
             $this->pushMessage($message);
-/*
-        $this->display->header($refresh_time);
-        $this->display->bodyStart($with_menu);
-        echo '<div id="mysbAlerts"><div style="display: table-cell; height: 100%; vertical-align: middle;"><p><img src="images/icons/dialog-error.png"></div><div style="display: table-cell; height: 100%; vertical-align: middle;">';
-        echo $message;
-        echo '</div><script type="text/javascript">offSpin();</script>';
-        echo '</p></div>';
-        $this->display->bodyStop();
-*/
         $errorcode = '
 <div id="mysbAlerts">
     <div><img src="images/icons/dialog-error.png" alt="Error"></div>
     <div style="padding-right: 15px;">'.$message.'</div>
 </div>
 <script type="text/javascript">offSpin();</script>';
-        //echo $this->view_render($this->layerWrite().$errorcode);
         $this->view_menu($with_menu);
         $this->view_refresh($refresh_time);
         echo $this->view_render($errorcode);
@@ -134,7 +129,7 @@ class MySBLog {
         $log_msg = str_replace( "\n", "\n   ", $log_msg );
         fwrite($fh, "\n".$log_msg."\n");
         fclose($fh);
-        $this->display->logPush($log_msg);
+        $this->log_entries[] = $log_msg;
     }
 
     /**
@@ -169,8 +164,31 @@ class MySBLog {
     }
 
 
-
-
+    /**
+     * SQL log prepare.
+     */
+    public function getlLogSQL() {
+        global $app;
+        include MySB_ROOTPATH.'/config.php';
+        $output = '';
+        if(count($this->log_entries)!=0) {
+            $output .= '<p>LOG entries:<br><br>';
+            foreach($this->log_entries as $log_entry) 
+                $output .= MySBUtil::str2html($log_entry).'<br>';
+            $output .= '</p>';
+        }
+        if($mysb_DEBUGMASK=='') $sql_queries = &$app->sql_queriesall;
+        else {
+            $queriesmask = 'sql_queries_'.$mysb_DEBUGMASK;
+            $sql_queries = &$app->$queriesmask;
+        }
+        if($mysb_DEBUGMASK=='') $output .= '<p>'.$app->sql_queriesnb." sql access<br><br>\n";
+        else $output .= '<p>'.$app->sql_queriesnb." sql access for ".$mysb_DEBUGMASK."<br><br>\n";
+        if(count($sql_queries)==0) return;
+        foreach($sql_queries as $query) $output .= "$query<br>\n";
+        $output .= "</p>\n";
+        return $output;
+    }
 }
 
 ?>

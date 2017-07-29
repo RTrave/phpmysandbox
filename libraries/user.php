@@ -366,16 +366,10 @@ class MySBUserHelper {
             "WHERE mail='".$mail."'",
             "MySBUserHelper::getByMail($mail)" );
         while( $data_bymail = MySBDB::fetch_array($req_bymail) ) {
-        //if(MySBDB::num_rows($req_bymail)>=1) {
-            //$data_bymail = MySBDB::fetch_array($req_bymail);
             $userbymail = new MySBUser(-1,$data_bymail);
             $app->cache_users[$userbymail->id] = $userbymail;
             $users[] = $userbymail;
-        //} else {
-        //    $userbymail = null;
-            //$app->ERR( 'MySBUserHelper::getByMail(): login '.$mail.' don\'t exists !!!' );
         }
-        //return $userbymail;
         return $users;
     }
 
@@ -407,8 +401,9 @@ class MySBUserHelper {
 
     /**
      * Search user by keyword
-     * @param   $login            Search user login
-     * @return  MySBUser
+     * @param   string  $pattern    Search user with pattern
+     * @param   string  $col        Column used to search
+     * @return  array               Array of users
      */
     public static function searchBy($pattern,$col='login') {
         global $app;
@@ -416,19 +411,6 @@ class MySBUserHelper {
         $users_whereclause = '';
         if( $pattern!='' )
             $users_whereclause .= $col.' RLIKE \''.$pattern.'\'';
-        //else $users_whereclause = '';
-/*
-        if( $_POST['bylogin']!='' ) {
-        $users_whereclause .= 'login RLIKE \''.$_POST['bylogin'].'\'';
-        $bylogin = $_POST['bylogin'];
-    } elseif( $_POST['bylastname']!='' ) {
-        $users_whereclause .= 'lastname RLIKE \''.$_POST['bylastname'].'\'';
-        $bylastname = $_POST['bylastname'];
-    } elseif( $_POST['bymail']!='' ) {
-        $users_whereclause .= 'mail RLIKE \''.$_POST['bymail'].'\'';
-        $bymail = $_POST['bymail'];
-    }
-*/
     if( $users_whereclause!='' ) 
         $users_whereclause = 'WHERE '.$users_whereclause;
 
@@ -439,20 +421,14 @@ class MySBUserHelper {
             $userbymail = new MySBUser(-1,$data_bymail);
             $app->cache_users[$userbymail->id] = $userbymail;
             $users[] = $userbymail;
-        //} else {
-        //    $userbymail = null;
-            //$app->ERR( 'MySBUserHelper::getByMail(): login '.$mail.' don\'t exists !!!' );
         }
-        //return $userbymail;
         return $users;
     }
 
-
-
     /**
-     * Get user by login
-     * @param   $login            Search user login
-     * @return  MySBUser
+     * Check for login attempts
+     * @param   string      $login  Search user login
+     * @return  boolean             false if OK
      */
     public static function checkLogattempt($login) {
         global $app;

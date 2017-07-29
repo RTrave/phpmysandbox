@@ -46,15 +46,11 @@ class MySBPluginFrontPage extends MySBPlugin {
         global $app;
         if( !isset($app->auth_user) or 
             MySBRoleHelper::checkAccess($this->role,false) ) {
-            $content = _incV($this->value0.'_ctrl',$this->module,false);
-            return $content;
+            ob_start();
+            include( _pathT($this->value0.'_ctrl',$this->module,false) );
+            return ob_get_clean();
         }
         return '';
-        /* else {
-            return false;
-        }
-        return true;
-        */
     }
 
     /**

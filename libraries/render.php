@@ -24,7 +24,7 @@ define('MYSB_RENDER_HTML', 0);
 define('MYSB_RENDER_BLANK', 1);
 
 /**
- * Application class.
+ * Application rendering class.
  *
  * @package    phpMySandBox
  * @subpackage Libraries\Core
@@ -323,20 +323,6 @@ wrapLayerCalls();
         }
         if(!empty($this->Alerts)) {
             $output .= '<div id="mysbAlerts">'.$this->Alerts.'</div>';
-/*
-            echo '<br>
-<script>
-    $("div#mysbAlerts").delay(3000).fadeOut(2000);
-</script>';
-            echo '
-            <div style="text-align: center; width: 100%;"><a href="index.php" class="button" title="'._G('SBGT_topmenu_homeinfos').'">'._G('SBGT_return_home').'</a></div><br>';
-*/
-/*
-            $this->Alerts = '';
-            $this->bodyStop();
-            $app->close();
-            die;
-*/
         }
         return $output;
     }
@@ -347,15 +333,8 @@ wrapLayerCalls();
     public function ctrl_route() {
         
         if( !empty($_GET['tpl']) ) {
-            /*
-            ob_start();
-            if ( $content = $this->loadTemplate($_GET['tpl'].'_ctrl',$_GET['mod'],true)) {
-                $content = ob_get_clean();
-                echo $this->view_render($this->layerWrite().$content);
-                return true;
-            }
-            */
-            if ( ($file = $this->pathTemplate($_GET['tpl'].'_ctrl',$_GET['mod'],true))!='') {
+            if( ( $file = $this->pathTemplate(  $_GET['tpl'].'_ctrl',
+                                                $_GET['mod'],true) )!='' ) {
                 ob_start();
                 include($file);
                 $content = ob_get_clean();
@@ -366,11 +345,9 @@ wrapLayerCalls();
 
         } elseif( !empty($_GET['inc']) ) {
             ob_start();
-            //_incI($_GET['inc'].'_ctrl',$_GET['mod'],false);
             $this->loadInclude($_GET['inc'].'_ctrl',$_GET['mod'],true);
             $content = ob_get_clean();
-            echo $content.$this->msgWrite().$this->layerWrite();
-            //echo 'TEST'.$content;
+            echo $content.$this->msgWrite().$this->layerWrite().$this->logsqlWrite();
             return true;
 
         } else {
@@ -384,7 +361,6 @@ wrapLayerCalls();
         }
         //throw new Exception("Action non valide");
         return false;
-        //$this->display->header();
     }
 
     /**
@@ -420,46 +396,60 @@ wrapLayerCalls();
     public function view_render($content) {
         global $app;
         if($this->overlay==1) {
-            echo $content;
+            echo $content.$this->logsqlWrite();
             return;
         }
         $this->content['template'] = $content;
         ob_start();
         include( $this->pathTemplate('template','',true));
-        //require (MySB_ROOTPATH.'/templates/template.php');
         echo ob_get_clean();
     }
 
     /**
-     * Rendering view
+     * SQL log writing.
      */
-    public function includeView($file,$module) {
-        ob_start();
-        $this->loadTemplate($file,$module);
-        //$content = ob_get_clean();
-        /*
-        if( $lastview ) {
-            $this->content['template'] = $content;
-            ob_start();
-            $this->loadTemplate('template','',true);
-            //require (MySB_ROOTPATH.'/templates/template.php');
-            $content = ob_get_clean();
+    public function logsqlWrite() {
+        global $app;
+        include MySB_ROOTPATH.'/config.php';
+        if( !isset($mysb_DEBUG) or !$mysb_DEBUG ) return '';
+        $output = $this->getlLogSQL();
+        if( $this->overlay or $this->itemlay or $this->hidelay ) {
+            $clean_output = str_replace("'","\\'",$output);
+            $clean_output = str_replace("\n"," ",$clean_output);
+            return '
+<script type="text/javascript">
+var logwrap = $("#mysbLogSql");
+logwrap.html(\''.$clean_output.'\');
+</script>';
+        } elseif( $this->blanklay ) {
+            $clean_output = str_replace("'","\\'",$output);
+            $clean_output = str_replace("\n"," ",$clean_output);
+            //TODO: push log in a file ?
+            return '';
         }
-        */
-        //return $content;
-        //} else 
-        //    echo $this->content['middle'];
-        return ob_get_clean();
+        return $output;
     }
 }
 
 /**
- * Include a localised template (sequential form)
- * @param   string  $file         file translated
- * @param   string  $module         module containing the localized string
- * @return  boolean
- */
-function _incV($file,$module='') { global $app; return $app->includeView($file,$module); }
+ * Load a customisable template (sequential form of MySBUtil::loadTemplate())
+ * @param   string  $name       name of the template (mytpl for templates/mytpl.php)
+ * @param   string  $module     module containing the template
+ * @param   string  $log        log of the *_process* par loading
+ * @return  string              path to the template
+*/
+function _pathT($name,$module='',$log=true) 
+    { global $app; return $app->pathTemplate($name,$module,$log); }
+
+/**
+ * Load a customisable include (sequential form of MySBUtil::loadInclude())
+ * @param   string  $name       name of the include (myinc for includes/myinc.php)
+ * @param   string  $module     module containing the include
+ * @param   string  $log        log of the *_process* par loading
+ * @return  string              path to the include
+*/
+function _pathI($name,$module='',$log=true) 
+    { global $app; return $app->pathInclude($name,$module,$log); }
 
 /**
  * Load a customisable template (sequential form of MySBUtil::loadTemplate())
@@ -467,27 +457,14 @@ function _incV($file,$module='') { global $app; return $app->includeView($file,$
  * @param   string  $module     module containing the template
  * @param   string  $log        log of the *_process* par loading
 */
-function _pathT($name,$module='',$log=true) { global $app; return $app->pathTemplate($name,$module,$log); }
+//function _incT($name,$module='',$log=true) { global $app; return $app->loadTemplate($name,$module,$log); }
+function _incT($name,$module='',$log=true) { global $app; include ($app->pathTemplate($name,$module,$log)); }
 /**
  * Load a customisable include (sequential form of MySBUtil::loadInclude())
  * @param   string  $name       name of the include (mytpl for includes/myinc.php)
  * @param   string  $module     module containing the include
  * @param   string  $log        log of the *_process* par loading
 */
-function _pathI($name,$module='',$log=true) { global $app; return $app->pathInclude($name,$module,$log); }
-/**
- * Load a customisable template (sequential form of MySBUtil::loadTemplate())
- * @param   string  $name       name of the template (mytpl for templates/mytpl.php)
- * @param   string  $module     module containing the template
- * @param   string  $log        log of the *_process* par loading
-*/
-function _incT($name,$module='',$log=true) { global $app; return $app->loadTemplate($name,$module,$log); }
-/**
- * Load a customisable include (sequential form of MySBUtil::loadInclude())
- * @param   string  $name       name of the include (mytpl for includes/myinc.php)
- * @param   string  $module     module containing the include
- * @param   string  $log        log of the *_process* par loading
-*/
-function _incI($name,$module='',$log=true) { global $app; return $app->loadInclude($name,$module,$log); }
-
+//function _incI($name,$module='',$log=true) { global $app; return $app->loadInclude($name,$module,$log); }
+function _incI($name,$module='',$log=true) { global $app; include ($app->pathInclude($name,$module,$log)); }
 ?>

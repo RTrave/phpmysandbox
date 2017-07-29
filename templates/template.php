@@ -59,7 +59,9 @@ wrapLayerCalls();
 
 </div>
 
-<?= $app->display->logsqlWrite() ?>
+<div id="mysbLogSql">
+<?= $app->logsqlWrite() ?>
+</div>
 
 </body>
 </html>
