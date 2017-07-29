@@ -12,20 +12,33 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-global $app;
-
 if(!MySBRoleHelper::checkAccess('example_role')) die;
+?>
 
-_incG("template1.php",'example','');
-_incT("template2",'example');
+Test overlay<br>
+<a  href="index.php?mod=example&amp;tpl=overlay_foot" 
+    style="text-decoration:none"
+    class="overlayed">
+        <img    src="images/icons/text-editor.png" 
+                alt="ALT text" 
+                title="TITLE text"
+                style="width: 24px">
+</a>
+<br>
 
-$example_users = MySBUserHelper::searchBy('');
+<div class="boxed">
 
-$file1 = new ExampleLib('templates/example_file1_ctrl.php');
-$file2 = new ExampleLib('includes/item_ctrl.php');
-$file3 = new ExampleLib('includes/adduo_ctrl.php');
+<?php foreach($example_users as $example_user) { ?>
+    <div id="user<?= $example_user->id ?>" class="row">
+    <?php include(_pathI("item_ctrl","example")) ?>
+    </div>
+<?php } ?>
 
-include(_pathT('example_file1','example'));
+</div>
 
+<?php 
+echo $file1->getCode();
+echo $file2->getCode();
+echo $file3->getCode();
 ?>
 

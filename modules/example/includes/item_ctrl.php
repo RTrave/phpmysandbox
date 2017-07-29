@@ -15,8 +15,8 @@ defined('_MySBEXEC') or die;
 global $app;
 
 
-if( isset($app->tpl_example_user) )
-    $user = $app->tpl_example_user;
+if( isset($example_user) )
+    $user = $example_user;
 else
     $user = MySBUserHelper::getByID($_GET['userid']);
 
