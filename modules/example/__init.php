@@ -14,7 +14,7 @@ defined('_MySBEXEC') or die;
 
 class MySBModule_example {
 
-    public $version = 2;
+    public $version = 3;
 
     public function create() {
         global $app;
@@ -92,7 +92,7 @@ class MySBModule_example {
             array(2,0,0,0),
             2,"example_role",'example');
         MySBPluginHelper::create('adminexample_menutext','MenuItem',
-            array("Example_admin_ex", "admin_example", 'Example_admin_exinfos',''),
+            array("Example_admin_ex", "admin/example", 'Example_admin_exinfos',''),
             array(3,0,0,0),
             2,"admin",'example');
 
@@ -122,20 +122,12 @@ class MySBModule_example {
 
     public function init3() {
         global $app;
-
-        //plugins
-        MySBPluginHelper::create('example1_menutext','MenuItem',
-            array("Example_topmenu_ex1", "example_file1", 'Example_topmenu_ex1infos',''),
-            array(1,0,0,0),
-            1,"example_role",'example');
         MySBPluginHelper::create('example2_menutext','MenuItem',
-            array("Example_topmenu_ex2", "example_file2", 'Example_topmenu_ex2infos',''),
+            array("Example_topmenu_ex2", "overlay_foot", 'Example_topmenu_ex2infos',''),
             array(2,0,0,0),
             2,"example_role",'example');
-        MySBPluginHelper::create('adminexample_menutext','MenuItem',
-            array("Example_admin_ex", "admin_example", 'Example_admin_exinfos',''),
-            array(3,0,0,0),
-            2,"admin",'example');
+
+        //plugins
     }
 
     public function uninit() {

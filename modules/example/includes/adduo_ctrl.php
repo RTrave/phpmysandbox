@@ -14,8 +14,23 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-if(!MySBRoleHelper::checkAccess('example_role',false)) return;
+if(!MySBRoleHelper::checkAccess('example_role')) return;
 
-echo 'index_example.php loaded !!! <br>';
+$user = MySBUserHelper::getByID($_POST['example_user']);
+
+if( isset($_POST['reset']) )
+    $user->update( array(
+        'exvarchar'=>('A') ) );
+else
+    $user->update( array(
+        'exvarchar'=>($user->exvarchar.'B') ) );
+
+$app->pushMessage("Example user ID: ".$user->id." with exvarchar=".$user->exvarchar);
+
 ?>
+
+<script>
+    loadItem(   'user<?= $user->id ?>',
+                'index.php?mod=example&inc=item&userid=<?= $user->id ?>')
+</script>
 

@@ -14,8 +14,7 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-if(!MySBRoleHelper::checkAccess('admin')) return;
-
+if(!MySBRoleHelper::checkAccess('example_role')) return;
 
 
 echo '
@@ -23,12 +22,12 @@ echo '
     data-overheight=""
     data-overwidth=""></div>
 
-<div class="overHead">Over HEAD Admin</div>
+<div class="overHead">Over HEAD</div>
 
 <div class="overBodyFoot">
 <div class="list_support">
 <div class="row">
-<b>ADMIN EXAMPLE</b>';
+<b>POST EXAMPLE</b>';
 if( isset($_POST['data']) )
     echo '<br>data: '.$_POST['data'];
 

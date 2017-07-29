@@ -14,7 +14,10 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-if(!MySBRoleHelper::checkAccess('admin')) return;
+if(!MySBRoleHelper::checkAccess('example_role')) return;
 
-$app->pushMessage('This is a test tip!')
+$app->pushMessage('This is a test tip!');
+
+include( _pathT('overlay_wo_foot','example') );
+
 ?>

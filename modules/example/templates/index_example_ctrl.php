@@ -12,19 +12,21 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-global $app;
-
-if(!MySBRoleHelper::checkAccess('example_role')) return;
-
-$user = MySBUserHelper::getByID($_POST['example_user']);
-
-if( isset($_POST['reset']) )
-    $user->update( array(
-        'exvarchar'=>('A') ) );
-else
-    $user->update( array(
-        'exvarchar'=>($user->exvarchar.'B') ) );
-
-$app->pushMessage("Example user ID: ".$user->id." with exvarchar=".$user->exvarchar);
-
+//global $app;
+if(!MySBRoleHelper::checkAccess('example_role',false)) return;
 ?>
+
+index_example.php loaded !!! <br>
+<br>
+
+<?php 
+$file1 = new ExampleLib('__init.php');
+echo $file1->getCode();
+$file2 = new ExampleLib('framework.php');
+echo $file2->getCode();
+$file3 = new ExampleLib('libraries/example.php');
+echo $file3->getCode();
+$file4 = new ExampleLib('templates/index_example_ctrl.php');
+echo $file4->getCode();
+?>
+

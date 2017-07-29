@@ -14,34 +14,24 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-if(MySBRoleHelper::checkAccess('example_role')) {
-    _incG("template1.php",'example','');
-    _incT("template2",'example');
-}
-echo 'example_file1.php loaded !!! <br>';
+if(!MySBRoleHelper::checkAccess('example_role')) die;
+
+_incG("template1.php",'example','');
+_incT("template2",'example');
 
 echo '
-
 Test overlay<br>
-<a  href="index.php?mod=example&amp;tpl=example_file2" 
+<a  href="index.php?mod=example&amp;tpl=overlay_foot" 
     style="text-decoration:none"
     class="overlayed">
         <img    src="images/icons/text-editor.png" 
-                alt="Edition" 
-                style="width: 24px"></a>
-
+                alt="ALT text" 
+                title="TITLE text"
+                style="width: 24px">
 </a>
 <br>';
-$example_code1 = '
-<div class="boxed">
-    <div class="row">
-        <div class="right">Text</div>
-        Text
-    </div>
-</div>';
 
 echo '
-<code>'.MySBUtil::str2html(htmlentities($example_code1)).'</code>
 <div class="boxed">';
 
 //$example_users = MySBUserHelper::load();
@@ -53,13 +43,21 @@ while( $user_data=MySBDB::fetch_array($req_example_users) ) {
     $app->tpl_example_user = $user;
     echo '
 <div id="user'.$user->id.'" class="row">';
-    _incI("item","example");
+    _incI("item_ctrl","example");
     echo '
 </div>';
 }
 
 echo '
 </div>';
+
+$file1 = new ExampleLib('templates/example_file1_ctrl.php');
+echo $file1->getCode();
+
+$file1 = new ExampleLib('includes/item_ctrl.php');
+echo $file1->getCode();
+$file1 = new ExampleLib('includes/adduo_ctrl.php');
+echo $file1->getCode();
 
 ?>
 

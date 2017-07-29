@@ -20,35 +20,29 @@ if( isset($app->tpl_example_user) )
 else
     $user = MySBUserHelper::getByID($_GET['userid']);
 
-echo '
+?>
+
     <div class="right" style="width: auto; text-align: right;">
-        <form action="index.php?mod=example&amp;tpl=adduo"
+        <form action="index.php?mod=example&amp;inc=adduo"
               method="post" 
               class="hidelayed"
               style="display: inline-block;">
-            <input type="hidden" name="example_user" value="'.$user->id.'">
+            <input type="hidden" name="example_user" value="<?= $user->id ?>">
             <input type="hidden" name="reset" value="1">
             <input src="images/icons/list-remove.png"
                    type="image"
                    alt="ALT text"
                    title="TITLE text">
         </form>
-        <form action="index.php?mod=example&amp;tpl=adduo"
+        <form action="index.php?mod=example&amp;inc=adduo"
               method="post" 
               class="hidelayed"
               style="display: inline-block;">
-            <input type="hidden" name="example_user" value="'.$user->id.'">
+            <input type="hidden" name="example_user" value="<?= $user->id ?>">
             <input src="images/icons/list-add.png"
                    type="image"
                    alt="ALT text"
                    title="TITLE text">
         </form>
     </div>
-    <b>'.$user->lastname.'</b> '.$user->firstname.' (exvarchar: '.$user->exvarchar.')
-
-<script>
-//show("user'.$user->id.'");
-</script>
-';
-
-?>
+    <b><?= $user->lastname ?></b> <?= $user->firstname ?> (exvarchar: <?= $user->exvarchar ?>)

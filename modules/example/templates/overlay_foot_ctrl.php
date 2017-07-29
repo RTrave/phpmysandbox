@@ -21,12 +21,13 @@ echo '
     data-overheight=""
     data-overwidth="350"></div>
 
-<div class="overHead"><div>example file 2</div></div>
+<div class="overHead">OVERLAY with footer</div>
 
 <div class="overBody">
+
 <div class="list_support" style="text-align: justify;">
-    <div class="row">example_file2.php loaded !!! <br>
-        <a  href="index.php?mod=example&amp;tpl=admin_example" 
+    <div class="row">overlay_foot loaded !!! <br>
+        <a  href="index.php?mod=example&amp;tpl=overlay_wo_foot" 
             style="text-decoration:none"
             class="overlayed">
             <img    src="images/icons/text-editor.png" 
@@ -38,14 +39,14 @@ echo '
 
 ?>
 <br>
-YUY<br>
-The .css() method is a convenient way to get a style property from the first matched element, especially in light of the different ways browsers access most of those properties (the getComputedStyle() method in standards-based browsers versus the currentStyle and runtimeStyle properties in Internet Explorer) and the different terms browsers use for certain properties. For example, Internet Explorer's DOM implementation refers to the float property as styleFloat, while W3C standards-compliant browsers refer to it as cssFloat. For consistency, you can simply use "float", and jQuery will translate it to the correct value for each browser.<br>
-<br>
-Also, jQuery can equally interpret the CSS and DOM formatting of multiple-word properties. For example, jQuery understands and returns the correct value for both .css( "background-color" ) and .css( "backgroundColor" ). Different browsers may return CSS color values that are logically but not textually equal, e.g., #FFF, #ffffff, and rgb(255,255,255).<br>
+<?php
+$file1 = new ExampleLib('templates/overlay_foot_ctrl.php');
+echo $file1->getCode();
+?>
 </div>
 <div class="row">
     <div class="right">
-        <form method="post" action="index.php?mod=example&amp;tpl=admin_example" id="foo" class="overlayed">
+        <form method="post" action="index.php?mod=example&amp;tpl=overlay_wo_foot" id="foo" class="overlayed">
             <input type="text" name="data" />
             <input type="submit" value="Test">
         </form></div>
