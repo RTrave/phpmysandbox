@@ -535,6 +535,12 @@ border-radius: 5px;
 cursor:default;
 }
 
+div#mysbMessages div div{
+display: table-cell; 
+height: 100%; 
+vertical-align: middle;
+}
+
 div#mysbMessages p img {
 padding-right: 15px;
 }
@@ -544,6 +550,13 @@ div#mysbAlerts {
 display: table;
 margin: 10px auto 10px auto;
 border-radius: 6px;
+max-width: 60%;
+}
+
+div#mysbAlerts div {
+display: table-cell; 
+height: 100%; 
+vertical-align: middle;
 }
 
 div#mysbAlerts img {

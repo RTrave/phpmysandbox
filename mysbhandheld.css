@@ -153,6 +153,10 @@ left: 10%;
 width: auto;
 }
 
+div#mysbAlerts {
+max-width: 85%;
+}
+
 #mysbMiddle div.list_support div.row div.right {
 clear: both;
 display: block;
