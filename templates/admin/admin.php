@@ -122,14 +122,21 @@ else {
         echo '
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">';
         foreach($configs as $config) {
+        if( $config->getType()!='text' ) {
             echo '
     <div class="row">
         <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
         '._G($config->comments).'<br>
-        <span class="help">'.$config->keyname."</span>";
-        if( $config->getType()=='text' ) echo '<div class="cell_hide"><br><br></div>';
-        echo '
+        <span class="help">'.$config->keyname."</span>
+    </div>";
+        } else {
+            echo '
+    <div class="row" style="text-align: right;">
+        <div style="float: left; text-align: left;">'._G($config->comments).'<br>
+        <span class="help">'.$config->keyname.'</span></div>
+        <div style="display: inline-block; margin: 0px 0px 0px auto;">'.$config->htmlForm('config_',$config->value).'</div>
     </div>';
+        }
         }
         echo '
     <div class="row" style="text-align: center;">
