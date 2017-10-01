@@ -46,9 +46,11 @@ class MySBPluginFrontPage extends MySBPlugin {
         global $app;
         if( !isset($app->auth_user) or 
             MySBRoleHelper::checkAccess($this->role,false) ) {
-            ob_start();
-            include( _pathT($this->value0.'_ctrl',$this->module,false) );
-            return ob_get_clean();
+            if( $path=_pathT($this->value0.'_ctrl',$this->module,false) ) {
+                ob_start();
+                include( $path );
+                return ob_get_clean();
+            }
         }
         return '';
     }
@@ -59,8 +61,11 @@ class MySBPluginFrontPage extends MySBPlugin {
      */
     public function processForms() {
         global $app;
-        if(!isset($app->auth_user) or MySBRoleHelper::checkAccess($this->role,false)) 
-            _incT($this->value0.'_process',$this->module,false);
+        if(!isset($app->auth_user) or MySBRoleHelper::checkAccess($this->role,false)) {
+            if( $path=_pathT($this->value0.'_process',$this->module,false) ) {
+                _incT($this->value0.'_process',$this->module,false);
+            }
+        }
     }
 
     /**
@@ -70,7 +75,8 @@ class MySBPluginFrontPage extends MySBPlugin {
     public function displayBody() {
         global $app;
         if(!isset($app->auth_user) or MySBRoleHelper::checkAccess($this->role,false)) 
-            _incT($this->value0,$this->module);
+            if( $path=_pathT($this->value0,$this->module,false) ) 
+                _incT($this->value0,$this->module);
     }
 
 }
