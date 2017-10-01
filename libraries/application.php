@@ -146,9 +146,11 @@ class MySBApplication extends MySBRender {
      */
     public function process() {
         if( !empty($_GET['tpl']) ) {
-            _incT($_GET['tpl'].'_process',$_GET['mod'],false);
+            if( _pathT($_GET['tpl'].'_process',$_GET['mod'],false) )
+                _incT($_GET['tpl'].'_process',$_GET['mod'],false);
         } elseif( !empty($_GET['inc']) ) {
-            _incI($_GET['inc'].'_process',$_GET['mod'],false);
+            if( _pathI($_GET['inc'].'_process',$_GET['mod'],false) )
+                _incI($_GET['inc'].'_process',$_GET['mod'],false);
         } else {
             $pluginsFrontPage = MySBPluginHelper::loadByType('FrontPage');
             foreach($pluginsFrontPage as $plugin) 
@@ -165,7 +167,8 @@ class MySBApplication extends MySBRender {
         if( !empty($_GET['tpl']) ) {
             _incT($_GET['tpl'],$_GET['mod']);
         } elseif( !empty($_GET['inc']) ) {
-            _incI($_GET['inc'],$_GET['mod']);
+            if( _pathI($_GET['inc'],$_GET['mod'],false) )
+                _incI($_GET['inc'],$_GET['mod'],false);
         } else {
             $pluginsFrontPage = MySBPluginHelper::loadByType('FrontPage');
             foreach($pluginsFrontPage as $plugin) 

@@ -43,11 +43,18 @@ class MySBLog {
      */
     public $log_entries = array();
 
+    /**
+     * @var         boolean           Debug flag
+     */
+    public $debug = false;
+
 
     /**
      * Logging constructor.
      */
     public function __construct() {
+        include MySB_ROOTPATH.'/config.php';
+        $this->debug = $mysb_DEBUG;
     }
 
     /**
@@ -103,7 +110,7 @@ class MySBLog {
 <script type="text/javascript">offSpin();</script>';
         $this->view_menu($with_menu);
         $this->view_refresh($refresh_time);
-        echo $this->view_render($errorcode);
+        echo $this->view_render($this->layerWrite().$this->msgWrite().$errorcode);
         $this->close();
         die;
     }

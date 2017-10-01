@@ -209,7 +209,7 @@ class MySBRender extends MySBLog {
             $app->LOG("MySBRender::pathTemplate($name,$module): template not found");
             $app->pushAlert("Fatal: template <i>$name</i> in module <i>$module</i> not found!");
         }
-        return '';
+        return false;
     }
 
     /**
@@ -252,9 +252,9 @@ class MySBRender extends MySBLog {
     /**
      * Layers writing.
      */
-    private function layerWrite() {
+    protected function layerWrite() {
         $output = '';
-        if( !$this->overlay and !$this->hidelay and !$this->itemlay )
+        if( !$this->overlay and !$this->hidelay and !$this->itemlay and !$this->blanklay )
             $output .= '
 <div id="mysbMessages">
 </div>
@@ -291,7 +291,7 @@ show_slide(\''.$_GET['iid'].'\');
 offSpin();
 wrapLayerCalls();
 </script>';
-        else $output .= '
+        elseif( !$this->blanklay ) $output .= '
 <script type="text/javascript">
 wrapLayerCalls();
 </script>';
@@ -302,7 +302,7 @@ wrapLayerCalls();
     /**
      * Messages and Alerts (die) writing.
      */
-    public function msgWrite() {
+    protected function msgWrite() {
         global $app;
         $output = '';
         if(!empty($this->Messages)) {
@@ -334,7 +334,8 @@ wrapLayerCalls();
         
         if( !empty($_GET['tpl']) ) {
             if( ( $file = $this->pathTemplate(  $_GET['tpl'].'_ctrl',
-                                                $_GET['mod'],true) )!='' ) {
+                                                $_GET['mod'],
+                                                $this->debug ) ) != false) {
                 ob_start();
                 include($file);
                 $content = ob_get_clean();
@@ -344,8 +345,10 @@ wrapLayerCalls();
                 return false;
 
         } elseif( !empty($_GET['inc']) ) {
+            if(!$this->pathTemplate(  $_GET['inc'].'_ctrl', $_GET['mod'], false ))
+                return false;
             ob_start();
-            $this->loadInclude($_GET['inc'].'_ctrl',$_GET['mod'],true);
+            $this->loadInclude($_GET['inc'].'_ctrl',$_GET['mod'],false);
             $content = ob_get_clean();
             echo $content.$this->msgWrite().$this->layerWrite().$this->logsqlWrite();
             return true;
@@ -356,6 +359,7 @@ wrapLayerCalls();
             foreach($pluginsFrontPage as $plugin) {
                 $content .= $plugin->callControler();
             }
+            if( $content=='' ) return false;
             $this->view_render($content.$this->msgWrite().$this->layerWrite());
             return true;
         }
@@ -397,6 +401,10 @@ wrapLayerCalls();
         global $app;
         if($this->overlay==1) {
             echo $content.$this->logsqlWrite();
+            return;
+        }
+        if($this->blanklay==1) {
+            echo $content;
             return;
         }
         $this->content['template'] = $content;

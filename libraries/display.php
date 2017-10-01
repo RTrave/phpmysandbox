@@ -236,10 +236,12 @@ wrapLayerCalls();
             $this->Messages = '';
         }
         if(!empty($this->Alerts)) {
-            echo '<div id="mysbAlerts">'.$this->Alerts;
-            echo '</div>
+            echo '<div id="mysbAlerts">'.$this->Alerts.'</div>';
+/*
+            echo '
             <br>
             <div style="text-align: center; width: 100%;"><a href="index.php" class="button" title="'._G('SBGT_topmenu_homeinfos').'">'._G('SBGT_return_home').'</a></div><br>';
+*/
             $this->Alerts = '';
             $this->bodyStop();
             $app->close();
