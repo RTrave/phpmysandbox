@@ -43,6 +43,12 @@ class MySBModule {
 	 */
 	public $name = null;
 
+	/**
+	 * Module directory path
+	 * @var    string
+	 */
+	public $dirpath = null;  //TODO
+
 
     /**
      * Module constructor.
@@ -50,6 +56,7 @@ class MySBModule {
      */
     public function __construct($name) {
         $this->name = $name;
+        $this->dirpath = MySB_ROOTPATH.'/modules/'.
         $initfile = MySB_ROOTPATH.'/modules/'.$this->name.'/__init.php';
         include_once($initfile);
         $class_name = 'MySBModule_'.$this->name;
