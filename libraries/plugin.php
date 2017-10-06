@@ -177,12 +177,14 @@ class MySBPluginHelper {
     public static function delete($name,$module) {
         global $app;
         $plugin_obj = MySBPluginHelper::get($name,$module);
+        if($plugin_obj==null)
+            $app->LOG($name.' from '.$module.' not found');
         MySBDB::query( "DELETE FROM ".MySB_DBPREFIX."plugins ".
             "WHERE name='$name' AND module='$module'",
             "MySBPluginHelper::delete($name,$module)",
             false);
         $app->LOG("MySBPluginHelper::delete(): tplugins['".$name."'] (from '".$module."') deleted",'');
-        if( $plugin_obj!=null ) {
+        if( $plugin_obj!=null ) { //TODO: seems MySBPluginHelper::get() return null when called with plugin creation
             $plugin_obj->pre_delete();
             unset( $app->cache_plugins[$plugin_obj->module.'_'.$plugin_obj->name] );
         }
@@ -253,8 +255,10 @@ class MySBPluginHelper {
     public static function get($name,$module,$type='') {
         global $app;
         $plugins = MySBPluginHelper::load();
-        if($type='')
-            return $plugins[$module.'_'.$name];
+        if($type=='')
+            if( isset($plugins[$module.'_'.$name]) )
+                return $plugins[$module.'_'.$name];
+            else return null;
         else {
             foreach($plugins as $plugin) {
                 if($plugin->name==$name and $plugin->type==$type)
