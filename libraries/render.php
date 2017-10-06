@@ -260,23 +260,6 @@ class MySBRender extends MySBLog {
      */
     protected function layerWrite() {
         $output = '';
-        if( !$this->overlay and !$this->hidelay and !$this->itemlay and !$this->blanklay )
-            $output .= '
-<div id="mysbMessages">
-</div>
-<div id="overlay" class="mysb_overlay roundtop">
-    <div class="close" >
-    <img src="images/window-close32.png"
-         alt="'._G('SBGT_overlay_close').'"
-         title="'._G('SBGT_overlay_close').'">
-    </div>
-    <div class="contentWrap" id="contentWrap">...</div>
-</div>
-<div id="hidelayer">
-</div>
-<script type="text/javascript">
-loadSpin();
-</script>';
 
         if( $this->overlay )
             $output .= '
@@ -345,7 +328,7 @@ wrapLayerCalls();
                 ob_start();
                 include($file);
                 $content = ob_get_clean();
-                echo $this->view_render($this->layerWrite().$this->msgWrite().$content);
+                echo $this->view_render($content.$this->msgWrite().$this->layerWrite());
                 return true;
             } else
                 return false;
