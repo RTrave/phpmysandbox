@@ -20,7 +20,13 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
+    /**
+     * @def         HTML Render constant
+     */
 define('MYSB_RENDER_HTML', 0);
+    /**
+     * @def         BLANK Render constant
+     */
 define('MYSB_RENDER_BLANK', 1);
 
 /**
@@ -345,10 +351,12 @@ wrapLayerCalls();
                 return false;
 
         } elseif( !empty($_GET['inc']) ) {
-            if(!$this->pathTemplate(  $_GET['inc'].'_ctrl', $_GET['mod'], false ))
+            if( !($file = $this->pathInclude(   $_GET['inc'].'_ctrl',
+                                                $_GET['mod'],
+                                                false) ) )
                 return false;
             ob_start();
-            $this->loadInclude($_GET['inc'].'_ctrl',$_GET['mod'],false);
+            include($file);
             $content = ob_get_clean();
             echo $content.$this->msgWrite().$this->layerWrite().$this->logsqlWrite();
             return true;

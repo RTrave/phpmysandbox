@@ -47,6 +47,7 @@ $app->setlocale();
 $app->authenticate();
 
 if( !$app->ctrl_route() ) {
+    if(isset($_GET['inc'])) $app->LOG('OBSOLETE: tpl/inc old style: mod='.$_GET['mod'].' inc='.$_GET['inc']);
     $app->process();
     $app->display();
 }
