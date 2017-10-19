@@ -56,6 +56,10 @@ if(isset($_POST['test_mail'])) {
     $app->pushMessage( _G('SBGT_admin_testmail').':<br>'.$app->auth_user->login.' &lt;'.$app->auth_user->mail.'&gt;' );
 }
 
+include(MySB_ROOTPATH.'/config.php');
+if( $mysb_ext_mail=='PHPMailer' and
+    file_exists(MySB_ROOTPATH.'/phpmailer.conf.php') )
+    include(MySB_ROOTPATH.'/phpmailer.conf.php');
 
 $infos_php = array();
 $infos_php[] = array('PHP version',phpversion());
@@ -68,19 +72,19 @@ if(class_exists('MySBPDF')) {
 } else  $infos_php[] = array( 'TCPDF class','not present' );
 if(class_exists('PHPMailer')) {
     $mailerobj = new PHPMailer();
-    echo $mailerobj->Version;
+    //echo $mailerobj->Version;
     if( $mysb_ext_mail=="PHPMailer" ) 
-         $infos_php[] = array( 'PHPMailer class',' ('.$phpmailer_Mail.' on '.$phpmailer_Host.')');
+         $infos_php[] = array( 'PHPMailer class','v:'.$mailerobj->Version.'<br>
+         <small>('.$phpmailer_Mail.' on '.$phpmailer_Host.')</small>');
     else
         $infos_php[] = array( 'PHPMailer class','not used');
 } else $infos_php[] = array( 'PHPMailer class','not present');
 $editor = new MySBEditor();
-if( $editor->tmce_present ) 
+if( $editor->tmce_present )
     $infos_php[] = array( 'TinyMCE',$editor->tmce_version.' present');
 else $infos_php[] = array( 'TinyMCE','not present');
 
 $infos_db = array();
-include(MySB_ROOTPATH.'/config.php');
 $infos_db[] = array( 'db layer<br><span class="help">(from config.php)</span>',$mysb_dblayer );
 $infos_db[] = array( 'db<br><span class="help">(from config.php)</span>',$mysb_dbname.'@'.$mysb_dbhost );
 $infos_db[] = array( 'dbuser<br><span class="help">(from config.php)</span>',$mysb_dbuser );
