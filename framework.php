@@ -16,6 +16,7 @@ defined('_MySBEXEC') or die;
 
 require (MySB_ROOTPATH.'/libraries/datetime.php');
 require (MySB_ROOTPATH.'/libraries/utils.php');
+require (MySB_ROOTPATH.'/libraries/editor.php');
 require (MySB_ROOTPATH.'/libraries/object.php');
 require (MySB_ROOTPATH.'/libraries/db.php');
 require (MySB_ROOTPATH.'/libraries/dblayer_mysql.php');
