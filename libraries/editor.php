@@ -135,8 +135,8 @@ tinymce.init({
             $code .= '
 <script type="text/javascript">
 tinymce.init({
+    selector : "#'.$selector_id.'",
     '.$langconf.'
-    mode : "none",
     menubar: '.$menubar.',
     toolbar_items_size: "small",
     plugins: [
@@ -144,6 +144,7 @@ tinymce.init({
     ],
     toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
     toolbar2: "'.$toolbar2.'",
+    branding: false,
     forced_root_block: false
 });
 </script>';
