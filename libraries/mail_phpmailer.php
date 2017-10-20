@@ -183,7 +183,7 @@ class MySBMailPHPMailer implements MySBIMail {
      */
     private function body_prepare($c_body) {
         global $mail_css;
-        _incI('mailcss');
+        include( _pathI('mailcss') );
         $comp_body = '
 <html>
 <head>

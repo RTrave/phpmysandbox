@@ -15,7 +15,7 @@ defined('_MySBEXEC') or die;
 global $app;
 
 
-_incI('admin/menu');
+include( _pathI('admin/menu') );
 
 
 echo '

@@ -26,7 +26,7 @@ hide("group'.$_POST['group_id'].'");
     return;
 }
 
-_incI('admin/menu');
+include( _pathI('admin/menu') );
 
 echo '
 <h1>'._G('SBGT_admingroups').'</h1>

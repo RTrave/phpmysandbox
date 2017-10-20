@@ -16,7 +16,7 @@ defined('_MySBEXEC') or die;
 global $app;
 global $groups_a;
 
-_incI('admin/menu');
+include( _pathI('admin/menu') );
 
 echo '
 <h1>'._G('SBGT_adminusers').'</h1>
