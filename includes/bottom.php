@@ -27,16 +27,22 @@ echo '
 <?php 
 echo '
     <a href="mailto:'.MySBConfigHelper::Value('technical_contact').'">Contact</a> - 
-    <a href="https://github.com/RTrave/phpmysandbox" target="_blank">PhpMySandBox 0.6</a>';
+    <a  href="https://github.com/RTrave/phpmysandbox"
+        target="_blank">PhpMySandBox 0.6</a>';
 
 $modules = MySBModuleHelper::load();
 if(count($modules)!=0) {
     echo ' ( mod';
     foreach($modules as $module) 
         if($module->isLoaded()) {
-            $cl_file = 'modules/'.$module->name.'/ChangeLog';
-            if(file_exists($cl_file))
-                echo ' <a href="'.$cl_file.'" target="_blank">'.$module->name.'</a>';
+            //$init_file = 'modules/'.$module->name.'/__init.php';
+            //$classmod = 'MySBModule_'.$module->name;
+            //$cmod = new $classmod;
+            $cmod = $module->module_helper;
+            if( isset($cmod->homelink) and  isset($cmod->lname) )
+                echo '  <a  href="'.$cmod->homelink.'"
+                        target="_blank"
+                        title="module '.$cmod->lname.' v:'.$cmod->version.'">'.$module->name.'</a>';
             else
                 echo ' '.$module->name;
         }

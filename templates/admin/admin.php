@@ -73,7 +73,9 @@ foreach($modules as $module) {
     $mod_conf = MySBConfigHelper::get('mod_'.$module->name.'_enabled','modules');
     echo '
 <h3 id="mod_'.$module->name.'">'.$module->name.'</h3>';
-
+echo '
+<p>Version: '.$module->module_helper->version.' <br>
+<i>Required: '.admin_getrequired($module).'</i></p>';
     if($mod_conf==null) {
         echo '
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
@@ -90,7 +92,6 @@ foreach($modules as $module) {
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post" 
       OnSubmit="return mysb_confirm(\'Unset module '.$module->name.'?\')">
 <p>
-    Version: '.$module->module_helper->version.'<br>
     Module <b>enabled</b>: 
     <input type="hidden" name="unset_mod" value="'.$module->name.'">
     <input type="submit" value="Unset '.$module->name.'">

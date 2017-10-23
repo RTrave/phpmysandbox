@@ -91,6 +91,30 @@ $infos_db[] = array( 'dbuser<br><span class="help">(from config.php)</span>',$my
 $infos_db[] = array( 'table_prefix<br><span class="help">(from config.php)</span>',$mysb_table_prefix );
 $infos_db[] = array( 'tables version',MySBConfigHelper::Value('core_version','modules') );
 
-include('admin.php');
+function admin_getrequired($module) {
+    $reqtext = '';
+    foreach($module->module_helper->require as $modname=>$modvers) {
+        if( $modname=='core' )
+            if( $modvers!=MySBConfigHelper::Value('core_version','modules') ) {
+                $reqtext .= $modname.'(<span style="color: red;"><b>v:'.$modvers.'</b></span>) ';
+                continue;
+            } else {
+                $reqtext .= $modname.'(v:'.$modvers.') ';
+                continue;
+            }
+        $mod = MySBModuleHelper::getByName($modname);
+        if( $mod==null ) {
+            $reqtext .= $modname.'(<span style="color: red;"><b>not found</b></span>) ';
+            continue;
+        }
+        if( $mod->module_helper->version!=$modvers )
+            $reqtext .= $modname.'(<span style="color: red;"><b>v:'.$modvers.'</b></span>) ';
+        else
+            $reqtext .= $modname.'(v:'.$modvers.') ';
+    }
+    return $reqtext;
+}
+
+include( _pathT('admin/admin') );
 
 ?>

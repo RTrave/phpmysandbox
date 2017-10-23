@@ -47,8 +47,13 @@ class MySBModule {
 	 * Module directory path
 	 * @var    string
 	 */
-	public $dirpath = null;  //TODO
+	public $dirpath = null;  //TODO: path usage ?
 
+	/**
+	 * Module directory path
+	 * @var    string
+	 */
+	public $module_helper = null;
 
     /**
      * Module constructor.
@@ -69,6 +74,8 @@ class MySBModule {
      */
     public function init() {
         global $app;
+        if( !$this->reqsatisfied() )
+            die;
         $this->module_helper->create();
         MySBConfigHelper::create('mod_'.$this->name.'_enabled',
             0,MYSB_VALUE_TYPE_INT,
@@ -91,6 +98,8 @@ class MySBModule {
      */
     public function reinit() {
         global $app;
+        if( !$this->reqsatisfied() )
+            die;
         $mod_conf = MySBConfigHelper::get('mod_'.$this->name.'_enabled','modules');
         if($mod_conf==null) return;
         $mod_conf->setValue(0);
@@ -106,6 +115,8 @@ class MySBModule {
      * @param
      */
     public function uninit() {
+        if( !$this->reqsatisfying() )
+            die;
         $this->module_helper->uninit();
         $mod_conf = MySBConfigHelper::get('mod_'.$this->name.'_enabled','modules');
         if($mod_conf==null) return;
@@ -152,6 +163,48 @@ class MySBModule {
         return false;
     }
 
+    /**
+     * Module requirements satisfied ?
+     * @return  boolean         true if required modules are loaded and core have valid table version.
+     */
+    public function reqsatisfied() {
+        global $app;
+        foreach($this->module_helper->require as $modname=>$modvers) {
+            if( $modname=='core' )
+                if( $modvers!=MySBConfigHelper::Value('core_version','modules') )
+                    $app->displayStopAlert('Module "'.$this->module_helper->lname.'"
+                                            require PHPMySandBox tables version '.$modvers.' !');
+                else
+                    continue;
+            $mod = MySBModuleHelper::getByName($modname);
+            if( $mod==null )
+                $app->displayStopAlert('Module "'.$modname.'" required not found!');
+            if( $mod->module_helper->version!=$modvers )
+                $app->displayStopAlert( 'Module "'.$modname.'" required version not found
+                                        ('.$modvers.' but '.$mod->module_helper->version.' found)!');
+            if( !$mod->isloaded() )
+                $app->displayStopAlert('Module "'.$modname.'" not loaded!');
+        }
+        return true;
+    }
+
+    /**
+     * Module satisfying requirements of other modules ?
+     * @return  boolean         true if no module depends on.
+     */
+    public function reqsatisfying() {
+        global $app;
+        $mods = MySBModuleHelper::load();
+        foreach ($mods as $mod) {
+            if( $this->module_helper->lname!=$mod->module_helper->lname )
+            foreach($mod->module_helper->require as $modname=>$modvers) {
+                if( $modname==$this->module_helper->lname and $mod->isloaded() )
+                    $app->displayStopAlert('Module "'.$mod->module_helper->lname.'" require  "'.$this->module_helper->lname.'"!');
+            }
+        }
+        return true;
+    }
+
 }
 
 /**
@@ -190,7 +243,9 @@ class MySBModuleHelper {
     public static function getByName($name) {
         global $app;
         $modules = MySBModuleHelper::load();
-        return $modules[$name];
+        if( isset($modules[$name]) )
+            return $modules[$name];
+        return null;
     }
 
 }
