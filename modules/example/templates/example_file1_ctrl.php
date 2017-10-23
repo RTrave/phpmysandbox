@@ -17,7 +17,7 @@ global $app;
 if(!MySBRoleHelper::checkAccess('example_role')) die;
 
 _incG("template1.php",'example','');
-_incT("template2",'example');
+include(_pathT("template2",'example'));
 
 $example_users = MySBUserHelper::searchBy('');
 

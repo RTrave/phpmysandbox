@@ -14,7 +14,12 @@ defined('_MySBEXEC') or die;
 
 class MySBModule_example {
 
+    public $lname = 'example';
     public $version = 3;
+    public $homelink = 'https://github.com/RTrave/phpmysandbox/tree/master/modules/example';
+    public $require = array(
+        'core' => 7
+        );
 
     public function create() {
         global $app;
