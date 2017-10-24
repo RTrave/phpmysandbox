@@ -19,7 +19,7 @@ class MySBModule_blank {
     public $homelink = 'https://github.com/RTrave/phpmysandbox/tree/master/modules/blank';
     public $require = array(
         'core' => 7,
-        'example' => 2
+        'example' => 3
         );
 
     public function create() {
