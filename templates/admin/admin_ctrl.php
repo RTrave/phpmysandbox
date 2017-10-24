@@ -93,6 +93,8 @@ $infos_db[] = array( 'tables version',MySBConfigHelper::Value('core_version','mo
 
 function admin_getrequired($module) {
     $reqtext = '';
+    if( !isset($module->module_helper->require) )
+        return 'No dependencies informations';
     foreach($module->module_helper->require as $modname=>$modvers) {
         if( $modname=='core' )
             if( $modvers!=MySBConfigHelper::Value('core_version','modules') ) {

@@ -169,6 +169,8 @@ class MySBModule {
      */
     public function reqsatisfied() {
         global $app;
+        if( !isset($this->module_helper->require) )
+            return true;
         foreach($this->module_helper->require as $modname=>$modvers) {
             if( $modname=='core' )
                 if( $modvers!=MySBConfigHelper::Value('core_version','modules') )

@@ -142,8 +142,10 @@ class MySBPluginHelper {
                 //return;
             }
         $className = 'MySBPlugin' . $type.$childclass;
-        if(!class_exists($className))
+        if(!class_exists($className)) {
             $app->pushAlert($className.' not found!');
+            return;
+        }
         $new_id = MySBDB::lastID('plugins')+1;
         MySBDB::query("INSERT INTO ".MySB_DBPREFIX."plugins (".
             "id,name,type,".
