@@ -12,48 +12,40 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-//global $app;
 ?>
-
-
 <div class="content">
 
-<?php 
+<?php
 echo '
 <b>'.MySBConfigHelper::Value('website_name').'</b>';
 ?>
 
 <div class="techinfo">
 <?php 
+$appv = new MySBCore();
+$version = $appv->mysb_major_version.'.'.$appv->mysb_minor_version;
 echo '
-    <a href="mailto:'.MySBConfigHelper::Value('technical_contact').'">Contact</a> - 
+    <a href="'.MySBConfigHelper::Value('technical_contact').'">Contact</a> -
     <a  href="https://github.com/RTrave/phpmysandbox"
-        target="_blank">PhpMySandBox 0.6</a>';
+        title="PhpMySandBox OpenSource Project on GitHub"
+        target="_blank">PhpMySandBox '.$version.'</a>';
 
-$modules = MySBModuleHelper::load();
+$modules = MySBModuleHelper::loadLoaded();
 if(count($modules)!=0) {
     echo ' ( mod';
-    foreach($modules as $module) 
-        if($module->isLoaded()) {
-            //$init_file = 'modules/'.$module->name.'/__init.php';
-            //$classmod = 'MySBModule_'.$module->name;
-            //$cmod = new $classmod;
-            $cmod = $module->module_helper;
-            if( isset($cmod->homelink) and  isset($cmod->lname) )
-                echo '  <a  href="'.$cmod->homelink.'"
-                        target="_blank"
-                        title="module '.$cmod->lname.' v:'.$cmod->version.'">'.$module->name.'</a>';
-            else
-                echo ' '.$module->name;
-        }
-    echo ' ) ';
+    foreach($modules as $module)
+        $cmod = $module->module_helper;
+        if( isset($cmod->homelink) and  isset($cmod->lname) )
+            echo '  <a  href="'.$cmod->homelink.'"
+                    target="_blank"
+                    title="module '.$cmod->lname.' v:'.$cmod->version.'">'.$module->name.'</a>';
+        else
+            echo ' '.$module->name;
+    echo ' )';
 }
 
-echo '
-- <i>'.strftime("%b %Y").'</i>
-';
 ?>
 </div>
-</div>
 
+</div>
 

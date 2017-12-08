@@ -238,6 +238,21 @@ class MySBModuleHelper {
     }
 
     /**
+     * Load loaded modules in array
+     * @return  array
+     */
+    public static function loadLoaded() {
+        global $app;
+        $modload = array();
+        $modules = MySBModuleHelper::load();
+        foreach($modules as $module)
+        if($module->isLoaded()) {
+            $modload[] = $module;
+        }
+        return $modload;
+    }
+
+    /**
      * Load  modules in array
      * @param   string      $name
      * @return  array

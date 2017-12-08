@@ -15,6 +15,8 @@ defined('_MySBEXEC') or die;
 class MySBCore {
 
     public $version = 7;
+    public $mysb_major_version = '0';
+    public $mysb_minor_version = '6';
 
     public function init1() {
         global $app;

@@ -166,7 +166,7 @@ DEFAULT CHARSET=utf8',
     $profil_role->assignToGroup('users');
 
     MySBConfigHelper::create('website_name','PHPMySandBox',MYSB_VALUE_TYPE_VARCHAR64,'Name of the website',  '');
-    MySBConfigHelper::create('technical_contact',$_POST['firstmail'],MYSB_VALUE_TYPE_VARCHAR64,'Technical mail contact',  '');
+    MySBConfigHelper::create('technical_contact','mailto:'.$_POST['firstmail'],MYSB_VALUE_TYPE_VARCHAR64,'Technical contact',  '');
     MySBConfigHelper::create('mail_visible','0',MYSB_VALUE_TYPE_BOOL,'Visibility of users mail', '');
     MySBConfigHelper::create('registration_auto','1',MYSB_VALUE_TYPE_BOOL,'Users creates login themselves', '');
     MySBConfigHelper::create('registration_notify','1',MYSB_VALUE_TYPE_BOOL,'Admin notified for new users', '');
