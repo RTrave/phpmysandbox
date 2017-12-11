@@ -33,7 +33,7 @@ echo '
 $modules = MySBModuleHelper::loadLoaded();
 if(count($modules)!=0) {
     echo ' ( mod';
-    foreach($modules as $module)
+    foreach($modules as $module) {
         $cmod = $module->module_helper;
         if( isset($cmod->homelink) and  isset($cmod->lname) )
             echo '  <a  href="'.$cmod->homelink.'"
@@ -41,6 +41,7 @@ if(count($modules)!=0) {
                     title="module '.$cmod->lname.' v:'.$cmod->version.'">'.$module->name.'</a>';
         else
             echo ' '.$module->name;
+    }
     echo ' )';
 }
 
