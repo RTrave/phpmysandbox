@@ -17,7 +17,6 @@ defined('_MySBEXEC') or die;
  */
 $phpmailer_path = '';               // absolute or relative path to phpmailer
                                     // eg: /usr/share/php/libphp-phpmailer
-$phpmailer_Mail = '';
 $phpmailer_Host = '';
 $phpmailer_Port = '';
 $phpmailer_SMTPAuth = false;

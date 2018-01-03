@@ -75,7 +75,7 @@ if(class_exists('PHPMailer')) {
     //echo $mailerobj->Version;
     if( $mysb_ext_mail=="PHPMailer" ) 
          $infos_php[] = array( 'PHPMailer class','v:'.$mailerobj->Version.'<br>
-         <small>('.$phpmailer_Mail.' on '.$phpmailer_Host.')</small>');
+         <small>('.$mysb_mail.' on '.$phpmailer_Host.')</small>');
     else
         $infos_php[] = array( 'PHPMailer class','not used');
 } else $infos_php[] = array( 'PHPMailer class','not present');

@@ -25,6 +25,7 @@ $mysb_dbpasswd = '';
 $mysb_table_prefix = "mydbsb_";
 
 // Application settings
+$mysb_mail = "";
 $mysb_locale = "en_US.UTF-8";       // fr_FR.UTF-8
 $mysb_timezone = "Europe/London";   // Europe/Paris
 $mysb_DEBUG = false;                // true

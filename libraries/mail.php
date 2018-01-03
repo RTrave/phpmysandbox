@@ -186,6 +186,8 @@ class MySBMail {
         $this->template = 'mail_'.$template.'.php';
         $this->module = $module;
         include(MySB_ROOTPATH.'/config.php');
+        if( $mysb_mail=='' )
+            $app->displayStopAlert('$mysb_mail not set in config.php!!!');
         if( $mysb_ext_mail=='' ) 
             $mysb_ext_mail = 'Native';
         $MailClass = 'MySBMail'.$mysb_ext_mail;
@@ -406,14 +408,15 @@ class MySBMailNative implements MySBIMail {
      */
     private function createHeaders() {
         global $app;
-        $this->headers = 'From: '.MySBConfigHelper::Value('website_name').' <'.MySBConfigHelper::Value('technical_contact').'>
+        include(MySB_ROOTPATH.'/config.php');
+        $this->headers = 'From: '.MySBConfigHelper::Value('website_name').' <'.$mysb_mail.'>
 Content-Type: text/plain; charset="UTF-8" format=flowed
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
 X-Priority: 1
 User-Agent: PHP '.phpversion().'
-Message-ID: <'.rand(10000000,99999999).'.'.MySBConfigHelper::Value('technical_contact').'>
-X-Sender: '.MySBConfigHelper::Value('technical_contact').'
+Message-ID: <'.rand(10000000,99999999).'.'.$mysb_mail.'>
+X-Sender: '.$mysb_mail.'
 Date: '.date('r').'
 ';
     }
@@ -489,12 +492,13 @@ Date: '.date('r').'
      */
     public function send($c_subject,$c_body) {
         global $app;
+        include(MySB_ROOTPATH.'/config.php');
         foreach($this->headers_add as $header) 
             $this->headers .= $header."\r\n";
         if($this->replyto!='') 
             $this->headers .= 'Reply-To: '.$this->replyto."\r\n";
         if($this->to=='') 
-            $this->to = MySBConfigHelper::Value('technical_contact');
+            $this->to = $mysb_mail;
         mail($this->to,$c_subject,MySBUtil::html2str($c_body),$this->headers);
         return '';
     }

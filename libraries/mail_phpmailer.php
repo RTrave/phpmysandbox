@@ -92,6 +92,7 @@ class MySBMailPHPMailer implements MySBIMail {
      */
     public function __construct() {
         global $app;
+        include(MySB_ROOTPATH.'/config.php');
         include(MySB_ROOTPATH.'/phpmailer.conf.php');
         require_once (MySB_ROOTPATH.'/'.$phpmailer_path.'/class.phpmailer.php');
         $this->mail = new PHPMailer_copysent(true);
@@ -110,7 +111,7 @@ class MySBMailPHPMailer implements MySBIMail {
              $this->SMTPDebug = $phpmailer_SMTPDebug;
         else $this->SMTPDebug = 0;
         $this->mail->SetFrom(
-            $phpmailer_Mail,
+            $mysb_mail,
             MySBConfigHelper::Value('website_name') );
 
     }
@@ -221,7 +222,7 @@ class MySBMailPHPMailer implements MySBIMail {
             $this->mail->Debugoutput = 'html';
         }
         if( !$this->to_flag ) {
-            $this->mail->AddAddress(MySBConfigHelper::Value('technical_contact'),MySBConfigHelper::Value('website_name'));
+            $this->mail->AddAddress($app->auth_user->mail,MySBConfigHelper::Value('website_name'));
             $this->to_flag = true;
         }
         $current_mail = clone $this->mail;
