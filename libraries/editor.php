@@ -63,6 +63,14 @@ class MySBEditor {
             $this->tmce_jbimages = true;
 
         echo '<script type="text/javascript" src="jscripts/tinymce/tinymce.min.js"></script>';
+
+        // TODO: keep this until closing overlay remove all TinyMCE added code
+        echo '
+<script type="text/javascript">
+tinymce.remove();
+$(".mce-popover").remove();
+$(".mce-tooltip").remove();
+</script>';
     }
 
     /**
