@@ -23,26 +23,34 @@ Modules livres avec
 --------------------
 
 __example__
+
 Module d'exemple, montrant la facilite d'integration d'une base.
+
 __blank__
+
 Module vierge.
 
 Modules externes
 -----------------
 
 __dbmf3__
+
 DataBase MilesFaker, gestion de contacts (associations, professionnels, ..)
 avec support pour mementos, export, auto-inscription,
 facilites de gestion de courriels, et plus encore !!!
 [heberge sur Github](https://github.com/RTrave/mysb-dbmf3)
+
 __rsvp__
+
 ReSerVation Process, permettant aux utilisateurs de s'inscrire
 aux evenements, en quelques etapes (paiement externe).
 Gestion pass multi-evenements, cycle de validation, differentes organisations,
 evenements avec plusieurs jauges, edition du billet PDF et HTML,
 syntheses CSV des reservations et extraction de courriels.
 [private host](http://phpmysandbox.abadcafe.org/)
+
 __nagr__
+
 News AGgRegator, redaction partagee de newsletters, simple, chartee et rapide.
 [private host](http://phpmysandbox.abadcafe.org/)
 
@@ -72,21 +80,29 @@ Modules shipped with
 ---------------------
 
 __example__
+
 Example module, showing an easy integration base.
+
 __blank__
+
 Empty scratch module.
 
 External modules
 -----------------
 
 __dbmf3__
+
 DataBase MilesFaker, contacts handling, with mementos, exports,
 auto-subscriptions, mailing facilities and much more.
 [hosted on Github](https://github.com/RTrave/mysb-dbmf3)
+
 __rsvp__
+
 ReSerVation Process, permiting users to subscribe events, in few steps to pay and get validated tickets. Multiples organisations and editor/validator roles implemented.
 [private host](http://phpmysandbox.abadcafe.org/)
+
 __nagr__
+
 News AGgRegator, handling share news writting, easily used to emit newsletters.
 [private host](http://phpmysandbox.abadcafe.org/)
 
