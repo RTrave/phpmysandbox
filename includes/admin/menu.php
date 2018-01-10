@@ -23,7 +23,7 @@ function toggle_arrows(vDIV){
         $("#"+vDIV).fadeIn(300);
 }
 </script>
-<div class="cell_show" style="text-align: center;">
+<div id="mysbMenuLevelSwitch" class="cell_show" style="text-align: center;">
     <div id="mysbMenuSwitch" class="roundtop button" onClick="toggle_slide(\'mysbMenuLevel\'); toggle_arrows(\'arr1\'); toggle_arrows(\'arr2\'); toggle_arrows(\'arr3\'); toggle_arrows(\'arr4\');">
         <img id="arr1" src="images/icons/go-down.png" style="float: left;" alt="go-down">
         <img id="arr2" src="images/icons/go-down.png" style="float: right;" alt="go-down">

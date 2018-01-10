@@ -61,7 +61,7 @@ foreach( $groups as $group ) {
     echo '
         <b>'.$group->name.'</b> <i>("'.$group->comments.'", id='.$group->id.')</i>
     </div>
-    <div id="group_edit_'.$group->id.'" style="display: none;">
+    <div id="group_edit_'.$group->id.'" style="display: none; width: 100%; height: 100%;">
     <form action="index.php?tpl=admin/groups" method="post">
     <div class="row">
         <div class="right"><input type="text" name="g'.$group->id.'_name" value="'.$group->name.'"></div>

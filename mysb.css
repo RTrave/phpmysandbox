@@ -18,7 +18,7 @@ body, a, input {
 color: #000000;
 }
 body {
-background-color: #cccccc;
+background-color: #444444;
 }
 div#allshadow {
 background-color: #555555;
@@ -27,27 +27,41 @@ background-color: #555555;
 background-color: rgba(70,70,70,0.7);
 }
 
+div#logbox,
 div#mysbTop,
 div#mysbMiddle,
 div#mysbBottom {
-background-color: #eeeeee;
+background-color: #dddddd;
+}
+div#mysbTop,
+div#mysbMiddle {
+border-bottom: 2px solid #222222;
+}
+#mysbTop ul.menu.left li {
+border-right: 2px solid #222222;
+}
+#mysbTop ul.menu.right li {
+border-left: 2px solid #222222;
 }
 
-div#logbox,
 div#menu2box,
 #mysbTop ul.menu li,
 .mysb_overlay .close,
 div.overHead .action,
 div.overFoot input[type=submit].action,
 div.overFoot a.action {
-background-color: #dddddd;
+background-color: #bbbbbb;
 }
 
+#mysbMiddle div.list_support div.title,
+div.overHead,
+div.overFoot {
+background-color: #dddddd;
+}
 .mysb_overlay,
 #mysbMiddle div.list_support div.row,
 #mysbMiddle div.boxed div.row,
-div.overHead,
-div.overFoot,
+#mysbMiddle p,
 div.overBody,
 div.overBodyFoot {
 background-color: #ffffff;
@@ -60,36 +74,34 @@ box-shadow:0 0 90px 5px #000;
 -webkit-box-shadow: 0 0 90px #000;
 }
 
+#mysbMiddle div.boxed div.title,
 #mysbMiddle h1,
 #mysbMiddle h2,
 #mysbMiddle h3,
-#mysbMiddle div.list_support div.title,
-#mysbMiddle div.boxed div.title,
+div#mysbMenuLevel,
+div#mysbMenuLevelSwitch {
+background-color: #aaaaaa;
+}
 #mysbTopMenu a,
 #mysbMenuLevel a,
-input[type=submit],
 input[type=submit]:active,
-input[type=button],
 .button,
 .cell {
-background-color: #dddddd;
+background-color: #cccccc;
 }
 
 #mysbMiddle h4,
-#mysbMiddle p,
 #mysbMiddle ul,
 #mysbMiddle div.table_support {
 background-color: transparent;
 }
 
 a:hover {
-color: #222222;
+color: #000000;
 }
 #mysbTopMenu a:hover,
-input[type=submit]:hover,
 .button:hover,
 #mysbMenuLevel a:hover,
-input[type=button]:hover,
 div.overHead .action:hover,
 .mysb_overlay .close:hover,
 div.overFoot .button:hover,
@@ -98,8 +110,8 @@ div.overFoot input[type=submit]:hover,
 .mysb_overlay .close:hover,
 div.overHead .action:hover,
 div.overFoot input[type=submit].action:hover {
-background-color: #f2f2f2;
-color: #222222;
+background-color: #dddddd;
+color: #000000;
 }
 textarea, 
 input[type=text],
@@ -111,6 +123,18 @@ input[type=url],
 select,
 body.tinymce {
 background: #eeeeee;
+}
+
+input[type=submit],
+input[type=button],
+.button {
+background-color: #aaaaaa;
+border: 0px solid #222222;
+}
+input[type=submit]:hover,
+input[type=button]:hover{
+background-color: #bbbbbb;
+color: #000000;
 }
 
 #mysbTop div.authbox,
@@ -134,39 +158,63 @@ background-color: #dddddd;
 background-color: #eeeeee;
 }
 
+#mysbMiddle div.advert,
+div#mysbMessages,
+#mysbMessages p,
+div#mysbAlerts,
+#mysbAlerts p {
+background-color: #ffca92;
+}
+
 #mysbMiddle div.advert {
 border: 2px solid red;
-background-color: #ffdb95;
 }
-
-div#mysbMessages {
-background-color: #ffe4e7;
+div#mysbMessages,
+div#mysbAlerts {
 border: 4px solid red;
 }
-#mysbMessages p {
-background-color: #ffe4e7;
+
+#mysbMenuLevel a {
+border: 1px solid #aaaaaa;
+}
+div.list_support div.row,
+div.boxed div.row {
+border-bottom: 1px solid #aaaaaa;
 }
 
-div#mysbAlerts {
-background-color: #ffe4e7;
-border: 4px solid #ffab67;
-}
-#mysbAlerts p {
-background-color: #ffe4e7;
+.help {
+color: #333333;
 }
 
-/*  GRADIENT *//*
+.mysb_overlay .close {
+    border-left: 2px solid #555555;
+    border-bottom: 2px solid #555555;
+}
+.mysb_overlay .action {
+    border-right: 2px solid #555555;
+}
 div.overHead {
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.25) 100%); /* Chrome10+,Safari5.1+ /
-    background: -ms-linear-gradient(top, rgba(0,0,0,0) 50%,rgba(0,0,0,0.25) 100%); /* IE10+ /
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 70%,rgba(0,0,0,0.3) 100%);
+    border-bottom: 2px solid #555555;
 }
 div.overFoot {
-    background: -webkit-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0) 50%); /* Chrome10+,Safari5.1+ /
-    background: -ms-linear-gradient(top, rgba(0,0,0,0.25) 0%,rgba(0,0,0,0) 50%); /* IE10+ /
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 30%);
+    border-top: 2px solid #555555;
 }
-*/
+div.overFoot input[type=submit].action.right,
+div.overFoot a.action.right {
+    border-left: 2px solid #555555;
+}
+div.overFoot input[type=submit].action.left,
+div.overFoot a.action.left {
+    border-right: 2px solid #555555;
+}
+
+div#logbox input[type=submit] {
+border: 1px solid black;
+}
+div#logbox input[type=submit]:hover {
+background-color: #cccccc;
+}
+
 
 
 /*
@@ -211,10 +259,7 @@ div#mysbBottom {
 position: relative;
 width: auto;
 }
-div#mysbTop,
-div#mysbMiddle {
-border-bottom: 2px solid #333333;
-}
+
 .roundtop,
 #overlay div.contentWrap div.overHead  {
 -moz-border-radius-topleft: 4px;
@@ -251,7 +296,6 @@ font-size: 100%;
 }
 input[type=submit],
 input[type=button] {
-border: 1px solid #333333;
 margin: 0px;
 padding: 4px 10px;
 cursor: pointer;
@@ -271,7 +315,6 @@ padding: 2px;
 }
 .button {
 display: inline-block;
-border: 1px solid #333333;
 margin: 0px;
 padding: 5px 10px;
 cursor: pointer;
@@ -314,12 +357,6 @@ height: 100%;
 vertical-align: middle;
 cursor: pointer;
 padding: 0px;
-}
-#mysbTop ul.menu.left li {
-border-right: 2px solid #333333;
-}
-#mysbTop ul.menu.right li {
-border-left: 2px solid #333333;
 }
 #mysbTop ul.menu li.top.first {
 border-top-left-radius: 6px;
@@ -383,7 +420,7 @@ box-shadow: 2px 2px 8px 3px #000;
 
 div#mysbMiddle {
 font-size: 90%;
-padding: 2px;
+padding: 0px;
 }
 #mysbMiddle div.content {
 min-height: 120px;
@@ -399,7 +436,7 @@ border-bottom-right-radius: 0px;
 div#mysbMenuLevel {
 text-align: center;
 padding: 0px 5px;
-margin-bottom: 5px;
+margin-bottom: 0px;
 }
 
 #mysbMenuLevel ul {
@@ -420,7 +457,6 @@ margin-left: 3px;
 margin-right: 3px;
 }
 #mysbMenuLevel a {
-border: 1px solid #333333;
 margin: 0px;
 padding: 2px 10px;
 cursor: pointer;
@@ -443,13 +479,13 @@ font-size: 150%;
 text-align: center;
 }
 #mysbMiddle h2 {
-margin: 8px 0px 0px 0px;
+margin: 8px 0px 8px 0px;
 padding: 10px 5px 5px 5px;
 width: auto;
 font-size: 130%;
 }
 #mysbMiddle h3 {
-margin: 0px 0px 0px 0px;
+margin: 4px 0px 4px 0px;
 padding: 10px 15px 5px 15px;
 font-size: 100%;
 }
@@ -458,8 +494,11 @@ margin: 0px 0px 0px 0px;
 padding: 5px 15px 0px 15px;
 }
 #mysbMiddle p {
-margin: 0px 0px 0px 0px;
+margin: 0px auto;
 padding: 3px 15px;
+display: block;
+width: 600px;
+max-width: 90%;
 }
 #mysbMiddle ul {
 margin: 0px 0px 0px 0px;
@@ -467,7 +506,7 @@ margin: 0px 0px 0px 0px;
 
 #mysbMiddle div.list_support {
 text-align: center;
-padding: 5px 15px 1px;
+padding: 5px 2px 1px;
 }
 
 #mysbMiddle div.cell {
@@ -524,7 +563,7 @@ div#mysbMessages {
 position: fixed;
 display: none;
 padding: 5px;
-width: 200px;
+width: 300px;
 text-align: left;
 z-index: 10005;
 right: 20px;
@@ -541,6 +580,11 @@ height: 100%;
 vertical-align: middle;
 }
 
+div#mysbMessages p {
+padding: 0px;
+width: 100%;
+}
+
 div#mysbMessages p img {
 padding-right: 15px;
 }
@@ -554,7 +598,7 @@ max-width: 60%;
 }
 
 div#mysbAlerts div {
-display: table-cell; 
+display: table-cell;
 height: 100%; 
 vertical-align: middle;
 }
@@ -592,7 +636,6 @@ div.list_support div.row,
 div.boxed div.row {
 padding: 2px 2px 6px;
 text-align: left;
-border-bottom: 1px solid #aaaaaa;
 min-height: 30px;
 }
 div.list_support div.row div.right,
@@ -628,7 +671,6 @@ text-align: right;
 .help {
 font-size: 80%;
 font-style: italic;
-color: #333333;
 display: inline-block;
 }
 
@@ -744,14 +786,11 @@ div#overlaySize {
     cursor:pointer;
     height:32px;
     padding: 1px 3px;
-    border-left: 2px solid #555555;
-    border-bottom: 2px solid #555555;
     border-top-right-radius: 5px;
 }
 .mysb_overlay .action {
     float: left;
     height:32px;
-    border-right: 2px solid #555555;
     padding: 1px 3px;
 }
 .mysb_overlay .action.first {
@@ -775,7 +814,6 @@ div.overHead {
     text-align: center;
     vertical-align: middle;
     padding-right: 46px;
-    border-bottom: 2px solid #555555;
 }
 
 div.overBody {
@@ -800,7 +838,6 @@ div.overFoot {
     text-align: center;
     vertical-align: middle;
     padding-top: 0px;
-    border-top: 2px solid #555555;
 }
 div.overFoot input[type=submit].action,
 div.overFoot a.action {
@@ -809,14 +846,6 @@ div.overFoot a.action {
     border-radius: 0px; 
     border: 0; 
     height: 100%;
-}
-div.overFoot input[type=submit].action.right,
-div.overFoot a.action.right {
-    border-left: 2px solid #555555;
-}
-div.overFoot input[type=submit].action.left,
-div.overFoot a.action.left {
-    border-right: 2px solid #555555;
 }
 
 div.overBodyFoot {
