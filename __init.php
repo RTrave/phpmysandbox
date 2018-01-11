@@ -16,7 +16,7 @@ class MySBCore {
 
     public $version = 7;
     public $mysb_major_version = '0';
-    public $mysb_minor_version = '9a';
+    public $mysb_minor_version = '9b';
 
     public function init1() {
         global $app;
