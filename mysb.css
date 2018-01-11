@@ -746,10 +746,6 @@ margin-bottom: 0px;
 padding-top: 0px;
 padding-bottom: 0px;
 }
-.mce-container, .mce-container *, .mce-widget, .mce-widget * {
-font-size: 12px !important;
-background: #eeeeee !important;
-}
 
 
 /* the overlayed element */
