@@ -15,6 +15,7 @@ define('_MySBSCRIPT', 1);
 
 global $_GET;
 parse_str(implode('&', array_slice($argv, 1)), $_GET);
+$_GET['blanklay']=1;
 
 define('MySB_ROOTPATH', dirname(__FILE__));
 
@@ -46,8 +47,10 @@ $app->scriptCheck();
 $app->auth_user = MySBUserHelper::getByID(1);
 
 if( isset($_GET['tpl']) ) {
-    if( !_incT($_GET['tpl'],$_GET['mod']) )
-        echo 'ERROR: template '.$_GET['tpl'].' not found !!!';
+    if( !$app->ctrl_route() ) {
+        $app->close();
+        die('ERROR in template '.$_GET['tpl'].'_ctrl.php !!!');
+    }
 } else {
     $app->close();
     die("ERROR: no module nor template specified.\n");
