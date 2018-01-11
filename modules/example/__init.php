@@ -18,7 +18,8 @@ class MySBModule_example {
     public $version = 3;
     public $homelink = 'https://github.com/RTrave/phpmysandbox/tree/master/modules/example';
     public $require = array(
-        'core' => 7
+        'core' => 7,
+        'blank' => 1
         );
 
     public function create() {
