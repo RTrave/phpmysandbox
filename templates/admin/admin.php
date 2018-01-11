@@ -118,8 +118,12 @@ module <b>disabled</b>:
 <div class="boxed">
 <div class="title"><b>Configurations</b></div>';
 $configs = MySBConfigHelper::loadByGrp($module->name);
-if(count($configs)==0) echo "\n<i>No config values</i></p>";
-else {
+if(count($configs)==0) {
+    echo '
+    <div class="row" style="text-align: center;">
+    <i>No config values</i>
+    </div>';
+} else {
         echo '
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">';
         foreach($configs as $config) {
