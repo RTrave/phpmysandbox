@@ -109,7 +109,8 @@ div.overFoot input[type=submit]:hover,
 #mysbTop ul.menu li:hover,
 .mysb_overlay .close:hover,
 div.overHead .action:hover,
-div.overFoot input[type=submit].action:hover {
+div.overFoot input[type=submit].action:hover,
+div.checkboxlist {
 background-color: #dddddd;
 color: #000000;
 }
@@ -328,6 +329,11 @@ margin: 0px;
 padding: 0px 5px;
 }
 
+div.checkboxlist {
+display: inline-block;
+margin: 2px 3px;
+padding: 1px 3px;
+}
 
 /*
 *   TOP BOX

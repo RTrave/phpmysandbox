@@ -77,7 +77,7 @@ foreach( $groups as $group ) {
         if( $role->isAssignToGroup($group) ) $checked = 'checked="checked"';
         else $checked = '';
         echo '
-        <div style="display: inline-block; background: #dddddd; margin: 2px 3px; padding: 1px 3px;">
+        <div class="checkboxlist">
             <input type="checkbox" name="r'.$role->id.'_isassignto_g'.$group->id.'" '.$checked.'> <i>'.$role->comments.'</i>
         </div>';
     }
