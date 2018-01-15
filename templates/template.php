@@ -49,8 +49,8 @@ if( $app->show_topmenu ) { ?>
 <div id="overlay" class="mysb_overlay roundtop">
     <div class="close" >
     <img src="images/window-close32.png"
-         alt="'._G('SBGT_overlay_close').'"
-         title="'._G('SBGT_overlay_close').'">
+         alt="<?= _G('SBGT_overlay_close') ?>"
+         title="<?= _G('SBGT_overlay_close') ?>">
     </div>
     <div class="contentWrap" id="contentWrap">...</div>
 </div>
