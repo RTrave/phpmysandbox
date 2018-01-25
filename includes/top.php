@@ -30,16 +30,20 @@ if($app->auth_user==null and MySBConfigHelper::Value('registration_auto'))
     <li>
     <div class="item"
          title="'._G('SBGT_topmenu_registrationinfos').'">
-        <a  href="index.php?tpl=users/registration">'._G('SBGT_topmenu_registration').'</a>
+        <a  href="index.php?tpl=users/registration">
+            <img src="images/icons/contact-new.png"
+                 alt="'._G('SBGT_log_in').'"
+                 ><br>'._G('SBGT_topmenu_registration').'</a>
     </div>
     </li> ';
 echo '
     <li class="top last"
         onclick="toggle_slide150(\'logbox\');">
-    <div class="item">
+    <div class="item"
+         title="'._G('SBGT_log_in').'">
         <a><img src="images/icons/dialog-password.png"
                 alt="'._G('SBGT_log_in').'"
-                title="'._G('SBGT_log_in').'"></a>
+                ><br>Connection</a>
     </div>
     </li>
 </ul>
@@ -57,7 +61,7 @@ echo '
     <div class="item"
          title="'._G('SBGT_topmenu_profileinfos').'">
         <a><img src="images/icons/avatar-default.png"
-             alt="'._G('SBGT_topmenu_profileinfos').'"></a>
+             alt="'._G('SBGT_topmenu_profileinfos').'"><br>Profil</a>
     </div>
     </li>
 </ul>
