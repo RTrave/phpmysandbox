@@ -1,0 +1,236 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  BODY ELEMENTS  **/
+/**********************************/
+
+h1 {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 8px 10px 10px;
+  text-align: center;
+}
+h2 {
+  font-size: 110%;
+  font-weight: bold;
+  padding: 6px 10px 8px;
+  text-align: left;
+}
+
+
+/**********************************/
+/**  IN CONTENT ELEMENTS  **/
+/**********************************/
+
+.content,
+.list_support {
+  display: inline-block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.content.advert {
+  padding: .5rem;
+}
+
+.content h1 {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 8px 10px 10px;
+  text-align: center;
+}
+.content h2 {
+  font-size: 110%;
+  font-weight: bold;
+  padding: 6px 10px 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.list {
+  display: block;
+  text-align: center;
+  position: relative;
+}
+.list > .row {
+  display: table;
+  /* position: relative; */
+  padding: 0;
+  margin: 1px 0px 0px;
+  border-collapse:separate;
+  border-spacing:1px 0px;
+}
+.list > .row > [class*="col-"] {
+  display: table-cell;
+  height: 100%;
+  /* margin: 1px; */
+  /* border: 1px solid transparent; */
+  padding: 0;
+  /* background-color: #cccccc; */
+  float: none;
+  clear: both;
+  vertical-align: middle;
+  /* border: 1px solid red; */
+}
+.list > .row > [class*="col-"].t-center {
+    text-align: center;
+}
+.list > .row > [class*="col-"].t-right {
+    text-align: right;
+}
+.list > .row > a[class*="col-"] {
+  min-width: 50px;
+  /* display: table-cell; */
+  /* height: 100%; */
+  /* background-color: #bbbbbb; */
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 480px) {
+  .content,
+  .list_support {
+    max-width: 100%;
+    margin: 0 0 10px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+
+}
+
+
+/**********************************/
+/**  TEXTS, INPUTS AND OTHERS  **/
+/**********************************/
+
+input:not([type=image]),
+p,
+textarea {
+  width: 100%;
+  padding: .75rem .75rem;
+  /* font-size: 1rem; */
+  /* line-height: 1.5; */
+}
+input[type=image] {
+  width: auto;
+  padding: 0;
+}
+input[type=checkbox] {
+  width: auto;
+  margin: .75rem .75rem;
+}
+select {
+  display: inline-block;
+  width: 100%;
+  padding: .25rem .75rem;
+  line-height: 2.3;
+  /* outline: none; */
+}
+label {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+.checkbox-list label {
+  width: auto;
+}
+.checkbox-list label p {
+  width: auto;
+  display: inline-block;
+}
+span.help {
+  font-size: 80%;
+  font-style: italic;
+}
+
+.row > div {
+  /* vertical-align: middle; */
+}
+.row.row-submit {
+  margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .checkbox-list label {
+    width: 100%;
+  }
+  .checkbox-list label input {
+    float: right;
+  }
+}
+
+
+/**********************************/
+/**  MIDDLE NAVBAR  **/
+/**********************************/
+
+@media (min-width: 1024px) {
+  #NavBarColumn.navbar {
+    position: relative;
+  }
+  #NavBarColumn.navbar ul {
+    height: auto;
+    position: relative;
+  }
+  #NavBarColumn.navbar ul li {
+    display: block;
+    text-align: left;
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+    min-height: 50px;
+  }
+  #NavBarColumn.navbar li.icon-responsive {
+    display: none;
+  }
+
+  #NavBarColumn.navbar .dropbtn {
+    cursor: default;
+    background-color: rgba(255,255,255,0);
+  }
+  #NavBarColumn.navbar .dropdown-content {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    box-shadow: none;
+  }
+  #NavBarColumn.navbar .dropdown-item {
+    float: none;
+    clear: both;
+    text-align: left;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 0px;
+  }
+  #NavBarColumn.navbar ul li.dropdown {
+    height: auto;
+  }
+  #NavBarColumn.navbar ul li.dropdown img {
+    display: none;
+  }
+  #NavBarColumn ul li > a {
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  #NavBarColumn ul li.dropdown.right .dropdown-content {
+    right: 10px;
+  }
+}
+

@@ -13,13 +13,22 @@
 defined('_MySBEXEC') or die;
 
 //global $app;
+include('config.php');
 ?>
 
     <title><?php echo MySBConfigHelper::Value('website_name'); ?></title>
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
-    <link rel="stylesheet" type="text/css" href="mysb.css" media="all">
-    <link rel="stylesheet" type="text/css" href="mysbhandheld.css" media="(max-width: 520px)">
-    <link rel="stylesheet" type="text/css" href="mysbprint.css" media="print">
+<?php if($mysb_DEBUG) { ?>
+    <link rel="stylesheet" type="text/css" href="css/_1globals.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_2grid.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_4navbar.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_5content.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_7modal.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_8extras.css" media="all">
+<?php } else { ?>
+    <link rel="stylesheet" type="text/css" href="css/mysb.min.css" media="all">
+<?php } ?>
+    <link rel="stylesheet" type="text/css" href="css/theme.css" media="all">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="shortcut icon" href="images/favicon_32.png" type="image/x-icon" >
 <?php //if($app->display_data['refresh_seconds']!=0) echo '    <meta http-equiv="refresh" content="'.$refresh_time.'; URL=index.php">';

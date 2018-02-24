@@ -1,0 +1,219 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  NAVBAR STYLES  **/
+/**********************************/
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 50px;
+}
+
+.navbar li {
+  float: left;
+  list-style: none;
+  height: 100%;
+  text-align: left;
+}
+.navbar li.right {
+  float: right;
+}
+.navbar li > a,
+.navbar li > span,
+.navbar .dropbtn {
+  padding: 1.2rem .75rem .70rem;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  height: 100%;
+  text-decoration: none;
+}
+.navbar li > a,
+.navbar .dropbtn {
+  width: 100%;
+}
+.navbar img {
+  width: 24px;
+  float: left;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+
+/**********************************/
+/**  NAVBAR MECANICS  **/
+/**********************************/
+
+.navbar li.icon-responsive {
+  display: none;
+  float: right;
+}
+.navbar li.icon-responsive img {
+  width: 32px;
+  margin-top: -8px;
+  margin-right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar.responsive {
+    position: relative;
+  }
+  .navbar ul {
+    height: auto;
+    position: relative;
+  }
+  .navbar ul li {
+    display: block;
+    height: auto;
+  }
+  .navbar.responsive ul li {
+    text-align: left;
+  }
+  .navbar:not(.no-collapse) ul li:not(.no-collapse):not(.icon-responsive) {
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+    display: block;
+    height: 0px;
+    transition: height .2s ease-out;
+  }
+  .navbar.responsive ul li:not(.no-collapse):not(.icon-responsive) {
+    height: 50px;
+    transition: height .2s ease-in;
+  }
+  .navbar ul li.no-collapse {
+    display: block !important;
+    height: 50px;
+    width: 100%;
+  }
+  .navbar.no-collapse ul li.right,
+  .navbar ul li.no-collapse.right {
+    text-align: right;
+  }
+  .navbar.responsive ul li.no-collapse {
+    width: 100%;
+    height: 50px;
+  }
+  .navbar li.icon-responsive {
+    display: block;
+    /* float: right; */
+    /* height: 50px; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 50px;
+  }
+  .navbar.responsive li.icon-responsive {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 50px;
+  }
+}
+
+
+/**********************************/
+/**  DROPDOWN STYLES  **/
+/**********************************/
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  1display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-item > div,
+.dropdown-item > span,
+.dropdown-item > a {
+  padding: 1.2rem .75rem .70rem;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  height: 100%;
+  min-height: 50px;
+  width: 100%;
+}
+.dropdown-item > div,
+.dropdown-item > a {
+  text-decoration: none;
+}
+.dropdown-item > span {
+}
+
+
+/**********************************/
+/**  DROPDOWN MECANICS  **/
+/**********************************/
+
+.dropdown .dropdown-content {
+  box-shadow: none;
+  max-height: 0px;
+  transition: max-height .3s ease-out,
+              box-shadow .25s ease-out;
+  overflow: hidden;
+  min-width: 200px;
+}
+.dropdown.dropped .dropdown-content {
+  box-shadow: 0 0 .1rem .2rem rgba(128,128,128,.5);
+  max-height: 300px;
+  transition: max-height .3s ease-in,
+              box-shadow .25s ease-in;
+}
+.dropdown.dropped .dropdown-item {
+  display: block;
+}
+.dropdown.right .dropdown-content {
+  right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar:not(.responsive) .dropdown-content {
+    display: none;
+  }
+  .navbar .dropdown-content {
+    position: relative;
+    width: 100%;
+  }
+  .navbar.responsive .dropdown-item {
+    float: none;
+    clear: both;
+    text-align: left;
+    width: 100%;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  .navbar.responsive ul li.dropdown.dropped {
+    height: auto;
+  }
+  .dropdown.dropped .dropdown-content {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar.responsive .dropdown-item {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+

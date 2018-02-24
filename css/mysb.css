@@ -1,0 +1,1349 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  GLOBAL STYLES  **/
+/**********************************/
+
+* {
+  margin: 0px;
+}
+*,
+::after, ::before {
+  box-sizing: border-box;
+}
+body {
+  overflow-y:scroll;
+}
+form {
+  width: 100%;
+  height: 100%;
+}
+button, input, optgroup, select, textarea {
+  margin: 0;
+}
+
+/**********************************/
+/**  INPUTS, BUTTONS AND OTHERS  **/
+/**********************************/
+
+button, input {
+  overflow: hidden;
+}
+button, input, optgroup, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+button,
+input[type=submit] {
+  cursor: pointer;
+
+}
+a {
+  color: inherit;
+}
+
+
+/***********************************/
+/**  HIDE LAYER  **/
+/***********************************/
+
+#hidelayer {
+  display: none;
+}
+
+
+/***********************************/
+/**  SPIN LAYER  **/
+/***********************************/
+
+#spinlayer {
+  display: none;
+  position: fixed;
+  z-index: 5000000;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  text-align: center;
+  background-color: transparent;
+}
+
+
+/***********************************/
+/**  BODY LAYER  **/
+/***********************************/
+
+div#mysbBody {
+  text-align: center;
+  vertical-align: middle;
+}
+div#mysbMiddle {
+  min-height: 200px;
+}
+
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 480px) {
+
+}
+
+
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  MIDDLE BODY ELEMENTS  **/
+/**********************************/
+
+div#mysbMiddle {
+  display: inline-block;
+  width: 1024px;
+  /* width: 100%; */
+  min-height: 80vh;
+  text-align: center;
+}
+
+@media (max-width: 1024px) {
+  div#mysbMiddle {
+    width: 768px;
+  }
+}
+
+@media (max-width: 768px) {
+  div#mysbMiddle {
+    /* display: inline-block; */
+    width: 480px;
+  }
+}
+
+@media (max-width: 480px) {
+  div#mysbMiddle {
+    /* display: block; */
+    width: 100%;
+  }
+}
+
+
+/**********************************/
+/**  GRID ELEMENTS  **/
+/**********************************/
+
+.container {
+  display: inline-block;
+  min-height: 250px;
+  text-align: center;
+}
+
+.fright,
+.fright-sm,
+.fright-md,
+.fright-lg {
+  float: right;
+}
+
+.row {
+  padding: 5px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  text-align: left;
+  display: inline-block;
+}
+
+*[class*="col-"] {
+  1border: 1px solid red;
+  1background-color: red;
+}
+
+*[class*="col-"] * {
+  1width: 100%;
+}
+
+
+/**********************************/
+/**  COLUMNS ELEMENTS  **/
+/**********************************/
+
+.col,
+.col-1, .col-10, .col-11, .col-12, .col-2, .col-3,
+.col-4, .col-5, .col-6, .col-7, .col-8, .col-9,
+.col-auto, .col-lg,
+.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3,
+.col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+.col-lg-auto, .col-md,
+.col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3,
+.col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
+.col-md-auto, .col-sm,
+.col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3,
+.col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+.col-sm-auto, .col-xl,
+.col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3,
+.col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9,
+.col-xl-auto {
+  display: inline-block;
+  position: relative;
+  /* width: 100%; */
+  min-height: 1px;
+  padding-right: 10px;
+  padding-left: 10px;
+  float: left;
+}
+
+.col-1,
+.col-sm-1,
+.col-md-1,
+.col-lg-1 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 8%;
+  flex: 0 0 8%;
+  max-width: 8%;
+  width: 8%;
+}
+
+.col-2,
+.col-sm-2,
+.col-md-2,
+.col-lg-2 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 16%;
+  flex: 0 0 16%;
+  max-width: 16%;
+  width: 16%;
+}
+
+.col-3,
+.col-sm-3,
+.col-md-3,
+.col-lg-3 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 25%;
+  flex: 0 0 25%;
+  max-width: 25%;
+  width: 25%;
+}
+
+.col-4,
+.col-sm-4,
+.col-md-4,
+.col-lg-4 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 33%;
+  flex: 0 0 33%;
+  max-width: 33%;
+  width: 33%;
+}
+
+.col-5,
+.col-sm-5,
+.col-md-5,
+.col-lg-5 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 41%;
+  flex: 0 0 41%;
+  max-width: 41%;
+  width: 41%;
+}
+
+.col-6,
+.col-sm-6,
+.col-md-6,
+.col-lg-6 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 50%;
+  flex: 0 0 50%;
+  max-width: 50%;
+  width: 50%;
+}
+
+.col-7,
+.col-sm-7,
+.col-md-7,
+.col-lg-7 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 58%;
+  flex: 0 0 58%;
+  max-width: 58%;
+  width: 58%;
+}
+
+.col-8,
+.col-sm-8,
+.col-md-8,
+.col-lg-8 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 66%;
+  flex: 0 0 66%;
+  max-width: 66%;
+  width: 66%;
+}
+
+.col-9,
+.col-sm-9,
+.col-md-9,
+.col-lg-9 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+  width: 75%;
+}
+
+.col-10,
+.col-sm-10,
+.col-md-10,
+.col-lg-10 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 83%;
+  flex: 0 0 83%;
+  max-width: 83%;
+  width: 83%;
+}
+
+.col-11,
+.col-sm-11,
+.col-md-11,
+.col-lg-11 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 91%;
+  flex: 0 0 91%;
+  max-width: 91%;
+  width: 91%;
+}
+
+.col,
+.col-12,
+.col-sm-12,
+.col-md-12,
+.col-lg-12 {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+.col-auto,
+.col-sm-auto,
+.col-md-auto,
+.col-lg-auto,
+ {
+  -webkit-box-flex:0;
+  -ms-flex:0 0 auto;
+  flex:0 0 auto;
+  width:auto;
+  max-width:none
+}
+
+@media (max-width: 1024px) {
+  .fright-lg {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .col-lg,
+  .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3,
+  .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9,
+  .col-lg-auto {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .fright-md {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .col-md,
+  .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3,
+  .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9,
+  .col-md-auto {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .fright-sm {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .col-sm,
+  .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3,
+  .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9,
+  .col-sm-auto {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+
+/**********************************/
+/**  SIZED BLOCK ELEMENTS  **/
+/**********************************/
+
+.w-100,
+.w-sm-100,
+.w-md-100,
+.w-lg-100 {
+  display: inline-block;
+  width: 100%;
+  max-width: 1020px;
+}
+.w-sm-100 {
+  max-width: 470px;
+}
+.w-md-100 {
+  max-width: 760px;
+}
+.w-lg-100 {
+  max-width: 1020px;
+}
+
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+}
+
+@media (max-width: 480px) {
+}
+
+
+/**********************************/
+/**  HIDE/SHOW ELEMENTS  **/
+/**********************************/
+
+.d-show,
+.d-show-sm,
+.d-show-md,
+.d-show-lg {
+}
+
+
+@media (max-width: 480px) {
+  .d-show-sm { display: none !important; }
+}
+
+@media (max-width: 768px) {
+  .d-show-md { display: none !important; }
+}
+
+@media (max-width: 1024px) {
+  .d-show-lg { display: none !important; }
+}
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  NAVBAR STYLES  **/
+/**********************************/
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 50px;
+}
+
+.navbar li {
+  float: left;
+  list-style: none;
+  height: 100%;
+  text-align: left;
+}
+.navbar li.right {
+  float: right;
+}
+.navbar li > a,
+.navbar li > span,
+.navbar .dropbtn {
+  padding: 1.2rem .75rem .70rem;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  height: 100%;
+  text-decoration: none;
+}
+.navbar li > a,
+.navbar .dropbtn {
+  width: 100%;
+}
+.navbar img {
+  width: 24px;
+  float: left;
+  margin-top: -4px;
+  margin-right: 10px;
+}
+
+
+/**********************************/
+/**  NAVBAR MECANICS  **/
+/**********************************/
+
+.navbar li.icon-responsive {
+  display: none;
+  float: right;
+}
+.navbar li.icon-responsive img {
+  width: 32px;
+  margin-top: -8px;
+  margin-right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar.responsive {
+    position: relative;
+  }
+  .navbar ul {
+    height: auto;
+    position: relative;
+  }
+  .navbar ul li {
+    display: block;
+    height: auto;
+  }
+  .navbar.responsive ul li {
+    text-align: left;
+  }
+  .navbar:not(.no-collapse) ul li:not(.no-collapse):not(.icon-responsive) {
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+    display: block;
+    height: 0px;
+    transition: height .2s ease-out;
+  }
+  .navbar.responsive ul li:not(.no-collapse):not(.icon-responsive) {
+    height: 50px;
+    transition: height .2s ease-in;
+  }
+  .navbar ul li.no-collapse {
+    display: block !important;
+    height: 50px;
+    width: 100%;
+  }
+  .navbar.no-collapse ul li.right,
+  .navbar ul li.no-collapse.right {
+    text-align: right;
+  }
+  .navbar.responsive ul li.no-collapse {
+    width: 100%;
+    height: 50px;
+  }
+  .navbar li.icon-responsive {
+    display: block;
+    /* float: right; */
+    /* height: 50px; */
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 50px;
+  }
+  .navbar.responsive li.icon-responsive {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 50px;
+  }
+}
+
+
+/**********************************/
+/**  DROPDOWN STYLES  **/
+/**********************************/
+
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  1display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-item > div,
+.dropdown-item > span,
+.dropdown-item > a {
+  padding: 1.2rem .75rem .70rem;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: left;
+  vertical-align: middle;
+  height: 100%;
+  min-height: 50px;
+  width: 100%;
+}
+.dropdown-item > div,
+.dropdown-item > a {
+  text-decoration: none;
+}
+.dropdown-item > span {
+}
+
+
+/**********************************/
+/**  DROPDOWN MECANICS  **/
+/**********************************/
+
+.dropdown .dropdown-content {
+  box-shadow: none;
+  max-height: 0px;
+  transition: max-height .3s ease-out,
+              box-shadow .25s ease-out;
+  overflow: hidden;
+  min-width: 200px;
+}
+.dropdown.dropped .dropdown-content {
+  box-shadow: 0 0 .1rem .2rem rgba(128,128,128,.5);
+  max-height: 300px;
+  transition: max-height .3s ease-in,
+              box-shadow .25s ease-in;
+}
+.dropdown.dropped .dropdown-item {
+  display: block;
+}
+.dropdown.right .dropdown-content {
+  right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar:not(.responsive) .dropdown-content {
+    display: none;
+  }
+  .navbar .dropdown-content {
+    position: relative;
+    width: 100%;
+  }
+  .navbar.responsive .dropdown-item {
+    float: none;
+    clear: both;
+    text-align: left;
+    width: 100%;
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+  .navbar.responsive ul li.dropdown.dropped {
+    height: auto;
+  }
+  .dropdown.dropped .dropdown-content {
+    box-shadow: none;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .navbar.responsive .dropdown-item {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  BODY ELEMENTS  **/
+/**********************************/
+
+h1 {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 8px 10px 10px;
+  text-align: center;
+}
+h2 {
+  font-size: 110%;
+  font-weight: bold;
+  padding: 6px 10px 8px;
+  text-align: left;
+}
+
+
+/**********************************/
+/**  IN CONTENT ELEMENTS  **/
+/**********************************/
+
+.content,
+.list_support {
+  display: inline-block;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.content.advert {
+  padding: .5rem;
+}
+
+.content h1 {
+  font-size: 120%;
+  font-weight: bold;
+  padding: 8px 10px 10px;
+  text-align: center;
+}
+.content h2 {
+  font-size: 110%;
+  font-weight: bold;
+  padding: 6px 10px 8px;
+  width: 100%;
+  text-align: left;
+}
+
+.list {
+  display: block;
+  text-align: center;
+  position: relative;
+}
+.list > .row {
+  display: table;
+  /* position: relative; */
+  padding: 0;
+  margin: 1px 0px 0px;
+  border-collapse:separate;
+  border-spacing:1px 0px;
+}
+.list > .row > [class*="col-"] {
+  display: table-cell;
+  height: 100%;
+  /* margin: 1px; */
+  /* border: 1px solid transparent; */
+  padding: 0;
+  /* background-color: #cccccc; */
+  float: none;
+  clear: both;
+  vertical-align: middle;
+  /* border: 1px solid red; */
+}
+.list > .row > [class*="col-"].t-center {
+    text-align: center;
+}
+.list > .row > [class*="col-"].t-right {
+    text-align: right;
+}
+.list > .row > a[class*="col-"] {
+  min-width: 50px;
+  /* display: table-cell; */
+  /* height: 100%; */
+  /* background-color: #bbbbbb; */
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 480px) {
+  .content,
+  .list_support {
+    max-width: 100%;
+    margin: 0 0 10px;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+
+}
+
+
+/**********************************/
+/**  TEXTS, INPUTS AND OTHERS  **/
+/**********************************/
+
+input:not([type=image]),
+p,
+textarea {
+  width: 100%;
+  padding: .75rem .75rem;
+  /* font-size: 1rem; */
+  /* line-height: 1.5; */
+}
+input[type=image] {
+  width: auto;
+  padding: 0;
+}
+input[type=checkbox] {
+  width: auto;
+  margin: .75rem .75rem;
+}
+select {
+  display: inline-block;
+  width: 100%;
+  padding: .25rem .75rem;
+  line-height: 2.3;
+  /* outline: none; */
+}
+label {
+  width: 100%;
+  position: relative;
+  display: block;
+}
+.checkbox-list label {
+  width: auto;
+}
+.checkbox-list label p {
+  width: auto;
+  display: inline-block;
+}
+span.help {
+  font-size: 80%;
+  font-style: italic;
+}
+
+.row > div {
+  /* vertical-align: middle; */
+}
+.row.row-submit {
+  margin-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .checkbox-list label {
+    width: 100%;
+  }
+  .checkbox-list label input {
+    float: right;
+  }
+}
+
+
+/**********************************/
+/**  MIDDLE NAVBAR  **/
+/**********************************/
+
+@media (min-width: 1024px) {
+  #NavBarColumn.navbar {
+    position: relative;
+  }
+  #NavBarColumn.navbar ul {
+    height: auto;
+    position: relative;
+  }
+  #NavBarColumn.navbar ul li {
+    display: block;
+    text-align: left;
+    overflow: hidden;
+    float: none;
+    clear: both;
+    width: 100%;
+    min-height: 50px;
+  }
+  #NavBarColumn.navbar li.icon-responsive {
+    display: none;
+  }
+
+  #NavBarColumn.navbar .dropbtn {
+    cursor: default;
+    background-color: rgba(255,255,255,0);
+  }
+  #NavBarColumn.navbar .dropdown-content {
+    position: relative;
+    width: 100%;
+    max-height: 500px;
+    box-shadow: none;
+  }
+  #NavBarColumn.navbar .dropdown-item {
+    float: none;
+    clear: both;
+    text-align: left;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 0px;
+  }
+  #NavBarColumn.navbar ul li.dropdown {
+    height: auto;
+  }
+  #NavBarColumn.navbar ul li.dropdown img {
+    display: none;
+  }
+  #NavBarColumn ul li > a {
+    min-height: 50px;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  #NavBarColumn ul li.dropdown.right .dropdown-content {
+    right: 10px;
+  }
+}
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  MODAL STYLES  **/
+/**********************************/
+
+#mysbOverlay {
+  display: none;
+  position: fixed;
+  z-index: 9995;
+  width: 100%;
+  height: 200%;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.modal {
+  display:none;
+  z-index: 10000 !important;
+  width: 768px;
+  top: 10px;
+  bottom: 25%;
+  margin-top: 10px;
+}
+div#overlaySize { /* TODO */
+  display:none;
+}
+#contentWrap .content {
+  margin-bottom: 0;
+}
+
+/* default close button positioned on upper right corner */
+.modal .close {
+  position:absolute;
+  z-index: 10010;
+  right: 5px;
+  top:5px;
+  cursor:pointer;
+  height:45px;
+  width:45px;
+  opacity: 1;
+  transition: opacity .15s ease-in-out;
+}
+.modal .close:hover {
+  opacity: 1;
+  transition: opacity .15s ease-in-out;
+}
+.modal .action {
+  height:48px;
+}
+
+div#overlay input[type=image] {
+  width: 24px;
+}
+
+div.modalTitle {
+  top: 0;
+  left: 0;
+  right: 0;
+  font-weight: bold;
+  vertical-align: middle;
+  position: relative;
+  display: table;
+  padding: 0;
+  margin: 0px 0px 0px;
+  border-collapse:separate;
+  border-spacing:0px 0px;
+  width: 100%;
+  text-align: left;
+}
+
+.modalTitle > [class*="col-"],
+.modalFoot > [class*="col-"] {
+  display: table-cell;
+  height: 100%;
+  padding: 0;
+  float: none;
+  clear: both;
+  vertical-align: middle;
+}
+.modalTitle > [class*="col-"].t-center {
+  text-align: center;
+}
+.modalTitle > [class*="col-"].t-right {
+  text-align: right;
+}
+.modalTitle > a[class*="col-"] {
+  min-width: 48px;
+}
+
+div.modalTitle .list > div > * {
+  min-height: 48px;
+}
+.close img {
+  min-height: 48px;
+}
+
+div.modalTitle form {
+  width: auto;
+  display: inline-block;
+  float: left;
+}
+
+div.modalBody {
+  display: inline-block;
+  left: 0;
+  right: 0;
+  width: 100%;
+  margin-bottom: 1px; /*  */
+  max-height: 65vh;
+}
+.modal div.modalBody,
+.modal div.modalBodyFoot {
+  overflow-y:auto;
+}
+div.modalFoot .row {
+  margin-bottom: 1px;
+}
+
+div.modalFoot {
+  display: inline-block;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 0px;
+  z-index: 10001;
+  display: table;
+  padding: 0;
+  margin: 1px 0px 0px;
+  border-collapse:separate;
+  border-spacing:0px 0px;
+  width: 100%;
+  padding: 0;
+  margin: 0px 0px 0px;
+}
+div.modalFoot input[type=submit].action,
+div.modalFoot a.action {
+  margin: 0;
+  /* padding: 0; */
+  border-radius: 0px;
+  border: 0;
+}
+
+div.modalBodyFoot {
+  display: inline-block;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+
+div.modalBody input[type=submit],
+div.modalFoot input[type=submit],
+div.modalBodyFoot input[type=submit],
+div.modalFoot .button {
+  /* margin: 1px 5px; */
+}
+
+/* THEMES OLD */
+
+#mysbOverlay {
+  background-color: rgba(30,30,30,0.9);
+}
+div.modalTitle .action,
+div.modalFoot a.action {
+  background-color: #bbbbbb;
+}
+div.modalTitle,
+div.modalFoot {
+  background-color: #dddddd;
+}
+.modal,
+div.modalBody,
+div.modalBodyFoot {
+  background-color: #ffffff;
+}
+
+.modal {
+  border: 2px solid #111111;
+  box-shadow:0 0 90px 5px #000;
+  -moz-box-shadow:0 0 90px 5px #000;
+  -webkit-box-shadow: 0 0 90px #000;
+}
+
+div.modalTitle .action:hover,
+div.modalFoot .button:hover,
+div.modalTitle .action:hover {
+  background-color: #dddddd;
+  color: #000000;
+}
+
+@media (max-width: 580px) { /* +100px for closing cross */
+  .modal .close {
+    background-color: rgba(220,53,69,1);
+  }
+  .modal .close:hover {
+    box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.75);
+  }
+}
+
+@media (min-width: 1124px) { /* +100px for closing cross */
+  .modal {
+    width: 760px;
+  }
+}
+
+@media (max-width: 868px) { /* +100px for closing cross */
+  .modal {
+    width: 470px;
+  }
+  div.modalBody {
+    max-height: 50vh;
+  }
+}
+
+@media (max-width: 580px) { /* +100px for closing cross */
+  .modal {
+    display:none;
+    width: auto;
+    margin-top: 2px;
+    margin-right: 2px;
+    margin-left: 2px;
+  }
+  .modal .close {
+    position: relative;
+    right: 0;
+    top: 0;
+    width: 100%;
+    border-radius: 0;
+    border: 0;
+    text-align: right;
+  }
+  div.modalContent {
+    overflow-y:auto;
+    max-height: 40vh;
+  }
+  div.modalBody {
+    overflow-y:visible;
+    max-height: 1000px;
+  }
+}
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  Alerts: #mysbAlerts  **/
+/**********************************/
+
+#mysbAlerts {
+  padding: 5px;
+  width: 100%;
+  cursor:default;
+  text-align: center;
+}
+
+#mysbAlerts > div {
+  display: inline-block;
+  max-width: 450px;
+  width: 100%;
+  margin: 5px 0px;
+  padding: 10px 0px;
+  border-radius: 5px;
+  background-color: #ffca92;
+  border: 4px solid red;
+}
+
+#mysbAlerts > div > div {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding: 0px 10px;
+  text-align: left;
+}
+
+
+/**********************************/
+/**  Tip Messages: #mysbMessages  **/
+/**********************************/
+
+#mysbMessages {
+  font-size: 80%;
+  position: fixed;
+  display: none;
+  padding: 5px;
+  width: 250px;
+  max-width: 90%;
+  z-index: 10005;
+  right: 20px;
+  bottom: 20px;
+  cursor:default;
+  border-radius: 5px;
+  background-color: #ffca92;
+  border: 1px solid red;
+  box-shadow: 0 0 .1rem .3rem rgba(255,0,0,.9);
+}
+
+#mysbMessages > div {
+  /* display: table-row; */
+  width: 100%;
+}
+
+#mysbMessages > div > div{
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding: 0px 10px;
+}
+
+@media (max-width: 480px) {
+  #mysbMessages {
+    width: 600px;
+  }
+}
+
+
+/**********************************/
+/**  SQL LOG BOX  **/
+/**********************************/
+
+#LoginDropDown div.row,
+#LoginDropDown div.row > * {
+  width: 100%;
+}
+#LoginDropDown div.row {
+  padding: 6px 16px;
+  display: block;
+  text-align: left !important;
+  width: 100%;
+}
+
+
+
+#mysbLogSql {
+  display:block;
+  width: 80%;
+  margin: 5px 0px 5px 0px;
+  padding: 10px 10px 25px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+#mysbLogSql p {
+  margin: 0px auto 0px auto;
+  width: 70%;
+  padding: 10px;
+  color: white;
+  background-color: #bb0000;
+  font-size: 80%;
+}
+
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 768px) {
+  #mysbLogSql,
+  #mysbLogSql p {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+   #mysbLogSql {
+    display: none;
+   }
+}
+
+
+/**********************************/
+/**  OBSOLETE STYLE  **/
+/**********************************/
+
+div.boxed {
+  text-align: left;
+}
+div.list_support div.boxed,
+div.boxed div.row {
+  padding: 5px 10px;
+  min-height: 60px;
+}
+div.boxed div.row > div.right {
+  /* float: right; */
+  /* display: inline-block; */
+  right: 0;
+  position: absolute;
+}
+div.boxed p {
+  text-align: left;
+}

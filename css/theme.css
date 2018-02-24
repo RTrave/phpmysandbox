@@ -1,0 +1,265 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************
+**  GLOBAL STYLES
+***********************************/
+
+a {
+  color: black;
+  transition: color .15s ease-in-out,
+              background-color .15s ease-in-out,
+              border-color .15s ease-in-out,
+              box-shadow .15s ease-in-out;
+}
+a:hover {
+  color: #007bff;
+  /* background-color: transparent; */
+}
+
+input:not([type=image]),
+textarea {
+    color: #444444;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #cccccc;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,
+                border-color .15s ease-in-out,
+                background-color .15s ease-in-out,
+                box-shadow .15s ease-in-out;
+}
+input[type=image] {
+    /* padding: 0; */
+    /* margin: 2px 5px; */
+}
+input:focus,
+textarea:focus {
+    border-color: rgba(0,123,255,.5);
+    outline: 0;
+    box-shadow: 0 0 .1rem .2rem rgba(0,123,255,.5);
+}
+select:focus {
+  box-shadow: 0 0 .1rem .2rem rgba(0,123,255,.5);
+}
+textarea {
+  max-width: 100%;
+}
+
+/*** Primary color ***/
+button,
+input[type=submit] {
+  border: none;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0,123,255,.8);
+}
+input[type=image],
+a.btn {
+  border: none;
+  cursor: pointer;
+  color: black;
+  background-color: rgba(0,123,255,.2);
+}
+button:hover,
+input[type=submit]:hover,
+button:focus,
+input[type=submit]:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.75);
+  background-color: rgba(0,123,255,1);
+}
+input[type=image]:hover,
+input[type=image]:focus,
+a.btn:hover,
+a.btn:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.25);
+  background-color: rgba(0,123,255,.5);
+}
+/*** Danger color ***/
+button.danger,
+input.danger[type=submit] {
+  background-color: rgba(220,53,69,1);
+}
+input.danger[type=image],
+a.danger.btn,
+.danger.btn {
+  background-color: rgba(220,53,69,.2);
+}
+button.danger:hover,
+input.danger[type=submit]:hover,
+button.danger:focus,
+input.danger[type=submit]:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.75);
+}
+input.danger[type=image]:hover,
+input.danger[type=image]:focus,
+a.danger.btn:hover,
+a.danger.btn:focus,
+.danger.btn:hover,
+.danger.btn:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.25);
+  background-color: rgba(220,53,69,.5);
+}
+/*** Success color ***/
+button.success,
+input.success[type=submit] {
+  background-color: rgba(40,167,69,1);
+}
+button.success:hover,
+input.success[type=submit]:hover,
+button.success:focus,
+input.success[type=submit]:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(40,167,69,.75);
+}
+/*** Secondary color ***/
+button.secondary,
+input.secondary[type=submit] {
+  background-color: rgba(108,117,125,1);
+}
+button.secondary:hover,
+input.secondary[type=submit]:hover,
+button.secondary:focus,
+input.secondary[type=submit]:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(108,117,125,.75);
+}
+
+input.is-invalid,
+input.is-invalid:focus {
+  border-color: rgba(220, 53, 69, .75);
+  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5);
+}
+
+.content span.help {
+  color: rgba(108,117,125, 1);
+}
+
+
+/**********************************
+**  NAVBAR STYLES
+***********************************/
+
+.navbar ul,
+.navbar li,
+.navbar a:not(:hover),
+.navbar1 li > span a:not(:hover),
+.dropdown-content,
+.dropdown-item1 > a:not(:hover),
+.dropdown-item > div,
+.dropdown-item > span {
+  background-color: #333;
+  color: white;
+}
+.navbar li > a:hover,
+.navbar a.dropbtn:hover,
+.dropdown-item > a:hover {
+  background-color: rgba(0,123,255,1);
+  color: white;
+}
+.navbar li > a.danger:hover,
+.navbar a.danger.dropbtn:hover,
+.dropdown-item > a.danger:hover {
+  background-color: rgba(220,53,69,1);
+  color: white;
+}
+.navbar li > a.success:hover,
+.navbar a.success.dropbtn:hover,
+.dropdown-item > a.success:hover {
+  background-color: rgba(40,167,69,1);
+  color: white;
+}
+.navbar li > a.secondary:hover,
+.navbar a.secondary.dropbtn:hover,
+.dropdown-item > a.secondary:hover {
+  background-color: rgba(108,117,125,1);
+  color: white;
+}
+
+#mysbMiddle .navbar li.icon-responsive a:not(:hover),
+#mysbMiddle .navbar ul li.no-collapse > a:not(:hover) {
+  background-color: rgba(255,255,255,.25);
+}
+
+
+/**********************************
+**  CONTENT STYLES
+***********************************/
+
+#mysbMiddle .content:not(.list) h1 {
+  border-bottom: 2px solid #e1e1e1;
+}
+
+#mysbMiddle .content,
+#mysbMiddle .list_support {
+  border-radius: .5rem;
+  box-shadow: 0 0 .2rem .2rem rgba(50,50,50,.4);
+  text-align: left;
+}
+#mysbMiddle .content.advert {
+  background-color: #ffe9ae;
+  box-shadow: 0 0 .1rem .2rem rgba(220,74,0,.7);
+}
+.content .border-top ,
+.content-divider {
+  border-top: 2px solid #e1e1e1;
+}
+#mysbMiddle .list {
+  box-shadow: none;
+  border-radius: 0;
+}
+#mysbMiddle .list > .row {
+  background-color: rgba(220,220,220,.7);
+}
+
+
+@media (max-width: 480px) {
+#mysbMiddle .content,
+#mysbMiddle .content.advert
+{
+  box-shadow: none;
+  border-radius: 0;
+}
+#mysbMiddle .content:not(:first-child):not(.advert),
+#mysbMiddle .content.border-top {
+  border-top: 4px solid #333333;
+}
+}
+
+
+
+@media print {
+
+body {
+font: 70% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+}
+
+#mysbTop {
+    display: none;
+}
+div#allshadow {
+    border-radius: 0px;
+}
+#mysbTop a {
+    display: none;
+}
+table, tr {
+    border: 2px solid black;
+}
+#mysbBottom {
+    display: none;
+}
+
+div#mysbLogSql {
+    display: none;
+}
+
+div#NavBarColumn {
+    display: none;
+}
+}

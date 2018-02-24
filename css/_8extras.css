@@ -1,0 +1,157 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  Alerts: #mysbAlerts  **/
+/**********************************/
+
+#mysbAlerts {
+  padding: 5px;
+  width: 100%;
+  cursor:default;
+  text-align: center;
+}
+
+#mysbAlerts > div {
+  display: inline-block;
+  max-width: 450px;
+  width: 100%;
+  margin: 5px 0px;
+  padding: 10px 0px;
+  border-radius: 5px;
+  background-color: #ffca92;
+  border: 4px solid red;
+}
+
+#mysbAlerts > div > div {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding: 0px 10px;
+  text-align: left;
+}
+
+
+/**********************************/
+/**  Tip Messages: #mysbMessages  **/
+/**********************************/
+
+#mysbMessages {
+  font-size: 80%;
+  position: fixed;
+  display: none;
+  padding: 5px;
+  width: 250px;
+  max-width: 90%;
+  z-index: 10005;
+  right: 20px;
+  bottom: 20px;
+  cursor:default;
+  border-radius: 5px;
+  background-color: #ffca92;
+  border: 1px solid red;
+  box-shadow: 0 0 .1rem .3rem rgba(255,0,0,.9);
+}
+
+#mysbMessages > div {
+  /* display: table-row; */
+  width: 100%;
+}
+
+#mysbMessages > div > div{
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+  padding: 0px 10px;
+}
+
+@media (max-width: 480px) {
+  #mysbMessages {
+    width: 600px;
+  }
+}
+
+
+/**********************************/
+/**  SQL LOG BOX  **/
+/**********************************/
+
+#LoginDropDown div.row,
+#LoginDropDown div.row > * {
+  width: 100%;
+}
+#LoginDropDown div.row {
+  padding: 6px 16px;
+  display: block;
+  text-align: left !important;
+  width: 100%;
+}
+
+
+
+#mysbLogSql {
+  display:block;
+  width: 80%;
+  margin: 5px 0px 5px 0px;
+  padding: 10px 10px 25px 10px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+#mysbLogSql p {
+  margin: 0px auto 0px auto;
+  width: 70%;
+  padding: 10px;
+  color: white;
+  background-color: #bb0000;
+  font-size: 80%;
+}
+
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 768px) {
+  #mysbLogSql,
+  #mysbLogSql p {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+   #mysbLogSql {
+    display: none;
+   }
+}
+
+
+/**********************************/
+/**  OBSOLETE STYLE  **/
+/**********************************/
+
+div.boxed {
+  text-align: left;
+}
+div.list_support div.boxed,
+div.boxed div.row {
+  padding: 5px 10px;
+  min-height: 60px;
+}
+div.boxed div.row > div.right {
+  /* float: right; */
+  /* display: inline-block; */
+  right: 0;
+  position: absolute;
+}
+div.boxed p {
+  text-align: left;
+}
