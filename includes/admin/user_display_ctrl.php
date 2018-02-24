@@ -16,56 +16,59 @@ global $app;
 
 if(!MySBRoleHelper::checkAccess('admin')) return;
 
-
 if( isset($_GET['user_id']) )
-    $user = MySBUserHelper::getByID($_GET['user_id']);
+  $user = MySBUserHelper::getByID($_GET['user_id']);
+?>
 
-echo '
-<div class="row">
-<div style="float: left;">
-    <a  class="overlayed"
-        href="index.php?tpl=admin/user_edit&amp;user_id='.$user->id.'">
-        <img    src="images/icons/text-editor.png" 
-                alt="'._G('SBGT_edit').' '.$user->lastname.' '.$user->firstname.'" 
-                title="'._G('SBGT_edit').' '.$user->lastname.' '.$user->firstname.'"
-                style="width1: 24px"></a>';
+<!--
+  <a class="overlayed col-1 t-center btn"
+     href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>">
+    <img src="images/icons/text-editor.png"
+         alt="<?= _G('SBGT_edit') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
+         title="<?= _G('SBGT_edit') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
+         style="width1: 24px">
+  </a>
+-->
+  <a class="overlayed col-auto btn"
+     href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>">
+  <div class="row">
+    <div class="col-auto">
+      <p><b><?= $user->lastname ?></b> <?= $user->firstname ?><br>
+      <i><?= $user->login ?> <small>(ID:<?= $user->id ?>)</small></i></p>
+    </div>
 
-if( $user->mail!='' )
-    echo '
-    <a href="mailto:'.$user->mail.'">
-        <img src="images/icons/mail-unread.png" 
-             alt="'._G('SBGT_mailto').' '.$user->lastname.' '.$user->firstname.'" 
-             title="'._G('SBGT_mailto').' '.$user->lastname.' '.$user->firstname.'"></a>';
-else 
-    echo '
-    <img    src="images/blank.png" 
-            style="width: 32px;"
-            alt="No mail for '.$user->lastname.' '.$user->firstname.'" 
-            title="No mail for  '.$user->lastname.' '.$user->firstname.'">';
-
-echo '
-</div>
-<div style="float: right;"><small>';
-
+    <div class="col-3 d-show-md t-center"
+         style="right: 0; position: absolute;">
+<?php
 $lastlogin = new MySBDateTime($user->last_login);
-if( $user->last_login!='' ) {
-    //echo strftime("%A %e %B %Y à %H:%M",strtotime($user->last_login));
-    echo $lastlogin->strEBY_l_whm();
-} else {
-    echo '-';
-}
+if( $user->last_login!='' )
+  echo '<p><span class="help">'.$lastlogin->strEBY_l_whm().'</span></p>';
+else
+  echo '<p>-</p>';
+?>
+    </div>
+  </div>
+  </a>
+<?php if( $user->mail!='' ) { ?>
+  <a class="col-1 t-center btn" href="mailto:<?= $user->mail ?>">
+    <img src="images/icons/mail-unread.png"
+         alt="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
+         title="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
+  </a>
+<?php } else { ?>
+  <div class="col-1" style="min-width: 50px;">
+    <img    src="images/blank.png"
+            style="width: 32px;"
+            alt="No mail for <?= $user->lastname ?> <?= $user->firstname ?>"
+            title="No mail for  <?= $user->lastname ?> <?= $user->firstname ?>">
+  </div>
+<?php } ?>
 
+<?php
 echo '
-</small></div>
-<div class="label" style="min-width: 200px;">
-<b>'.$user->lastname.'</b> '.$user->firstname.'<br>
-<i>'.$user->login.' <small>(ID:'.$user->id.')</small></i>
-</div>
-</div>
 <script>
 show("user'.$user->id.'");
-</script>
-';
-
-
+</script>';
 ?>
+
+

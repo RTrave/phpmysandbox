@@ -12,24 +12,32 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-?>
-<div class="content">
+global $app;
+global $_GET;
 
-<?php
-echo '
-<b>'.MySBConfigHelper::Value('website_name').'</b>';
-?>
-
-<div class="techinfo">
-<?php 
 $appv = new MySBCore();
 $version = $appv->mysb_major_version.'.'.$appv->mysb_minor_version;
-echo '
-    <a href="'.MySBConfigHelper::Value('technical_contact').'">Contact</a> -
-    <a  href="https://github.com/RTrave/phpmysandbox"
-        title="PhpMySandBox OpenSource Project on GitHub"
-        target="_blank">PhpMySandBox '.$version.'</a>';
+?>
 
+<div class="navbar no-collapse">
+<ul>
+  <li class="right">
+    <span>
+      <a href="<?= MySBConfigHelper::Value('technical_contact') ?>">Contact</a>
+    </span>
+  </li>
+</ul>
+</div>
+<div class="navbar no-collapse">
+<ul style="min-height: 90px; font-size: 80%;">
+  <li class="right">
+    <span>
+      <a  href="https://github.com/RTrave/phpmysandbox"
+          title="PhpMySandBox OpenSource Project on GitHub"
+          target="_blank">PhpMySandBox <?= $version ?></a>
+    </span>
+    <span>
+<?php
 $modules = MySBModuleHelper::loadLoaded();
 if(count($modules)!=0) {
     echo ' ( mod';
@@ -44,9 +52,8 @@ if(count($modules)!=0) {
     }
     echo ' )';
 }
-
 ?>
+    </span>
+  </li>
+</ul>
 </div>
-
-</div>
-

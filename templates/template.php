@@ -19,61 +19,62 @@ defined('_MySBEXEC') or die;
 <body>
 <noscript>
     <div class="advert" style="background-color: #ffe4e7; border: 4px solid #ffab67; font-size: 24px;">Javascript needed but not activated.</div><br></noscript>
-<div id="spinlayer">
+<div id="overlayBg1">
 </div>
-<div id="overlayBg">
-</div>
-<script>
-desactiveOverlay();
-</script>
-
-<div id="allshadow">
-
-<?php 
-if( $app->show_topmenu ) { ?>
-<div id="mysbTop" class="roundtop">
-<?php include(_pathI('top')) ?>
-</div>
-
-<div id="mysbMiddle">
-<?php 
-} else { ?>
-<div id="mysbMiddle" class="roundtop">
-<?php 
-} ?>
-
-<div class="content"> 
-
-<div id="mysbMessages">
-</div>
-<div id="overlay" class="mysb_overlay roundtop">
-    <div class="close" >
-    <img src="images/window-close32.png"
+<div id="mysbOverlay" class="overlay">
+<div id="mysbModal" class="mysb_overlay modal">
+    <div class="close danger" >
+    <img src="images/window-close-48.png"
          alt="<?= _G('SBGT_overlay_close') ?>"
          title="<?= _G('SBGT_overlay_close') ?>">
     </div>
     <div class="contentWrap" id="contentWrap">...</div>
 </div>
-<div id="hidelayer">
+</div>
+<script>
+desactiveOverlay();
+</script>
+<div id="spinlayer">
 </div>
 <script type="text/javascript">
 loadSpin();
 </script>
 
+<div id="hidelayer">
+</div>
+<div id="mysbMessages">
+</div>
+
+
+<div id="mysbBody" style="min-height: 240px;">
+
+<div id="mysbTop" class="roundtop">
+<?php include(_pathI('navbar_top')) ?>
+</div>
+<?php //include(_pathI('top')) ?>
+
+<div id="mysbMiddle">
+
+<!-- <div class="content"> -->
+
 <?= $app->content['template'] ?>
+
+<!-- </div> -->
+
+</div>
+
+<div id="mysbBottom" class="roundbottom">
+<?php include(_pathI('navbar_bottom')) ?>
+<?php //include(_pathI('bottom')) ?>
+</div>
+
+
+</div>
+
 
 <script type="text/javascript">
 wrapLayerCalls();
 </script>
-
-</div>
-</div>
-
-<div id="mysbBottom" class="roundbottom">
-<?php include(_pathI('bottom')) ?>
-</div>
-
-</div>
 
 <div id="mysbLogSql">
 <?= $app->logsqlWrite() ?>
