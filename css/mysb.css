@@ -154,10 +154,10 @@ div#mysbMiddle {
   text-align: center;
 }
 
-.fright,
-.fright-sm,
-.fright-md,
-.fright-lg {
+.f-right,
+.f-right-sm,
+.f-right-md,
+.f-right-lg {
   float: right;
 }
 
@@ -213,6 +213,7 @@ div#mysbMiddle {
   padding-right: 10px;
   padding-left: 10px;
   float: left;
+  min-width: 35px;
 }
 
 .col-1,
@@ -220,10 +221,10 @@ div#mysbMiddle {
 .col-md-1,
 .col-lg-1 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 8%;
-  flex: 0 0 8%;
-  max-width: 8%;
-  width: 8%;
+  -ms-flex: 0 0 8.33%;
+  flex: 0 0 8.33%;
+  max-width: 8.33%;
+  width: 8.33%;
 }
 
 .col-2,
@@ -231,10 +232,10 @@ div#mysbMiddle {
 .col-md-2,
 .col-lg-2 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 16%;
-  flex: 0 0 16%;
-  max-width: 16%;
-  width: 16%;
+  -ms-flex: 0 0 16.66%;
+  flex: 0 0 16.66%;
+  max-width: 16.66%;
+  width: 16.66%;
 }
 
 .col-3,
@@ -253,10 +254,10 @@ div#mysbMiddle {
 .col-md-4,
 .col-lg-4 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 33%;
-  flex: 0 0 33%;
-  max-width: 33%;
-  width: 33%;
+  -ms-flex: 0 0 33.33%;
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+  width: 33.33%;
 }
 
 .col-5,
@@ -264,10 +265,10 @@ div#mysbMiddle {
 .col-md-5,
 .col-lg-5 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 41%;
-  flex: 0 0 41%;
-  max-width: 41%;
-  width: 41%;
+  -ms-flex: 0 0 41.66%;
+  flex: 0 0 41.66%;
+  max-width: 41.66%;
+  width: 41.66%;
 }
 
 .col-6,
@@ -286,10 +287,10 @@ div#mysbMiddle {
 .col-md-7,
 .col-lg-7 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 58%;
-  flex: 0 0 58%;
-  max-width: 58%;
-  width: 58%;
+  -ms-flex: 0 0 58.33%;
+  flex: 0 0 58.33%;
+  max-width: 58.33%;
+  width: 58.33%;
 }
 
 .col-8,
@@ -297,10 +298,10 @@ div#mysbMiddle {
 .col-md-8,
 .col-lg-8 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 66%;
-  flex: 0 0 66%;
-  max-width: 66%;
-  width: 66%;
+  -ms-flex: 0 0 66.66%;
+  flex: 0 0 66.66%;
+  max-width: 66.66%;
+  width: 66.66%;
 }
 
 .col-9,
@@ -319,10 +320,10 @@ div#mysbMiddle {
 .col-md-10,
 .col-lg-10 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 83%;
-  flex: 0 0 83%;
-  max-width: 83%;
-  width: 83%;
+  -ms-flex: 0 0 83.33%;
+  flex: 0 0 83.33%;
+  max-width: 83.33%;
+  width: 83.33%;
 }
 
 .col-11,
@@ -330,10 +331,10 @@ div#mysbMiddle {
 .col-md-11,
 .col-lg-11 {
   -webkit-box-flex: 0;
-  -ms-flex: 0 0 91%;
-  flex: 0 0 91%;
-  max-width: 91%;
-  width: 91%;
+  -ms-flex: 0 0 91.66%;
+  flex: 0 0 91.66%;
+  max-width: 91.66%;
+  width: 91.66%;
 }
 
 .col,
@@ -360,8 +361,12 @@ div#mysbMiddle {
   max-width:none
 }
 
+.col-unique {
+  float: none;
+}
+
 @media (max-width: 1024px) {
-  .fright-lg {
+  .f-right-lg {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -382,7 +387,7 @@ div#mysbMiddle {
 }
 
 @media (max-width: 768px) {
-  .fright-md {
+  .f-right-md {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -403,7 +408,7 @@ div#mysbMiddle {
 }
 
 @media (max-width: 480px) {
-  .fright-sm {
+  .f-right-sm {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -783,14 +788,15 @@ h2 {
   vertical-align: middle;
   /* border: 1px solid red; */
 }
-.list > .row > [class*="col-"].t-center {
+.t-center {
     text-align: center;
 }
-.list > .row > [class*="col-"].t-right {
+.t-right {
     text-align: right;
 }
 .list > .row > a[class*="col-"] {
   min-width: 50px;
+  text-decoration: none;
   /* display: table-cell; */
   /* height: 100%; */
   /* background-color: #bbbbbb; */
@@ -822,7 +828,7 @@ input:not([type=image]),
 p,
 textarea {
   width: 100%;
-  padding: .75rem .75rem;
+  padding: .75rem .50rem;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
@@ -847,7 +853,11 @@ label {
   display: block;
 }
 .checkbox-list label {
+  display: inline-block;
+  background: #dddddd;
   width: auto;
+  margin: 2px 0px;
+  cursor: pointer;
 }
 .checkbox-list label p {
   width: auto;
@@ -954,7 +964,7 @@ span.help {
   position: fixed;
   z-index: 9995;
   width: 100%;
-  height: 200%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
@@ -1159,6 +1169,7 @@ div.modalTitle .action:hover {
     width: 470px;
   }
   div.modalBody {
+    max-height: 50%;
     max-height: 50vh;
   }
 }
@@ -1182,6 +1193,7 @@ div.modalTitle .action:hover {
   }
   div.modalContent {
     overflow-y:auto;
+    max-height: 200px;
     max-height: 40vh;
   }
   div.modalBody {
@@ -1338,7 +1350,7 @@ div.boxed div.row {
   padding: 5px 10px;
   min-height: 60px;
 }
-div.boxed div.row > div.right {
+div.row > div.right {
   /* float: right; */
   /* display: inline-block; */
   right: 0;

@@ -52,10 +52,10 @@ if( isset($_POST['password_flag']) ) {
 }
 
 if( isset($_POST['deluser_flag']) ) {
-    if( isset($_POST['user_password']) and $_POST['user_password']!='' ) {
-        if( !MySBUtil::strverif($_POST['user_password'],false) )
+    if( isset($_POST['userdel_password']) and $_POST['userdel_password']!='' ) {
+        if( !MySBUtil::strverif($_POST['userdel_password'],false) )
             $app->displayStopAlert(_G('SBGT_entry_badvaluessql'),3);
-        if( MySBPluginAuthLayer::checkPassword($_POST['user_password']) ) {
+        if( MySBPluginAuthLayer::checkPassword($_POST['userdel_password']) ) {
             //$app->auth_user->resetPassword( MySBUtil::str2db($_POST['user_password']) );
             MySBUserHelper::delete($app->auth_user->id);
             $app->displayStopAlert(_G('SBGT_profile_userdeleted'),5,false);

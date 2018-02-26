@@ -15,43 +15,63 @@ defined('_MySBEXEC') or die;
 //global $app;
 ?>
 
-<h1><?= _G('SBGT_h2_accountinfos') ?></h1>
+<div class="col-lg-6">
 
-<div class="list_support">
+<div class="content w-sm-100">
 
-<form action="index.php?tpl=users/profile" method="post" 
+  <h1><?= _G('SBGT_h2_accountinfos') ?></h1>
+
+<form action="index.php?tpl=users/profile" method="post"
       OnSubmit="return mysb_confirm('<?= _G('SBGT_profile_confirm') ?>')">
-<div class="boxed">
 
-    <div class="title roundtop">
-        <span><?= _G('SBGT_login') ?>: <b><?= $app->auth_user->login ?></b></span>
+  <div class="row">
+    <div class="col-4"><p><?= _G('SBGT_login') ?></p></div>
+    <div class="col-8"><p><b><?= $app->auth_user->login ?></b></p></div>
+  </div>
+
+  <div class="row">
+    <label for="user_lastname">
+    <div class="col-sm-4">
+      <p><?= _G('SBGT_lastname') ?></p>
     </div>
-
-    <div class="row">
-        <div class="right">
-            <input type="text" name="user_lastname" size="24" maxlength="32" value="<?= $app->auth_user->lastname ?>"></div>
-        <span><?= _G('SBGT_lastname') ?></span>
+    <div class="col-sm-8">
+      <input type="text" name="user_lastname" id="user_lastname" maxlength="32"
+             value="<?= $app->auth_user->lastname ?>">
     </div>
+    </label>
+  </div>
 
-    <div class="row">
-        <div class="right">
-            <input type="text" name="user_firstname" size="24" maxlength="32" value="<?= $app->auth_user->firstname ?>"></div>
-        <span><?= _G('SBGT_firstname') ?></span>
+  <div class="row">
+    <label for="user_firstname">
+    <div class="col-sm-4">
+      <p><?= _G('SBGT_firstname') ?></p>
     </div>
-
-    <div class="row">
-        <div class="right">
-            <input type="email" name="user_mail" size="24" maxlength="32" value="<?= $app->auth_user->mail ?>"></div>
-        <span><?= _G('SBGT_mail') ?></span>
+    <div class="col-sm-8">
+      <input type="text" name="user_firstname" id="user_firstname" maxlength="32"
+             value="<?= $app->auth_user->firstname ?>">
     </div>
+    </label>
+  </div>
 
-<?php 
+  <div class="row">
+    <label for="user_mail">
+    <div class="col-sm-4">
+      <p><?= _G('SBGT_mail') ?></p>
+    </div>
+    <div class="col-sm-8">
+      <input type="email" name="user_mail" id="user_mail" maxlength="32"
+             value="<?= $app->auth_user->mail ?>">
+    </div>
+    </label>
+  </div>
+
+<?php
 $pluginsUserOption = MySBPluginHelper::loadByType('UserOption');
-if(count($pluginsUserOption)>=1) 
+if(count($pluginsUserOption)>=1)
     echo '
-    <div class="title">
-        '._G('SBGT_user_options').'
-    </div>';
+  <h2 class="border-top">
+    '._G('SBGT_user_options').'
+  </h2>';
 foreach($pluginsUserOption as $plugin) {
     if($plugin->module!='') {
         $module = MySBModuleHelper::getByName($plugin->module);
@@ -59,79 +79,115 @@ foreach($pluginsUserOption as $plugin) {
     }
     if($plugin->ivalue1!=1) continue;
     $pname = $plugin->value0;
-    echo '
-    <div class="row">
-        <div class="right">';
-        echo $plugin->formDisplay();
-        echo '</div>
-        <span>'._G($plugin->value1).'</span>
-    </div>';
+?>
+  <div class="row">
+    <label for="<?= $plugin->formDisplayId() ?>">
+    <div class="col-10">
+      <p><?= _G($plugin->value1) ?></p>
+    </div>
+    <div class="col-2 t-right">
+      <?= $plugin->formDisplay() ?>
+    </div>
+    </label>
+  </div>
+<?php
 }
 ?>
 
-    <div class="row" style="text-align: center;">
-        <span>
-            <input type="hidden" name="user_flag" value="1">
-            <input type="submit" value="<?= _G('SBGT_update_datas') ?>">
-        </span>
+  <div class="row border-top" style="text-align: center;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <input type="hidden" name="user_flag" value="1">
+      <input type="submit" value="<?= _G('SBGT_update_datas') ?>">
     </div>
+    <div class="col-sm-2"></div>
+  </div>
+
+</form>
+</div>
+
 
 </div>
-</form>
+<div class="col-lg-6">
 
-<form action="index.php?tpl=users/profile" method="post" 
+<div class="content w-sm-100 border-top">
+<form action="index.php?tpl=users/profile" method="post"
       OnSubmit="return mysb_confirm('<?= _G('SBGT_profile_confirmpassword') ?>')">
-<div class="boxed">
 
-<input type="text" name="login" value="'.$app->auth_user->login.'" style="display: none;">
+  <input type="text" name="login" style="display: none;"
+         value="'.$app->auth_user->login.'">
 
-    <div class="title roundtop">
-        <span><?= _G('SBGT_user_password') ?></span>
+  <h1><?= _G('SBGT_user_password') ?></h1>
+
+  <div class="row">
+    <label for="user_password">
+    <div class="col-sm-8">
+      <p><?= _G('SBGT_new_password') ?></p>
     </div>
-
-    <div class="row">
-        <div class="right"><input type="password" name="user_password" value="" size="16" maxlength="32"></div>
-        <span><?= _G('SBGT_new_password') ?></span>
+    <div class="col-sm-4">
+      <input type="password" name="user_password" id="user_password"
+             value="" maxlength="32">
     </div>
+    </label>
+  </div>
 
-    <div class="row">
-        <div class="right"><input type="password" name="user_passwordconfirm" value="" size="16" maxlength="32"></div>
-        <span><?= _G('SBGT_new_passwordconfirm') ?></span>
+  <div class="row">
+    <label for="user_passwordconfirm">
+    <div class="col-sm-8">
+        <p><?= _G('SBGT_new_passwordconfirm') ?></p>
     </div>
+    <div class="col-sm-4">
+      <input type="password" name="user_passwordconfirm" id="user_passwordconfirm"
+             value="" maxlength="32">
+    </div>
+    </label>
+  </div>
 
-    <div class="row" style="text-align: center;">
-        <span>
+  <div class="row border-top" style="text-align: center;">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
             <input type="hidden" name="password_flag" value="1">
             <input type="submit" value="<?= _G('SBGT_update_password') ?>">
-        </span>
     </div>
+    <div class="col-sm-2"></div>
+  </div>
 
-</div>
 </form>
+</div>
 
+<div class="content w-sm-100">
 <form action="index.php?tpl=users/profile" method="post" 
       OnSubmit="return mysb_confirm('<?= _G('SBGT_profile_confirmdeluser') ?>')">
-<div class="boxed">
 
-<input type="text" name="userid" value="'.$app->auth_user->id.'" style="display: none;">
+  <input type="text" name="userid" style="display: none;"
+         value="'.$app->auth_user->id.'">
 
-    <div class="title roundtop">
-        <span><?= _G('SBGT_user_deluser') ?></span>
+  <h1><?= _G('SBGT_user_deluser') ?></h1>
+
+  <div class="row">
+    <label for="userdel_password">
+    <div class="right col-sm-8">
+      <p><?= _G('SBGT_deluser_password') ?></p>
     </div>
-
-    <div class="row">
-        <div class="right"><input type="password" name="user_password" value="" size="16" maxlength="32"></div>
-        <span><?= _G('SBGT_deluser_password') ?></span>
+    <div class="right col-sm-4">
+      <input type="password" name="userdel_password" id="userdel_password"
+             value="" maxlength="32">
     </div>
+    </label>
+  </div>
 
-    <div class="row" style="text-align: center;">
-        <span>
+    <div class="row border-top" style="text-align: center;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
             <input type="hidden" name="deluser_flag" value="1">
-            <input type="submit" value="<?= _G('SBGT_user_deluser') ?>">
-        </span>
+            <input class="danger" type="submit"
+                   value="<?= _G('SBGT_user_deluser') ?>">
+        </div>
+        <div class="col-sm-2"></div>
     </div>
 
-</div>
 </form>
+</div>
 
 </div>
+

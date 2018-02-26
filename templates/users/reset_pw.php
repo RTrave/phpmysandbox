@@ -15,22 +15,34 @@ defined('_MySBEXEC') or die;
 //global $app;
 ?>
 
-<h1><?= _G('SBGT_h1_resetpassword') ?></h1>
+<div class="col-md-8 col-unique">
+<div class="content">
+
+    <h1><?= _G('SBGT_h1_resetpassword') ?></h1>
 
 <?php if( $passwd_reset!=1 ) { ?>
 
-<h2><?= _G('SBGT_h2_mail') ?></h2>
-
-<div class="list_support">
-
 <form action="index.php?tpl=users/reset_pw" method="post">
-<p><?= _G('SBGT_p_mail') ?><br>
-<input type="email" name="user_mail" value="" size="32" maxlength="128"><br><br>
-<input type="submit" value="<?= _G('SBGT_submit_mail') ?>">
-<br>
-</p>
+
+    <div class="row">
+        <div class="col"><?= _G('SBGT_p_mail') ?></div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input type="email" name="user_mail" value="" maxlength="128">
+        </div>
+    </div>
+    <div class="row border-top" style="text-align: center;">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <input type="submit" value="<?= _G('SBGT_submit_mail') ?>">
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+
 </form>
-</div>';
+</div>
+</div>
 
 <?php } else { ?>
 <p><?= _G('SBGT_mail_send') ?>: <b><i><?= $_POST['user_mail'] ?></i></b></p>';

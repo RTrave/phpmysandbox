@@ -26,6 +26,10 @@ if($app->auth_user!=null) {
 }
 
 $empty_field = 1;
+$invalid_login = '';
+$invalid_lastname = '';
+$invalid_firstname = '';
+$invalid_mail = '';
 
 if( isset($_POST['newuser_flag']) and $_POST['newuser_flag']==-1 ) {
 
@@ -46,6 +50,7 @@ if( empty($_POST['newlogin']) or empty($_POST['newlastname']) or
         (   MySBConfigHelper::Value('login_vs_mail')=='SBGT_loginvsmail_unique' or 
             MySBConfigHelper::Value('login_vs_mail')=='SBGT_loginvsmail_mail') ) {
 
+    $invalid_mail = ' is-invalid';
     $app->pushAlert(_G('SBGT_mail_exists'));
 
 } else {
@@ -130,6 +135,15 @@ if( empty($_POST['newlogin']) or empty($_POST['newlastname']) or
 }
 
 }
+
+    if($empty_field==2 and empty($_POST['newlogin']))
+        $invalid_login = ' is-invalid';
+    if($empty_field==2 and empty($_POST['newlastname']))
+        $invalid_lastname = ' is-invalid';
+    if($empty_field==2 and empty($_POST['newfirstname']))
+        $invalid_firstname = ' is-invalid';
+    if($empty_field==2 and empty($_POST['newmail']))
+        $invalid_mail = ' is-invalid';
 
 include (_pathT('users/registration'));
 

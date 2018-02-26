@@ -25,13 +25,13 @@ if( !isset($_GET['user_id']) )
 $user = MySBUserHelper::getByID($_GET['user_id']);
 $app->data['user'] = $user;
 
-if( isset($_POST['user_delete']) and $_POST['user_delete']==1 ) {
+if( isset($_GET['user_delete']) and $_GET['user_delete']==1 ) {
     $app->pushMessage( _G('SBGT_adminuser_delete').':<br>'.$user->lastname." (".$user->login.")" );
     MySBUserHelper::delete($_GET['user_id']);
     //return;
 }
 
-if( isset($_POST['user_newpasswd']) AND $_POST['user_newpasswd']==1) {
+if( isset($_GET['user_newpasswd']) AND $_GET['user_newpasswd']==1) {
     $new_pw=rand(10000,99999);
     $user->resetPassword($new_pw);
     if( $user->mail!='' ) {

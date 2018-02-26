@@ -89,7 +89,7 @@ $infos_db[] = array( 'db layer<br><span class="help">(from config.php)</span>',$
 $infos_db[] = array( 'db<br><span class="help">(from config.php)</span>',$mysb_dbname.'@'.$mysb_dbhost );
 $infos_db[] = array( 'dbuser<br><span class="help">(from config.php)</span>',$mysb_dbuser );
 $infos_db[] = array( 'table_prefix<br><span class="help">(from config.php)</span>',$mysb_table_prefix );
-$infos_db[] = array( 'tables version',MySBConfigHelper::Value('core_version','modules') );
+$infos_db[] = array( 'tables version<br><span class="help">(from __init.php)</span>',MySBConfigHelper::Value('core_version','modules') );
 
 function admin_getrequired($module) {
     $reqtext = '';

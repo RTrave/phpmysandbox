@@ -15,108 +15,149 @@ defined('_MySBEXEC') or die;
 global $app;
 
 
-if( isset($_POST['group_delete']) ) {
-    $group = MySBGroupHelper::getByID( $_POST['group_id'] );
+if( isset($_GET['group_delete']) ) {
+    $group = MySBGroupHelper::getByID( $_GET['group_delete'] );
     $app->pushMessage( _G('SBGT_admingroups_deletemsg').':<br>'.$group->name );
     MySBGroupHelper::delete( $group->name );
     echo '
 <script>
-hide("group'.$_POST['group_id'].'");
+hide("group'.$_GET['group_delete'].'");
 </script>';
     return;
 }
+?>
 
-include( _pathI('admin/menu') );
+<div class="row">
+
+<?php include( _pathI('admin/menu') );
 
 echo '
-<h1>'._G('SBGT_admingroups').'</h1>
 
-<div class="list_support">';
+<div class="col-lg-9">
+
+<div class="content">
+
+<h1>'._G('SBGT_admingroups').'</h1>
+';
 
 $groups = MySBGroupHelper::load();
 $roles = MySBRoleHelper::load();
 
 foreach( $groups as $group ) {
     echo '
-<div class="boxed" id="group'.$group->id.'">
-    <div class="title roundtop" style="text-align: left;">
-        <div style="float: right; cursor: pointer;">
-            <img src="images/icons/go-down.png" alt="go-down"
-                 onClick="toggle_slide(\'group_edit_'.$group->id.'\');"></div>';
+<div id="group'.$group->id.'">
+
+  <div class="content list">
+  <div class="row">
+    <a class="col-auto btn" href="javascript:void(0)"
+       onClick="toggle_slide(\'group_edit_'.$group->id.'\');">
+      <p><img src="images/icons/go-down.png" alt="go-down"
+              style="position: absolute; right: 0;">
+        <b>'.$group->name.'</b><br>
+        <span class="help">'.$group->comments.', id='.$group->id.'</span>
+      </p>
+    </a>';
     if( $group->id!=0 )
         echo '
-    <div style="float: right; margin-right: 12px;">
-        <form action="index.php?tpl=admin/groups" 
-              method="post"
-              class="hidelayed"
-              data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'">
-            <input type="hidden" name="group_delete" value="1">
-            <input type="hidden" name="group_id" value="'.$group->id.'">
-            <input src="images/icons/user-trash.png"
-                   type="image"
-                   alt="'._G('SBGT_admingroups_delete').' '.$group->name.'"
-                   title="'._G('SBGT_admingroups_delete').' '.$group->name.'">
-        </form>
-    </div>';
+  <a class="hidelayed col-1 t-center btn danger"
+     href="index.php?tpl=admin/groups&amp;group_delete='.$group->id.'"
+     data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'">
+    <img src="images/icons/user-trash.png"
+         alt="'._G('SBGT_admingroups_delete').' '.$group->name.'"
+         title="'._G('SBGT_admingroups_delete').' '.$group->name.'">
+  </a>';
     echo '
-        <b>'.$group->name.'</b> <i>("'.$group->comments.'", id='.$group->id.')</i>
-    </div>
-    <div id="group_edit_'.$group->id.'" style="display: none; width: 100%; height: 100%;">
-    <form action="index.php?tpl=admin/groups" method="post">
-    <div class="row">
-        <div class="right"><input type="text" name="g'.$group->id.'_name" value="'.$group->name.'"></div>
+  </div>
+  </div>
+
+  <div id="group_edit_'.$group->id.'" style="display: none; width: 100%; height: 100%;">
+  <form action="index.php?tpl=admin/groups" method="post">
+
+  <label class="row" for="g'.$group->id.'_name">
+    <p class="col-sm-4">
         '._G('SBGT_admingroups_name').'
+    </p>
+    <div class="col-sm-8">
+      <input type="text" name="g'.$group->id.'_name" id="g'.$group->id.'_name"
+             value="'.$group->name.'">
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="g'.$group->id.'_comments" value="'.$group->comments.'"></div>
+  </label>
+
+  <label class="row" for="g'.$group->id.'_comments">
+    <p class="col-sm-4">
         '._G('SBGT_admingroups_comments').'
+    </p>
+    <div class="col-sm-8">
+      <input type="text" name="g'.$group->id.'_comments" id="g'.$group->id.'_comments"
+             value="'.$group->comments.'">
     </div>
-    <div class="row">
-        '._G('SBGT_admingroups_roles').'<br>';
+  </label>
+
+  <div class="row checkbox-list">
+    <p>'._G('SBGT_admingroups_roles').'
+    </p>';
     foreach( $roles as $role ) {
         if( $role->isAssignToGroup($group) ) $checked = 'checked="checked"';
         else $checked = '';
         echo '
-        <div class="checkboxlist">
-            <input type="checkbox" name="r'.$role->id.'_isassignto_g'.$group->id.'" '.$checked.'> <i>'.$role->comments.'</i>
-        </div>';
+    <label for="r'.$role->id.'_isassignto_g'.$group->id.'">
+      <p><i>'.$role->comments.'</i></p>
+      <input type="checkbox" name="r'.$role->id.'_isassignto_g'.$group->id.'"
+                   '.$checked.' id="r'.$role->id.'_isassignto_g'.$group->id.'">
+    </label>';
     }
-    echo '        
+    echo '
+  </div>
+  <div class="row">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6">
+      <input type="hidden" name="group_edit" value="1">
+      <input type="hidden" name="group_id" value="'.$group->id.'">
+      <input type="submit" value="'._G('SBGT_admingroups_submit').': '.$group->name.'">
     </div>
-    <div class="row" style="text-align: center;">
-        <input type="hidden" name="group_edit" value="1">
-        <input type="hidden" name="group_id" value="'.$group->id.'">
-        <input type="submit" value="'._G('SBGT_admingroups_submit').': '.$group->name.'">
-    </div>
-    </form>
-    </div>';
+  </div>
+  </form>
+  </div>';
     echo '
 </div>';
 }
 
 echo '
+</div>
 
-<br>
-<br>
-
+<div class="content">
 <form action="index.php?tpl=admin/groups" method="post">
-<div class="boxed">
-    <div class="title roundtop"><b>'._G('SBGT_admingroups_new').'</b></div>
-    <div class="row">
-        <div class="right"><input type="text" name="group_name" value=""></div>
-        '._G('SBGT_admingroups_name').'
+  <h1>'._G('SBGT_admingroups_new').'</h1>
+  <label class="row" for="group_name">
+    <p class="col-sm-4">
+      '._G('SBGT_admingroups_name').'
+    </p>
+    <div class="col-sm-8">
+      <input type="text" name="group_name" id="group_name" value="">
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="group_comments" value=""></div>
+  </label>
+
+  <label class="row" for="group_comments">
+    <p class="col-sm-4">
         '._G('SBGT_admingroups_comments').'
+    </p>
+    <div class="col-sm-8">
+        <input type="text" name="group_comments" id="group_comments" value="">
     </div>
-    <div class="row" style="text-align: center;">
+  </label>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="group_add" value="1">
         <input type="submit" value="'._G('SBGT_admingroups_newsubmit').'">
     </div>
-</div>
+    <div class="col-sm-3"></div>
+  </div>
 </form>
 
+</div>
+</div>
 </div>';
 
 ?>

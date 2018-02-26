@@ -144,7 +144,11 @@ class MySBPluginUserOption extends MySBPlugin {
         $data_ou = MySBDB::fetch_array($req_ou);
         return $this->uo_value->htmlForm('uo_', $data_ou[$this->value0]);
     }
-    
+    public function formDisplayId($user=null) {
+        global $app;
+        return 'uo_'.$this->value0;
+    }
+
     /**
      * Html form process (value edition)
      * 

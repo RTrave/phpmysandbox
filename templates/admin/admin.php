@@ -14,94 +14,125 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
-include( _pathI('admin/menu') );
-
 include(MySB_ROOTPATH.'/config.php');
 ?>
 
-<h1>PHPMySandBox administration</h1>
+<div class="row">
 
-<h2>System informations</h2>
+<?php include( _pathI('admin/menu') ); ?>
 
-<div class="boxed">
-    <div class="title"><b>PHP</b></div>
+<div class="col-lg-9">
+
+
+<div class="content">
+
+  <h1>System informations</h1>
+
+  <h2>PHP</h2>
 <?php foreach($infos_php as $info) { ?>
-    <div class="row">
-        <div class="right"><?= $info[1] ?></div>
-        <?= $info[0] ?>
+  <div class="row">
+    <div class="col-4">
+      <p><?= $info[0] ?></p>
     </div>
+    <div class="col-8">
+      <p><?= $info[1] ?></p>
+    </div>
+  </div>
 <?php } ?>
-    <div class="row" style="text-align: center;">
-        <form action="index.php?tpl=admin/admin" method="post">
-        <input type="hidden" name="test_mail" value="1">
-        <input type="submit" value="test mail on <?= $app->auth_user->mail ?>">
-        </form>
+  <div class="row">
+    <div class="col-md-6"><p>test mail on:</p></div>
+    <div class="col-md-6">
+      <form action="index.php?tpl=admin/admin" method="post">
+      <input type="hidden" name="test_mail" value="1">
+      <input type="submit" style="max-width: "
+             value="<?= $app->auth_user->mail ?>">
+      </form>
     </div>
-</div>
-
-<div class="boxed">
-    <div class="title"><b>DataBase</b></div>
+  </div>
+  <h2 class="border-top">DataBase</h2>
 <?php foreach($infos_db as $info) { ?>
-    <div class="row">
-        <div class="right"><?= $info[1] ?></div>
-        <?= $info[0] ?>
+  <div class="row">
+    <div class="col-4">
+      <p><?= $info[0] ?></p>
     </div>
+    <div class="col-8">
+      <p><?= $info[1] ?></p>
+    </div>
+  </div>
 <?php } ?>
 </div>
 
-<h2>Configurations</h2>
+<div class="content">
 
-<form action="index.php?inc=admin/conf_display" 
+  <h1>Configurations</h1>
+
+<form action="index.php?inc=admin/conf_display"
         class="hidelayed"
         method="post">
-<div class="boxed">
-<div id="app_config">
-<?php include(_pathI('admin/conf_display_ctrl')); ?>
-</div>
-    <div class="row" style="text-align: center;">
-        <input type="hidden" name="config_modif" value="1">
-        <input type="submit" value="Modify">
-    </div>
-</div>
-</form>
 
-<h2>Modules</h2>
+  <div id="app_config">
+<?php include(_pathI('admin/conf_display_ctrl')); ?>
+  </div>
+  <div class="row" style="text-align: center;">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <input type="hidden" name="config_modif" value="1">
+      <input type="submit" value="Modify">
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+
+</form>
+</div>
 
 <?php
 $modules = MySBModuleHelper::load();
 foreach($modules as $module) {
     $mod_conf = MySBConfigHelper::get('mod_'.$module->name.'_enabled','modules');
     echo '
-<h3 id="mod_'.$module->name.'">'.$module->name.'</h3>';
-echo '
-<p>Version: '.$module->module_helper->version.' <br>
-<i>Required: '.admin_getrequired($module).'</i></p>';
+<div class="content">
+  <h1 id="mod_'.$module->name.'">Module: '.$module->name.'</h1>
+  <div class="row">
+    <p>Version: '.$module->module_helper->version.' <br>
+    <i>Required: '.admin_getrequired($module).'</i></p>
+  </div>';
     if($mod_conf==null) {
-        echo '
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
-<p>
-    module <b>disabled</b>: 
-    <input type="hidden" name="set_mod" value="'.$module->name.'">
-    <input type="submit" value="Set '.$module->name.'">
-</p>
-</form>';
+      echo '
+  <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
+  <div class="row">
+    <div class="col-md-6">
+      <span>module <b>disabled</b>:</span>
+    </div>
+    <div class="col-md-6">
+      <input type="hidden" name="set_mod" value="'.$module->name.'">
+      <input type="submit" value="Set '.$module->name.'">
+    </div>
+  </div>
+  </form>
+</div>';
     } else {
 
-    if($mod_conf->getValue()>=1) {
+      if($mod_conf->getValue()>=1) {
         echo '
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post" 
-      OnSubmit="return mysb_confirm(\'Unset module '.$module->name.'?\')">
-<p>
-    Module <b>enabled</b>: 
-    <input type="hidden" name="unset_mod" value="'.$module->name.'">
-    <input type="submit" value="Unset '.$module->name.'">
-</p>
-</form>';
-    } elseif($mod_conf->getValue()==-1) {
+  <div class="row">
+  <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post"
+        OnSubmit="return mysb_confirm(\'Unset module '.$module->name.'?\')">
+    <div class="col-md-6">
+      <span>Module <b>enabled</b>:</span>
+    </div>
+    <div class="col-md-6">
+      <input type="hidden" name="unset_mod" value="'.$module->name.'">
+      <input type="submit" class="danger"
+             value="Unset '.$module->name.'">
+    </div>
+  </form>
+  </div>';
+      } elseif($mod_conf->getValue()==-1) {
         echo '
+  <div class="row">
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
 <p>
-module <b>disabled</b>: 
+module <b>disabled</b>:
     <input type="hidden" name="reinit_mod" value="'.$module->name.'">
     <input type="submit" value="Reinit '.$module->name.'">
 </p>
@@ -111,66 +142,80 @@ module <b>disabled</b>:
     <input type="hidden" name="delete_mod" value="'.$module->name.'">
     <input type="submit" value="Delete '.$module->name.' tables">
 </p>
-</form>';
-    }
-    echo '
+</form>
+  </div>';
+      }
+      echo '
 
-<div class="boxed">
-<div class="title"><b>Configurations</b></div>';
-$configs = MySBConfigHelper::loadByGrp($module->name);
-if(count($configs)==0) {
-    echo '
-    <div class="row" style="text-align: center;">
-    <i>No config values</i>
+  <h2 class="border-top">Configurations</h2>';
+      $configs = MySBConfigHelper::loadByGrp($module->name);
+      if(count($configs)==0) {
+        echo '
+  <div class="row">
+    <div class="col">
+      <span><i>No config values</i><span></div>
     </div>';
-} else {
+      } else {
         echo '
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">';
         foreach($configs as $config) {
-        if( $config->getType()!='text' ) {
+          if( $config->getType()!='text1' ) {
             echo '
-    <div class="row">
-        <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
+  <div class="row">
+    <label for="'.$module->name.'config_'.$config->keyname.'">
+    <div class="col-sm-4">
         '._G($config->comments).'<br>
-        <span class="help">'.$config->keyname."</span>
-    </div>";
-        } else {
+        <span class="help">'.$config->keyname.'</span>
+    </div>
+    <div class="col-sm-8">
+        <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
+    </div>
+    </label>
+  </div>';
+          } else {
             echo '
     <div class="row" style="text-align: right;">
         <div style="float: left; text-align: left;">'._G($config->comments).'<br>
         <span class="help">'.$config->keyname.'</span></div>
         <div style="display: inline-block; margin: 0px 0px 0px auto;">'.$config->htmlForm('config_',$config->value).'</div>
     </div>';
-        }
+          }
         }
         echo '
-    <div class="row" style="text-align: center;">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
         <input type="hidden" name="moduleconfig_mod" value="'.$module->name.'">
         <input type="submit" value="Update '.$module->name.' configs">
     </div>
+    <div class="col-md-3"></div>
+  </div>
 </form>';
-}
-echo '
-</div>
-
-<div class="boxed">
-<div class="title"><b>Plugins</b></div>';
-    $plugins = MySBPluginHelper::loadByModule($module->name);
-    if(count($plugins)==0) echo '
-<div class="row" style="text-align: center;"><i>No plugin</i></div>';
-    else {
+      }
+      echo '
+<h2 class="border-top">Plugins</h2>';
+      $plugins = MySBPluginHelper::loadByModule($module->name);
+      if(count($plugins)==0) echo '
+    <div class="row">
+      <div class="col">
+        <span><i>No plugin values</i><span></div>
+    </div>';
+      else {
         echo '
 <div class="row"><ul>';
         foreach($plugins as $plugin) {
-            echo '
+          echo '
     <li>'.$plugin->name.' <i>('.$plugin->type.')</i></li>';
         }
         echo '
 </ul></div>';
-    }
-    echo '
+      }
+      echo '
 </div>';
-}
+    }
 
 }
 ?>
+
+</div>
+</div>

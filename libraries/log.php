@@ -73,11 +73,11 @@ class MySBLog {
      */
     public function pushMessage($message) {
         $this->Messages .= '
-    <div style="display: table-row; width: 100%;">
-        <div style="padding-left: 15px;"><img src="images/icons/dialog-warning.png" alt="Warning"></div>
-        <div style="padding-right: 15px;"><p>'.$this->MsgCleaner($message).'</p></div>
+    <div>
+        <div><img src="images/icons/dialog-warning.png" alt="Warning"></div>
+        <div>'.$this->MsgCleaner($message).'</div>
     </div>';
-        $this->display->Messages = $this->Messages;
+        //$this->display->Messages = $this->Messages;
     }
 
     /**
@@ -86,11 +86,11 @@ class MySBLog {
      */
     public function pushAlert($message) {
         $this->Alerts .= '
-    <div style="display: table-row; width: 100%;">
-        <div style="padding-left: 15px;"><img src="images/icons/dialog-warning.png" alt="Error"></div>
-        <div style="padding-right: 15px;"><p>'.$this->MsgCleaner($message).'</p></div>
-        </div>';
-        $this->display->Alerts = $this->Alerts;
+    <div>
+        <div><img src="images/icons/dialog-warning.png" alt="Error"></div>
+        <div>'.$this->MsgCleaner($message).'</div>
+    </div><br>';
+        //$this->display->Alerts = $this->Alerts;
     }
 
     /**
@@ -104,12 +104,14 @@ class MySBLog {
             $this->pushMessage($message);
         $errorcode = '
 <div id="mysbAlerts">
+  <div>
     <div><img src="images/icons/dialog-error.png" alt="Error"></div>
-    <div style="padding-right: 15px;">'.$message.'</div>
+    <div style="1padding-right: 15px;">'.$message.'</div>
+  </div>
 </div>
 <script type="text/javascript">offSpin();</script>';
         $this->view_menu($with_menu);
-        $this->view_refresh($refresh_time);
+        //$this->view_refresh($refresh_time);
         echo $this->view_render($this->layerWrite().$this->msgWrite().$errorcode);
         $this->close();
         die;

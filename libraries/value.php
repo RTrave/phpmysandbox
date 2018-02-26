@@ -150,15 +150,23 @@ class MySBValue extends MySBObject {
         global $app;
         switch($this->type) {
             case MYSB_VALUE_TYPE_INT:
-                return '<input type="text" name="'.$prefix.$this->keyname.'" size="4" maxlength="4" value="'.$value.'">';
+                return '<input type="text" '.
+                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
+                       '" maxlength="4" value="'.$value.'">';
             case MYSB_VALUE_TYPE_BOOL:
-                return '<input type="checkbox" name="'.$prefix.$this->keyname.'" '.MySBUtil::form_ischecked($value,1).'>';
+                return '<input style="float: right;" type="checkbox" '.
+                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" '.
+                       MySBUtil::form_ischecked($value,1).'>';
             case MYSB_VALUE_TYPE_VARCHAR64:
-                return '<input type="text" name="'.$prefix.$this->keyname.'" size="22" maxlength="62" value="'.$value.'">';
+                return '<input type="text" '.
+                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
+                       '" maxlength="62" value="'.$value.'">';
             case MYSB_VALUE_TYPE_VARCHAR512:
-                return '<input type="text" name="'.$prefix.$this->keyname.'" size="22" maxlength="510" value="'.$value.'">';
+                return '<input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
+                       '" maxlength="510" value="'.$value.'">';
             case MYSB_VALUE_TYPE_TEXT:
-                return '<textarea name="'.$prefix.$this->keyname.'" cols="22" rows="3">'.$value.'</textarea>';
+                return '<textarea name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
+                       '" rows="3">'.$value.'</textarea>';
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
                 $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
                     "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
@@ -166,7 +174,7 @@ class MySBValue extends MySBObject {
                     "MySBValue::htmlForm($prefix,$value)",
                     true, '', true );
                 $form_str = '
-<select name="'.$prefix.$this->keyname.'">
+<select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
     <option value="">&nbsp;</option>';
                 while($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '

@@ -328,7 +328,7 @@ wrapLayerCalls();
                 ob_start();
                 include($file);
                 $content = ob_get_clean();
-                echo $this->view_render($content.$this->msgWrite().$this->layerWrite());
+                echo $this->view_render($this->msgWrite().$content.$this->layerWrite());
                 return true;
             } else
                 return false;
@@ -341,7 +341,7 @@ wrapLayerCalls();
             ob_start();
             include($file);
             $content = ob_get_clean();
-            echo $content.$this->msgWrite().$this->layerWrite().$this->logsqlWrite();
+            echo $this->msgWrite().$content.$this->layerWrite().$this->logsqlWrite();
             return true;
 
         } else {
@@ -350,8 +350,8 @@ wrapLayerCalls();
             foreach($pluginsFrontPage as $plugin) {
                 $content .= $plugin->callControler();
             }
-            if( $content=='' ) return false;
-            $this->view_render($content.$this->msgWrite().$this->layerWrite());
+            //if( $content=='' ) return false;
+            $this->view_render($this->msgWrite().$content.$this->layerWrite());
             return true;
         }
         //throw new Exception("Action non valide");

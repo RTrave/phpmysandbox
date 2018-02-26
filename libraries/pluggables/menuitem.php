@@ -62,6 +62,28 @@ class MySBPluginMenuItem extends MySBPlugin {
     }
 
     /**
+     * Display Menuitem HTML entity (<A>..</A>)
+     * @param   integer $level      Level of menu: 0=admin menu,1=lvl1, 2=lvl2,
+     */
+    public function displayMenuItem($level) {
+        global $app;
+        $code = '';
+        if( isset($app->auth_user) and
+            MySBRoleHelper::checkAccess($this->role,false) and
+            $level==$this->ivalue0) {
+            if( $level==1 )
+                $code .= '
+<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'"
+   title="'._G($this->value2).'">'._G($this->value0).'</a>';
+            else
+                $code .= '
+<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'"
+   class="dropdown-item" title="'._G($this->value2).'">'._G($this->value0).'</a>';
+        }
+        return $code;
+    }
+
+    /**
      * Html form (plugin edition)
      * @return  string          HTML entity output
      */

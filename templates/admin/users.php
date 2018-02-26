@@ -15,77 +15,139 @@ defined('_MySBEXEC') or die;
 
 global $app;
 global $groups_a;
+?>
 
-include( _pathI('admin/menu') );
+<div class="row">
 
-echo '
-<h1>'._G('SBGT_adminusers').'</h1>
-<div class="list_support">';
+<?php include( _pathI('admin/menu') ); ?>
 
-if( isset($_POST['users_search']) ) {
-    foreach( $found_users as $user ) {
-        echo '
-<div id="user'.$user->id.'" style="display: inline-block; width: 600px; max-width: 90%;">';
-        include( _pathI('admin/user_display_ctrl') );
-        echo '
-</div>';
-    }
-}
+<div class="col-lg-9">
 
-echo '
-<form action="index.php?tpl=admin/users" method="post">
 
-<div class="boxed">
-    <div class="title roundtop"><b>'._G('SBGT_adminusers_search').'</b></div>
-    <div class="row">
-        <div class="right"><input type="text" name="bylogin" value="'.$bylogin.'"></div>
-        '._G('SBGT_adminusers_searchbylogin').'
+<?php if( isset($_POST['users_search']) ) { ?>
+<div class="content list">
+  <h1><?= _G('SBGT_adminusers') ?></h1>
+<?php
+  foreach( $found_users as $user ) {
+    echo '
+  <div id="user'.$user->id.'" class="row">';
+    include( _pathI('admin/user_display_ctrl') );
+    echo '</div>';
+  }
+?>
+</div>
+<?php } ?>
+
+<div class="content">
+
+  <h1><?= _G('SBGT_adminusers_search') ?></h1>
+  <form action="index.php?tpl=admin/users" method="post">
+
+  <div class="row">
+    <label for="bylogin">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_adminusers_searchbylogin') ?></p>
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="bylastname" value="'.$bylastname.'"></div>
-        '._G('SBGT_adminusers_searchbylastname').'
+    <div class="col-sm-8">
+        <input type="text" name="bylogin" id="bylogin" value="<?= $bylogin ?>">
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="bymail" value="'.$bymail.'"></div>
-        '._G('SBGT_adminusers_searchbymail').'
+    </label>
+  </div>
+  <div class="row">
+    <label for="bylastname">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_adminusers_searchbylastname') ?></p>
     </div>
-    <div class="row" style="text-align: center;">
+    <div class="col-sm-8">
+        <input type="text" name="bylastname" id="bylastname" value="<?= $bylastname ?>">
+    </div>
+    </label>
+  </div>
+  <div class="row">
+    <label for="bymail">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_adminusers_searchbymail') ?></p>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" name="bymail" id="bymail" value="<?= $bymail ?>">
+    </div>
+    </label>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="users_search" value="1">
-        <input type="submit" value="'._G('SBGT_search').'">
+        <input type="submit" value="<?= _G('SBGT_search') ?>">
     </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  </form>
 </div>
 
-</form>
-</div>';
 
-echo '
-<div class="boxed">
-<form action="index.php?tpl=admin/users" method="post">
+<div class="content">
 
-    <div class="title roundtop"><b>'._G('SBGT_adminusers_new').'</b></div>
-    <div class="row">
-        <div class="right"><input type="text" name="user_login"></div>
-        '._G('SBGT_login').'
-    </div>
-    <div class="row">
-        <div class="right"><input type="text" name="user_lastname"></div>
-        '._G('SBGT_lastname').'
-    </div>
-    <div class="row">
-        <div class="right"><input type="text" name="user_firstname"></div>
-        '._G('SBGT_firstname').'
-    </div>
-    <div class="row">
-        <div class="right"><input type="email" name="user_mail"></div>
-        '._G('SBGT_mail').'
-    </div>
-    <div class="row" style="text-align: center;">
-        <input type="hidden" name="users_search" value="1">
-        <input type="hidden" name="user_add" value="1">
-        <input type="submit" value="'._G('SBGT_adminusers_newsubmit').'">
-    </div>
+  <h1><?= _G('SBGT_adminusers_new') ?></h1>
+  <form action="index.php?tpl=admin/users" method="post">
 
-</form>
-</div>';
+  <div class="row">
+    <label for="user_login">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_login') ?></p>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" name="user_login" id="user_login" value="">
+    </div>
+    </label>
+  </div>
+  <div class="row">
+    <label for="user_lastname">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_lastname') ?></p>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" name="user_lastname" id="user_lastname" value="">
+    </div>
+    </label>
+  </div>
+  <div class="row">
+    <label for="user_firstname">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_firstname') ?></p>
+    </div>
+    <div class="col-sm-8">
+        <input type="text" name="user_firstname" id="user_firstname" value="">
+    </div>
+    </label>
+  </div>
+  <div class="row">
+    <label for="user_mail">
+    <div class="col-sm-4">
+        <p><?= _G('SBGT_mail') ?></p>
+    </div>
+    <div class="col-sm-8">
+        <input type="email" name="user_mail" id="user_mail" value="">
+    </div>
+    </label>
+  </div>
 
-?>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <input type="hidden" name="users_search" value="1">
+      <input type="hidden" name="user_add" value="1">
+      <input type="submit"  class="danger"
+             value="<?= _G('SBGT_adminusers_newsubmit') ?>">
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+
+  </form>
+</div>
+
+</div>
+</div>
+

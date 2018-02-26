@@ -141,7 +141,7 @@ class MySBGroupHelper {
         global $app;
         if($name!='') $group_id = MySBGroupHelper::getIDByName($name);
         else $group_id = $this->id;
-
+        if($group_id=='') return;
         MySBDB::query("DELETE FROM ".MySB_DBPREFIX."groups ".
             "WHERE id=".$group_id,
             "MySBGroupHelper::delete($name)" );

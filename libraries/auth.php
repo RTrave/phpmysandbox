@@ -80,24 +80,29 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
         global $app;
         $output = '
 <form method="post">
-<div class="list_support">
-    <div class="row">
-        <div class="right"><input type="text" name="login" size="12" maxlength="32"></div>
-        login:
-    </div>
-    <div class="row">
-        <div class="right"><input type="password" name="passwd" size="12" maxlength="32"></div>
-        password:
-    </div>
-    <div class="row" style="text-align: center; position: relative;">
-        <input type="hidden" name="native_login" value="1">
-        <input type="submit" value="'._G('SBGT_log_in').'">
-    </div>
-    <div class="row" style="text-align: center;">
-    <a href="index.php?tpl=users/reset_pw" class="resetpw">'._G('SBGT_forgot_password').'?</a>
-    </div>
+<div>
+  <div class="row">
+    login:
+  </div>
+  <div class="row">
+    <input type="text" name="login" maxlength="32">
+  </div>
+  <div class="row">
+    password:
+  </div>
+  <div class="row">
+    <input type="password" name="passwd" maxlength="32">
+  </div>
+  <div class="row" style="text-align: center; position: relative;">
+    <input type="hidden" name="native_login" value="1">
+    <input type="submit" value="'._G('SBGT_log_in').'">
+  </div>
 </div>
-</form>';
+</form>
+<span style="text-align: center;">
+  <a href="index.php?tpl=users/reset_pw" class="resetpw">
+    '._G('SBGT_forgot_password').'?</a>
+</span>';
         return $output;
     }
 

@@ -22,11 +22,15 @@ else
 
 ?>
 
-    <div class="right" style="width: auto; text-align: right;">
+    <div class="col-8">
+    <b><?= $user->lastname ?></b> <?= $user->firstname ?><br>
+    <span class="help">(exvarchar: <?= $user->exvarchar ?>)</span>
+    </div>
+    <div class="col-4 t-right" style="text-align: right;">
         <form action="index.php?mod=example&amp;inc=adduo"
               method="post" 
               class="hidelayed"
-              style="display: inline-block;">
+              style="display: inline-block; float: right; width: auto;">
             <input type="hidden" name="example_user" value="<?= $user->id ?>">
             <input type="hidden" name="reset" value="1">
             <input src="images/icons/list-remove.png"
@@ -37,7 +41,7 @@ else
         <form action="index.php?mod=example&amp;inc=adduo"
               method="post" 
               class="hidelayed"
-              style="display: inline-block;">
+              style="display: inline-block; float: right; width: auto;">
             <input type="hidden" name="example_user" value="<?= $user->id ?>">
             <input src="images/icons/list-add.png"
                    type="image"
@@ -45,4 +49,4 @@ else
                    title="TITLE text">
         </form>
     </div>
-    <b><?= $user->lastname ?></b> <?= $user->firstname ?> (exvarchar: <?= $user->exvarchar ?>)
+

@@ -15,10 +15,16 @@ defined('_MySBEXEC') or die;
 global $app;
 
 
-include( _pathI('admin/menu') );
+?>
+
+<div class="row">
+
+<?php include( _pathI('admin/menu') );
 
 
 echo '
+<div class="col-lg-9">
+<div class="content">
 <h1>'._G('SBGT_adminplugins').'</h1>';
 
 
@@ -29,7 +35,7 @@ if( isset($_GET['plugin_id']) ) {
     echo '
 <form action="index.php?tpl=admin/plugins&amp;plugin_id='.$current_plugin->id.'" method="post">
 <div class="boxed">
-    <div class="title roundtop"><b>'.$current_plugin->id.': '.$current_plugin->name.'</b></div>
+    <h2>'.$current_plugin->id.': '.$current_plugin->name.'</h2>
     <div class="row">
         <div class="right">'.$current_plugin->type.'</div>
         '._G('SBGT_plugin_type').'
@@ -69,7 +75,10 @@ if( isset($_GET['plugin_id']) ) {
         <input type="submit" value="'._G('SBGT_editplugin_submit').'">
     </div>
 </div>
-</form>';
+</form>
+</div>
+</div>
+</div>';
     return;
 }
 
@@ -82,116 +91,162 @@ foreach($plugins as $plugin) {
         if( $current_type!='' ) 
             echo '
     <div class="row" style="text-align: center;">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="plugin_modif" value="'.$current_type.'">
         <input type="submit" value="'._G('SBGT_adminplugins_prioritysubmit').'">
+    </div>
     </div>
 </div>
 </form>';
         $current_type = $plugin->type;
         echo '
 <form action="index.php?tpl=admin/plugins" method="post">
-<div class="boxed">
-    <div class="title roundtop"><b>'.$current_type.'</b></div>';
+<div class="content list">
+  <h2 class="border-top">'.$current_type.'</h2>';
     }
     echo '
-    <div class="row">
-        <div class="right">'._G('SBGT_adminplugins_priority').':<input type="text" size="1" maxlength="1" name="plg_prio'.$plugin->id.'" value="'.$plugin->priority.'"></div>
-        <div style="float: left;">
-        <a  class="overlayedA"
-            href="index.php?tpl=admin/plugins&amp;plugin_id='.$plugin->id.'">
-            <img    src="images/icons/text-editor.png" 
-                    alt="'._G('SBGT_edit').' '.$plugin->name.'" 
-                    title="'._G('SBGT_edit').' '.$plugin->name.'"></a></div>
-        <i>'.$plugin->id.'</i> '.$plugin->name.'<br>
+  <div class="row">
+    <a class="col-sm-10 btn" href="index.php?tpl=admin/plugins&amp;plugin_id='.$plugin->id.'">
+        <p><i>'.$plugin->id.'</i> '.$plugin->name.'<br>
         <small><i>'._G('SBGT_adminplugins_frommodule').': ';
     if( $plugin->module!='' )  echo $plugin->module;
     else echo 'core';
-    echo ' </i></small>
-    </div>';
+    echo ' </i></small></p>
+    </a>
+    <div class="col-sm-1 t-right">
+      '._G('SBGT_adminplugins_priority').':
+    </div>
+    <div class="col-sm-1">
+      <input type="text" size="1" maxlength="1" name="plg_prio'.$plugin->id.'" value="'.$plugin->priority.'">
+    </div>
+    </div>
+';
 }
 echo '
-    <div class="row" style="text-align: center;">
+    <div class="row">
+    <div class="col-sm-6"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="plugin_modif" value="'.$current_type.'">
         <input type="submit" value="'._G('SBGT_adminplugins_prioritysubmit').'">
     </div>
+    </div>
 </div>
-</form>';
+</form>
+</div>';
 
 echo '
-<h2>'._G('SBGT_adminuo_add').'</h2>
-<div class="boxed">
+<div class="content">
+<h1>'._G('SBGT_adminuo_add').'</h1>
 <form action="index.php?tpl=admin/plugins" method="post">
 
-    <div class="title roundtop"><b>'._G('SBGT_adminuo_new').'</b></div>
-    <div class="row">
-        <div class="right"><input type="text" name="option_name"></div>
-        '._G('SBGT_uo_keyname').'
+  <h2>'._G('SBGT_adminuo_new').'</h2>
+
+  <label class="row" for="option_name">
+    <p class="col-sm-6">
+      '._G('SBGT_uo_keyname').'
+    </p>
+    <div class="col-sm-6">
+      <input type="text" name="option_name" id="option_name">
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="option_text"></div>
-        '._G('SBGT_uo_text').'
+  </label>
+
+  <label class="row" for="option_text">
+    <p class="col-md-4">
+      '._G('SBGT_uo_text').'
+    </p>
+    <div class="col-md-8">
+      <input type="text" name="option_text" id="option_text">
     </div>
-    <div class="row">
-        <div class="right">
-            <select name="option_type">
-	            <option value="'.MYSB_VALUE_TYPE_INT.'">INT</option>
-	            <option value="'.MYSB_VALUE_TYPE_BOOL.'">BOOL</option>
-	            <option value="'.MYSB_VALUE_TYPE_VARCHAR64.'">VARCHAR64</option>
-	            <option value="'.MYSB_VALUE_TYPE_VARCHAR512.'">VARCHAR512</option>
-	            <option value="'.MYSB_VALUE_TYPE_TEXT.'">TEXT</option>
-	            <option value="'.MYSB_VALUE_TYPE_VARCHAR64_SELECT.'">VARCHAR64_SELECT</option>
-	        </select>
-	    </div>
-        '._G('SBGT_uo_type').'
+  </label>
+
+  <label class="row" for="option_type">
+    <p class="col-sm-6">
+      '._G('SBGT_uo_type').'
+    </p>
+    <div class="col-sm-6">
+      <select name="option_type" id="option_type">
+        <option value="'.MYSB_VALUE_TYPE_INT.'">INT</option>
+        <option value="'.MYSB_VALUE_TYPE_BOOL.'">BOOL</option>
+        <option value="'.MYSB_VALUE_TYPE_VARCHAR64.'">VARCHAR64</option>
+        <option value="'.MYSB_VALUE_TYPE_VARCHAR512.'">VARCHAR512</option>
+        <option value="'.MYSB_VALUE_TYPE_TEXT.'">TEXT</option>
+        <option value="'.MYSB_VALUE_TYPE_VARCHAR64_SELECT.'">VARCHAR64_SELECT</option>
+      </select>
     </div>
-    <div class="row">
-        <div class="right"><input type="text" name="option_mail"></div>
-        '._G('SBGT_uo_mailnotify').'
+  </label>
+
+  <label class="row" for="option_mail">
+    <p class="col-sm-6">
+      '._G('SBGT_uo_mailnotify').'
+    </p>
+    <div class="col-sm-6">
+      <input type="email" name="option_mail" id="option_mail">
     </div>
-    <div class="row">
-        <div class="right"><input type="checkbox" name="option_useredit"></div>
+  </label>
+
+  <label class="row" for="option_useredit">
+    <p class="col-10">
         '._G('SBGT_uo_useredition').'
+    </p>
+    <div class="col-2 t-right">
+        <input type="checkbox" name="option_useredit" id="option_useredit">
     </div>
-    <div class="row" style="text-align: center;">
+  </label>
+
+  <div class="row" style="text-align: center;">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="option_add" value="1">
         <input type="submit" value="'._G('SBGT_adminuo_newsubmit').'">
     </div>
+    <div class="col-sm-3"></div>
+  </div>
 
 </form>
 </div>';
 
 $pluginsUserOption = MySBPluginHelper::loadByType('UserOption');
 echo '
-<h2>'._G('SBGT_exportuo').'</h2>
-<div class="boxed">
+<div class="content">
+<h1>'._G('SBGT_exportuo').'</h1>
 <form action="index.php?tpl=admin/plugins" method="post">
 
-    <div class="title roundtop"><b>'._G('SBGT_exportuo_selection').'</b></div>';
+  <h2>'._G('SBGT_exportuo_selection').'</h2>';
 foreach($pluginsUserOption as $plugin) {
     $pname = $plugin->value0;
     echo '
-    <div class="row">
-        <div class="right">';
+  <label class="row" for="uo_'.$plugin->id.'">
+    <p class="col-10">
+        '.$pname.'<br>
+        <span class="help">'._G($plugin->value1).'</span>
+    </p>
+    <div class="col-2 t-right">';
     if($plugin->module!='') {
         $module = MySBModuleHelper::getByName($plugin->module);
         if(!$module->isLoaded()) 
             echo '<i>(module '.$plugin->module.' not loaded)</i>';
         else 
-            echo '<input type="checkbox" name="uo_'.$plugin->id.'">';
+            echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
     } else 
-        echo '<input type="checkbox" name="uo_'.$plugin->id.'">';
-    echo '</div>
-        '.$pname.'<br>
-        <span class="help">'._G($plugin->value1).'</span>
-    </div>';
+        echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
+    echo '
+    </div>
+  </label>';
 }
 echo '
-    <div class="row" style="text-align: center;">
+  <div class="row" style="text-align: center;">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
         <input type="hidden" name="option_export" value="1">
         <input type="submit" value="'._G('SBGT_exportuo_submit').'">
     </div>
+    <div class="col-sm-3"></div>
+  </div>
 
 </form>
+</div>
+</div>
 </div>';
 
 ?>
