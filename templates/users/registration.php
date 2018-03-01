@@ -37,53 +37,53 @@ if($empty_field>=1) {
 
   <h2><?= _G('SBGT_h2_accountinfos') ?></h2>
 
-  <label class="row" for="newlogin">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="newlogin">
       <?= _G('SBGT_login') ?>
-    </p>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="newlogin" id="newlogin"
              maxlength="64"
              class="<?= $invalid_login ?>"
              value="<?= $_POST['newlogin'] ?>">
     </div>
-  </label>
+  </div>
 
-  <label class="row" for="newlastname">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="newlastname">
       <?= _G('SBGT_lastname') ?>
-    </p>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="newlastname" id="newlastname"
              maxlength="64"
              class="<?= $invalid_lastname ?>"
              value="<?= $_POST['newlastname'] ?>">
     </div>
-  </label>
+  </div>
 
-  <label class="row" for="newfirstname">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="newfirstname">
       <?= _G('SBGT_firstname') ?>
-    </p>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="newfirstname" id="newfirstname"
              maxlength="64"
              class="<?= $invalid_firstname ?>"
              value="<?= $_POST['newfirstname'] ?>">
     </div>
-  </label>
+  </div>
 
-  <label class="row" for="newmail">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="newmail">
       <?= _G('SBGT_mail') ?>
-    </p>
+    </label>
     <div class="col-sm-8">
       <input type="email" name="newmail" id="newmail"
              maxlength="64"
              class="<?= $invalid_mail ?>"
              value="<?= $_POST['newmail'] ?>">
     </div>
-  </label>
+  </div>
 
 
 <?php
@@ -101,21 +101,22 @@ if($empty_field>=1) {
         if($plugin->ivalue1!=1) continue;
         $pname = $plugin->value0;
 ?>
-  <label class="row" for="<?= $plugin->formDisplayId() ?>">
-    <p class="col-10">
+  <div class="row label">
+    <label class="col-10" for="<?= $plugin->formDisplayId() ?>">
       <?= _G($plugin->value1) ?>
-    </p>
+    </label>
     <div class="col-2 t-right">
       <?= $plugin->formDisplay() ?>
     </div>
-  </label>
+  </div>
 <?php } ?>
 
   <div class="row border-top">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
       <input type="hidden" name="newuser_flag" value="-1">
-      <input type="submit" value="<?= _G('SBGT_submit_infos') ?>">
+      <input type="submit" class="btn-primary"
+             value="<?= _G('SBGT_submit_infos') ?>">
     </div>
     <div class="col-sm-2"></div>
   </div>

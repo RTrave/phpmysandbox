@@ -95,7 +95,8 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
   </div>
   <div class="row" style="text-align: center; position: relative;">
     <input type="hidden" name="native_login" value="1">
-    <input type="submit" value="'._G('SBGT_log_in').'">
+    <input type="submit" class="btn-primary"
+           value="'._G('SBGT_log_in').'">
   </div>
 </div>
 </form>

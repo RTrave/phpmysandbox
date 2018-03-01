@@ -20,16 +20,7 @@ if( isset($_GET['user_id']) )
   $user = MySBUserHelper::getByID($_GET['user_id']);
 ?>
 
-<!--
-  <a class="overlayed col-1 t-center btn"
-     href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>">
-    <img src="images/icons/text-editor.png"
-         alt="<?= _G('SBGT_edit') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
-         title="<?= _G('SBGT_edit') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
-         style="width1: 24px">
-  </a>
--->
-  <a class="overlayed col-auto btn"
+  <a class="overlayed col-auto btn-primary-light"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>">
   <div class="row">
     <div class="col-auto">
@@ -50,13 +41,13 @@ else
   </div>
   </a>
 <?php if( $user->mail!='' ) { ?>
-  <a class="col-1 t-center btn" href="mailto:<?= $user->mail ?>">
+  <a class="col-1 t-center btn-primary-light" href="mailto:<?= $user->mail ?>">
     <img src="images/icons/mail-unread.png"
          alt="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
          title="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
   </a>
 <?php } else { ?>
-  <div class="col-1" style="min-width: 50px;">
+  <div class="col-1 btn-secondary-light" style="min-width: 50px;">
     <img    src="images/blank.png"
             style="width: 32px;"
             alt="No mail for <?= $user->lastname ?> <?= $user->firstname ?>"

@@ -49,7 +49,7 @@ foreach( $groups as $group ) {
 
   <div class="content list">
   <div class="row">
-    <a class="col-auto btn" href="javascript:void(0)"
+    <a class="col-auto btn-primary-light" href="javascript:void(0)"
        onClick="toggle_slide(\'group_edit_'.$group->id.'\');">
       <p><img src="images/icons/go-down.png" alt="go-down"
               style="position: absolute; right: 0;">
@@ -59,7 +59,7 @@ foreach( $groups as $group ) {
     </a>';
     if( $group->id!=0 )
         echo '
-  <a class="hidelayed col-1 t-center btn danger"
+  <a class="hidelayed col-1 t-center btn-danger-light"
      href="index.php?tpl=admin/groups&amp;group_delete='.$group->id.'"
      data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'">
     <img src="images/icons/user-trash.png"
@@ -70,32 +70,32 @@ foreach( $groups as $group ) {
   </div>
   </div>
 
-  <div id="group_edit_'.$group->id.'" style="display: none; width: 100%; height: 100%;">
+  <div id="group_edit_'.$group->id.'"
+       style="display: none; width: 100%; height: 100%;">
   <form action="index.php?tpl=admin/groups" method="post">
 
-  <label class="row" for="g'.$group->id.'_name">
-    <p class="col-sm-4">
-        '._G('SBGT_admingroups_name').'
-    </p>
+  <div class="row label">
+    <label class="col-sm-4" for="g'.$group->id.'_name">
+      '._G('SBGT_admingroups_name').'
+    </label>
     <div class="col-sm-8">
       <input type="text" name="g'.$group->id.'_name" id="g'.$group->id.'_name"
              value="'.$group->name.'">
     </div>
-  </label>
+  </div>
 
-  <label class="row" for="g'.$group->id.'_comments">
-    <p class="col-sm-4">
-        '._G('SBGT_admingroups_comments').'
-    </p>
+  <div class="row label">
+    <label class="col-sm-4" for="g'.$group->id.'_comments">
+      '._G('SBGT_admingroups_comments').'
+    </label>
     <div class="col-sm-8">
       <input type="text" name="g'.$group->id.'_comments" id="g'.$group->id.'_comments"
              value="'.$group->comments.'">
     </div>
-  </label>
+  </div>
 
-  <div class="row checkbox-list">
-    <p>'._G('SBGT_admingroups_roles').'
-    </p>';
+  <h2>'._G('SBGT_admingroups_roles').'</h2>
+  <div class="row checkbox-list">';
     foreach( $roles as $role ) {
         if( $role->isAssignToGroup($group) ) $checked = 'checked="checked"';
         else $checked = '';
@@ -113,7 +113,8 @@ foreach( $groups as $group ) {
     <div class="col-sm-6">
       <input type="hidden" name="group_edit" value="1">
       <input type="hidden" name="group_id" value="'.$group->id.'">
-      <input type="submit" value="'._G('SBGT_admingroups_submit').': '.$group->name.'">
+      <input type="submit" class="btn-primary"
+             value="'._G('SBGT_admingroups_submit').': '.$group->name.'">
     </div>
   </div>
   </form>
@@ -128,29 +129,30 @@ echo '
 <div class="content">
 <form action="index.php?tpl=admin/groups" method="post">
   <h1>'._G('SBGT_admingroups_new').'</h1>
-  <label class="row" for="group_name">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="group_name">
       '._G('SBGT_admingroups_name').'
-    </p>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="group_name" id="group_name" value="">
     </div>
-  </label>
+  </div>
 
-  <label class="row" for="group_comments">
-    <p class="col-sm-4">
+  <div class="row label">
+    <label class="col-sm-4" for="group_comments">
         '._G('SBGT_admingroups_comments').'
-    </p>
+    </label>
     <div class="col-sm-8">
         <input type="text" name="group_comments" id="group_comments" value="">
     </div>
-  </label>
+  </div>
 
-  <div class="row">
+  <div class="row label">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
         <input type="hidden" name="group_add" value="1">
-        <input type="submit" value="'._G('SBGT_admingroups_newsubmit').'">
+        <input type="submit" class="btn-primary"
+               value="'._G('SBGT_admingroups_newsubmit').'">
     </div>
     <div class="col-sm-3"></div>
   </div>

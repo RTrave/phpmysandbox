@@ -91,17 +91,32 @@ class MySBPluginMenuItem extends MySBPlugin {
         global $app;
         $output = '';
         $output .= '
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_level" value="'.$this->ivalue0.'"></div>
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_level">
     Menu Level (1 or 2)
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_level" id="plg_optval_level"
+           value="'.$this->ivalue0.'">
+  </div>
 </div>
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_text" value="'.$this->value0.'"></div>
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_text">
     Anchor text
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_text" id="plg_optval_text"
+           value="'.$this->value0.'">
+  </div>
 </div>
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_tiptext" value="'.$this->value2.'"></div>
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_tiptext">
     Tooltip text
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_tiptext" id="plg_optval_tiptext"
+           value="'.$this->value2.'">
+  </div>
 </div>';
         return $output;
     }

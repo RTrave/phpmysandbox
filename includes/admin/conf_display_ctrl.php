@@ -31,17 +31,15 @@ $app_config = MySBConfigHelper::loadByGrp('');
 foreach($app_config as $cur_config) {
     if( $cur_config->getType()!='text1' )
         echo '
-  <div class="row">
-    <label for="config_'.$cur_config->keyname.'">
-    <div class="col-sm-4">
-      '._G($cur_config->comments).'<br>
-      <span class="help">'.$cur_config->keyname.'</span>
-    </div>
-    <div class="col-sm-8">
-      '.$cur_config->htmlForm('config_',$cur_config->value).'
-    </div>
-    </label>
-  </div>';
+<div class="row label">
+  <label class="col-sm-4" for="config_'.$cur_config->keyname.'">
+    '._G($cur_config->comments).'<br>
+    <span class="help">'.$cur_config->keyname.'</span>
+  </label>
+  <div class="col-sm-8">
+    '.$cur_config->htmlForm('config_',$cur_config->value).'
+  </div>
+</div>';
     else
         echo '
     <div class="row" style="text-align: right;">

@@ -29,40 +29,34 @@ defined('_MySBEXEC') or die;
     <div class="col-8"><p><b><?= $app->auth_user->login ?></b></p></div>
   </div>
 
-  <div class="row">
-    <label for="user_lastname">
-    <div class="col-sm-4">
-      <p><?= _G('SBGT_lastname') ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-sm-4" for="user_lastname">
+      <?= _G('SBGT_lastname') ?>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="user_lastname" id="user_lastname" maxlength="32"
              value="<?= $app->auth_user->lastname ?>">
     </div>
-    </label>
   </div>
 
-  <div class="row">
-    <label for="user_firstname">
-    <div class="col-sm-4">
-      <p><?= _G('SBGT_firstname') ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-sm-4" for="user_firstname">
+      <?= _G('SBGT_firstname') ?>
+    </label>
     <div class="col-sm-8">
       <input type="text" name="user_firstname" id="user_firstname" maxlength="32"
              value="<?= $app->auth_user->firstname ?>">
     </div>
-    </label>
   </div>
 
-  <div class="row">
-    <label for="user_mail">
-    <div class="col-sm-4">
-      <p><?= _G('SBGT_mail') ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-sm-4" for="user_mail">
+      <?= _G('SBGT_mail') ?>
+    </label>
     <div class="col-sm-8">
       <input type="email" name="user_mail" id="user_mail" maxlength="32"
              value="<?= $app->auth_user->mail ?>">
     </div>
-    </label>
   </div>
 
 <?php
@@ -80,25 +74,24 @@ foreach($pluginsUserOption as $plugin) {
     if($plugin->ivalue1!=1) continue;
     $pname = $plugin->value0;
 ?>
-  <div class="row">
-    <label for="<?= $plugin->formDisplayId() ?>">
-    <div class="col-10">
-      <p><?= _G($plugin->value1) ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-10" for="<?= $plugin->formDisplayId() ?>">
+      <?= _G($plugin->value1) ?>
+    </label>
     <div class="col-2 t-right">
       <?= $plugin->formDisplay() ?>
     </div>
-    </label>
   </div>
 <?php
 }
 ?>
 
-  <div class="row border-top" style="text-align: center;">
+  <div class="row border-top">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
       <input type="hidden" name="user_flag" value="1">
-      <input type="submit" value="<?= _G('SBGT_update_datas') ?>">
+      <input type="submit" class="btn-primary"
+             value="<?= _G('SBGT_update_datas') ?>">
     </div>
     <div class="col-sm-2"></div>
   </div>
@@ -119,35 +112,32 @@ foreach($pluginsUserOption as $plugin) {
 
   <h1><?= _G('SBGT_user_password') ?></h1>
 
-  <div class="row">
-    <label for="user_password">
-    <div class="col-sm-8">
-      <p><?= _G('SBGT_new_password') ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-sm-8" for="user_password">
+      <?= _G('SBGT_new_password') ?>
+    </label>
     <div class="col-sm-4">
       <input type="password" name="user_password" id="user_password"
              value="" maxlength="32">
     </div>
-    </label>
   </div>
 
-  <div class="row">
-    <label for="user_passwordconfirm">
-    <div class="col-sm-8">
-        <p><?= _G('SBGT_new_passwordconfirm') ?></p>
-    </div>
+  <div class="row label">
+    <label class="col-sm-8" for="user_passwordconfirm">
+        <?= _G('SBGT_new_passwordconfirm') ?>
+    </label>
     <div class="col-sm-4">
       <input type="password" name="user_passwordconfirm" id="user_passwordconfirm"
              value="" maxlength="32">
     </div>
-    </label>
   </div>
 
-  <div class="row border-top" style="text-align: center;">
+  <div class="row border-top">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
             <input type="hidden" name="password_flag" value="1">
-            <input type="submit" value="<?= _G('SBGT_update_password') ?>">
+            <input type="submit" class="btn-primary"
+             value="<?= _G('SBGT_update_password') ?>">
     </div>
     <div class="col-sm-2"></div>
   </div>
@@ -164,23 +154,21 @@ foreach($pluginsUserOption as $plugin) {
 
   <h1><?= _G('SBGT_user_deluser') ?></h1>
 
-  <div class="row">
-    <label for="userdel_password">
-    <div class="right col-sm-8">
-      <p><?= _G('SBGT_deluser_password') ?></p>
-    </div>
-    <div class="right col-sm-4">
+  <div class="row label">
+    <label class="col-sm-8" for="userdel_password">
+      <?= _G('SBGT_deluser_password') ?>
+    </label>
+    <div class="col-sm-4">
       <input type="password" name="userdel_password" id="userdel_password"
              value="" maxlength="32">
     </div>
-    </label>
   </div>
 
-    <div class="row border-top" style="text-align: center;">
+    <div class="row border-top">
         <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <input type="hidden" name="deluser_flag" value="1">
-            <input class="danger" type="submit"
+            <input class="btn-danger" type="submit"
                    value="<?= _G('SBGT_user_deluser') ?>">
         </div>
         <div class="col-sm-2"></div>

@@ -40,11 +40,11 @@ include(MySB_ROOTPATH.'/config.php');
   </div>
 <?php } ?>
   <div class="row">
-    <div class="col-md-6"><p>test mail on:</p></div>
-    <div class="col-md-6">
+    <div class="col-md-4"><p>test mail on:</p></div>
+    <div class="col-md-8">
       <form action="index.php?tpl=admin/admin" method="post">
       <input type="hidden" name="test_mail" value="1">
-      <input type="submit" style="max-width: "
+      <input type="submit" class="btn-primary"
              value="<?= $app->auth_user->mail ?>">
       </form>
     </div>
@@ -77,7 +77,7 @@ include(MySB_ROOTPATH.'/config.php');
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <input type="hidden" name="config_modif" value="1">
-      <input type="submit" value="Modify">
+      <input type="submit" class="btn-primary" value="Modify">
     </div>
     <div class="col-md-3"></div>
   </div>
@@ -93,7 +93,7 @@ foreach($modules as $module) {
 <div class="content">
   <h1 id="mod_'.$module->name.'">Module: '.$module->name.'</h1>
   <div class="row">
-    <p>Version: '.$module->module_helper->version.' <br>
+    <p class="col-12">Version: '.$module->module_helper->version.' <br>
     <i>Required: '.admin_getrequired($module).'</i></p>
   </div>';
     if($mod_conf==null) {
@@ -105,7 +105,8 @@ foreach($modules as $module) {
     </div>
     <div class="col-md-6">
       <input type="hidden" name="set_mod" value="'.$module->name.'">
-      <input type="submit" value="Set '.$module->name.'">
+      <input type="submit" class="btn-success"
+             value="Set '.$module->name.'">
     </div>
   </div>
   </form>
@@ -122,7 +123,7 @@ foreach($modules as $module) {
     </div>
     <div class="col-md-6">
       <input type="hidden" name="unset_mod" value="'.$module->name.'">
-      <input type="submit" class="danger"
+      <input type="submit" class="btn-danger"
              value="Unset '.$module->name.'">
     </div>
   </form>
@@ -130,17 +131,21 @@ foreach($modules as $module) {
       } elseif($mod_conf->getValue()==-1) {
         echo '
   <div class="row">
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
-<p>
+<p class="col-12">
 module <b>disabled</b>:
+</p>
+<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
+<p class="col-6">
     <input type="hidden" name="reinit_mod" value="'.$module->name.'">
-    <input type="submit" value="Reinit '.$module->name.'">
+    <input type="submit" class="btn-success"
+           value="Reinit '.$module->name.'">
 </p>
 </form>
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post" OnSubmit="return mysb_confirm(\'Delete tables in '.$module->name.'?\')">
-<p>
+<p class="col-6">
     <input type="hidden" name="delete_mod" value="'.$module->name.'">
-    <input type="submit" value="Delete '.$module->name.' tables">
+    <input type="submit"  class="btn-danger"
+           value="Delete '.$module->name.' tables">
 </p>
 </form>
   </div>';
@@ -153,28 +158,27 @@ module <b>disabled</b>:
         echo '
   <div class="row">
     <div class="col">
-      <span><i>No config values</i><span></div>
-    </div>';
+      <p><i>No config values</i></p>
+    </div>
+  </div>';
       } else {
         echo '
 <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">';
         foreach($configs as $config) {
           if( $config->getType()!='text1' ) {
             echo '
-  <div class="row">
-    <label for="'.$module->name.'config_'.$config->keyname.'">
-    <div class="col-sm-4">
-        '._G($config->comments).'<br>
-        <span class="help">'.$config->keyname.'</span>
-    </div>
-    <div class="col-sm-8">
-        <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
-    </div>
+  <div class="row label">
+    <label class="col-sm-4" for="'.$module->name.'config_'.$config->keyname.'">
+      '._G($config->comments).'<br>
+      <span class="help">'.$config->keyname.'</span>
     </label>
+    <div class="col-sm-8">
+      <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
+    </div>
   </div>';
           } else {
             echo '
-    <div class="row" style="text-align: right;">
+    <div class="row">
         <div style="float: left; text-align: left;">'._G($config->comments).'<br>
         <span class="help">'.$config->keyname.'</span></div>
         <div style="display: inline-block; margin: 0px 0px 0px auto;">'.$config->htmlForm('config_',$config->value).'</div>
@@ -186,29 +190,31 @@ module <b>disabled</b>:
     <div class="col-md-3"></div>
     <div class="col-md-6">
         <input type="hidden" name="moduleconfig_mod" value="'.$module->name.'">
-        <input type="submit" value="Update '.$module->name.' configs">
+        <input type="submit" class="btn-primary"
+               value="Update '.$module->name.' configs">
     </div>
     <div class="col-md-3"></div>
   </div>
 </form>';
       }
       echo '
-<h2 class="border-top">Plugins</h2>';
+  <h2 class="border-top">Plugins</h2>';
       $plugins = MySBPluginHelper::loadByModule($module->name);
       if(count($plugins)==0) echo '
-    <div class="row">
-      <div class="col">
-        <span><i>No plugin values</i><span></div>
-    </div>';
+  <div class="row">
+      <p class="col"><i>No plugin values</i></p>
+  </div>';
       else {
         echo '
-<div class="row"><ul>';
+  <div class="row">
+    <p class="col"><ul>';
         foreach($plugins as $plugin) {
           echo '
-    <li>'.$plugin->name.' <i>('.$plugin->type.')</i></li>';
+      <li>'.$plugin->name.' <i>('.$plugin->type.')</i></li>';
         }
         echo '
-</ul></div>';
+    </ul></p>
+  </div>';
       }
       echo '
 </div>';
