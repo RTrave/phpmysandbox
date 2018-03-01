@@ -24,17 +24,21 @@ a:hover {
   /* background-color: transparent; */
 }
 
-input:not([type=image]),
+input:not([type=image]):not([class*="mce-"]),
+.btn,
 textarea {
-    color: #444444;
-    background-color: #fff;
     background-clip: padding-box;
-    border: 1px solid #cccccc;
     border-radius: .25rem;
     transition: color .15s ease-in-out,
                 border-color .15s ease-in-out,
                 background-color .15s ease-in-out,
                 box-shadow .15s ease-in-out;
+}
+input:not([type=image]):not([class*="mce-"]):not([class*="btn-"]),
+textarea {
+    color: #444444;
+    background-color: #fff;
+    border: 1px solid #cccccc;
 }
 input[type=image] {
     /* padding: 0; */
@@ -44,90 +48,99 @@ input:focus,
 textarea:focus {
     border-color: rgba(0,123,255,.5);
     outline: 0;
-    box-shadow: 0 0 .1rem .2rem rgba(0,123,255,.5);
+    box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.5);
 }
 select:focus {
-  box-shadow: 0 0 .1rem .2rem rgba(0,123,255,.5);
+  box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.5);
 }
 textarea {
   max-width: 100%;
 }
+.label {
+  transition: background-color .15s ease-in-out;
+}
+.checkbox-list label,
+.radio-list label {
+  background-color: rgba(0,123,255,.05);
+  transition: background-color .15s ease-in-out;
+}
+.label:hover, .label:focus,
+.checkbox-list label:not([class*="mce-"]):hover,
+.radio-list label:not([class*="mce-"]):focus,
+.checkbox-list label:not([class*="mce-"]):hover,
+.radio-list label:not([class*="mce-"]):focus {
+  background-color: rgba(0,123,255,.1);
+}
+
+/*** Buttons style ***/
+button,
+input[type=submit],
+input[type=image],
+.btn {
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
 
 /*** Primary color ***/
-button,
-input[type=submit] {
-  border: none;
-  cursor: pointer;
-  color: white;
+.btn-primary {
   background-color: rgba(0,123,255,.8);
+  color: white;
 }
-input[type=image],
-a.btn {
-  border: none;
-  cursor: pointer;
-  color: black;
-  background-color: rgba(0,123,255,.2);
-}
-button:hover,
-input[type=submit]:hover,
-button:focus,
-input[type=submit]:focus {
+.btn-primary:hover,
+.btn-primary:focus {
   box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.75);
   background-color: rgba(0,123,255,1);
+  color: white;
 }
-input[type=image]:hover,
-input[type=image]:focus,
-a.btn:hover,
-a.btn:focus {
+.btn-primary-light {
+  background-color: rgba(0,123,255,.2);
+  color: black;
+}
+.btn-primary-light:hover,
+.btn-primary-light:focus {
   box-shadow: 0 0 .1rem .1rem rgba(0,123,255,.25);
   background-color: rgba(0,123,255,.5);
+  color: black;
 }
 /*** Danger color ***/
-button.danger,
-input.danger[type=submit] {
-  background-color: rgba(220,53,69,1);
+.btn-danger {
+  background-color: rgba(220,53,69,.8);
+  color: white;
 }
-input.danger[type=image],
-a.danger.btn,
-.danger.btn {
+.btn-danger:hover,
+.btn-danger:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.75);
+  background-color: rgba(220,53,69,1);
+  color: white;
+}
+.btn-danger-light {
   background-color: rgba(220,53,69,.2);
 }
-button.danger:hover,
-input.danger[type=submit]:hover,
-button.danger:focus,
-input.danger[type=submit]:focus {
-  box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.75);
-}
-input.danger[type=image]:hover,
-input.danger[type=image]:focus,
-a.danger.btn:hover,
-a.danger.btn:focus,
-.danger.btn:hover,
-.danger.btn:focus {
+.btn-danger-light:hover,
+.btn-danger-light:focus {
   box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.25);
   background-color: rgba(220,53,69,.5);
 }
 /*** Success color ***/
-button.success,
-input.success[type=submit] {
+.btn-success {
   background-color: rgba(40,167,69,1);
+  color: white;
 }
-button.success:hover,
-input.success[type=submit]:hover,
-button.success:focus,
-input.success[type=submit]:focus {
+.btn-success:hover,
+.btn-success:focus {
   box-shadow: 0 0 .1rem .1rem rgba(40,167,69,.75);
+  color: white;
 }
 /*** Secondary color ***/
-button.secondary,
-input.secondary[type=submit] {
+.btn-secondary {
   background-color: rgba(108,117,125,1);
+  color: white;
 }
-button.secondary:hover,
-input.secondary[type=submit]:hover,
-button.secondary:focus,
-input.secondary[type=submit]:focus {
+.btn-secondary:hover,
+.btn-secondary:focus {
   box-shadow: 0 0 .1rem .1rem rgba(108,117,125,.75);
+  color: white;
 }
 
 input.is-invalid,
@@ -205,9 +218,10 @@ input.is-invalid:focus {
   background-color: #ffe9ae;
   box-shadow: 0 0 .1rem .2rem rgba(220,74,0,.7);
 }
-.content .border-top ,
+.border-top,
 .content-divider {
   border-top: 2px solid #e1e1e1;
+  padding-top: .5em;
 }
 #mysbMiddle .list {
   box-shadow: none;
@@ -231,6 +245,29 @@ input.is-invalid:focus {
 }
 }
 
+
+/**********************************/
+/**  MODAL STYLES  **/
+/**********************************/
+
+#mysbOverlay {
+  background-color: rgba(30,30,30,0.9);
+}
+div.modalTitle {
+  background-color: #333;
+  color: white;
+}
+.modal,
+div.modalBody,
+div.modalBodyFoot {
+  background-color: #ffffff;
+}
+.modal {
+  /* border: 2px solid #111111; */
+  box-shadow:0 0 90px 5px #000;
+  -moz-box-shadow:0 0 90px 5px #000;
+  -webkit-box-shadow: 0 0 90px #000;
+}
 
 
 @media print {

@@ -164,49 +164,28 @@ function desactiveOverlay() {
 /**
  * Overlay windows handling functions
  */
- function resizeOverWin() {
+function resizeOverWin() {
+  var e = window;
+  var a = 'inner';
+  if ( !( 'innerWidth' in window ) ) {
+    a = 'client'; e = document.documentElement || document.body;
+  }
+
+  var mhContent = ((e[ a+'Height' ]-100)*0.8);
+  if(mhContent<200) { mhContent = 200; };
+  var mhBody = ((e[ a+'Height' ]-150)*0.7);
+  if(mhBody<150) { mhBody = 150; };
+
+  [].forEach.call(document.getElementsByClassName("modalContent"), function(el) {
+    el.setAttribute("style", "max-height: "+mhContent+"px;");
+  });
+  [].forEach.call(document.getElementsByClassName("modalBody"), function(el) {
+    el.setAttribute("style", "max-height: "+mhBody+"px;");
+  });
 }
- function resizeOverWin1() {
-    // force height(px): <div class="overlaySize" data-overheight="140"></div>
-    var hcontent = parseFloat($("#overlay .overlaySize").attr("data-overheight"));
-    var topmargin = ($(window).height() * 0.05);
-    var maxh = $(window).height() * 0.65;
-    if( $(window).width()<520 ) { maxh = $(window).height() * 0.45; };
-    if( hcontent>0 ) {
-        if( hcontent>maxh ) {
-            hcontent = maxh;
-        }
-        var obhcontent = hcontent - $(".overHead").height() - topmargin;
-        $("#overlay").css("bottom","auto");
-        $(".overBody").css("max-height",obhcontent+"px");
-        $(".overBodyFoot").css("max-height",obhcontent+"px");
-        //window.console&&console.log("LOGH1: hcontent("+hcontent+"px) hbottom("+((100-hcontent-10)+"%")+") ");
-    } else {
-        var hcontent = maxh;
-        $("#overlay").css("bottom","auto");
-        $(".overBody").css("max-height",hcontent+"px");
-        $(".overBodyFoot").css("max-height",hcontent+"px");
-        //window.console&&console.log("LOGH2: max-height: " + hcontent);
-    }
-    // force width(px): <div class="overlaySize" data-overwidth="300"></div>
-    var wcontent = parseInt($("#overlay .overlaySize").attr("data-overwidth"));
-    if( wcontent>0 ) {
-        if( wcontent>$(window).width()-20 ) { wcontent = $(window).width()-20; };
-        var wmargin = (($(window).width()-wcontent)/2) -2;
-        $("#overlay").css("left",wmargin+"px");
-        $("#overlay").css("right","auto");
-        $("#overlay").css("width",wcontent+"px");
-        //window.console&&console.log("LOGH2: wmargin=" + wmargin + " wcontent=" + wcontent);
-    } else {
-        var wcontmarg = 0;
-        if( $(window).width()<520 ) wcontmarg = 5;
-        else wcontmarg = 20;
-        var wwin = $(window).width() - 2*wcontmarg*0.01*$(window).width();
-        $("#overlay").css("right",wcontmarg+"%");
-        $("#overlay").css("left",wcontmarg+"%");
-        $("#overlay").css("width","auto");
-    }
-}
+window.addEventListener('resize', function(){resizeOverWin();}, true);
+
+
 function confirmOverWin(trigger) {
     if(!trigger[0].hasAttribute("data-overconfirm")) return true;
     var str = trigger.attr("data-overconfirm");

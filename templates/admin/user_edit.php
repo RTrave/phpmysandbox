@@ -54,16 +54,15 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 <div class="modalTitle">
 
 <?php if( $user->id!=0 and $user->id!=1 ) { ?>
-  <a class="hidelayed col-1 t-center btn danger"
+  <a class="hidelayed col-1 t-center btn-danger-light"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>&amp;user_delete=1"
-     data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_delete')) ?>">
+     data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_delete')) ?>"
+     title="<?= _G('SBGT_adminusers_delete') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
     <img src="images/icons/user-trash.png"
-         alt="<?= _G('SBGT_adminusers_delete') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
-         title="<?= _G('SBGT_adminusers_delete') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
-         style="width1: 24px">
+         alt="">
   </a>
 <?php } ?>
-  <a class="hidelayed col-1 t-center btn"
+  <a class="hidelayed col-1 t-center btn-primary-light"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>&amp;user_newpasswd=1"
      title="<?= _G('SBGT_adminusers_newpasswd') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
      data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_newpasswd')) ?>">
@@ -79,38 +78,32 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 
 <div class="modalBody">
 
-<div class="row">
-  <label for="lastname">
-  <p class="col-sm-4">
+<div class="row label">
+  <label class="col-sm-4" for="lastname">
     <?= _G('SBGT_lastname') ?>
-  </p>
+  </label>
   <div class="col-sm-8">
     <input type="text" name="lastname" id="lastname"
            value="<?= $user->lastname ?>">
   </div>
-  </label>
 </div>
-<div class="row">
-  <label for="firstname">
-  <p class="col-sm-4">
+<div class="row label">
+  <label class="col-sm-4" for="firstname">
     <?= _G('SBGT_firstname') ?>
-  </p>
+  </label>
   <div class="col-sm-8">
     <input type="text" name="firstname" id="firstname"
            value="<?= $user->firstname ?>">
   </div>
-  </label>
 </div>
-<div class="row">
-  <label for="mail">
-  <p class="col-sm-4">
+<div class="row label">
+  <label class="col-sm-4" for="mail">
     <?= _G('SBGT_mail') ?>
-  </p>
+  </label>
   <div class="col-sm-8">
     <input type="email" name="mail" id="mail"
            value="<?= $user->mail ?>">
   </div>
-  </label>
 </div>
 
 <?php
@@ -123,11 +116,12 @@ if(count($pluginsUserOption)>=1) {
         foreach($pluginsUserOption as $plugin) {
                 $pname = $plugin->value0;
                 echo '
-<label class="row" for="'.$plugin->formDisplayId().'">
-  <p class="col-sm-8">
-                <b>'.$pname.'</b><br>'._G($plugin->value1).'
-  </p>
-  <div class="col-sm-4">
+<div class="row label">
+  <label class="col-6" for="'.$plugin->formDisplayId().'">
+    '._G($plugin->value1).'<br>
+    <span class="help">'.$pname.'</span>
+  </label>
+  <div class="col-6">
 ';
                 echo '';
                 if($plugin->module!='') {
@@ -138,7 +132,7 @@ if(count($pluginsUserOption)>=1) {
                 } else echo $plugin->formDisplay($user);
                 echo '
   </div>
-</label>';
+</div>';
         }
 }
 ?>
@@ -146,22 +140,21 @@ if(count($pluginsUserOption)>=1) {
 
 <?php
 echo '
-<h2 class="border-top">'._G('SBGT_adminusers_groups').'<h2>
+<h2 class="border-top">'._G('SBGT_adminusers_groups').'</h2>
 <div class="row checkbox-list">';
 foreach( $groups as $group ) {
     if( $user->login=='admin' and $group->id==0 ) {
         echo '
-  <label style1="display: inline-block; background: #dddddd; margin: 2px 3px; padding: 1px 3px;">
-    <p><i>'.$group->comments.'</i></p>
+  <label>
+    <i>'.$group->comments.'</i>
     <input type="hidden" name="isingroup_0" value="on">
     <input type="checkbox" disabled="disabled" checked="checked">
   </label>';
     } else {
         $group_nid = 'g'.$group->id;
         echo '
-  <label style1="display: inline-block; background: #dddddd; margin: 2px 3px; padding: 1px 3px;"
-         for="isingroup_'.$group->id.'">
-    <p><i>'.$group->comments.'</i></p>
+  <label for="isingroup_'.$group->id.'">
+    <i>'.$group->comments.'</i>
     <input type="checkbox" name="isingroup_'.$group->id.'" id="isingroup_'.$group->id.'"
            '.MySBUtil::form_ischecked($user->$group_nid,1).'>
   </label>';
@@ -178,11 +171,10 @@ echo '
 </div>
 
 <div class="modalFoot">
-  <div class="overlayed col-12 t-center btn"
-     href="index.php?tpl=admin/user_edit&amp;=<?= $user->id ?>">
+  <div class="col-12 t-center">
     <input type="hidden" name="user_edition" value="1">
     <input type="submit" value="'._G('SBGT_adminusers_submit').'"
-        class="action" style="width: 100%;">
+        class="btn-primary">
   </div>
 </div>
 
