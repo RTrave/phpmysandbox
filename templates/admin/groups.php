@@ -50,7 +50,7 @@ foreach( $groups as $group ) {
   <div class="content list">
   <div class="row">
     <a class="col-auto btn-primary-light" href="javascript:void(0)"
-       onClick="toggle_slide(\'group_edit_'.$group->id.'\');">
+       onClick="slide_toggle(\'group_edit_'.$group->id.'\');">
       <p><img src="images/icons/go-down.png" alt="go-down"
               style="position: absolute; right: 0;">
         <b>'.$group->name.'</b><br>
@@ -61,17 +61,16 @@ foreach( $groups as $group ) {
         echo '
   <a class="hidelayed col-1 t-center btn-danger-light"
      href="index.php?tpl=admin/groups&amp;group_delete='.$group->id.'"
-     data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'">
-    <img src="images/icons/user-trash.png"
-         alt="'._G('SBGT_admingroups_delete').' '.$group->name.'"
-         title="'._G('SBGT_admingroups_delete').' '.$group->name.'">
+     data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'"
+     title="'._G('SBGT_admingroups_delete').' '.$group->name.'">
+    <img src="images/icons/user-trash.png" alt="">
   </a>';
     echo '
   </div>
   </div>
 
-  <div id="group_edit_'.$group->id.'"
-       style="display: none; width: 100%; height: 100%;">
+  <div id="group_edit_'.$group->id.'" class="slide"
+       style="width: 100%;">
   <form action="index.php?tpl=admin/groups" method="post">
 
   <div class="row label">

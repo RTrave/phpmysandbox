@@ -28,8 +28,10 @@ if( isset($_GET['user_delete']) and $_GET['user_delete']==1 ) {
     echo '
 <script>
 hide("user'.$_GET['user_id'].'");
-desactiveOverlay();
 </script>';
+    return;
+}
+if( isset($_GET['user_newpasswd']) and $_GET['user_newpasswd']==1 ) {
     return;
 }
 if( isset($_POST['user_edition']) and $_POST['user_edition']==1 ) {
@@ -37,7 +39,6 @@ if( isset($_POST['user_edition']) and $_POST['user_edition']==1 ) {
 <script>
 loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->id.'");
 </script>';
-    //return;
 }
 ?>
 
@@ -80,7 +81,7 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 
 <div class="row label">
   <label class="col-sm-4" for="lastname">
-    <?= _G('SBGT_lastname') ?>
+    <b><?= _G('SBGT_lastname') ?></b>
   </label>
   <div class="col-sm-8">
     <input type="text" name="lastname" id="lastname"
@@ -89,7 +90,7 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 </div>
 <div class="row label">
   <label class="col-sm-4" for="firstname">
-    <?= _G('SBGT_firstname') ?>
+    <b><?= _G('SBGT_firstname') ?></b>
   </label>
   <div class="col-sm-8">
     <input type="text" name="firstname" id="firstname"
@@ -98,7 +99,7 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 </div>
 <div class="row label">
   <label class="col-sm-4" for="mail">
-    <?= _G('SBGT_mail') ?>
+    <b><?= _G('SBGT_mail') ?></b>
   </label>
   <div class="col-sm-8">
     <input type="email" name="mail" id="mail"
@@ -118,7 +119,7 @@ if(count($pluginsUserOption)>=1) {
                 echo '
 <div class="row label">
   <label class="col-6" for="'.$plugin->formDisplayId().'">
-    '._G($plugin->value1).'<br>
+    <b>'._G($plugin->value1).'</b><br>
     <span class="help">'.$pname.'</span>
   </label>
   <div class="col-6">

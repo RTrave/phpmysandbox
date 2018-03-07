@@ -344,6 +344,10 @@ div#mysbMiddle {
 /**  SIZED BLOCK ELEMENTS  **/
 /**********************************/
 
+.w-auto {
+  width: auto !important;
+}
+
 .w-100,
 .w-sm-100,
 .w-md-100,

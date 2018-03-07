@@ -19,8 +19,10 @@ defined('_MySBEXEC') or die;
 <body>
 <noscript>
     <div class="advert" style="background-color: #ffe4e7; border: 4px solid #ffab67; font-size: 24px;">Javascript needed but not activated.</div><br></noscript>
-<div id="overlayBg1">
+
+<div id="spinlayer">
 </div>
+
 <div id="mysbOverlay" class="overlay">
 <div id="mysbModal" class="mysb_overlay modal">
     <div class="close btn-danger-light" >
@@ -31,18 +33,10 @@ defined('_MySBEXEC') or die;
     <div class="contentWrap" id="contentWrap">...</div>
 </div>
 </div>
-<script>
-desactiveOverlay();
-</script>
-<div id="spinlayer">
-</div>
-<script type="text/javascript">
-loadSpin();
-</script>
 
-<div id="hidelayer">
-</div>
 <div id="mysbMessages">
+</div>
+<div id="hidelayer">
 </div>
 
 
@@ -51,21 +45,15 @@ loadSpin();
 <div id="mysbTop" class="roundtop">
 <?php include(_pathI('navbar_top')) ?>
 </div>
-<?php //include(_pathI('top')) ?>
 
 <div id="mysbMiddle">
 
-<!-- <div class="content"> -->
-
 <?= $app->content['template'] ?>
-
-<!-- </div> -->
 
 </div>
 
 <div id="mysbBottom" class="roundbottom">
 <?php include(_pathI('navbar_bottom')) ?>
-<?php //include(_pathI('bottom')) ?>
 </div>
 
 
@@ -73,6 +61,7 @@ loadSpin();
 
 
 <script type="text/javascript">
+loadSpin();
 wrapLayerCalls();
 </script>
 

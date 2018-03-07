@@ -124,23 +124,41 @@ input[type=image],
 }
 /*** Success color ***/
 .btn-success {
-  background-color: rgba(40,167,69,1);
+  background-color: rgba(40,167,69,.8);
   color: white;
 }
 .btn-success:hover,
 .btn-success:focus {
+  background-color: rgba(40,167,69,1);
   box-shadow: 0 0 .1rem .1rem rgba(40,167,69,.75);
   color: white;
 }
+.btn-success-light {
+  background-color: rgba(40,167,69,.2);
+}
+.btn-success-light:hover,
+.btn-success-light:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(40,167,69,.25);
+  background-color: rgba(40,167,69,.5);
+}
 /*** Secondary color ***/
 .btn-secondary {
-  background-color: rgba(108,117,125,1);
+  background-color: rgba(108,117,125,.8);
   color: white;
 }
 .btn-secondary:hover,
 .btn-secondary:focus {
+  background-color: rgba(108,117,125,1);
   box-shadow: 0 0 .1rem .1rem rgba(108,117,125,.75);
   color: white;
+}
+.btn-secondary-light {
+  background-color: rgba(108,117,125,.2);
+}
+.btn-secondary-light:hover,
+.btn-secondary-light:focus {
+  box-shadow: 0 0 .1rem .1rem rgba(108,117,125,.25);
+  background-color: rgba(108,117,125,.5);
 }
 
 input.is-invalid,

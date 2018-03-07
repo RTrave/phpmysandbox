@@ -13,9 +13,7 @@
 /**********************************/
 
 #mysbOverlay {
-  display: none;
   position: fixed;
-  z-index: 9995;
   width: 100%;
   height: 200%;
   top: 0;
@@ -25,7 +23,7 @@
 }
 
 .modal {
-  display:none;
+  display: inline-block;
   z-index: 10000 !important;
   width: 768px;
   top: 10px;
@@ -157,6 +155,7 @@ div.modalFoot .row {
   }
 }
 
+
 div.modalBody,
 div.modalBodyFoot {
   overflow-y: auto;
@@ -170,3 +169,25 @@ div.modalBodyFoot {
     overflow-y: visible;
   }
 }
+
+
+/**********************************/
+/**  MODAL ACTIVATION  **/
+/**********************************/
+
+#mysbOverlay {
+  opacity: 0;
+  z-index: -20;
+  -webkit-transition: opacity 0.2s,
+              z-index 0s ease 0.2s;
+  transition: opacity 0.2s,
+              z-index 0s ease 0.2s;
+}
+#mysbOverlay.active {
+  opacity: 1;
+  z-index: 9995;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+

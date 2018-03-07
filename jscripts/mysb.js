@@ -15,70 +15,78 @@
  * @author     Roman Travé <roman.trave@gmail.com>
  */
 
-// Adding an slide animation on bootstrap's dropdowns
-$(document).on(".dropdown1", ".dropdown1", function (event) {
-    $(event.target).find(">.dropdown-content").slideUp(150);
-});
-$(document).on(".dropdown:hover", ".dropdown:hover", function (event) {
-    $(event.target).find(".dropdown-content").slideDown(150);
-});
-
 
 /**
  * Navbar responsive toggle
  */
 function responsiveToggle(navDIV,baseClass) {
-    var x = document.getElementById(navDIV);
-    if (x.className === baseClass) {
-        x.className += " responsive";
-    } else {
-        x.className = baseClass;
-    }
+  var x = document.getElementById(navDIV);
+  if (x.className === baseClass) {
+    x.className += " responsive";
+  } else {
+    x.className = baseClass;
+  }
 }
-
 
 /**
  * Classic confirmation/alert of form submission.
  * Do not use it for over/hide layers (use the data-overconfirm attribute).
  */
 function mysb_confirm(text) {
-    var a = false, b='';
-    a= confirm (text);
-    if (a)
-        return true;
-    else
-        return false;
+  var a = false, b='';
+  a= confirm (text);
+  if (a)
+    return true;
+  else
+    return false;
 }
 function mysb_alert(text) {
-    var a = false, b='';
-    a= alert (text);
-    if (a)
-        return true;
-    else
-        return false;
-}
-
-/**
- * Hide message tip
- */
-function hideMessageTip() {
-    var tip = $("div#mysbMessages");
-    tip.delay(3000).fadeOut(2000);
-}
-
-/**
- * Few show/hide functions
- */
-function toggleSlide(cDIV){
-    if( $("."+cDIV).css("display")!="none" )
-        $("."+cDIV).slideUp(150, function () { jQuery(this).parent().addClass("closed") } );
-    else
-        $("."+cDIV).slideDown(150, function () { jQuery(this).parent().addClass("open") } );
+  var a = false, b='';
+  a= alert (text);
+  if (a)
+    return true;
+  else
+    return false;
 }
 
 
 /**
  * Few show/hide functions
+ */
+function slide_toggle(vDIV) {
+  if((slide = document.getElementById(vDIV))==null) return;
+  if(!slide.classList.contains("slide")) {
+    slide.classList.add("slide");
+    return;
+  }
+  if (slide.classList.contains("slide-toggled")) {
+    slide.classList.remove("slide-toggled");
+  } else {
+    slide.classList.add("slide-toggled");
+  }
+}
+function slide_hide(vDIV) {
+  if((slide = document.getElementById(vDIV))==null) return;
+  if(!slide.classList.contains("slide")) {
+    slide.classList.add("slide");
+    return;
+  }
+  if (slide.classList.contains("slide-toggled")) {
+    slide.classList.remove("slide-toggled");
+  }
+}
+function slide_show(vDIV) {
+  if((slide = document.getElementById(vDIV))==null) return;
+  if(!slide.classList.contains("slide")) {
+    slide.classList.add("slide");
+  }
+  if (!slide.classList.contains("slide-toggled")) {
+    slide.classList.add("slide-toggled");
+  }
+}
+
+/**
+ * Few show/hide functions !!OBSOLETE!!
  */
 function show(vDIV){
     $("#"+vDIV).fadeIn(300);
@@ -118,48 +126,40 @@ function hide_slide(vDIV){
 /**
  * Spin/wait handling
  */
-
 function loadSpin() {
-    var opts = {
-        color: '#000', // #rgb or #rrggbb or array of colors
-        className: 'spinner', // The CSS class to assign to the spinner
-        top: '25%', // Top position relative to parent
-    };
-    var target = document.getElementById("spinlayer"); //
-    var spinner = new Spinner(opts).spin(target);
+  var opts = {
+    color: '#000', // #rgb or #rrggbb or array of colors
+    className: 'spinner', // The CSS class to assign to the spinner
+    top: '25%', // Top position relative to parent
+  };
+  var target = document.getElementById("spinlayer"); //
+  var spinner = new Spinner(opts).spin(target);
 }
 function onSpin() {
-    $("body").css("cursor","wait");
-    $("#spinlayer").css("display","inline-block");
+  document.body.style.cursor = 'wait';
+  document.getElementById('spinlayer').style.display = 'inline-block';
 }
 function offSpin() {
-    $("#spinlayer").css("display","none");
-    $("body").css("cursor","auto");
-    //window.console&&console.log("offSpin()");
+  document.getElementById('spinlayer').style.display = 'none';
+  document.body.style.cursor = 'auto';
 }
+
 
 /**
  * Overlay handling functions
  */
-function prepareOverlay() {
-    $("#mysbOverlay").fadeIn(100);
-}
 function activeOverlay() {
-    $("#mysbOverlay").promise().done(function(){
-        $("#mysbOverlay").css("display","block");
-        //$("#overlay").css("position","fixed");
-        $("#mysbModal").fadeIn(300).css("display","inline-block");
-        // $("#overlay").css("top","15px");
-    });
+  var x = document.getElementById("mysbOverlay");
+  x.className = "overlay active";
 }
 function desactiveOverlay() {
-    $("#mysbModal").fadeOut(150);
-    $("#mysbOverlay").fadeOut(150);
-    $("#mysbModal").promise().done(function(){
-        $(".contentWrap").html("...");
-    });
-    offSpin();
+  var x = document.getElementById("mysbOverlay");
+  x.className = "overlay";
 }
+// function undisplay(mDiv) {
+//   document.getElementById(mDiv).style.display = 'none';
+// }
+
 
 /**
  * Overlay windows handling functions
@@ -187,104 +187,197 @@ window.addEventListener('resize', function(){resizeOverWin();}, true);
 
 
 function confirmOverWin(trigger) {
-    if(!trigger[0].hasAttribute("data-overconfirm")) return true;
-    var str = trigger.attr("data-overconfirm");
-    a = confirm( str.replace(/\\n/g,"\n").replace(/\\\'/g,"\'") );
-    if (a) return true;
-    else return false;
+  if(!trigger[0].hasAttribute("data-overconfirm")) return true;
+  var str = trigger.attr("data-overconfirm");
+  a = confirm( str.replace(/\\n/g,"\n").replace(/\\\'/g,"\'") );
+  if (a) return true;
+  else return false;
 }
+
+// CODE WORK-IN-PROGRESS WITHOUT JQUERY
+// pepins pour les script src=""
+function insertAndExecute(id, text) {
+  domelement = document.getElementById(id);
+  domelement.innerHTML = text;
+  var scripts = [];
+
+  ret = domelement.childNodes;
+  for ( var i = 0; ret[i]; i++ ) {
+    if ( scripts && nodeName( ret[i], "script" ) && (!ret[i].type || ret[i].type.toLowerCase() === "text/javascript") ) {
+      scripts.push( ret[i].parentNode ? ret[i].parentNode.removeChild( ret[i] ) : ret[i] );
+    }
+  }
+
+  for(script in scripts) {
+    evalScript(scripts[script]);
+  }
+}
+function nodeName( elem, name ) {
+  return elem.nodeName && elem.nodeName.toUpperCase() === name.toUpperCase();
+}
+function evalScript( elem ) {
+  data = ( elem.text || elem.textContent || elem.innerHTML || "" );
+
+  var head = document.getElementsByTagName("head")[0] || document.documentElement,
+  script = document.createElement("script");
+  script.type = "text/javascript";
+  if(elem.src) {
+    //script.src=elem.src;
+    script.setAttribute("src",elem.src);
+  };
+  script.appendChild( document.createTextNode( data ) );
+
+  head.insertBefore( script, head.firstChild );
+  head.removeChild( script );
+
+  if ( elem.parentNode ) {
+    elem.parentNode.removeChild( elem );
+  }
+}
+
+
+
+/**
+ * Wrap calls to differents layers (always JQuery :/ see code before)
+ */
+
 function wrapLayerCalls() {
-    var wrap = $(".contentWrap");
-    $("a.overlayed").off("click");
-    $("a.overlayed").click(function(event) {
-        event.preventDefault();
-        if(!confirmOverWin($(this))) return false;
-        onSpin();
-        prepareOverlay();
-        //window.console&&console.log("LOG1: "+$("#overlay").css("display"));
-        if($("#mysbModal").css("display")=="block") {
-            $("#mysbModal").fadeOut(50);
+
+// CODE WORK-IN-PROGRESS WITHOUT JQUERY
+// pepins pour les script src=""
+/*
+    var modalwrap = document.getElementById("contentWrap");
+    [].forEach.call(document.getElementsByTagName('a'), function(el) {
+        if(el.classList.contains("overlayed")) {
+            el.parentElement.innerHTML = el.parentElement.innerHTML;
         };
-        var olink = $(this);
-        $("#mysbModal").promise().done(function(){
-            wrap.load(olink.attr("href")+"&overlay=1");
-        });
     });
-    $("form.overlayed").off("submit");
-    $("form.overlayed").submit(function(event) {
-        if(!confirmOverWin($(this))) return false;
-        if($("#mysbModal").css("display")=="block") {
-            $("#mysbModal").fadeOut(200);
-        };
-        onSpin();
-        prepareOverlay();
-        $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action')+"&overlay=1", 
-            data: $(this).serialize(), 
-            success: function(responseText) {
-                
-                $("#mysbModal").promise().done(function(){
-                    wrap.html(responseText);
-                });
-            }
-        });
-        return false;
-    });
-    $(".close").off("click");
-    $(".close").click(function(event) {
-        event.preventDefault();
-        desactiveOverlay();
-    });
-    $("#mysbOverlay1").off("click");
-    $("#mysbOverlay1").click(function(event) {
-        event.preventDefault();
-        desactiveOverlay();
-    });
-    $(document).keyup(function(event) {
-        if (event.keyCode == 27) {
+
+    [].forEach.call(document.getElementsByTagName('a'), function(el) {
+        if(el.classList.contains("overlayed")) {
+            console.log(el.getAttribute("href")+'&overlay=1');
+            el.addEventListener('click', function(event){
             event.preventDefault();
-            desactiveOverlay();
-        }
+            //console.log(this.getAttribute("href")+'&overlay=1');
+
+            if(!confirmOverWin($(this))) return false;
+            onSpin();
+            prepareOverlay();
+            if($("#mysbOverlay").css("display")=="block") {
+                desactiveOverlay()
+            };
+            //var olink = $(this);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', this.getAttribute("href")+'&overlay=1',true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    //alert('User\'s name is ' + xhr.responseText);
+                    //modalwrap.innerText = xhr.responseText;
+                    insertAndExecute("contentWrap",xhr.responseText);
+                    //modalwrap.textContent = xhr.responseText;
+
+                    // activeOverlay();
+                    // resizeOverWin();
+                    // wrapLayerCalls();
+                    // offSpin();
+                    console.log('innerOK');
+                }
+                else {
+                    alert('Request failed.  Returned status of ' + xhr.status);
+                    offSpin();
+                }
+            };
+            xhr.send();
+            });
+        };
     });
-    $("div#mysbMessages").off("click");
-    $("div#mysbMessages").click(function(event) {
-        $("div#mysbMessages").css("display","none");
+*/
+  var mysbOverlay = document.getElementById("mysbOverlay");
+  var wrap = $(".contentWrap");
+  $("a.overlayed").off("click");
+  $("a.overlayed").click(function(event) {
+    event.preventDefault();
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    if(mysbOverlay.classList.contains("active")) {
+      desactiveOverlay();
+    };
+    var olink = $(this);
+    $("#mysbModal").promise().done(function(){
+      wrap.load(olink.attr("href")+"&overlay=1");
     });
-    var hwrap = $("div#hidelayer");
-    $("a.hidelayed").off("click");
-    $("a.hidelayed").click(function(event) {
-        event.preventDefault();
-        if(!confirmOverWin($(this))) return false;
-        onSpin();
-        hwrap.load($(this).attr("href")+"&hidelay=1");
-        desactiveOverlay();
-    });
-    $("form.hidelayed").off("submit");
-    $("form.hidelayed").submit(function(event) {
-        if(!confirmOverWin($(this))) return false;
-        onSpin();
-        $.ajax({
-            type: $(this).attr('method'),
-            url: $(this).attr('action')+"&hidelay=1", 
-            data: $(this).serialize(), 
-            success: function(responseText) {
-                hwrap.html(responseText);
-                desactiveOverlay();
-            }
+  });
+
+  $("form.overlayed").off("submit");
+  $("form.overlayed").submit(function(event) {
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    if(mysbOverlay.classList.contains("active")) {
+      desactiveOverlay();
+    };
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action')+"&overlay=1",
+      data: $(this).serialize(),
+      success: function(responseText) {
+        $("#mysbModal").promise().done(function(){
+          wrap.html(responseText);
         });
-        return false;
+      }
     });
-    // hide border-bottom from last row-list element
-    //$("div.row:last-child").css("border-bottom","0px");
+    return false;
+  });
+
+  $(".close").off("click");
+  $(".close").click(function(event) {
+    event.preventDefault();
+    desactiveOverlay();
+  });
+
+  $(document).keyup(function(event) {
+    if (event.keyCode == 27) {
+      event.preventDefault();
+      desactiveOverlay();
+    }
+  });
+
+  var hwrap = $("div#hidelayer");
+  $("a.hidelayed").off("click");
+  $("a.hidelayed").click(function(event) {
+    event.preventDefault();
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    hwrap.load($(this).attr("href")+"&hidelay=1");
+  });
+  $("form.hidelayed").off("submit");
+  $("form.hidelayed").submit(function(event) {
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action')+"&hidelay=1",
+      data: $(this).serialize(),
+      success: function(responseText) {
+        hwrap.html(responseText);
+        //desactiveOverlay();
+      }
+    });
+    return false;
+  });
 }
 
 /**
  * Hide message tip
  */
 function hideMessageTip() {
-    var tip = $("div#mysbMessages");
-    tip.delay(3000).fadeOut(2000);
+  var msg = document.getElementById("mysbMessages");
+  msg.classList.add("activation");
+  setTimeout(hideMessage,1000);
+}
+function hideMessage() {
+  var msg = document.getElementById("mysbMessages");
+  msg.classList.remove("activation");
 }
 
 /**
@@ -292,13 +385,7 @@ function hideMessageTip() {
  */
 function loadItem(iDiv,iRef) {
     var iwrap = $("div#"+iDiv);
-    //window.console&&console.log("loadItem");
     onSpin();
-    hide_slide(iDiv);
-    iwrap.promise().done(function(){
-        this.load(iRef+"&itemlay=1&iid="+iDiv);
-        this.promise().done(function(){
-            //show(iDiv);
-        });
-    });
+    slide_hide(iDiv);
+    iwrap.load(iRef+"&itemlay=1&iid="+iDiv);
 }

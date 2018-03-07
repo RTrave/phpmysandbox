@@ -61,6 +61,7 @@ h2 {
   display: block;
   text-align: center;
   position: relative;
+  margin: 1px 0;
 }
 .list > .row {
   display: table;

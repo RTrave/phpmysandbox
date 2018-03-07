@@ -264,27 +264,23 @@ class MySBRender extends MySBLog {
         if( $this->overlay )
             $output .= '
 <script type="text/javascript">
-activeOverlay();
 resizeOverWin();
-$("#overlayBg").promise().done(function(){
-$("#overlay").promise().done(function(){
-    offSpin();
-});
-});
+activeOverlay();
+offSpin();
 </script>';
 
         if( $this->itemlay )
             $output .= '
 <script type="text/javascript">
-show_slide(\''.$_GET['iid'].'\');
-offSpin();
+slide_show(\''.$_GET['iid'].'\');
 wrapLayerCalls();
+offSpin();
 </script>';
         elseif( !$this->blanklay ) $output .= '
 <script type="text/javascript">
 wrapLayerCalls();
+offSpin();
 </script>';
-
         return $output;
     }
 
@@ -299,14 +295,8 @@ wrapLayerCalls();
             $message = str_replace("'","\'", $message);
             $output =  '
 <script>
-    var msgwrap = $("div#mysbMessages");
-    msgwrap.promise().done(function(){
-        msgwrap.html(\''.$message.'\');
-        msgwrap.fadeIn(500);
-        msgwrap.promise().done(function(){
-            hideMessageTip();
-        });
-    });
+insertAndExecute("mysbMessages", \''.$message.'\');
+hideMessageTip();
 </script>';
             $this->Messages = '';
         }
@@ -417,8 +407,7 @@ wrapLayerCalls();
             $clean_output = str_replace("\n"," ",$clean_output);
             return '
 <script type="text/javascript">
-var logwrap = $("#mysbLogSql");
-logwrap.html(\''.$clean_output.'\');
+insertAndExecute("mysbLogSql", \''.$clean_output.'\');
 </script>';
         } elseif( $this->blanklay ) {
             $clean_output = str_replace("'","\\'",$output);

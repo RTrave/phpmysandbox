@@ -58,7 +58,7 @@ else
 <?php
 echo '
 <script>
-show("user'.$user->id.'");
+slide_show("user'.$user->id.'");
 </script>';
 ?>
 
