@@ -168,6 +168,7 @@
 .tooltip
 {
   text-decoration:none;
+  overflow: visible;
 }
 
 
@@ -182,9 +183,13 @@
   background:white;
   margin-top:12px;
   margin-left:32px;
-  overflow:hidden;
+  overflow: visible;
   padding:8px;
   width:320px;
+}
+.tooltip span.left
+{
+  right: 0px;
 }
 
 .tooltip span img
@@ -196,23 +201,27 @@
 .tooltip span {
   box-shadow: none;
   max-height: 0px;
+  max-width: 0px;
   opacity: 0;
   z-index: -20;
   -webkit-transition:
     opacity 0.4s,
     box-shadow 0.4s,
     z-index 0s ease 0.4s,
-    max-height 0s ease 0.4s;
+    max-height 0s ease 0.4s,
+    max-width 0s ease 0.4s;
   transition:
     opacity 0.4s,
     box-shadow 0.4s,
     z-index 0s ease 0.4s,
-    max-height 0s ease 0.4s;
+    max-height 0s ease 0.4s,
+    max-width 0s ease 0.4s;
 }
 
 .tooltip:hover span {
   box-shadow: 0 0 .2rem .2rem rgba(50,50,50,.4);
   max-height: 500px;
+  max-width: 500px;
   opacity: 1;
   z-index: 1000;
   -webkit-transition:
@@ -239,9 +248,30 @@
     max-height 0.5s ease,
     opacity 0.5s ease;
 }
-.slide.slide-toggled {
-  max-height: 1000px;
+.slide.slide-toggling {
+  max-height: 500px;
   opacity: 1;
+}
+.slide.slide-untoggling {
+  max-height: 500px;
+  opacity: 1;
+  -webkit-transition:
+    max-height 0s,
+    opacity 0s;
+  transition:
+    max-height 0s,
+    opacity 0s;
+}
+.slide.slide-toggled {
+  overflow: visible;
+  max-height: 20000px;
+  opacity: 1;
+  -webkit-transition:
+    max-height 0s,
+    opacity 0s;
+  transition:
+    max-height 0s,
+    opacity 0s;
 }
 
 
