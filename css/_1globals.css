@@ -43,14 +43,19 @@ button, input, optgroup, select, textarea {
   line-height: inherit;
 }
 button,
-input[type=submit] {
+input[type=submit],
+input[type=image],
+.btn {
+  border: none;
   cursor: pointer;
-
+  text-align: center;
 }
 a {
   color: inherit;
 }
-
+a.inactive {
+  cursor: auto;
+}
 
 /***********************************/
 /**  HIDE LAYER  **/
