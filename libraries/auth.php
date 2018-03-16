@@ -82,16 +82,16 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
 <form method="post">
 <div>
   <div class="row">
-    login:
+    <label for="login">login:</label>
   </div>
   <div class="row">
-    <input type="text" name="login" maxlength="32">
+    <input type="text" name="login" id="login" maxlength="32">
   </div>
   <div class="row">
-    password:
+    <label for="passwd">password:</label>
   </div>
   <div class="row">
-    <input type="password" name="passwd" maxlength="32">
+    <input type="password" name="passwd" id="passwd" maxlength="32">
   </div>
   <div class="row" style="text-align: center; position: relative;">
     <input type="hidden" name="native_login" value="1">
@@ -176,7 +176,7 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
         if($data_checkrand['auth_rand']!=$urandom or $data_checkrand['auth_rand']=='') {
             $this->logout();
             $app->resetSession();
-            $app->displayStopAlert(_G('SBGT_logged_off'),3,false);
+            $app->displayStopAlert(_G('SBGT_logged_off'),2,false);
         }
         $uuser = new MySBUser(-1,$data_checkrand);
         return $uuser;
