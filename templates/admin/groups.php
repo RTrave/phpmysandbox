@@ -14,6 +14,7 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
+$httpbase = 'index.php?tpl=admin/admin&amp;page=groups';
 
 if( isset($_GET['group_delete']) ) {
     $group = MySBGroupHelper::getByID( $_GET['group_delete'] );
@@ -25,16 +26,8 @@ hide("group'.$_GET['group_delete'].'");
 </script>';
     return;
 }
-?>
-
-<div class="row">
-
-<?php include( _pathI('admin/menu') );
 
 echo '
-
-<div class="col-lg-9">
-
 <div class="content">
 
 <h1>'._G('SBGT_admingroups').'</h1>
@@ -60,10 +53,10 @@ foreach( $groups as $group ) {
     if( $group->id!=0 )
         echo '
   <a class="hidelayed col-1 t-center btn-danger-light"
-     href="index.php?tpl=admin/groups&amp;group_delete='.$group->id.'"
+     href="'.$httpbase.'&amp;group_delete='.$group->id.'"
      data-overconfirm="'.MySBUtil::str2strict(_G('SBGT_admingroups_confirm_delete')).': '.$group->name.'"
      title="'._G('SBGT_admingroups_delete').' '.$group->name.'">
-    <img src="images/icons/user-trash.png" alt="">
+    <img src="images/icons/user-trash.png" alt="user-trash">
   </a>';
     echo '
   </div>
@@ -71,7 +64,7 @@ foreach( $groups as $group ) {
 
   <div id="group_edit_'.$group->id.'" class="slide"
        style="width: 100%;">
-  <form action="index.php?tpl=admin/groups" method="post">
+  <form action="'.$httpbase.'" method="post">
 
   <div class="row label">
     <label class="col-sm-4" for="g'.$group->id.'_name">
@@ -100,9 +93,9 @@ foreach( $groups as $group ) {
         else $checked = '';
         echo '
     <label for="r'.$role->id.'_isassignto_g'.$group->id.'">
-      <p><i>'.$role->comments.'</i></p>
       <input type="checkbox" name="r'.$role->id.'_isassignto_g'.$group->id.'"
                    '.$checked.' id="r'.$role->id.'_isassignto_g'.$group->id.'">
+      <i>'.$role->comments.'</i>
     </label>';
     }
     echo '
@@ -126,7 +119,7 @@ echo '
 </div>
 
 <div class="content">
-<form action="index.php?tpl=admin/groups" method="post">
+<form action="'.$httpbase.'" method="post">
   <h1>'._G('SBGT_admingroups_new').'</h1>
   <div class="row label">
     <label class="col-sm-4" for="group_name">
@@ -157,8 +150,6 @@ echo '
   </div>
 </form>
 
-</div>
-</div>
 </div>';
 
 ?>

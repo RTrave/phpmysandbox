@@ -14,28 +14,20 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
+$httpbase = 'index.php?tpl=admin/admin&amp;page=plugins';
 
 ?>
 
-<div class="row">
-
-<?php include( _pathI('admin/menu') );
-
-
+<?php
 echo '
-<div class="col-lg-9">
-<div class="content">
-<h1>'._G('SBGT_adminplugins').'</h1>';
-
-
+<div class="content">';
 
 if( isset($_GET['plugin_id']) ) {
     $current_plugin = MySBPluginHelper::getByID($_GET['plugin_id']);
     $roles = MySBRoleHelper::load();
     echo '
-<form action="index.php?tpl=admin/plugins&amp;plugin_id='.$current_plugin->id.'" method="post">
-
-  <h2>'.$current_plugin->id.': '.$current_plugin->name.'</h2>
+<h1>'.$current_plugin->id.': '.$current_plugin->name.'</h1>
+<form action="'.$httpbase.'" method="post">
 
   <div class="row">
     <p class="col-4">
@@ -106,7 +98,7 @@ if( isset($_GET['plugin_id']) ) {
   <div class="row" style="text-align: center;">
     <div class="col-sm-2"></div>
     <div class="col-sm-8">
-      <input type="hidden" name="plugin_edit_process" value="1">
+      <input type="hidden" name="plugin_edit_process" value="'.$current_plugin->id.'">
       <input type="submit" class="btn-primary"
              value="'._G('SBGT_editplugin_submit').'">
     </div>
@@ -120,6 +112,8 @@ if( isset($_GET['plugin_id']) ) {
     return;
 }
 
+echo '
+  <h1>'._G('SBGT_adminplugins').'</h1>';
 
 $plugins = MySBPluginHelper::load();
 $current_type = '';
@@ -128,7 +122,7 @@ foreach($plugins as $plugin) {
     if( $current_type!=$plugin->type ) {
         if( $current_type!='' ) 
             echo '
-    <div class="row">
+    <div class="row border-bottom">
     <div class="col-sm-6"></div>
     <div class="col-sm-6">
         <input type="hidden" name="plugin_modif" value="'.$current_type.'">
@@ -140,26 +134,27 @@ foreach($plugins as $plugin) {
 </form>';
         $current_type = $plugin->type;
         echo '
-<form action="index.php?tpl=admin/plugins" method="post">
+<form action="'.$httpbase.'" method="post">
 <div class="content list">
-  <h2 class="border-top">'.$current_type.'</h2>';
+  <h2 class="">'.$current_type.'</h2>';
     }
     echo '
   <div class="row">
     <a class="col-sm-10 btn-primary-light"
-       href="index.php?tpl=admin/plugins&amp;plugin_id='.$plugin->id.'">
+       href="'.$httpbase.'&amp;plugin_id='.$plugin->id.'">
         <p><i>'.$plugin->id.'</i> '.$plugin->name.'<br>
         <small><i>'._G('SBGT_adminplugins_frommodule').': ';
     if( $plugin->module!='' )  echo $plugin->module;
     else echo 'core';
     echo ' </i></small></p>
     </a>
-    <div class="col-1 t-right">
+    <label class="col-1 t-right" for="plg_prio'.$plugin->id.'">
       '._G('SBGT_adminplugins_priority').':
-    </div>
+    </label>
     <div class="col-1">
       <input type="text" maxlength="1" class="t-right"
-             name="plg_prio'.$plugin->id.'" value="'.$plugin->priority.'">
+             name="plg_prio'.$plugin->id.'" id="plg_prio'.$plugin->id.'"
+             value="'.$plugin->priority.'">
     </div>
     </div>
 ';
@@ -180,7 +175,7 @@ echo '
 echo '
 <div class="content">
 <h1>'._G('SBGT_adminuo_add').'</h1>
-<form action="index.php?tpl=admin/plugins" method="post">
+<form action="'.$httpbase.'" method="post">
 
   <h2>'._G('SBGT_adminuo_new').'</h2>
 
@@ -228,12 +223,12 @@ echo '
   </div>
 
   <div class="row label">
-    <label class="col-10" for="option_useredit">
-        '._G('SBGT_uo_useredition').'
-    </label>
-    <div class="col-2 t-right">
+    <div class="col-1 t-left">
         <input type="checkbox" name="option_useredit" id="option_useredit">
     </div>
+    <label class="col-11" for="option_useredit">
+        '._G('SBGT_uo_useredition').'
+    </label>
   </div>
 
   <div class="row">
@@ -253,28 +248,28 @@ $pluginsUserOption = MySBPluginHelper::loadByType('UserOption');
 echo '
 <div class="content">
 <h1>'._G('SBGT_exportuo').'</h1>
-<form action="index.php?tpl=admin/plugins" method="post">
+<form action="'.$httpbase.'" method="post">
 
   <h2>'._G('SBGT_exportuo_selection').'</h2>';
 foreach($pluginsUserOption as $plugin) {
     $pname = $plugin->value0;
     echo '
   <div class="row label">
-    <label class="col-10" for="uo_'.$plugin->id.'">
-        '.$pname.'<br>
-        <span class="help">'._G($plugin->value1).'</span>
-    </label>
-    <div class="col-2 t-right">';
+    <div class="col-1 t-left">';
     if($plugin->module!='') {
         $module = MySBModuleHelper::getByName($plugin->module);
         if(!$module->isLoaded()) 
             echo '<i>(module '.$plugin->module.' not loaded)</i>';
-        else 
+        else
             echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
-    } else 
+    } else
         echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
     echo '
     </div>
+    <label class="col-11" for="uo_'.$plugin->id.'">
+        '.$pname.'<br>
+        <span class="help">'._G($plugin->value1).'</span>
+    </label>
   </div>';
 }
 echo '
@@ -289,8 +284,6 @@ echo '
   </div>
 
 </form>
-</div>
-</div>
 </div>';
 
 ?>

@@ -55,24 +55,24 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
 <div class="modalTitle">
 
 <?php if( $user->id!=0 and $user->id!=1 ) { ?>
-  <a class="hidelayed col-1 t-center btn-danger-light"
+  <a class="hidelayed col-1 t-center btn-danger"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>&amp;user_delete=1"
      data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_delete')) ?>"
      title="<?= _G('SBGT_adminusers_delete') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
     <img src="images/icons/user-trash.png"
-         alt="">
+         alt="user-trash">
   </a>
 <?php } ?>
-  <a class="hidelayed col-1 t-center btn-primary-light"
+  <a class="hidelayed col-1 t-center btn-primary"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>&amp;user_newpasswd=1"
      title="<?= _G('SBGT_adminusers_newpasswd') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
      data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_newpasswd')) ?>">
     <img src="images/icons/dialog-password.png"
-         alt="<?= _G('SBGT_adminusers_newpasswd') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
+         alt="dialog-password">
   </a>
   <div class="col-auto">
-    <p><b><?= $user->lastname ?></b> <?= $user->firstname ?><br>
-      <i><?= $user->login ?> <small>(ID:<?= $user->id ?>)</small></i></p>
+    <h1><b><?= $user->lastname ?></b> <?= $user->firstname ?><br>
+      <i><?= $user->login ?> <small>(ID:<?= $user->id ?>)</small></i></h1>
   </div>
 
 </div>
@@ -114,27 +114,23 @@ if(count($pluginsUserOption)>=1) {
   <h2 class="border-top">
     '._G('SBGT_user_options').'
   </h2>';
-        foreach($pluginsUserOption as $plugin) {
-                $pname = $plugin->value0;
-                echo '
-<div class="row label">
-  <label class="col-6" for="'.$plugin->formDisplayId().'">
-    <b>'._G($plugin->value1).'</b><br>
-    <span class="help">'.$pname.'</span>
-  </label>
-  <div class="col-6">
-';
-                echo '';
-                if($plugin->module!='') {
-                    $module = MySBModuleHelper::getByName($plugin->module);
-                    if(!$module->isLoaded()) {
-                        echo '<p>'.$user->$pname.' <i>(module '.$plugin->module.' not loaded)</i></p>';
-                    } else echo $plugin->formDisplay($user);
-                } else echo $plugin->formDisplay($user);
-                echo '
-  </div>
+  foreach($pluginsUserOption as $plugin) {
+    $pname = $plugin->value0;
+    echo '
+<div class="row label">';
+    if($plugin->module!='') {
+      $module = MySBModuleHelper::getByName($plugin->module);
+      if(!$module->isLoaded()) {
+        echo '<p>'.$user->$pname.' <i>(module '.$plugin->module.' not loaded)</i></p>';
+      } else {
+        echo $plugin->innerFormRow($user);
+      }
+    } else {
+      echo $plugin->innerFormRow($user);
+    }
+    echo '
 </div>';
-        }
+  }
 }
 ?>
 
@@ -147,17 +143,17 @@ foreach( $groups as $group ) {
     if( $user->login=='admin' and $group->id==0 ) {
         echo '
   <label>
-    <i>'.$group->comments.'</i>
     <input type="hidden" name="isingroup_0" value="on">
     <input type="checkbox" disabled="disabled" checked="checked">
+    <i>'.$group->comments.'</i>
   </label>';
     } else {
         $group_nid = 'g'.$group->id;
         echo '
   <label for="isingroup_'.$group->id.'">
-    <i>'.$group->comments.'</i>
     <input type="checkbox" name="isingroup_'.$group->id.'" id="isingroup_'.$group->id.'"
            '.MySBUtil::form_ischecked($user->$group_nid,1).'>
+    <i>'.$group->comments.'</i>
   </label>';
     }
 }
@@ -175,7 +171,7 @@ echo '
   <div class="col-12 t-center">
     <input type="hidden" name="user_edition" value="1">
     <input type="submit" value="'._G('SBGT_adminusers_submit').'"
-        class="btn-primary">
+        class="btn btn-primary">
   </div>
 </div>
 

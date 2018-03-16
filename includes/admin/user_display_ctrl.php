@@ -41,18 +41,15 @@ else
   </div>
   </a>
 <?php if( $user->mail!='' ) { ?>
-  <a class="col-1 t-center btn-primary-light" href="mailto:<?= $user->mail ?>">
-    <img src="images/icons/mail-unread.png"
-         alt="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
-         title="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
+  <a class="col-1 t-center btn-primary-light" href="mailto:<?= $user->mail ?>"
+     title="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
+    <img src="images/icons/mail-unread.png" alt="<?= _G('SBGT_mailto') ?> <?= $user->lastname ?> <?= $user->firstname ?>">
   </a>
 <?php } else { ?>
-  <div class="col-1 btn-secondary-light" style="min-width: 50px;">
-    <img    src="images/blank.png"
-            style="width: 32px;"
-            alt="No mail for <?= $user->lastname ?> <?= $user->firstname ?>"
-            title="No mail for  <?= $user->lastname ?> <?= $user->firstname ?>">
-  </div>
+  <a class="col-1 t-center inactive" href="javascript:void(0)"
+     title="blank">
+    <img src="images/blank.png" alt="blank">
+  </a>
 <?php } ?>
 
 <?php

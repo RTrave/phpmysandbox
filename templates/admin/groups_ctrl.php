@@ -18,8 +18,11 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 
 if( isset($_POST['group_add']) ) {
-    $group = MySBGroupHelper::create($_POST['group_name'], $_POST['group_comments']); // need $is_default
-    $app->pushMessage( _G('SBGT_admingroups_newmsg').':<br>'.$group->name );
+    if( $_POST['group_name']!='' ) {
+      $group = MySBGroupHelper::create($_POST['group_name'], $_POST['group_comments']); // need $is_default
+      $app->pushMessage( _G('SBGT_admingroups_newmsg').':<br>'.$group->name );
+    } else
+      $app->pushMessage( "No name provided" );
 }
 
 if( isset($_POST['group_edit']) ) {

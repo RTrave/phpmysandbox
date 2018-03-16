@@ -12,16 +12,11 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
+$httpbase = 'index.php?tpl=admin/admin&amp;page=users';
 
 global $app;
 global $groups_a;
 ?>
-
-<div class="row">
-
-<?php include( _pathI('admin/menu') ); ?>
-
-<div class="col-lg-9">
 
 
 <?php if( isset($_POST['users_search']) ) { ?>
@@ -41,7 +36,7 @@ global $groups_a;
 <div class="content">
 
   <h1><?= _G('SBGT_adminusers_search') ?></h1>
-  <form action="index.php?tpl=admin/users" method="post">
+  <form action="<?= $httpbase ?>" method="post">
 
   <div class="row label">
     <label class="col-sm-4" for="bylogin">
@@ -87,7 +82,7 @@ global $groups_a;
 <div class="content">
 
   <h1><?= _G('SBGT_adminusers_new') ?></h1>
-  <form action="index.php?tpl=admin/users" method="post">
+  <form action="<?= $httpbase ?>" method="post">
 
   <div class="row label">
     <label class="col-sm-4" for="user_login">
@@ -138,8 +133,5 @@ global $groups_a;
   </div>
 
   </form>
-</div>
-
-</div>
 </div>
 

@@ -18,7 +18,7 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 
 if( isset($_POST['plugin_edit_process']) ) {
-    $plugin = MySBPluginHelper::getByID($_GET['plugin_id']);
+    $plugin = MySBPluginHelper::getByID($_POST['plugin_edit_process']);
     $plugin->update(array(
         'name' =>$_POST['plg_name'] ,
         'role' =>$_POST['plg_role'] ,

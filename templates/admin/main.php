@@ -15,14 +15,8 @@ defined('_MySBEXEC') or die;
 global $app;
 
 include(MySB_ROOTPATH.'/config.php');
+$httpbase = 'index.php?tpl=admin/admin&amp;page=main';
 ?>
-
-<div class="row">
-
-<?php include( _pathI('admin/menu') ); ?>
-
-<div class="col-lg-9">
-
 
 <div class="content">
 
@@ -31,18 +25,18 @@ include(MySB_ROOTPATH.'/config.php');
   <h2>PHP</h2>
 <?php foreach($infos_php as $info) { ?>
   <div class="row">
-    <div class="col-4">
-      <p><?= $info[0] ?></p>
-    </div>
-    <div class="col-8">
-      <p><?= $info[1] ?></p>
-    </div>
+    <p class="col-4">
+      <?= $info[0] ?>
+    </p>
+    <p class="col-8">
+      <?= $info[1] ?>
+    </p>
   </div>
 <?php } ?>
   <div class="row">
     <div class="col-md-4"><p>test mail on:</p></div>
     <div class="col-md-8">
-      <form action="index.php?tpl=admin/admin" method="post">
+      <form action="<?= $httpbase ?>" method="post">
       <input type="hidden" name="test_mail" value="1">
       <input type="submit" class="btn-primary"
              value="<?= $app->auth_user->mail ?>">
@@ -52,12 +46,12 @@ include(MySB_ROOTPATH.'/config.php');
   <h2 class="border-top">DataBase</h2>
 <?php foreach($infos_db as $info) { ?>
   <div class="row">
-    <div class="col-4">
-      <p><?= $info[0] ?></p>
-    </div>
-    <div class="col-8">
-      <p><?= $info[1] ?></p>
-    </div>
+    <p class="col-4">
+      <?= $info[0] ?>
+    </p>
+    <p class="col-8">
+      <?= $info[1] ?>
+    </p>
   </div>
 <?php } ?>
 </div>
@@ -98,7 +92,7 @@ foreach($modules as $module) {
   </div>';
     if($mod_conf==null) {
       echo '
-  <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
+  <form action="'.$httpbase.'#mod_'.$module->name.'" method="post">
   <div class="row">
     <div class="col-md-6">
       <span>module <b>disabled</b>:</span>
@@ -116,7 +110,7 @@ foreach($modules as $module) {
       if($mod_conf->getValue()>=1) {
         echo '
   <div class="row">
-  <form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post"
+  <form action="'.$httpbase.'#mod_'.$module->name.'" method="post"
         OnSubmit="return mysb_confirm(\'Unset module '.$module->name.'?\')">
     <div class="col-md-6">
       <span>Module <b>enabled</b>:</span>
@@ -134,14 +128,14 @@ foreach($modules as $module) {
 <p class="col-12">
 module <b>disabled</b>:
 </p>
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">
+<form action="'.$httpbase.'#mod_'.$module->name.'" method="post">
 <p class="col-6">
     <input type="hidden" name="reinit_mod" value="'.$module->name.'">
     <input type="submit" class="btn-success"
            value="Reinit '.$module->name.'">
 </p>
 </form>
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post" OnSubmit="return mysb_confirm(\'Delete tables in '.$module->name.'?\')">
+<form action="'.$httpbase.'#mod_'.$module->name.'" method="post" OnSubmit="return mysb_confirm(\'Delete tables in '.$module->name.'?\')">
 <p class="col-6">
     <input type="hidden" name="delete_mod" value="'.$module->name.'">
     <input type="submit"  class="btn-danger"
@@ -158,32 +152,18 @@ module <b>disabled</b>:
         echo '
   <div class="row">
     <div class="col">
-      <p><i>No config values</i></p>
+      <p>No config values</p>
     </div>
   </div>';
       } else {
         echo '
-<form action="index.php?tpl=admin/admin#mod_'.$module->name.'" method="post">';
+<form action="'.$httpbase.'#mod_'.$module->name.'" method="post">';
         foreach($configs as $config) {
-          if( $config->getType()!='text1' ) {
-            echo '
+          echo '
   <div class="row label">
-    <label class="col-sm-4" for="'.$module->name.'config_'.$config->keyname.'">
-      '._G($config->comments).'<br>
-      <span class="help">'.$config->keyname.'</span>
-    </label>
-    <div class="col-sm-8">
-      <div class="right">'.$config->htmlForm($module->name.'config_',$config->value).'</div>
-    </div>
+    '.$config->innerRow($module->name.'config_',$config->value, false,
+                        _G($config->comments), $config->keyname).'
   </div>';
-          } else {
-            echo '
-    <div class="row">
-        <div style="float: left; text-align: left;">'._G($config->comments).'<br>
-        <span class="help">'.$config->keyname.'</span></div>
-        <div style="display: inline-block; margin: 0px 0px 0px auto;">'.$config->htmlForm('config_',$config->value).'</div>
-    </div>';
-          }
         }
         echo '
   <div class="row">
@@ -202,18 +182,18 @@ module <b>disabled</b>:
       $plugins = MySBPluginHelper::loadByModule($module->name);
       if(count($plugins)==0) echo '
   <div class="row">
-      <p class="col"><i>No plugin values</i></p>
+      <p class="col">No plugin values</p>
   </div>';
       else {
         echo '
   <div class="row">
-    <p class="col"><ul>';
+    <div class="col"><ul>';
         foreach($plugins as $plugin) {
           echo '
       <li>'.$plugin->name.' <i>('.$plugin->type.')</i></li>';
         }
         echo '
-    </ul></p>
+    </ul></div>
   </div>';
       }
       echo '
@@ -222,6 +202,3 @@ module <b>disabled</b>:
 
 }
 ?>
-
-</div>
-</div>

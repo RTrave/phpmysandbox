@@ -29,24 +29,12 @@ loadItem("app_config","index.php?inc=admin/conf_display");
 
 $app_config = MySBConfigHelper::loadByGrp('');
 foreach($app_config as $cur_config) {
-    if( $cur_config->getType()!='text1' )
-        echo '
+  echo '
 <div class="row label">
-  <label class="col-sm-4" for="config_'.$cur_config->keyname.'">
-    '._G($cur_config->comments).'<br>
-    <span class="help">'.$cur_config->keyname.'</span>
-  </label>
-  <div class="col-sm-8">
-    '.$cur_config->htmlForm('config_',$cur_config->value).'
-  </div>
+'.$cur_config->innerRow('config_',$cur_config->value,true,
+                        _G($cur_config->comments),
+                        $cur_config->keyname).'
 </div>';
-    else
-        echo '
-    <div class="row" style="text-align: right;">
-        <div style="float: left; text-align: left;">'._G($cur_config->comments).'<br>
-        <span class="help">'.$cur_config->keyname.'</span></div>
-        <div style="display: inline-block; margin: 0px 0px 0px auto;">'.$cur_config->htmlForm('config_',$cur_config->value).'</div>        
-    </div>';
 }
 
 
