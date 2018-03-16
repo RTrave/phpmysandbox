@@ -196,6 +196,110 @@ class MySBValue extends MySBObject {
     }
 
     /**
+     * Get the HTML input form for the value.
+     * @param   string  $prefix         form name prefix
+     * @param   string  $value          initial value
+     * @param   boolean $directlink     show the link for mail, tel or url
+     * @param   string  $label          label
+     * @param   string  $help           help comments
+     * @return  string                  input form in HTML format.
+     */
+    public function innerRow($prefix,$value,$directlink=true,$label='',$help='') {
+        global $app;
+        switch($this->type) {
+
+            case MYSB_VALUE_TYPE_INT:
+                return '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-8">
+  <input type="text" maxlength="4" value="'.$value.'"
+         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+</div>';
+
+            case MYSB_VALUE_TYPE_BOOL:
+                return '
+<div class="col-1 t-left">
+  <input type="checkbox" '.MySBUtil::form_ischecked($value,1).'
+         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+</div>
+<label class="col-11" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>';
+
+            case MYSB_VALUE_TYPE_VARCHAR64:
+                return '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-8">
+  <input type="text" maxlength="62" value="'.$value.'"
+         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+</div>';
+
+            case MYSB_VALUE_TYPE_VARCHAR512:
+                return '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-8">
+  <input type="text" maxlength="510" value="'.$value.'"
+         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+</div>';
+
+            case MYSB_VALUE_TYPE_TEXT:
+                return '
+<label class="col-md-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-md-8">
+  <textarea name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+            rows="3">'.$value.'</textarea>
+</div>';
+
+            case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
+                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
+                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                    "ORDER BY value0",
+                    "MySBValue::htmlForm($prefix,$value)",
+                    true, '', true );
+                $form_str = '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-8">
+  <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+    <option value="">&nbsp;</option>';
+                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+                    $form_str .= '
+    <option value="'.$seloption['value0'].'" '.MySBUtil::form_isselected($value,$seloption['value1']).'>'._G($seloption['value1']).'</option>';
+                }
+                $form_str .= '
+  </select>
+</div>';
+                return $form_str;
+
+            case MYSB_VALUE_TYPE_TEL:
+                $img = '';
+                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="tel:'.$value.'" title="Tel:'.$value.' '.$title.'"><img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24"></a></div>';
+                return $img.'<input type="tel" name="'.$prefix.$this->keyname.'" size="18" maxlength="62" value="'.$value.'" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">';
+
+            case MYSB_VALUE_TYPE_URL:
+                $img = '';
+                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="'.$value.'" target="_blank" title="URL:'.$value.' '.$title.'"><img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24"></a></div>';
+                return $img.'<input type="url" name="'.$prefix.$this->keyname.'" size="20" maxlength="128" value="'.$value.'">';
+
+        }
+    }
+
+    /**
      * Get the HTML non-editable output for the value.
      * @param   string  $prefix         form name prefix
      * @param   string  $value          initial value
@@ -324,6 +428,121 @@ class MySBValue extends MySBObject {
      * @param   string  $prefix             form name prefix
      * @return  string                      input form in HTML format.
      */
+    public function innerRowWhereClause($prefix,$label='',$help='',$colsize=12) {
+        global $app;
+        $output = '';
+        switch($this->type) {
+            case MYSB_VALUE_TYPE_INT:
+                $output .= '
+<label class="col-sm-'.($colsize-8).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-7 t-right">
+  <input type="text" name="'.$prefix.$this->keyname.'_min" style="width: auto;"
+         size="4" maxlength="15" value="">
+  <small>&lt;=</small>value<small>&lt;=</small>
+  <input type="text" name="'.$prefix.$this->keyname.'_max" style="width: auto;"
+         size="4" maxlength="15" value="">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_BOOL:
+                $output .= '
+<label class="col-sm-'.($colsize-2).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-1">
+  <input type="checkbox"
+         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_VARCHAR64:
+                $output .= '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+         maxlength="32" value="">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_VARCHAR512:
+                $output .= '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+         maxlength="32" value="">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_TEXT:
+                $output .= '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+         maxlength="32" value="">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
+                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
+                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                    "ORDER BY value0",
+                    "MySBValue::htmlFormWhereClause($prefix)",
+                    true, '', true);
+                $form_str = '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+    <option value="">&nbsp;</option>
+    <option value="_any">'._G('SBGT_select_any').'</option>';
+                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+                    $form_str .= '
+    <option value="'.$seloption['value0'].'">'._G($seloption['value1']).'</option>';
+                }
+                $form_str .= '
+  </select>
+</div>';
+                $output .= $form_str;
+                break;
+            case MYSB_VALUE_TYPE_TEL:
+                $output .= '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" maxlength="32" value="">
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_URL:
+                $output .= '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  <b>'.$label.'</b><br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-6">
+  <input type="text" name="'.$prefix.$this->keyname.'" maxlength="32" value="">
+</div>';
+                break;
+        }
+        $output .= '
+<div class="col-1 t-right" style="padding-left: 0; padding-right: 0;">
+  !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
+          style="margin-left: 0;">
+</div>';
+        return $output;
+    }
+
     public function htmlFormWhereClause($prefix) {
         global $app;
         $output = '';

@@ -133,7 +133,7 @@ class MySBPluginUserOption extends MySBPlugin {
      * @param   MySBUser    $user   user, or auth_user, or new user
      * @return  string              HTML entity output
      */
-    public function formDisplay($user=null) {
+    public function formDisplay($user=null) { //OBSOLETE ?
         global $app;
         if($user==null and $app->auth_user!=null) $user = $app->auth_user;
         if($user==null and $app->auth_user==null) 
@@ -144,9 +144,28 @@ class MySBPluginUserOption extends MySBPlugin {
         $data_ou = MySBDB::fetch_array($req_ou);
         return $this->uo_value->htmlForm('uo_', $data_ou[$this->value0]);
     }
-    public function formDisplayId($user=null) {
+    public function formDisplayId($user=null) { //OBSOLETE ?
         global $app;
         return 'uo_'.$this->value0;
+    }
+
+    /**
+     * HTML form (value edition)
+     * @param   MySBUser    $user   user, or auth_user, or new user
+     * @return  string              HTML entity output
+     */
+    public function innerFormRow($user=null) {
+        global $app;
+        if($user==null and $app->auth_user!=null) $user = $app->auth_user;
+        if($user==null and $app->auth_user==null)
+            return $this->uo_value->innerRow( 'uo_', $this->value3, false,
+                                              _G($this->value1), $this->value0 );
+        $req_ou = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
+            "WHERE id=".$user->id,
+            "MySBPluginUserOption::formDisplay()" );
+        $data_ou = MySBDB::fetch_array($req_ou);
+        return $this->uo_value->innerRow( 'uo_', $data_ou[$this->value0], false,
+                                          _G($this->value1), $this->value0 );
     }
 
     /**

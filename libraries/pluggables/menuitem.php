@@ -51,7 +51,7 @@ class MySBPluginMenuItem extends MySBPlugin {
             $level==$this->ivalue0) {
             if( $this->ivalue0==3 ) 
                 $code .= '
-<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'" 
+<a href="index.php?module='.$this->module.'&amp;tpl=admin/admin&amp;page='.$this->value1.'"
    title="'._G($this->value2).'">'._G($this->value0).'</a>';
             else 
                 $code .= '
