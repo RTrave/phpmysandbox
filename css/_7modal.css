@@ -113,7 +113,14 @@ div.modalBodyFoot {
   clear: both;
   vertical-align: middle;
 }
-
+.modalTitle h1 {
+  width: 100%;
+  font-size: 110%;
+  text-align: left;
+}
+.modalTitle *[class*="col-"] {
+  min-width: 52px;
+}
 
 /**********************************/
 /**  MODAL MECHANICS  **/

@@ -94,9 +94,9 @@ if(!isset($app->auth_user)) {
         echo '
       <div class="dropdown-item">
       <a href="index.php?tpl=admin/admin" class="dropdown-item"
-           title="'._G('SBGT_topmenu_admin').'">
+           title="'._G('SBGT_topmenu_admininfos').'">
            <img src="images/icons/preferences-system.png"
-                 alt="'._G('SBGT_topmenu_admininfos').'">'._G('SBGT_topmenu_admin').'</a>
+                 alt="">'._G('SBGT_topmenu_admin').'</a>
       </div>';
     if( $app->auth_user and MySBRoleHelper::checkAccess('change_profile',false) )
         echo '
@@ -104,14 +104,14 @@ if(!isset($app->auth_user)) {
       <a href="index.php?tpl=users/profile" class="dropdown-item"
            title="'._G('SBGT_topmenu_profileinfos').'">
            <img src="images/icons/user-info.png"
-                 alt="'._G('SBGT_topmenu_profileinfos').'">'._G('SBGT_topmenu_profile').'</a>
+                 alt="">'._G('SBGT_topmenu_profile').'</a>
       </div>';
     echo '
       <div class="dropdown-item">
       <a href="index.php?logout_flag=1" class="dropdown-item danger"
             title="'._G('SBGT_log_out').'">
             <img src="images/icons/system-shutdown.png"
-                 alt="'._G('SBGT_log_out').'">'._G('SBGT_log_out').'
+                 alt="">'._G('SBGT_log_out').'
         </a>
       </div>
     </div>

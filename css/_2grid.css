@@ -29,7 +29,7 @@ div#mysbMiddle {
 @media (max-width: 768px) {
   div#mysbMiddle {
     /* display: inline-block; */
-    width: 480px;
+    width: 98%;
   }
 }
 

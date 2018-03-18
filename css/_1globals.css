@@ -29,6 +29,9 @@ form {
 button, input, optgroup, select, textarea {
   margin: 0;
 }
+textarea {
+  max-width: 100%;
+}
 
 /**********************************/
 /**  INPUTS, BUTTONS AND OTHERS  **/

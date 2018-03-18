@@ -25,7 +25,7 @@ defined('_MySBEXEC') or die;
 
 <div id="mysbOverlay" class="overlay">
 <div id="mysbModal" class="mysb_overlay modal">
-    <div class="close btn-danger-light" >
+    <div class="close btn-light" >
     <img src="images/window-close-48.png"
          alt="<?= _G('SBGT_overlay_close') ?>"
          title="<?= _G('SBGT_overlay_close') ?>">
