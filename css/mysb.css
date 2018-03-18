@@ -29,6 +29,9 @@ form {
 button, input, optgroup, select, textarea {
   margin: 0;
 }
+textarea {
+  max-width: 100%;
+}
 
 /**********************************/
 /**  INPUTS, BUTTONS AND OTHERS  **/
@@ -43,14 +46,19 @@ button, input, optgroup, select, textarea {
   line-height: inherit;
 }
 button,
-input[type=submit] {
+input[type=submit],
+input[type=image],
+.btn {
+  border: none;
   cursor: pointer;
-
+  text-align: center;
 }
 a {
   color: inherit;
 }
-
+a.inactive {
+  cursor: auto;
+}
 
 /***********************************/
 /**  HIDE LAYER  **/
@@ -132,7 +140,7 @@ div#mysbMiddle {
 @media (max-width: 768px) {
   div#mysbMiddle {
     /* display: inline-block; */
-    width: 480px;
+    width: 98%;
   }
 }
 
@@ -161,14 +169,21 @@ div#mysbMiddle {
   float: right;
 }
 
+.f-left,
+.f-left-sm,
+.f-left-md,
+.f-left-lg {
+  float: left;
+}
+
 .row {
-  padding: 5px 0px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-flex: 1;
+  padding: .25rem;
+  /* display: -webkit-box; */
+  /* display: -ms-flexbox; */
+  /* display: flex; */
+  /* -ms-flex-wrap: wrap; */
+  /* flex-wrap: wrap; */
+  /* -webkit-box-flex: 1; */
   width: 100%;
   max-width: 100%;
   position: relative;
@@ -183,6 +198,11 @@ div#mysbMiddle {
 
 *[class*="col-"] * {
   1width: 100%;
+}
+
+a[class*="col-"] > img {
+  /* padding: 3px; */
+  /* margin-top: 0.3rem; */
 }
 
 
@@ -210,10 +230,11 @@ div#mysbMiddle {
   position: relative;
   /* width: 100%; */
   min-height: 1px;
-  padding-right: 10px;
-  padding-left: 10px;
+  /* padding-top: .3rem; */
+  padding-right: .5rem;
+  padding-left: .5rem;
   float: left;
-  min-width: 35px;
+  /* min-width: 35px; */
 }
 
 .col-1,
@@ -358,7 +379,7 @@ div#mysbMiddle {
   -ms-flex:0 0 auto;
   flex:0 0 auto;
   width:auto;
-  max-width:none
+  max-width: 100%;
 }
 
 .col-unique {
@@ -366,7 +387,8 @@ div#mysbMiddle {
 }
 
 @media (max-width: 1024px) {
-  .f-right-lg {
+  .f-right-lg,
+  .f-left-lg {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -387,7 +409,8 @@ div#mysbMiddle {
 }
 
 @media (max-width: 768px) {
-  .f-right-md {
+  .f-right-md,
+  .f-left-md {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -405,10 +428,16 @@ div#mysbMiddle {
     max-width: 100%;
     width: 100%;
   }
+  *[class*="col-"] {
+    padding-right: .2rem;
+    padding-left: .2rem;
+
+  }
 }
 
 @media (max-width: 480px) {
-  .f-right-sm {
+  .f-right-sm,
+  .f-left-sm {
     float: none;
     clear: both;
     display: inline-block !important;
@@ -426,12 +455,21 @@ div#mysbMiddle {
     max-width: 100% !important;
     width: 100% !important;
   }
+  *[class*="col-"] {
+    padding-right: .1rem;
+    padding-left: .1rem;
+
+  }
 }
 
 
 /**********************************/
 /**  SIZED BLOCK ELEMENTS  **/
 /**********************************/
+
+.w-auto {
+  width: auto !important;
+}
 
 .w-100,
 .w-sm-100,
@@ -575,10 +613,12 @@ div#mysbMiddle {
     width: 100%;
     display: block;
     height: 0px;
+    -webkit-transition: height .2s ease-out;
     transition: height .2s ease-out;
   }
   .navbar.responsive ul li:not(.no-collapse):not(.icon-responsive) {
     height: 50px;
+    -webkit-transition: height .2s ease-in;
     transition: height .2s ease-in;
   }
   .navbar ul li.no-collapse {
@@ -624,6 +664,11 @@ div#mysbMiddle {
   1display: none;
   position: absolute;
   z-index: 1;
+  overflow: hidden;
+  min-width: 200px;
+}
+.dropdown.right .dropdown-content {
+  right: 0px;
 }
 
 .dropdown-item > div,
@@ -653,23 +698,27 @@ div#mysbMiddle {
 .dropdown .dropdown-content {
   box-shadow: none;
   max-height: 0px;
-  transition: max-height .3s ease-out,
-              box-shadow .25s ease-out;
-  overflow: hidden;
-  min-width: 200px;
+  -webkit-transition:
+    max-height .2s ease-out,
+    box-shadow .25s ease-out;
+  transition:
+    max-height .2s ease-out,
+    box-shadow .25s ease-out;
 }
 .dropdown.dropped .dropdown-content {
   box-shadow: 0 0 .1rem .2rem rgba(128,128,128,.5);
   max-height: 300px;
-  transition: max-height .3s ease-in,
-              box-shadow .25s ease-in;
+  -webkit-transition:
+    max-height .2s ease-in,
+    box-shadow .25s ease-in;
+  transition:
+    max-height .2s ease-in,
+    box-shadow .25s ease-in;
 }
 .dropdown.dropped .dropdown-item {
   display: block;
 }
-.dropdown.right .dropdown-content {
-  right: 0px;
-}
+
 
 @media screen and (max-width: 768px) {
   .navbar:not(.responsive) .dropdown-content {
@@ -703,7 +752,6 @@ div#mysbMiddle {
 }
 
 
-
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -730,6 +778,12 @@ h2 {
   padding: 6px 10px 8px;
   text-align: left;
 }
+h3 {
+  font-size: 100%;
+  font-weight: bold;
+  padding: 6px 10px 8px;
+  text-align: left;
+}
 
 
 /**********************************/
@@ -750,31 +804,40 @@ h2 {
 }
 
 .content h1 {
-  font-size: 120%;
-  font-weight: bold;
-  padding: 8px 10px 10px;
-  text-align: center;
+  /* font-size: 120%; */
+  /* font-weight: bold; */
+  /* padding: 8px 10px 10px; */
+  /* text-align: center; */
 }
 .content h2 {
-  font-size: 110%;
-  font-weight: bold;
-  padding: 6px 10px 8px;
+  /* font-size: 110%; */
+  /* font-weight: bold; */
+  /* padding: 6px 10px 8px; */
   width: 100%;
-  text-align: left;
+  /* text-align: left; */
+}
+.content h2 {
+  width: 100%;
 }
 
 .list {
   display: block;
   text-align: center;
   position: relative;
+  margin: 1px 0;
 }
 .list > .row {
   display: table;
   /* position: relative; */
   padding: 0;
   margin: 1px 0px 0px;
-  border-collapse:separate;
-  border-spacing:1px 0px;
+  border-collapse: separate;
+  border-spacing: 1px 0px;
+}
+.list > .row.collapse {
+  border-collapse: none;
+  border-spacing: 0px;
+  margin: 0;
 }
 .list > .row > [class*="col-"] {
   display: table-cell;
@@ -788,6 +851,9 @@ h2 {
   vertical-align: middle;
   /* border: 1px solid red; */
 }
+.t-left {
+    text-align: left !important;
+}
 .t-center {
     text-align: center;
 }
@@ -795,8 +861,8 @@ h2 {
     text-align: right;
 }
 .list > .row > a[class*="col-"] {
-  min-width: 50px;
-  text-decoration: none;
+  /* min-width: 50px; */
+  /* text-decoration: none; */
   /* display: table-cell; */
   /* height: 100%; */
   /* background-color: #bbbbbb; */
@@ -824,42 +890,71 @@ h2 {
 /**  TEXTS, INPUTS AND OTHERS  **/
 /**********************************/
 
-input:not([type=image]),
+input:not([type=image]):not([type=checkbox]):not([type=radio]):not([class*="mce-"]),
+label:not([class*="mce-"]),
 p,
 textarea {
+  display: inline-block;
   width: 100%;
-  padding: .75rem .50rem;
+  padding: .50rem .50rem;
+  text-decoration: none;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
+}
+.btn {
+  /* display: inline-block; */
+  /* width: 100%; */
+  padding: .25rem .0rem;
+  text-decoration: none;
+  /* font-size: 1rem; */
+  /* line-height: 1.5; */
+}
+.btn:not([class*="col"]) {
+  padding: .50rem .50rem;
+}
+.list > .row > .btn {
+  padding: .50rem .50rem;
+  border-radius: 0;
+}
+*[class*="col-"] {
+  min-width: 48px;
+  min-height: 2.3rem;
+}
+.list *[class*="col-"] {
+  min-width: 48px;
 }
 input[type=image] {
   width: auto;
   padding: 0;
 }
-input[type=checkbox] {
+input[type=checkbox],
+input[type=radio] {
   width: auto;
-  margin: .75rem .75rem;
+  margin: .50rem .75rem;
 }
-select {
+select:not([class*="mce-"]) {
   display: inline-block;
   width: 100%;
   padding: .25rem .75rem;
   line-height: 2.3;
   /* outline: none; */
 }
-label {
-  width: 100%;
-  position: relative;
-  display: block;
-}
-.checkbox-list label {
+/* label:not([class*="mce-"]) { */
+/*   width: 100%; */
+/*   position: relative; */
+/*   display: inline-block; */
+/* } */
+.checkbox-list label,
+.radio-list label {
   display: inline-block;
-  background: #dddddd;
+  /* background: #dddddd; */
   width: auto;
   margin: 2px 0px;
+  padding: .50rem .50rem;
   cursor: pointer;
 }
-.checkbox-list label p {
+.checkbox-list label p,
+.radio-list label p {
   width: auto;
   display: inline-block;
 }
@@ -876,11 +971,23 @@ span.help {
 }
 
 @media (max-width: 480px) {
-  .checkbox-list label {
+  input:not([type=image]):not([type=checkbox]):not([type=radio]):not([class*="mce-"]),
+  label:not([class*="mce-"]),
+  p,
+  .btn,
+  textarea {
+    padding: .50rem .20rem;
+  }
+  .list > .row > .btn {
+    padding: .50rem .30rem;
+  }
+  .checkbox-list label,
+  .radio-list label {
     width: 100%;
   }
-  .checkbox-list label input {
-    float: right;
+  .checkbox-list label input,
+  .radio-list label input {
+    /* float: right; */
   }
 }
 
@@ -940,8 +1047,12 @@ span.help {
 }
 
 @media (max-width: 1024px) and (min-width: 768px) {
+  #NavBarColumn.navbar {
+    display: inline-block;
+    width: auto;
+  }
   #NavBarColumn ul li.dropdown.right .dropdown-content {
-    right: 10px;
+    right: auto;
   }
 }
 
@@ -960,11 +1071,9 @@ span.help {
 /**********************************/
 
 #mysbOverlay {
-  display: none;
   position: fixed;
-  z-index: 9995;
   width: 100%;
-  height: 100%;
+  height: 200%;
   top: 0;
   left: 0;
   right: 0;
@@ -972,7 +1081,7 @@ span.help {
 }
 
 .modal {
-  display:none;
+  display: inline-block;
   z-index: 10000 !important;
   width: 768px;
   top: 10px;
@@ -991,10 +1100,10 @@ div#overlaySize { /* TODO */
   position:absolute;
   z-index: 10010;
   right: 5px;
-  top:5px;
-  cursor:pointer;
-  height:45px;
-  width:45px;
+  top: 10px;
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
   opacity: 1;
   transition: opacity .15s ease-in-out;
 }
@@ -1002,13 +1111,14 @@ div#overlaySize { /* TODO */
   opacity: 1;
   transition: opacity .15s ease-in-out;
 }
-.modal .action {
-  height:48px;
+.close img {
+  min-height: 48px;
 }
 
-div#overlay input[type=image] {
-  width: 24px;
-}
+
+/**********************************/
+/**  MODAL TITLE  **/
+/**********************************/
 
 div.modalTitle {
   top: 0;
@@ -1026,79 +1136,23 @@ div.modalTitle {
   text-align: left;
 }
 
-.modalTitle > [class*="col-"],
-.modalFoot > [class*="col-"] {
-  display: table-cell;
-  height: 100%;
-  padding: 0;
-  float: none;
-  clear: both;
-  vertical-align: middle;
-}
-.modalTitle > [class*="col-"].t-center {
-  text-align: center;
-}
-.modalTitle > [class*="col-"].t-right {
-  text-align: right;
-}
-.modalTitle > a[class*="col-"] {
-  min-width: 48px;
-}
-
-div.modalTitle .list > div > * {
-  min-height: 48px;
-}
-.close img {
-  min-height: 48px;
-}
-
-div.modalTitle form {
-  width: auto;
-  display: inline-block;
-  float: left;
-}
-
 div.modalBody {
-  display: inline-block;
+  display: block;
   left: 0;
   right: 0;
   width: 100%;
   margin-bottom: 1px; /*  */
-  max-height: 65vh;
-}
-.modal div.modalBody,
-.modal div.modalBodyFoot {
-  overflow-y:auto;
-}
-div.modalFoot .row {
-  margin-bottom: 1px;
 }
 
 div.modalFoot {
-  display: inline-block;
-  width: 100%;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  text-align: center;
-  vertical-align: middle;
-  padding-top: 0px;
-  z-index: 10001;
   display: table;
-  padding: 0;
-  margin: 1px 0px 0px;
+  text-align: center;
+  z-index: 10001;
   border-collapse:separate;
   border-spacing:0px 0px;
   width: 100%;
-  padding: 0;
+  padding: 3px 0;
   margin: 0px 0px 0px;
-}
-div.modalFoot input[type=submit].action,
-div.modalFoot a.action {
-  margin: 0;
-  /* padding: 0; */
-  border-radius: 0px;
-  border: 0;
 }
 
 div.modalBodyFoot {
@@ -1109,54 +1163,26 @@ div.modalBodyFoot {
   width: 100%;
 }
 
-div.modalBody input[type=submit],
-div.modalFoot input[type=submit],
-div.modalBodyFoot input[type=submit],
-div.modalFoot .button {
-  /* margin: 1px 5px; */
+.modalTitle > [class*="col-"],
+.modalFoot > [class*="col-"] {
+  display: table-cell;
+  height: 100%;
+  float: none;
+  clear: both;
+  vertical-align: middle;
+}
+.modalTitle h1 {
+  width: 100%;
+  font-size: 110%;
+  text-align: left;
+}
+.modalTitle *[class*="col-"] {
+  min-width: 52px;
 }
 
-/* THEMES OLD */
-
-#mysbOverlay {
-  background-color: rgba(30,30,30,0.9);
-}
-div.modalTitle .action,
-div.modalFoot a.action {
-  background-color: #bbbbbb;
-}
-div.modalTitle,
-div.modalFoot {
-  background-color: #dddddd;
-}
-.modal,
-div.modalBody,
-div.modalBodyFoot {
-  background-color: #ffffff;
-}
-
-.modal {
-  border: 2px solid #111111;
-  box-shadow:0 0 90px 5px #000;
-  -moz-box-shadow:0 0 90px 5px #000;
-  -webkit-box-shadow: 0 0 90px #000;
-}
-
-div.modalTitle .action:hover,
-div.modalFoot .button:hover,
-div.modalTitle .action:hover {
-  background-color: #dddddd;
-  color: #000000;
-}
-
-@media (max-width: 580px) { /* +100px for closing cross */
-  .modal .close {
-    background-color: rgba(220,53,69,1);
-  }
-  .modal .close:hover {
-    box-shadow: 0 0 .1rem .1rem rgba(220,53,69,.75);
-  }
-}
+/**********************************/
+/**  MODAL MECHANICS  **/
+/**********************************/
 
 @media (min-width: 1124px) { /* +100px for closing cross */
   .modal {
@@ -1168,15 +1194,10 @@ div.modalTitle .action:hover {
   .modal {
     width: 470px;
   }
-  div.modalBody {
-    max-height: 50%;
-    max-height: 50vh;
-  }
 }
 
 @media (max-width: 580px) { /* +100px for closing cross */
   .modal {
-    display:none;
     width: auto;
     margin-top: 2px;
     margin-right: 2px;
@@ -1191,16 +1212,43 @@ div.modalTitle .action:hover {
     border: 0;
     text-align: right;
   }
+}
+
+
+div.modalBody,
+div.modalBodyFoot {
+  overflow-y: auto;
+}
+@media (max-width: 580px) { /* +100px for closing cross */
   div.modalContent {
-    overflow-y:auto;
-    max-height: 200px;
-    max-height: 40vh;
+    overflow-y: auto;
   }
-  div.modalBody {
-    overflow-y:visible;
-    max-height: 1000px;
+  div.modalBody,
+  div.modalBodyFoot {
+    overflow-y: visible;
   }
 }
+
+
+/**********************************/
+/**  MODAL ACTIVATION  **/
+/**********************************/
+
+#mysbOverlay {
+  opacity: 0;
+  z-index: -20;
+  -webkit-transition: opacity 0.2s,
+              z-index 0s ease 0.2s;
+  transition: opacity 0.2s,
+              z-index 0s ease 0.2s;
+}
+#mysbOverlay.active {
+  opacity: 1;
+  z-index: 9995;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
 
 /***************************************************************************
  *
@@ -1250,30 +1298,57 @@ div.modalTitle .action:hover {
 #mysbMessages {
   font-size: 80%;
   position: fixed;
-  display: none;
   padding: 5px;
   width: 250px;
   max-width: 90%;
-  z-index: 10005;
   right: 20px;
   bottom: 20px;
   cursor:default;
   border-radius: 5px;
   background-color: #ffca92;
-  border: 1px solid red;
-  box-shadow: 0 0 .1rem .3rem rgba(255,0,0,.9);
 }
-
 #mysbMessages > div {
-  /* display: table-row; */
   width: 100%;
 }
-
-#mysbMessages > div > div{
+#mysbMessages > div > div {
   display: table-cell;
   height: 100%;
   vertical-align: middle;
   padding: 0px 10px;
+}
+
+#mysbMessages {
+  opacity: 0;
+  box-shadow: 0 0 .1rem .3rem rgba(255,0,0,0);
+  z-index: -20;
+  max-height: 0px;
+  -webkit-transition:
+    opacity 3s ease 3s,
+    box-shadow 3s ease 3s,
+    z-index 0s ease 6s,
+    max-height 0s ease 6s;
+  transition:
+    opacity 3s ease 5s,
+    box-shadow 3s ease 5s,
+    z-index 0s ease 8s,
+    max-height 0s ease 8s;
+}
+
+#mysbMessages.activation {
+  opacity: 1;
+  box-shadow: 0 0 .1rem .3rem rgba(255,0,0,.9);
+  z-index: 10005;
+  max-height: 500px;
+  -webkit-transition:
+    opacity 0s,
+    box-shadow 0s,
+    z-index 0s,
+    max-height 0s;
+  transition:
+    opacity 0s,
+    box-shadow 0s,
+    z-index 0s,
+    max-height 0s;
 }
 
 @media (max-width: 480px) {
@@ -1339,6 +1414,120 @@ div.modalTitle .action:hover {
 
 
 /**********************************/
+/**  TOOLTIPS  **/
+/**********************************/
+
+.tooltip
+{
+  text-decoration:none;
+  overflow: visible;
+}
+
+
+.tooltip span
+{
+  display:block;
+  position:absolute;
+  -moz-border-radius:6px;
+  -webkit-border-radius:6px;
+  border-radius:6px;
+  color:black;
+  background:white;
+  margin-top:12px;
+  margin-left:32px;
+  overflow: visible;
+  padding:8px;
+  width:320px;
+}
+.tooltip span.left
+{
+  right: 0px;
+}
+
+.tooltip span img
+{
+  float:left;
+  margin:0px 8px 8px 0;
+}
+
+.tooltip span {
+  box-shadow: none;
+  max-height: 0px;
+  max-width: 0px;
+  opacity: 0;
+  z-index: -20;
+  -webkit-transition:
+    opacity 0.4s,
+    box-shadow 0.4s,
+    z-index 0s ease 0.4s,
+    max-height 0s ease 0.4s,
+    max-width 0s ease 0.4s;
+  transition:
+    opacity 0.4s,
+    box-shadow 0.4s,
+    z-index 0s ease 0.4s,
+    max-height 0s ease 0.4s,
+    max-width 0s ease 0.4s;
+}
+
+.tooltip:hover span {
+  box-shadow: 0 0 .2rem .2rem rgba(50,50,50,.4);
+  max-height: 500px;
+  max-width: 500px;
+  opacity: 1;
+  z-index: 1000;
+  -webkit-transition:
+    opacity 0s,
+    z-index 0s;
+  transition:
+    opacity 0s,
+    z-index 0s;
+}
+
+
+/**********************************/
+/**  SLIDES  **/
+/**********************************/
+
+.slide {
+  overflow: hidden;
+  max-height: 0px;
+  opacity: 0;
+  -webkit-transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease;
+  transition:
+    max-height 0.5s ease,
+    opacity 0.5s ease;
+}
+.slide.slide-toggling {
+  max-height: 500px;
+  opacity: 1;
+}
+.slide.slide-untoggling {
+  max-height: 500px;
+  opacity: 1;
+  -webkit-transition:
+    max-height 0s,
+    opacity 0s;
+  transition:
+    max-height 0s,
+    opacity 0s;
+}
+.slide.slide-toggled {
+  overflow: visible;
+  max-height: 20000px;
+  opacity: 1;
+  -webkit-transition:
+    max-height 0s,
+    opacity 0s;
+  transition:
+    max-height 0s,
+    opacity 0s;
+}
+
+
+/**********************************/
 /**  OBSOLETE STYLE  **/
 /**********************************/
 
@@ -1358,4 +1547,372 @@ div.row > div.right {
 }
 div.boxed p {
   text-align: left;
+}
+
+
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************
+**  GLOBAL STYLES
+***********************************/
+
+a {
+  color: black;
+  -webkit-transition:
+    color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+  transition:
+    color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+a:hover {
+  color: #0059b3; /* bg-secondary color */
+  z-index: 1;
+}
+
+input:not([type=image]):not([class*="mce-"]),
+.btn,
+textarea {
+  background-clip: padding-box;
+  border-radius: .25rem;
+  -webkit-transition:
+    color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+  transition:
+    color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+input:not([type=image]):not([class*="mce-"]):not([class*="btn-"]),
+textarea {
+  color: #444444;
+  background-color: #ffffcc;
+  border: 1px solid #cccccc;
+}
+input:focus,
+textarea:focus {
+    border-color: #aaaaaa;
+    outline: 0;
+    box-shadow: 0 0 .1rem .1rem #aaaaaa;
+}
+select:focus {
+  box-shadow: 0 0 .1rem .1rem #aaaaaa;
+}
+.label {
+  -webkit-transition: background-color .15s ease-in-out;
+  transition: background-color .15s ease-in-out;
+}
+.label:hover, .label:focus,
+.checkbox-list label,
+.radio-list label {
+  background-color: #eeeeee;
+  transition: background-color .15s ease-in-out;
+  transition: background-color .15s ease-in-out;
+}
+.checkbox-list label:not([class*="mce-"]):hover,
+.radio-list label:not([class*="mce-"]):hover,
+.checkbox-list label:not([class*="mce-"]):focus,
+.radio-list label:not([class*="mce-"]):focus {
+  background-color: #dddddd;
+}
+
+/*** Primary color ***/
+.bg-primary,
+.btn-primary {
+  background-color: #333333; /* rgb(0, 64, 128) 25% 35% / 85% 75% */
+  color: white;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  box-shadow: 0 0 .2rem .1rem #404040;
+  background-color: #404040;
+  color: white;
+}
+.bg-primary-light,
+.btn-primary-light {
+  background-color: #cccccc;
+  color: black;
+}
+.btn-primary-light:hover,
+.btn-primary-light:focus {
+  box-shadow: 0 0 .2rem .1rem #bfbfbf;
+  background-color: #bfbfbf;
+  color: black;
+}
+/*** Danger color ***/
+.bg-danger,
+.btn-danger {
+  background-color: #800000; /* rgb(128, 0, 0) 25% 35% / 85% 75% */
+  color: white;
+}
+.btn-danger:hover,
+.btn-danger:focus {
+  box-shadow: 0 0 .2rem .1rem rgba(220,53,69,.75);
+  background-color: #b30000;
+  color: white;
+}
+.bg-danger-light,
+.btn-danger-light {
+  background-color: #ff8080;
+  color: black;
+}
+.btn-danger-light:hover,
+.btn-danger-light:focus {
+  box-shadow: 0 0 .2rem .1rem #ff6666;
+  background-color: #ff6666;
+  color: black;
+}
+/*** Success color ***/
+.bg-success,
+.btn-success {
+  background-color: #008000; /* rgb(0, 128, 0) 25% 35% / 85% 75% */
+  color: white;
+}
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #00b300;
+  box-shadow: 0 0 .2rem .1rem rgba(40,167,69,.75);
+  color: white;
+}
+.bg-success-light,
+.btn-success-light {
+  background-color: #66ff66;
+  color: black;
+}
+.btn-success-light:hover,
+.btn-success-light:focus {
+  box-shadow: 0 0 .2rem .1rem #4dff4d;
+  background-color: #4dff4d;
+  color: black;
+}
+/*** Secondary color ***/
+.bg-secondary,
+.btn-secondary {
+  background-color: #0059b3;  /* rgba(0,89,179,1) V: 100/85 35/20 */
+  color: white;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #1a66b3;
+  box-shadow: 0 0 .2rem .1rem #1a66b3;
+  color: white;
+}
+.bg-secondary-light,
+.btn-secondary-light {
+  background-color: #7493b3;
+  color: black;
+}
+.btn-secondary-light:hover,
+.btn-secondary-light:focus {
+  box-shadow: 0 0 .2rem .1rem #90a1b3;
+  background-color: #90a1b3;
+  color: black;
+}
+/*** Light color ***/
+.bg-light,
+.btn-light {
+  background-color: rgba(255,255,255,0);
+}
+.btn-light:hover,
+.btn-light:focus {
+  background-color: rgba(255,255,255,.25);
+  box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
+}
+
+input.is-invalid,
+input.is-invalid:focus {
+  border-color: rgba(220, 53, 69, .75);
+  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5);
+}
+
+.content span.help {
+  color: rgba(108,117,125, 1);
+}
+
+
+/**********************************
+**  NAVBAR STYLES
+***********************************/
+
+.navbar ul,
+.navbar li,
+.navbar a:not(:hover),
+.navbar1 li > span a:not(:hover),
+.dropdown-content,
+.dropdown-item1 > a:not(:hover),
+.dropdown-item > div,
+.dropdown-item > span {
+  background-color: #333;
+  color: white;
+}
+.navbar li > a:hover,
+.navbar a.dropbtn:hover,
+.dropdown-item > a:hover {
+  background-color: #0059b3;
+  color: white;
+}
+.navbar li > a.danger:hover,
+.navbar a.danger.dropbtn:hover,
+.dropdown-item > a.danger:hover {
+  background-color: #800000;
+  color: white;
+}
+.navbar li > a.success:hover,
+.navbar a.success.dropbtn:hover,
+.dropdown-item > a.success:hover {
+  background-color: #008000;
+  color: white;
+}
+.navbar li > a.secondary:hover,
+.navbar a.secondary.dropbtn:hover,
+.dropdown-item > a.secondary:hover {
+  background-color: rgba(108,117,125,1);
+  color: white;
+}
+
+#mysbMiddle .navbar li.icon-responsive a:not(:hover),
+#mysbMiddle .navbar ul li.no-collapse > a:not(:hover) {
+  background-color: rgba(255,255,255,.25);
+}
+
+
+/**********************************
+**  CONTENT STYLES
+***********************************/
+
+#mysbMiddle .content:not(.list) h1 {
+  border-bottom: 2px solid #e1e1e1;
+}
+
+#mysbMiddle .content,
+#mysbMiddle .list_support {
+  border-radius: .5rem;
+  box-shadow: 0 0 .2rem .2rem rgba(50,50,50,.4);
+  text-align: left;
+}
+#mysbMiddle .content.advert {
+  background-color: #ffe9ae;
+  box-shadow: 0 0 .1rem .2rem rgba(220,74,0,.7);
+}
+.row.border-top,
+h1.border-top,
+h2.border-top,
+h3.border-top,
+.row.content-divider {
+  border-top: 2px solid #e1e1e1;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+}
+.row.border-bottom,
+h1.border-bottom,
+h2.border-bottom,
+h3.border-bottom {
+  border-bottom: 2px solid #e1e1e1;
+  padding-top: .3rem;
+  padding-bottom: .3rem;
+}
+#mysbMiddle .list {
+  box-shadow: none;
+  border-radius: 0;
+}
+#mysbMiddle .list > .row {
+  /* background-color: rgba(220,220,220,.7); */
+}
+
+
+@media (max-width: 480px) {
+#mysbMiddle .content,
+#mysbMiddle .content.advert
+{
+  box-shadow: none;
+  border-radius: 0;
+}
+#mysbMiddle .content:not(:first-child):not(.advert):not(.list),
+#mysbMiddle .content.border-top {
+  border-top: 4px solid #444444;
+}
+}
+
+
+/**********************************/
+/**  MODAL STYLES  **/
+/**********************************/
+
+#mysbOverlay {
+  background-color: rgba(30,30,30,0.8);
+}
+div.modalTitle {
+  background-color: #333;
+  color: white;
+}
+.modal,
+div.modalBody,
+div.modalBodyFoot {
+  background-color: #ffffff;
+}
+.modal {
+  /* border: 2px solid #111111; */
+  -webkit-box-shadow: 0 0 90px #000;
+  box-shadow:0 0 90px 5px #000;
+}
+
+@media (max-width: 580px) { /* +100px for closing cross */
+  .modal .close {
+    background-color: #ffb3b3;
+  }
+  .modal .close:hover {
+    background-color: #ff8080;
+  }
+}
+
+
+/**********************************/
+/**  PRINTING STYLES  **/
+/**********************************/
+
+@media print {
+
+body {
+  font: 70% "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;
+}
+#mysbTop {
+  display: none;
+}
+div#allshadow {
+  border-radius: 0px;
+}
+#mysbTop a {
+  display: none;
+}
+table, tr {
+  border: 2px solid black;
+}
+#mysbBottom {
+  display: none;
+}
+
+div#mysbLogSql {
+  display: none;
+}
+
+div#NavBarColumn {
+    display: none;
+}
+
 }
