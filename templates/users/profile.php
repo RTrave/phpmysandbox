@@ -75,12 +75,15 @@ foreach($pluginsUserOption as $plugin) {
     $pname = $plugin->value0;
 ?>
   <div class="row label">
+    <?= $plugin->innerFormRow($app->auth_user); ?>
+ <!--
     <label class="col-10" for="<?= $plugin->formDisplayId() ?>">
       <?= _G($plugin->value1) ?>
     </label>
     <div class="col-2 t-right">
       <?= $plugin->formDisplay() ?>
     </div>
+-->
   </div>
 <?php
 }

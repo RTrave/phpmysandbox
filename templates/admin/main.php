@@ -67,7 +67,7 @@ $httpbase = 'index.php?tpl=admin/admin&amp;page=main';
   <div id="app_config">
 <?php include(_pathI('admin/conf_display_ctrl')); ?>
   </div>
-  <div class="row" style="text-align: center;">
+  <div class="row border-top">
     <div class="col-md-3"></div>
     <div class="col-md-6">
       <input type="hidden" name="config_modif" value="1">

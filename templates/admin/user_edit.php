@@ -63,7 +63,7 @@ loadItem("user'.$user->id.'","index.php?inc=admin/user_display&user_id='.$user->
          alt="user-trash">
   </a>
 <?php } ?>
-  <a class="hidelayed col-1 t-center btn-primary"
+  <a class="hidelayed col-1 t-center btn-secondary"
      href="index.php?tpl=admin/user_edit&amp;user_id=<?= $user->id ?>&amp;user_newpasswd=1"
      title="<?= _G('SBGT_adminusers_newpasswd') ?> <?= $user->lastname ?> <?= $user->firstname ?>"
      data-overconfirm="<?= MySBUtil::str2strict(_G('SBGT_adminuser_confirm_newpasswd')) ?>">

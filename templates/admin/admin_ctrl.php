@@ -32,7 +32,7 @@ include(MySB_ROOTPATH.'/config.php');
 
 <div class="row">
 
-<div class="col-lg-3">
+<div class="col-lg-3 t-center">
 
 <?php include( _pathI('admin/menu') ); ?>
 

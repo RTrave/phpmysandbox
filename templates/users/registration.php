@@ -102,12 +102,7 @@ if($empty_field>=1) {
         $pname = $plugin->value0;
 ?>
   <div class="row label">
-    <label class="col-10" for="<?= $plugin->formDisplayId() ?>">
-      <?= _G($plugin->value1) ?>
-    </label>
-    <div class="col-2 t-right">
-      <?= $plugin->formDisplay() ?>
-    </div>
+    <?= $plugin->innerFormRow() ?>
   </div>
 <?php } ?>
 
