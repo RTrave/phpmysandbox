@@ -53,35 +53,63 @@ function mysb_alert(text) {
 /**
  * Few show/hide functions
  */
-function slide_toggle(vDIV) {
-  if((slide = document.getElementById(vDIV))==null) return;
+var slide_toggle = function (vDIV) {
+  var slide = document.getElementById(vDIV);
+  if(slide==null) return;
   if(!slide.classList.contains("slide")) {
     slide.classList.add("slide");
+    slide.classList.add("slide-toggling");
+    setTimeout(function(){
+      slide.classList.remove("slide-toggling");
+      setTimeout(function(){ slide.classList.add("slide"); },500);
+      },50);
     return;
   }
   if (slide.classList.contains("slide-toggled")) {
+    slide.classList.add("slide-toggling");
+    slide.classList.add("slide-untoggling");
     slide.classList.remove("slide-toggled");
+    setTimeout(function(){
+      slide.classList.remove("slide-untoggling");
+      slide.classList.remove("slide-toggling");
+      },50);
   } else {
-    slide.classList.add("slide-toggled");
+    slide.classList.add("slide-toggling");
+    setTimeout(function(){ slide.classList.add("slide-toggled"); },500);
   }
 }
-function slide_hide(vDIV) {
-  if((slide = document.getElementById(vDIV))==null) return;
+var slide_hide = function (vDIV) {
+  var slide = document.getElementById(vDIV);
+  if(slide==null) return;
   if(!slide.classList.contains("slide")) {
     slide.classList.add("slide");
+    slide.classList.add("slide-toggling");
+    setTimeout(function(){
+      slide.classList.remove("slide-toggling");
+      //setTimeout(function(){ slide.classList.add("slide"); },500);
+    },50);
     return;
   }
   if (slide.classList.contains("slide-toggled")) {
+    slide.classList.add("slide-toggling");
+    slide.classList.add("slide-untoggling");
     slide.classList.remove("slide-toggled");
+    setTimeout(function(){
+      slide.classList.remove("slide-untoggling");
+      slide.classList.remove("slide-toggling");
+      //setTimeout(function(){ slide.classList.add("slide"); },500);
+    },50);
   }
 }
-function slide_show(vDIV) {
-  if((slide = document.getElementById(vDIV))==null) return;
+var slide_show = function (vDIV) {
+  var slide = document.getElementById(vDIV);
+  if(slide==null) return;
   if(!slide.classList.contains("slide")) {
     slide.classList.add("slide");
   }
   if (!slide.classList.contains("slide-toggled")) {
-    slide.classList.add("slide-toggled");
+    slide.classList.add("slide-toggling");
+    setTimeout(function(){ slide.classList.add("slide-toggled"); },500);
   }
 }
 
@@ -156,9 +184,6 @@ function desactiveOverlay() {
   var x = document.getElementById("mysbOverlay");
   x.className = "overlay";
 }
-// function undisplay(mDiv) {
-//   document.getElementById(mDiv).style.display = 'none';
-// }
 
 
 /**
@@ -304,9 +329,7 @@ function wrapLayerCalls() {
       desactiveOverlay();
     };
     var olink = $(this);
-    $("#mysbModal").promise().done(function(){
-      wrap.load(olink.attr("href")+"&overlay=1");
-    });
+    setTimeout(function(){ wrap.load(olink.attr("href")+"&overlay=1"); },100);
   });
 
   $("form.overlayed").off("submit");
@@ -321,9 +344,7 @@ function wrapLayerCalls() {
       url: $(this).attr('action')+"&overlay=1",
       data: $(this).serialize(),
       success: function(responseText) {
-        $("#mysbModal").promise().done(function(){
-          wrap.html(responseText);
-        });
+        setTimeout(function(){ wrap.html(responseText); },100);
       }
     });
     return false;
@@ -360,7 +381,6 @@ function wrapLayerCalls() {
       data: $(this).serialize(),
       success: function(responseText) {
         hwrap.html(responseText);
-        //desactiveOverlay();
       }
     });
     return false;
@@ -373,19 +393,16 @@ function wrapLayerCalls() {
 function hideMessageTip() {
   var msg = document.getElementById("mysbMessages");
   msg.classList.add("activation");
-  setTimeout(hideMessage,1000);
-}
-function hideMessage() {
-  var msg = document.getElementById("mysbMessages");
-  msg.classList.remove("activation");
+  setTimeout(function(){ msg.classList.remove("activation"); },1000);
 }
 
 /**
  * Load an item
  */
 function loadItem(iDiv,iRef) {
-    var iwrap = $("div#"+iDiv);
-    onSpin();
-    slide_hide(iDiv);
-    iwrap.load(iRef+"&itemlay=1&iid="+iDiv);
+  var iwrap = $("div#"+iDiv);
+  onSpin();
+  slide_hide(iDiv);
+  setTimeout(function(){ iwrap.load(iRef+"&itemlay=1&iid="+iDiv); },500);
 }
+
