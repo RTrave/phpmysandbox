@@ -287,15 +287,50 @@ class MySBValue extends MySBObject {
                 return $form_str;
 
             case MYSB_VALUE_TYPE_TEL:
-                $img = '';
-                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="tel:'.$value.'" title="Tel:'.$value.' '.$title.'"><img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24"></a></div>';
-                return $img.'<input type="tel" name="'.$prefix.$this->keyname.'" size="18" maxlength="62" value="'.$value.'" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">';
-
+                if( $value!='' and $directlink)
+                  $wform = 7;
+                else
+                  $wform = 8;
+                $form_str = '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-'.$wform.'">
+  <input type="tel" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+         maxlength="62" value="'.$value.'"
+         pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
+</div>';
+                if( $value!='' and $directlink)
+                  $form_str .= '
+<a href="tel:'.$value.'" class="col-1 btn btn-primary-light"
+   title="'.$label.':'.$value.'">
+  <img src="images/icons/call-start.png" alt="call-start"
+       class="mysbIcons_valuetel icon24">
+</a>';
+                return $form_str;
             case MYSB_VALUE_TYPE_URL:
-                $img = '';
-                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="'.$value.'" target="_blank" title="URL:'.$value.' '.$title.'"><img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24"></a></div>';
-                return $img.'<input type="url" name="'.$prefix.$this->keyname.'" size="20" maxlength="128" value="'.$value.'">';
-
+                if( $value!='' and $directlink)
+                  $wform = 7;
+                else
+                  $wform = 8;
+                $form_str = '
+<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-'.$wform.'">
+  <input type="url" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+         maxlength="62" value="'.$value.'">
+</div>';
+                if( $value!='' and $directlink)
+                  $form_str .= '
+<a href="'.$value.'" class="col-1 btn btn-primary-light"
+   title="'.$label.':'.$value.'" target="_blank">
+  <img src="images/icons/web-browser.png" alt="web-browser"
+       class="mysbIcons_valuetel icon24">
+</a>';
+                return $form_str;
         }
     }
 

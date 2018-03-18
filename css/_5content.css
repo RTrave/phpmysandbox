@@ -45,9 +45,6 @@ h3 {
   padding-right: 0px;
   padding-left: 0px;
 }
-.content:not(.list) {
-  padding-bottom: 5px;
-}
 .content.advert {
   padding: .5rem;
 }
@@ -80,8 +77,13 @@ h3 {
   /* position: relative; */
   padding: 0;
   margin: 1px 0px 0px;
-  border-collapse:separate;
-  border-spacing:1px 0px;
+  border-collapse: separate;
+  border-spacing: 1px 0px;
+}
+.list > .row.collapse {
+  border-collapse: none;
+  border-spacing: 0px;
+  margin: 0;
 }
 .list > .row > [class*="col-"] {
   display: table-cell;
@@ -148,14 +150,24 @@ textarea {
 .btn {
   /* display: inline-block; */
   /* width: 100%; */
-  padding: .50rem .50rem;
+  padding: .25rem .0rem;
   text-decoration: none;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
+.btn:not([class*="col"]) {
+  padding: .50rem .50rem;
+}
 .list > .row > .btn {
   padding: .50rem .50rem;
   border-radius: 0;
+}
+*[class*="col-"] {
+  min-width: 48px;
+  min-height: 2.3rem;
+}
+.list *[class*="col-"] {
+  min-width: 48px;
 }
 input[type=image] {
   width: auto;
@@ -221,7 +233,7 @@ span.help {
   }
   .checkbox-list label input,
   .radio-list label input {
-    float: right;
+    /* float: right; */
   }
 }
 
@@ -281,8 +293,12 @@ span.help {
 }
 
 @media (max-width: 1024px) and (min-width: 768px) {
+  #NavBarColumn.navbar {
+    display: inline-block;
+    width: auto;
+  }
   #NavBarColumn ul li.dropdown.right .dropdown-content {
-    right: 10px;
+    right: auto;
   }
 }
 
