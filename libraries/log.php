@@ -112,8 +112,12 @@ class MySBLog {
 <script type="text/javascript">offSpin();</script>';
         $this->view_menu($with_menu);
         $this->view_refresh($refresh_time);
-        echo $this->view_render($this->layerWrite().$this->msgWrite().$errorcode);
+        ob_get_clean();
+        ob_start();
+        echo $this->view_render($this->msgWrite().$errorcode.$this->layerWrite());
         $this->close();
+        $content = ob_get_clean();
+        echo $content;
         die;
     }
 
