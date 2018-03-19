@@ -16,7 +16,7 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 ?>
 
-<div class="navbar" id="NavBarColumn">
+<div class="navbar expanded" id="NavBarColumn">
 <ul>
   <li class="<?= isActive('main') ?>">
     <a href="index.php?tpl=admin/admin&page=main"
@@ -39,9 +39,9 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
     <a href="index.php?tpl=admin/admin&page=plugins"
        title="Title">
     <?= _G('SBGT_adminplugins') ?></a>
-  </li><li class="dropdown right1" id="ModulesDropDown">
+  </li><li class="dropdown right" id="ModulesDropDown">
     <a href="javascript:void(0)" class="dropbtn secondary"
-       onclick="dropdownToggle('ModulesDropDown','dropdown right1')">
+       onclick="dropdownToggle('ModulesDropDown','dropdown right')">
       <img src="images/icons/view-list.png" alt="view-list">Modules</a>
     <div class="dropdown-content">
 <?php
