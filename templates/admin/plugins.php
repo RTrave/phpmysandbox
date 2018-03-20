@@ -223,11 +223,10 @@ echo '
   </div>
 
   <div class="row label">
-    <div class="col-1 t-left">
-        <input type="checkbox" name="option_useredit" id="option_useredit">
-    </div>
-    <label class="col-11" for="option_useredit">
-        '._G('SBGT_uo_useredition').'
+    <label class="col-12" for="option_useredit">
+      <input type="checkbox" class="mysbValue-checkbox"
+             name="option_useredit" id="option_useredit">
+      '._G('SBGT_uo_useredition').'
     </label>
   </div>
 
@@ -255,20 +254,25 @@ foreach($pluginsUserOption as $plugin) {
     $pname = $plugin->value0;
     echo '
   <div class="row label">
-    <div class="col-1 t-left">';
+    <label class="col-12" for="uo_'.$plugin->id.'">';
     if($plugin->module!='') {
         $module = MySBModuleHelper::getByName($plugin->module);
         if(!$module->isLoaded()) 
-            echo '<i>(module '.$plugin->module.' not loaded)</i>';
+            echo '
+      <div class="mysbValue-checkbox">
+        <i>(module '.$plugin->module.' not loaded)</i>
+      <div>';
         else
-            echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
+            echo '
+      <input type="checkbox" class="mysbValue-checkbox"
+             name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
     } else
-        echo '<input type="checkbox" name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
+        echo '
+      <input type="checkbox" class="mysbValue-checkbox"
+             name="uo_'.$plugin->id.'" id="uo_'.$plugin->id.'">';
     echo '
-    </div>
-    <label class="col-11" for="uo_'.$plugin->id.'">
-        '.$pname.'<br>
-        <span class="help">'._G($plugin->value1).'</span>
+      '.$pname.'<br>
+      <span class="help">'._G($plugin->value1).'</span>
     </label>
   </div>';
 }

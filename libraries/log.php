@@ -110,9 +110,10 @@ class MySBLog {
   </div>
 </div>
 <script type="text/javascript">offSpin();</script>';
-        $this->view_menu($with_menu);
+        $this->view_menu(true);
+        //$this->view_menu($with_menu);
         $this->view_refresh($refresh_time);
-        ob_get_clean();
+        ob_get_flush();
         ob_start();
         echo $this->view_render($this->msgWrite().$errorcode.$this->layerWrite());
         $this->close();

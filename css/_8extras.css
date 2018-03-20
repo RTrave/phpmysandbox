@@ -276,6 +276,32 @@
 
 
 /**********************************/
+/**  SPECIALS STYLES  **/
+/**********************************/
+
+.mysbValue-checkbox {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.mysbValue-directlink-img {
+  padding: .0rem .20rem;
+}
+@media (max-width: 480px) {
+  .mysbValue-directlink-input {
+    width: 80% !important;
+  }
+  .mysbValue-directlink-img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    min-width: 48px;
+    padding: .20rem .20rem;
+  }
+}
+
+
+/**********************************/
 /**  OBSOLETE STYLE  **/
 /**********************************/
 

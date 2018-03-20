@@ -117,10 +117,14 @@ var slide_show = function (vDIV) {
  * Few show/hide functions !!OBSOLETE!!
  */
 function show(vDIV){
-    $("#"+vDIV).fadeIn(300);
+  //$("#"+vDIV).fadeIn(300);
+  var elem = document.getElementById(vDIV);
+  elem.classList.remove("d-hide");
 }
 function hide(vDIV){
-    $("#"+vDIV).fadeOut(300);
+  // $("#"+vDIV).fadeOut(300);
+  var elem = document.getElementById(vDIV);
+  elem.classList.add("d-hide");
 }
 function hide_instant(vDIV){
     $("#"+vDIV).fadeOut(0);

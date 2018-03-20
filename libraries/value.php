@@ -221,11 +221,10 @@ class MySBValue extends MySBObject {
 
             case MYSB_VALUE_TYPE_BOOL:
                 return '
-<div class="col-1 t-left">
-  <input type="checkbox" '.MySBUtil::form_ischecked($value,1).'
+<label class="col-sm-12" for="'.$prefix.$this->keyname.'">
+  <input type="checkbox" class="mysbValue-checkbox"
+         '.MySBUtil::form_ischecked($value,1).'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
-</div>
-<label class="col-11" for="'.$prefix.$this->keyname.'">
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>';
@@ -296,17 +295,16 @@ class MySBValue extends MySBObject {
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-'.$wform.'">
+<div class="col-sm-'.$wform.' mysbValue-directlink-input1">
   <input type="tel" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
          maxlength="62" value="'.$value.'"
          pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 </div>';
                 if( $value!='' and $directlink)
                   $form_str .= '
-<a href="tel:'.$value.'" class="col-1 btn btn-primary-light"
+<a href="tel:'.$value.'" class="col-1 btn btn-primary-light mysbValue-directlink-img"
    title="'.$label.':'.$value.'">
-  <img src="images/icons/call-start.png" alt="call-start"
-       class="mysbIcons_valuetel icon24">
+  <img src="images/icons/call-start.png" alt="call-start">
 </a>';
                 return $form_str;
             case MYSB_VALUE_TYPE_URL:
@@ -319,16 +317,15 @@ class MySBValue extends MySBObject {
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-'.$wform.'">
+<div class="col-sm-'.$wform.' mysbValue-directlink-input1">
   <input type="url" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
          maxlength="62" value="'.$value.'">
 </div>';
                 if( $value!='' and $directlink)
                   $form_str .= '
-<a href="'.$value.'" class="col-1 btn btn-primary-light"
+<a href="'.$value.'" class="col-1 btn btn-primary-light mysbValue-directlink-img"
    title="'.$label.':'.$value.'" target="_blank">
-  <img src="images/icons/web-browser.png" alt="web-browser"
-       class="mysbIcons_valuetel icon24">
+  <img src="images/icons/web-browser.png" alt="web-browser">
 </a>';
                 return $form_str;
         }
@@ -466,63 +463,89 @@ class MySBValue extends MySBObject {
     public function innerRowWhereClause($prefix,$label='',$help='',$colsize=12) {
         global $app;
         $output = '';
+        $checknull = '
+<div class="col-2 t-right" style="padding-left: 0; padding-right: 0;">
+  !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
+          style="margin-left: 0;">
+</div>';
         switch($this->type) {
             case MYSB_VALUE_TYPE_INT:
                 $output .= '
-<label class="col-sm-'.($colsize-8).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-7 t-right">
-  <input type="text" name="'.$prefix.$this->keyname.'_min" style="width: auto;"
-         size="4" maxlength="15" value="">
-  <small>&lt;=</small>value<small>&lt;=</small>
-  <input type="text" name="'.$prefix.$this->keyname.'_max" style="width: auto;"
-         size="4" maxlength="15" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'_min" style="width: auto;"
+           size="3" maxlength="15" value="">
+    <small>&le;</small>val<small>&le;</small>
+    <input type="text" name="'.$prefix.$this->keyname.'_max" style="width: auto;"
+           size="3" maxlength="15" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_BOOL:
                 $output .= '
-<label class="col-sm-'.($colsize-2).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+<label class="col-'.($colsize-4).'" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-1">
+<div class="col-2 t-right">
   <input type="checkbox"
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
-</div>';
+</div>
+  '.$checknull.'';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64:
-                $output .= '
+                $output = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="32" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+           maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR512:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="32" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+           maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_TEXT:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="32" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+           maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
@@ -533,48 +556,65 @@ class MySBValue extends MySBObject {
                     true, '', true);
                 $form_str = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
-    <option value="">&nbsp;</option>
-    <option value="_any">'._G('SBGT_select_any').'</option>';
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10">
+    <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+      <option value="">&nbsp;</option>
+      <option value="_any">'._G('SBGT_select_any').'</option>';
                 while($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
-    <option value="'.$seloption['value0'].'">'._G($seloption['value1']).'</option>';
+      <option value="'.$seloption['value0'].'">'._G($seloption['value1']).'</option>';
                 }
                 $form_str .= '
-  </select>
+    </select>
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 $output .= $form_str;
                 break;
             case MYSB_VALUE_TYPE_TEL:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" maxlength="32" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_URL:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  <b>'.$label.'</b><br>
+  '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-6">
-  <input type="text" name="'.$prefix.$this->keyname.'" maxlength="32" value="">
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10">
+    <input type="text" name="'.$prefix.$this->keyname.'" maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
 </div>';
                 break;
         }
+/*
         $output .= '
 <div class="col-1 t-right" style="padding-left: 0; padding-right: 0;">
   !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
           style="margin-left: 0;">
 </div>';
+*/
         return $output;
     }
 

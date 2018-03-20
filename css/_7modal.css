@@ -141,6 +141,7 @@ div.modalBodyFoot {
 @media (max-width: 580px) { /* +100px for closing cross */
   .modal {
     width: auto;
+    max-width: 470px;
     margin-top: 2px;
     margin-right: 2px;
     margin-left: 2px;
