@@ -192,6 +192,18 @@ select:focus {
   box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
 }
 
+/*** Foreground color ***/
+.fg-light,
+.fg-light:hover {
+  color: white;
+  text-decoration: none;
+}
+/*** Foreground color ***/
+.fg-dark,
+.fg-dark:hover {
+  color: black;
+  text-decoration: none;
+}
 /*** List hover don't have shadow ***/
 .list > .row > [class*="col-"]:hover {
   box-shadow: none;
