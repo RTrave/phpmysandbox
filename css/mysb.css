@@ -523,6 +523,28 @@ a[class*="col-"] > img {
   .d-show-lg { display: none !important; }
 }
 
+.d-hide {
+  display: none !important;
+}
+.d-hide-sm,
+.d-hide-md,
+.d-hide-lg {
+}
+
+
+@media (min-width: 480px) {
+  .d-hide-sm { display: none !important; }
+}
+
+@media (min-width: 768px) {
+  .d-hide-md { display: none !important; }
+}
+
+@media (min-width: 1024px) {
+  .d-hide-lg { display: none !important; }
+}
+
+
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -832,7 +854,7 @@ h3 {
   padding: 0;
   margin: 1px 0px 0px;
   border-collapse: separate;
-  border-spacing: 1px 0px;
+  border-spacing: 0px 1px;
 }
 .list > .row.collapse {
   border-collapse: none;
@@ -904,7 +926,7 @@ textarea {
 .btn {
   /* display: inline-block; */
   /* width: 100%; */
-  padding: .25rem .0rem;
+  padding: .50rem .50rem;
   text-decoration: none;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
@@ -917,7 +939,7 @@ textarea {
   border-radius: 0;
 }
 *[class*="col-"] {
-  min-width: 48px;
+  /* min-width: 48px; */
   min-height: 2.3rem;
 }
 .list *[class*="col-"] {
@@ -976,10 +998,22 @@ span.help {
   p,
   .btn,
   textarea {
-    padding: .50rem .20rem;
+    padding: .50rem .50rem;
   }
   .list > .row > .btn {
-    padding: .50rem .30rem;
+    padding: .50rem .50rem;
+  }
+  *[class*="col-"] {
+    /* min-width: 48px; */
+    min-height: 0;
+
+  }
+  .list *[class*="col-"] {
+    min-width: 48px;
+  }
+  input[type=checkbox],
+  input[type=radio] {
+    margin: .50rem .25rem;
   }
   .checkbox-list label,
   .radio-list label {
@@ -1051,7 +1085,13 @@ span.help {
     display: inline-block;
     width: auto;
   }
-  #NavBarColumn ul li.dropdown.right .dropdown-content {
+  #NavBarColumn.navbar.expanded {
+    width: 100%;
+  }
+  #NavBarColumn.expanded ul li.dropdown.right .dropdown-content {
+    right: 7px;
+  }
+  #NavBarColumn:not(.expanded) ul li.dropdown.right .dropdown-content {
     right: auto;
   }
 }
@@ -1199,6 +1239,7 @@ div.modalBodyFoot {
 @media (max-width: 580px) { /* +100px for closing cross */
   .modal {
     width: auto;
+    max-width: 470px;
     margin-top: 2px;
     margin-right: 2px;
     margin-left: 2px;
@@ -1528,6 +1569,32 @@ div.modalBodyFoot {
 
 
 /**********************************/
+/**  SPECIALS STYLES  **/
+/**********************************/
+
+.mysbValue-checkbox {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+.mysbValue-directlink-img {
+  padding: .0rem .20rem;
+}
+@media (max-width: 480px) {
+  .mysbValue-directlink-input {
+    width: 80% !important;
+  }
+  .mysbValue-directlink-img {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    min-width: 48px;
+    padding: .20rem .20rem;
+  }
+}
+
+
+/**********************************/
 /**  OBSOLETE STYLE  **/
 /**********************************/
 
@@ -1733,6 +1800,33 @@ select:focus {
 .btn-light:focus {
   background-color: rgba(255,255,255,.25);
   box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
+}
+/*** Dark color ***/
+.bg-dark,
+.btn-dark {
+  background-color: rgba(0,0,0,0);
+}
+.btn-dark:hover,
+.btn-dark:focus {
+  background-color: rgba(0,0,0,.25);
+  box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
+}
+
+/*** Foreground color ***/
+.fg-light,
+.fg-light:hover {
+  color: white;
+  text-decoration: none;
+}
+/*** Foreground color ***/
+.fg-dark,
+.fg-dark:hover {
+  color: black;
+  text-decoration: none;
+}
+/*** List hover don't have shadow ***/
+.list > .row > [class*="col-"]:hover {
+  box-shadow: none;
 }
 
 input.is-invalid,
