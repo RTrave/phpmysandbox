@@ -78,7 +78,7 @@ h3 {
   padding: 0;
   margin: 1px 0px 0px;
   border-collapse: separate;
-  border-spacing: 1px 0px;
+  border-spacing: 0px 1px;
 }
 .list > .row.collapse {
   border-collapse: none;

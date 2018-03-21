@@ -407,6 +407,6 @@ function loadItem(iDiv,iRef) {
   var iwrap = $("div#"+iDiv);
   onSpin();
   slide_hide(iDiv);
-  setTimeout(function(){ iwrap.load(iRef+"&itemlay=1&iid="+iDiv); },500);
+  setTimeout(function(){ iwrap.load(iRef+"&itemlay=1&iid="+iDiv); },520);
 }
 
