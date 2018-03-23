@@ -279,19 +279,17 @@
 /**  SPECIALS STYLES  **/
 /**********************************/
 
-.mysbValue-checkbox {
+input[type="checkbox"].mysbValue-checkbox {
   position: absolute;
   right: 0px;
   top: 0px;
+  margin-right: .50rem;
 }
-.mysbValue-directlink-img {
+a.mysbValue-directlink-img {
   padding: .0rem .20rem;
 }
 @media (max-width: 480px) {
-  .mysbValue-directlink-input {
-    width: 80% !important;
-  }
-  .mysbValue-directlink-img {
+  a.mysbValue-directlink-img {
     position: absolute;
     top: 5px;
     right: 5px;

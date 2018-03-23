@@ -295,7 +295,7 @@ class MySBValue extends MySBObject {
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-sm-'.$wform.' mysbValue-directlink-input1">
+<div class="col-sm-'.$wform.'">
   <input type="tel" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
          maxlength="62" value="'.$value.'"
          pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
@@ -317,7 +317,7 @@ class MySBValue extends MySBObject {
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-sm-'.$wform.' mysbValue-directlink-input1">
+<div class="col-sm-'.$wform.'">
   <input type="url" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
          maxlength="62" value="'.$value.'">
 </div>';
@@ -387,6 +387,7 @@ class MySBValue extends MySBObject {
                     else
                         $valuetel = $value[$vallen-$i].$valuetel;
                 }
+                $texturl = "";
                 if( $onlyicon!=true ) $texturl = '<span class="cell_hide" style="white-space: nowrap;">'.$valuetel.'</span>';
                 if( $value!='' ) $img = '<img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24">';
                 if($directlink)
@@ -396,8 +397,9 @@ class MySBValue extends MySBObject {
                     return (string) '
                     '.$texturl;
             case MYSB_VALUE_TYPE_URL:
-                if( $title!='' ) $text = ''.$title.': ';
-               $img = '';
+                if( $title!='' ) $text = $title;
+                $img = '';
+                $texturl = "";
                 if( $onlyicon!=true ) {
                     $text_abbr = str_replace('http://','',$value);
                     $text_abbr = str_replace('https://','',$text_abbr);
@@ -494,11 +496,15 @@ class MySBValue extends MySBObject {
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-2 t-right">
-  <input type="checkbox"
-         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
-</div>
-  '.$checknull.'';
+<div class="col-sm-4">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="checkbox"
+           name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+  </div>
+  '.$checknull.'
+</div></div>
+</div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64:
                 $output = '
