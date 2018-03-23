@@ -147,16 +147,18 @@ textarea {
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
-.btn {
+.btn,
+.btn:hover {
   /* display: inline-block; */
   /* width: 100%; */
   padding: .50rem .50rem;
   text-decoration: none;
+  color: inherit;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
 .btn:not([class*="col"]) {
-  padding: .50rem .50rem;
+  /* padding: .50rem .50rem; */
 }
 .list > .row > .btn {
   padding: .50rem .50rem;
