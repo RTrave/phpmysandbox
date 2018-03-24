@@ -380,7 +380,7 @@ hideMessageTip();
      */
     public function view_render($content) {
         global $app;
-        if($this->overlay==1 or $this->hidelay==1) {
+        if($this->overlay==1 or $this->hidelay==1 or $this->itemlay==1) {
             echo $content.$this->logsqlWrite();
             return;
         }
