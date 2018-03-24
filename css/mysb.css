@@ -525,6 +525,7 @@ a[class*="col-"] > img {
 
 .d-hide {
   display: none !important;
+  opacity: 0;
 }
 .d-hide-sm,
 .d-hide-md,
@@ -544,7 +545,20 @@ a[class*="col-"] > img {
   .d-hide-lg { display: none !important; }
 }
 
-
+.d-hiding {
+  opacity: 0;
+  -webkit-transition:
+    opacity 0.3s;
+  transition:
+    opacity 0.3s;
+}
+.d-showing {
+  opacity: 1;
+  -webkit-transition:
+    opacity 0.3s;
+  transition:
+    opacity 0.3s;
+}
 /***************************************************************************
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -924,25 +938,29 @@ textarea {
   /* line-height: 1.5; */
 }
 .btn {
+  padding: .50rem .50rem;
+}
+.btn,
+.btn:hover {
   /* display: inline-block; */
   /* width: 100%; */
-  padding: .50rem .50rem;
   text-decoration: none;
+  color: inherit;
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
 .btn:not([class*="col"]) {
-  padding: .50rem .50rem;
+  /* padding: .50rem .50rem; */
 }
 .list > .row > .btn {
   padding: .50rem .50rem;
   border-radius: 0;
 }
-*[class*="col-"] {
+*[class*="col-"]:not(.col-auto) {
   /* min-width: 48px; */
   min-height: 2.3rem;
 }
-.list *[class*="col-"] {
+.list *[class*="col-"]:not(.col-auto) {
   min-width: 48px;
 }
 input[type=image] {
@@ -1008,7 +1026,7 @@ span.help {
     min-height: 0;
 
   }
-  .list *[class*="col-"] {
+  .list *[class*="col-"]:not(.col-auto) {
     min-width: 48px;
   }
   input[type=checkbox],
@@ -1534,6 +1552,7 @@ div.modalBodyFoot {
   overflow: hidden;
   max-height: 0px;
   opacity: 0;
+  margin: 0;
   -webkit-transition:
     max-height 0.5s ease,
     opacity 0.5s ease;
@@ -1572,19 +1591,17 @@ div.modalBodyFoot {
 /**  SPECIALS STYLES  **/
 /**********************************/
 
-.mysbValue-checkbox {
+input[type="checkbox"].mysbValue-checkbox {
   position: absolute;
   right: 0px;
   top: 0px;
+  margin-right: .50rem;
 }
-.mysbValue-directlink-img {
+a.mysbValue-directlink-img {
   padding: .0rem .20rem;
 }
 @media (max-width: 480px) {
-  .mysbValue-directlink-input {
-    width: 80% !important;
-  }
-  .mysbValue-directlink-img {
+  a.mysbValue-directlink-img {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -1792,7 +1809,10 @@ select:focus {
   color: black;
 }
 /*** Light color ***/
-.bg-light,
+.bg-light {
+  background-color: rgba(255,255,255,1);
+  color: black;
+}
 .btn-light {
   background-color: rgba(255,255,255,0);
 }
@@ -1802,13 +1822,16 @@ select:focus {
   box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
 }
 /*** Dark color ***/
-.bg-dark,
+.bg-dark {
+  background-color: rgba(51,51,51,1);
+  color: white;
+}
 .btn-dark {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(51,51,51,0);
 }
 .btn-dark:hover,
 .btn-dark:focus {
-  background-color: rgba(0,0,0,.25);
+  background-color: rgba(51,51,51,.25);
   box-shadow: 0 0 .2rem .1rem rgba(255,255,255,.5);
 }
 
