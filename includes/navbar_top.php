@@ -18,6 +18,7 @@ global $_GET;
 $pluginsAuthLayer = MySBPluginHelper::loadByType('AuthLayer');
 $pluginsMenuItem = MySBPluginHelper::loadByType('MenuItem');
 
+include(MySB_ROOTPATH.'/config.php');
 ?>
 
 <div class="navbar" id="myTopnav">
@@ -25,7 +26,7 @@ $pluginsMenuItem = MySBPluginHelper::loadByType('MenuItem');
   <li class="no-collapse">
     <a href="index.php"
          title="<?= _G('SBGT_topmenu_homeinfos') ?>">
-    <?= _G('SBGT_topmenu_home') ?></a>
+    <img src="images/icons/go-home.png" alt="go-home"><?= $mysb_title ?></a>
   </li>
   <li class="icon-responsive">
     <a href="javascript:void(0);"
