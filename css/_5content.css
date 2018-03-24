@@ -166,11 +166,11 @@ textarea {
   padding: .50rem .50rem;
   border-radius: 0;
 }
-*[class*="col-"] {
+*[class*="col-"]:not(.col-auto) {
   /* min-width: 48px; */
   min-height: 2.3rem;
 }
-.list *[class*="col-"] {
+.list *[class*="col-"]:not(.col-auto) {
   min-width: 48px;
 }
 input[type=image] {
@@ -236,7 +236,7 @@ span.help {
     min-height: 0;
 
   }
-  .list *[class*="col-"] {
+  .list *[class*="col-"]:not(.col-auto) {
     min-width: 48px;
   }
   input[type=checkbox],
