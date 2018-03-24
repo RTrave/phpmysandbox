@@ -204,25 +204,32 @@ class MySBValue extends MySBObject {
      * @param   string  $help           help comments
      * @return  string                  input form in HTML format.
      */
-    public function innerRow($prefix,$value,$directlink=true,$label='',$help='') {
+    public function innerRow($prefix,$value,$directlink=true,$label='',$help='',$disabled=false) {
         global $app;
+        if($disabled) {
+          $disclass = ' inactive';
+          $disparam = 'disabled="disabled"';
+        } else {
+          $disclass = '';
+          $disparam = '';
+        }
         switch($this->type) {
 
             case MYSB_VALUE_TYPE_INT:
                 return '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+<label class="col-sm-4'.$disclass.'" for="'.$prefix.$this->keyname.'">
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-8">
-  <input type="text" maxlength="4" value="'.$value.'"
+  <input type="text" maxlength="4" value="'.$value.'" '.$disparam.'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
 </div>';
 
             case MYSB_VALUE_TYPE_BOOL:
                 return '
 <label class="col-sm-12" for="'.$prefix.$this->keyname.'">
-  <input type="checkbox" class="mysbValue-checkbox"
+  <input type="checkbox" class="mysbValue-checkbox" '.$disparam.'
          '.MySBUtil::form_ischecked($value,1).'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
   '.$label.'<br>
@@ -236,7 +243,7 @@ class MySBValue extends MySBObject {
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-8">
-  <input type="text" maxlength="62" value="'.$value.'"
+  <input type="text" maxlength="62" value="'.$value.'" '.$disparam.'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
 </div>';
 
@@ -247,7 +254,7 @@ class MySBValue extends MySBObject {
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-8">
-  <input type="text" maxlength="510" value="'.$value.'"
+  <input type="text" maxlength="510" value="'.$value.'" '.$disparam.'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
 </div>';
 
@@ -259,7 +266,7 @@ class MySBValue extends MySBObject {
 </label>
 <div class="col-md-8">
   <textarea name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-            rows="3">'.$value.'</textarea>
+            rows="3" '.$disparam.'>'.$value.'</textarea>
 </div>';
 
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
@@ -274,7 +281,8 @@ class MySBValue extends MySBObject {
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-8">
-  <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+  <select name="'.$prefix.$this->keyname.'" '.$disparam.'
+          id="'.$prefix.$this->keyname.'">
     <option value="">&nbsp;</option>';
                 while($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
@@ -297,7 +305,7 @@ class MySBValue extends MySBObject {
 </label>
 <div class="col-sm-'.$wform.'">
   <input type="tel" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="62" value="'.$value.'"
+         maxlength="62" value="'.$value.'" '.$disparam.'
          pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 </div>';
                 if( $value!='' and $directlink)
@@ -319,7 +327,7 @@ class MySBValue extends MySBObject {
 </label>
 <div class="col-sm-'.$wform.'">
   <input type="url" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="62" value="'.$value.'">
+         maxlength="62" value="'.$value.'" '.$disparam.' >
 </div>';
                 if( $value!='' and $directlink)
                   $form_str .= '
