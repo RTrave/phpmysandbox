@@ -414,6 +414,7 @@ a[class*="col-"] > img {
 
 .d-hide {
   display: none !important;
+  opacity: 0;
 }
 .d-hide-sm,
 .d-hide-md,
@@ -433,4 +434,17 @@ a[class*="col-"] > img {
   .d-hide-lg { display: none !important; }
 }
 
-
+.d-hiding {
+  opacity: 0;
+  -webkit-transition:
+    opacity 0.3s;
+  transition:
+    opacity 0.3s;
+}
+.d-showing {
+  opacity: 1;
+  -webkit-transition:
+    opacity 0.3s;
+  transition:
+    opacity 0.3s;
+}

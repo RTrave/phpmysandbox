@@ -119,13 +119,21 @@ var slide_show = function (vDIV) {
 function show(vDIV){
   //$("#"+vDIV).fadeIn(300);
   var elem = document.getElementById(vDIV);
+  elem.classList.remove("d-hiding");
+  elem.classList.add("d-hiding");
   elem.classList.remove("d-hide");
+  setTimeout(function(){ elem.classList.add("d-showing"); },50);
+  setTimeout(function(){ elem.classList.remove("d-hiding"); },350);
+  setTimeout(function(){ elem.classList.remove("d-showing"); },350);
 }
 function hide(vDIV){
-  // $("#"+vDIV).fadeOut(300);
   var elem = document.getElementById(vDIV);
-  elem.classList.add("d-hide");
+  elem.classList.add("d-hiding");
+  setTimeout(function(){ elem.classList.add("d-hide"); },300);
 }
+
+
+
 function hide_instant(vDIV){
     $("#"+vDIV).fadeOut(0);
 }
