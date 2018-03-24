@@ -147,11 +147,13 @@ textarea {
   /* font-size: 1rem; */
   /* line-height: 1.5; */
 }
+.btn {
+  padding: .50rem .50rem;
+}
 .btn,
 .btn:hover {
   /* display: inline-block; */
   /* width: 100%; */
-  padding: .50rem .50rem;
   text-decoration: none;
   color: inherit;
   /* font-size: 1rem; */
