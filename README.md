@@ -24,7 +24,7 @@ Modules livres avec
 
 __example__
 
-Module d'exemple, montrant la facilite d'integration d'une base.
+Module d'exemple, montrant la facilite d'integration d'une base. (version<=0.9b, OBSOLETE)
 
 __blank__
 
