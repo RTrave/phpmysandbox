@@ -119,6 +119,7 @@ var slide_show = function (vDIV) {
 function show(vDIV){
   //$("#"+vDIV).fadeIn(300);
   var elem = document.getElementById(vDIV);
+  if(elem==null) return;
   elem.classList.remove("d-hiding");
   elem.classList.add("d-hiding");
   elem.classList.remove("d-hide");
@@ -128,6 +129,7 @@ function show(vDIV){
 }
 function hide(vDIV){
   var elem = document.getElementById(vDIV);
+  if(elem==null) return;
   elem.classList.add("d-hiding");
   setTimeout(function(){ elem.classList.add("d-hide"); },300);
 }
@@ -413,6 +415,7 @@ function hideMessageTip() {
  */
 function loadItem(iDiv,iRef) {
   var iwrap = $("div#"+iDiv);
+  if(iwrap==null) return;
   onSpin();
   slide_hide(iDiv);
   setTimeout(function(){ iwrap.load(iRef+"&itemlay=1&iid="+iDiv); },520);
