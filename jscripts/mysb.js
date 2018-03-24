@@ -172,18 +172,35 @@ function loadSpin() {
   var opts = {
     color: '#000', // #rgb or #rrggbb or array of colors
     className: 'spinner', // The CSS class to assign to the spinner
-    top: '25%', // Top position relative to parent
+    top: '100px', // Top position relative to parent
+    lines: 6, // The number of lines to draw
+    length: 0, // The length of each line
+    width: 12, // The line thickness
+    radius: 8, // The radius of the inner circle
+    scale: 1, // Scales overall size of the spinner
+    corners: 1, // Corner roundness (0..1)
+    //fadeColor: 'transparent', // CSS color or array of colors
+    opacity: 0.2, // Opacity of the lines
+    //rotate: 0, // The rotation offset
+    //direction: 1, // 1: clockwise, -1: counterclockwise
+    speed: 2, // Rounds per second
+    trail: 30, // Afterglow percentage
+    //fps: 20, // Frames per second when using setTimeout() as a fallback in IE 9
+    //zIndex: 2e9, // The z-index (defaults to 2000000000)
+    //left: '50%', // Left position relative to parent
+    //shadow: none, // Box-shadow for the lines
+    //position: 'absolute' // Element positioning
   };
   var target = document.getElementById("spinlayer"); //
   var spinner = new Spinner(opts).spin(target);
 }
 function onSpin() {
   document.body.style.cursor = 'wait';
-  document.getElementById('spinlayer').style.display = 'inline-block';
+  document.getElementById('mysbSpin').style.display = 'inline-block';
 }
 function offSpin() {
-  document.getElementById('spinlayer').style.display = 'none';
-  document.body.style.cursor = 'auto';
+  setTimeout(function(){ document.getElementById('mysbSpin').style.display = 'none'; },150);
+  setTimeout(function(){ document.body.style.cursor = 'auto'; },150);
 }
 
 

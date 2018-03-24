@@ -20,7 +20,8 @@ defined('_MySBEXEC') or die;
 <noscript>
     <div class="advert" style="background-color: #ffe4e7; border: 4px solid #ffab67; font-size: 24px;">Javascript needed but not activated.</div><br></noscript>
 
-<div id="spinlayer">
+<div id="mysbSpin">
+  <div id="spinlayer"></div>
 </div>
 
 <div id="mysbOverlay" class="overlay">
