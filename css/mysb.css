@@ -73,7 +73,7 @@ a.inactive {
 /**  SPIN LAYER  **/
 /***********************************/
 
-#spinlayer {
+#mysbSpin {
   display: none;
   position: fixed;
   z-index: 5000000;
@@ -83,6 +83,15 @@ a.inactive {
   left: 0px;
   text-align: center;
   background-color: transparent;
+}
+#spinlayer {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  margin-top: 80px;
+  box-shadow: 0px 0px 10px 10px #fff;
 }
 
 
@@ -1722,8 +1731,7 @@ select:focus {
   background-color: #333333; /* rgb(0, 64, 128) 25% 35% / 85% 75% */
   color: white;
 }
-.btn-primary:hover,
-.btn-primary:focus {
+.btn-primary:hover {
   box-shadow: 0 0 .2rem .1rem #404040;
   background-color: #404040;
   color: white;
@@ -1733,8 +1741,7 @@ select:focus {
   background-color: #cccccc;
   color: black;
 }
-.btn-primary-light:hover,
-.btn-primary-light:focus {
+.btn-primary-light:hover {
   box-shadow: 0 0 .2rem .1rem #bfbfbf;
   background-color: #bfbfbf;
   color: black;
@@ -1745,8 +1752,7 @@ select:focus {
   background-color: #800000; /* rgb(128, 0, 0) 25% 35% / 85% 75% */
   color: white;
 }
-.btn-danger:hover,
-.btn-danger:focus {
+.btn-danger:hover {
   box-shadow: 0 0 .2rem .1rem rgba(220,53,69,.75);
   background-color: #b30000;
   color: white;
@@ -1756,8 +1762,7 @@ select:focus {
   background-color: #ff8080;
   color: black;
 }
-.btn-danger-light:hover,
-.btn-danger-light:focus {
+.btn-danger-light:hover {
   box-shadow: 0 0 .2rem .1rem #ff6666;
   background-color: #ff6666;
   color: black;
@@ -1768,8 +1773,7 @@ select:focus {
   background-color: #008000; /* rgb(0, 128, 0) 25% 35% / 85% 75% */
   color: white;
 }
-.btn-success:hover,
-.btn-success:focus {
+.btn-success:hover {
   background-color: #00b300;
   box-shadow: 0 0 .2rem .1rem rgba(40,167,69,.75);
   color: white;
@@ -1779,8 +1783,7 @@ select:focus {
   background-color: #66ff66;
   color: black;
 }
-.btn-success-light:hover,
-.btn-success-light:focus {
+.btn-success-light:hover {
   box-shadow: 0 0 .2rem .1rem #4dff4d;
   background-color: #4dff4d;
   color: black;
@@ -1791,8 +1794,7 @@ select:focus {
   background-color: #0059b3;  /* rgba(0,89,179,1) V: 100/85 35/20 */
   color: white;
 }
-.btn-secondary:hover,
-.btn-secondary:focus {
+.btn-secondary:hover {
   background-color: #1a66b3;
   box-shadow: 0 0 .2rem .1rem #1a66b3;
   color: white;
@@ -1802,8 +1804,7 @@ select:focus {
   background-color: #7493b3;
   color: black;
 }
-.btn-secondary-light:hover,
-.btn-secondary-light:focus {
+.btn-secondary-light:hover {
   box-shadow: 0 0 .2rem .1rem #90a1b3;
   background-color: #90a1b3;
   color: black;
