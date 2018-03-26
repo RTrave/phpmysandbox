@@ -396,8 +396,8 @@ class MySBValue extends MySBObject {
                         $valuetel = $value[$vallen-$i].$valuetel;
                 }
                 $texturl = "";
-                if( $onlyicon!=true ) $texturl = '<span class="cell_hide" style="white-space: nowrap;">'.$valuetel.'</span>';
-                if( $value!='' ) $img = '<img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24">';
+                if( $onlyicon!=true ) $texturl = '<span style="white-space: nowrap;">'.$valuetel.'</span>';
+                if( $value!='' ) $img = '<img src="images/icons/call-start.png" alt="call-start" class="btn btn-dark mysbValue-directlink">';
                 if($directlink)
                     return (string) '
                     <a href="tel:'.$value.'" title="'.$text.''.$valuetel.'">'.$img.$texturl.'</a>';
@@ -412,9 +412,9 @@ class MySBValue extends MySBObject {
                     $text_abbr = str_replace('http://','',$value);
                     $text_abbr = str_replace('https://','',$text_abbr);
                     $text_abbr = str_replace('www.','',$text_abbr);
-                    $texturl = '<span class="cell_hide" style="white-space: nowrap;">'.MySBUtil::str2abbrv($text_abbr,12,12).'</span>';
+                    $texturl = '<span style="white-space: nowrap;">'.MySBUtil::str2abbrv($text_abbr,12,12).'</span>';
                 }
-                if( $value!='' ) $img = '<img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24">';
+                if( $value!='' ) $img = '<img src="images/icons/web-browser.png" alt="web-browser" class="btn btn-dark mysbValue-directlink">';
                 if( $value!='' ) return (string) '
                     <a href="'.$value.'" target="_blank" title="'.$text.': '.$value.'">'.$img.''.$texturl.'</a>';
                 return;

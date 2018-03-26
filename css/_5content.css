@@ -168,10 +168,11 @@ textarea {
 }
 *[class*="col-"]:not(.col-auto) {
   /* min-width: 48px; */
-  min-height: 2.3rem;
+  /* min-height: 2.3rem; */
 }
 .list *[class*="col-"]:not(.col-auto) {
   min-width: 48px;
+  min-height: 2.3rem;
 }
 input[type=image] {
   width: auto;
@@ -246,6 +247,7 @@ span.help {
   .checkbox-list label,
   .radio-list label {
     width: 100%;
+    text-align: left;
   }
   .checkbox-list label input,
   .radio-list label input {
