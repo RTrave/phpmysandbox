@@ -217,11 +217,11 @@ class MySBValue extends MySBObject {
 
             case MYSB_VALUE_TYPE_INT:
                 return '
-<label class="col-sm-4'.$disclass.'" for="'.$prefix.$this->keyname.'">
+<label class="col-9'.$disclass.'" for="'.$prefix.$this->keyname.'">
   '.$label.'<br>
   <span class="help">'.$help.'</span>
 </label>
-<div class="col-sm-8">
+<div class="col-3">
   <input type="text" maxlength="4" value="'.$value.'" '.$disparam.'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
 </div>';
