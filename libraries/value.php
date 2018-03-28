@@ -152,7 +152,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_INT:
                 return '<input type="text" '.
                        'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '" maxlength="4" value="'.$value.'">';
+                       '" maxlength="20" value="'.$value.'">';
             case MYSB_VALUE_TYPE_BOOL:
                 return '<input style="float: right;" type="checkbox" '.
                        'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" '.
@@ -222,7 +222,7 @@ class MySBValue extends MySBObject {
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-3">
-  <input type="text" maxlength="4" value="'.$value.'" '.$disparam.'
+  <input type="text" maxlength="20" value="'.$value.'" '.$disparam.'
          name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
 </div>';
 
