@@ -18,23 +18,24 @@ defined('_MySBEXEC') or die;
 </head>
 <body>
 <noscript>
-    <div class="advert" style="background-color: #ffe4e7; border: 4px solid #ffab67; font-size: 24px;">Javascript needed but not activated.</div><br></noscript>
+  <div class="advert"
+       style="background-color: #ffe4e7; border: 4px solid #ffab67; font-size: 24px;">
+    Javascript needed but not activated.
+  </div>
+</noscript>
 
 <div id="mysbSpin">
   <div id="spinlayer"></div>
 </div>
-
 <div id="mysbOverlay" class="overlay">
 <div id="mysbModal" class="mysb_overlay modal">
-    <div class="close btn-light" >
-    <img src="images/window-close-48.png"
-         alt="<?= _G('SBGT_overlay_close') ?>"
-         title="<?= _G('SBGT_overlay_close') ?>">
-    </div>
-    <div class="contentWrap" id="contentWrap">...</div>
+  <div class="close btn-light"
+       title="<?= _G('SBGT_overlay_close') ?>">
+    <img src="images/window-close-48.png" alt="">
+  </div>
+  <div class="contentWrap" id="contentWrap">...</div>
 </div>
 </div>
-
 <div id="mysbMessages">
 </div>
 <div id="hidelayer">
@@ -43,9 +44,11 @@ defined('_MySBEXEC') or die;
 
 <div id="mysbBody" style="min-height: 240px;">
 
+<?php if($app->show_menu) { ?>
 <div id="mysbTop" class="roundtop">
 <?php include(_pathI('navbar_top')) ?>
 </div>
+<?php } ?>
 
 <div id="mysbMiddle">
 
@@ -53,9 +56,11 @@ defined('_MySBEXEC') or die;
 
 </div>
 
-<div id="mysbBottom" class="roundbottom">
+<?php if($app->show_menu) { ?>
+<div id="mysbBottom">
 <?php include(_pathI('navbar_bottom')) ?>
 </div>
+<?php } ?>
 
 
 </div>

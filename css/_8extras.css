@@ -181,10 +181,9 @@
   border-radius:6px;
   color:black;
   background:white;
-  margin-top:12px;
-  margin-left:32px;
+  margin: 0;
   overflow: visible;
-  padding:8px;
+  padding: 0;
   width:320px;
 }
 .tooltip span.left
@@ -215,7 +214,9 @@
     box-shadow 0.4s,
     z-index 0s ease 0.4s,
     max-height 0s ease 0.4s,
-    max-width 0s ease 0.4s;
+    max-width 0s ease 0.4s,
+    margin 0s ease 0.4s,
+    padding 0s ease 0.4s;
 }
 
 .tooltip:hover span {
@@ -230,6 +231,9 @@
   transition:
     opacity 0s,
     z-index 0s;
+  margin-top:12px;
+  margin-left:32px;
+  padding:8px;
 }
 
 
@@ -243,11 +247,11 @@
   opacity: 0;
   margin: 0;
   -webkit-transition:
-    max-height 0.5s ease,
-    opacity 0.5s ease;
+    max-height 0.5s ease-in,
+    opacity 0.5s ease-in;
   transition:
-    max-height 0.5s ease,
-    opacity 0.5s ease;
+    max-height 0.5s ease-in,
+    opacity 0.5s ease-in;
 }
 .slide.slide-toggling {
   max-height: 500px;

@@ -70,7 +70,7 @@ class MySBRender extends MySBLog {
     /**
      * @var         bool         true for blank display.
      */
-    public $show_topmenu = true;
+    public $show_menu = true;
 
     /**
      * @var         array           Optional queries logger
@@ -370,9 +370,9 @@ hideMessageTip();
     /**
      * Rendering view
      */
-    public function view_menu($show_topmenu) {
+    public function view_menu($show_menu) {
         //global $app;
-        $this->show_topmenu = $show_topmenu;
+        $this->show_menu = $show_menu;
     }
 
     /**

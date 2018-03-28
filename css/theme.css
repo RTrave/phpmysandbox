@@ -12,6 +12,12 @@
 **  GLOBAL STYLES
 ***********************************/
 
+body {
+  background-color: #333333;
+}
+#mysbBody {
+  background-color: white;
+}
 a {
   color: black;
   -webkit-transition:
@@ -51,6 +57,9 @@ textarea {
   color: #444444;
   background-color: #ffffcc;
   border: 1px solid #cccccc;
+}
+select {
+  color: #444444;
 }
 input:focus,
 textarea:focus {
