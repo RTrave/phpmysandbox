@@ -26,7 +26,6 @@ require (MySB_ROOTPATH.'/libraries/value.php');
 require (MySB_ROOTPATH.'/libraries/log.php');
 require (MySB_ROOTPATH.'/libraries/config.php');
 require (MySB_ROOTPATH.'/libraries/locale.php');
-require (MySB_ROOTPATH.'/libraries/display.php');
 require (MySB_ROOTPATH.'/libraries/render.php');
 require (MySB_ROOTPATH.'/libraries/application.php');
 require (MySB_ROOTPATH.'/libraries/mail.php');

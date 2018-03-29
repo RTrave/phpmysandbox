@@ -77,7 +77,6 @@ class MySBLog {
         <div><img src="images/icons/dialog-warning.png" alt="Warning"></div>
         <div>'.$this->MsgCleaner($message).'</div>
     </div>';
-        //$this->display->Messages = $this->Messages;
     }
 
     /**
@@ -90,7 +89,6 @@ class MySBLog {
         <div><img src="images/icons/dialog-warning.png" alt="Error"></div>
         <div>'.$this->MsgCleaner($message).'</div>
     </div><br>';
-        //$this->display->Alerts = $this->Alerts;
     }
 
     /**

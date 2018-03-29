@@ -40,11 +40,6 @@ class MySBApplication extends MySBRender {
     public $dbcache = null;
 
     /**
-     * @var     MySBDisplay     MySBDisplay object (display.php)
-     */
-    public $display = null;
-
-    /**
      * @var     MySBUser        Réference to the authentified user
      */
     public $auth_user = null;
@@ -63,7 +58,6 @@ class MySBApplication extends MySBRender {
         session_start();
         $this->dblayer = MySBDB::connect();
         $this->dbcache = new MySBDBCache($this);
-        $this->display = new MySBDisplay();
     }
 
     /**
@@ -142,42 +136,6 @@ class MySBApplication extends MySBRender {
     }
 
     /**
-     * Process forms and performs page preparation.
-     */
-    public function process() {
-        if( !empty($_GET['tpl']) ) {
-            if( _pathT($_GET['tpl'].'_process',$_GET['mod'],false) )
-                _incT($_GET['tpl'].'_process',$_GET['mod'],false);
-        } elseif( !empty($_GET['inc']) ) {
-            if( _pathI($_GET['inc'].'_process',$_GET['mod'],false) )
-                _incI($_GET['inc'].'_process',$_GET['mod'],false);
-        } else {
-            $pluginsFrontPage = MySBPluginHelper::loadByType('FrontPage');
-            foreach($pluginsFrontPage as $plugin) 
-                $plugin->processForms();
-        }
-        $this->display->header();
-    }
-
-    /**
-     * Run templates and display.
-     */
-    public function display() {
-        $this->display->bodyStart();
-        if( !empty($_GET['tpl']) ) {
-            _incT($_GET['tpl'],$_GET['mod']);
-        } elseif( !empty($_GET['inc']) ) {
-            if( _pathI($_GET['inc'],$_GET['mod'],false) )
-                _incI($_GET['inc'],$_GET['mod'],false);
-        } else {
-            $pluginsFrontPage = MySBPluginHelper::loadByType('FrontPage');
-            foreach($pluginsFrontPage as $plugin) 
-                $plugin->displayBody();
-        }
-        $this->display->bodyStop();
-    }
-
-    /**
      * Close DB connection and write session
      */
     public function close() {
@@ -202,7 +160,7 @@ class MySBApplication extends MySBRender {
             $app->close();
             die("ERROR: Init a password for script access\n");
         }
-        if( $passwd!=$_GET['spw'] ) 
+        if( $passwd!=$_GET['spw'] )
             if( $attempts<6 ) {
                 $scriptattempts->setValue($attempts+1);
                 $app->close();

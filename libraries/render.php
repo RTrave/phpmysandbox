@@ -63,12 +63,12 @@ class MySBRender extends MySBLog {
     public $custom_headers = array();
 
     /**
-     * @var         bool         true for blank display.
+     * @var         int          seconds to refresh.
      */
     public $refresh_time = 0;
 
     /**
-     * @var         bool         true for blank display.
+     * @var         bool         true for showing menus.
      */
     public $show_menu = true;
 

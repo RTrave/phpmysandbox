@@ -38,7 +38,7 @@ $app->upgrade_modules();
 
 $pluginsInclude = MySBPluginHelper::loadByType('Include');
 foreach($pluginsInclude as $plugin) 
-    $plugin->includeFile();
+  $plugin->includeFile();
 
 $app->setlocale($mysb_locale,$mysb_timezone);
 $app->authenticate();
@@ -47,13 +47,10 @@ $app->scriptCheck();
 $app->auth_user = MySBUserHelper::getByID(1);
 
 if( isset($_GET['tpl']) ) {
-    if( !$app->ctrl_route() ) {
-        $app->close();
-        die('ERROR in template '.$_GET['tpl'].'_ctrl.php !!!');
-    }
+  $app->ctrl_route();
 } else {
-    $app->close();
-    die("ERROR: no module nor template specified.\n");
+  $app->close();
+  die("ERROR: no module nor template specified.\n");
 }
 
 $app->close();

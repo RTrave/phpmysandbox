@@ -16,8 +16,8 @@ define('_MySBEXEC', 1);
 define('MySB_ROOTPATH', dirname(__FILE__));
 
 if(file_exists(MySB_ROOTPATH.'/install/install_helper.php')) {
-    include MySB_ROOTPATH.'/install/install_helper.php';
-    MySBInstallHelper::isConfigInit();
+  include MySB_ROOTPATH.'/install/install_helper.php';
+  MySBInstallHelper::isConfigInit();
 }
 
 include_once MySB_ROOTPATH.'/config.php';
@@ -32,8 +32,8 @@ global $app;
 $app = new MySBApplication;
 
 if(file_exists(MySB_ROOTPATH.'/install/install_helper.php')) {
-    if(!MySBInstallHelper::isInit())
-        include MySB_ROOTPATH.'/install/dbinit.php';
+  if(!MySBInstallHelper::isInit())
+    include MySB_ROOTPATH.'/install/dbinit.php';
 }
 
 $app->upgrade();
@@ -41,16 +41,12 @@ $app->upgrade_modules();
 
 $pluginsInclude = MySBPluginHelper::loadByType('Include');
 foreach($pluginsInclude as $plugin) 
-    $plugin->includeFile();
+  $plugin->includeFile();
 
 $app->setlocale();
 $app->authenticate();
 
-if( !$app->ctrl_route() ) {
-    if(isset($_GET['inc'])) $app->LOG('OBSOLETE: tpl/inc old style: mod='.$_GET['mod'].' inc='.$_GET['inc']);
-    $app->process();
-    $app->display();
-}
+$app->ctrl_route();
 
 $app->close();
 ?>
