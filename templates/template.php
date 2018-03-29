@@ -56,12 +56,9 @@ defined('_MySBEXEC') or die;
 
 </div>
 
-<?php if($app->show_menu) { ?>
 <div id="mysbBottom">
 <?php include(_pathI('navbar_bottom')) ?>
 </div>
-<?php } ?>
-
 
 </div>
 
