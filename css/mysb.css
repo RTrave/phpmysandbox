@@ -967,10 +967,11 @@ textarea {
 }
 *[class*="col-"]:not(.col-auto) {
   /* min-width: 48px; */
-  min-height: 2.3rem;
+  /* min-height: 2.3rem; */
 }
 .list *[class*="col-"]:not(.col-auto) {
   min-width: 48px;
+  min-height: 2.3rem;
 }
 input[type=image] {
   width: auto;
@@ -1045,6 +1046,7 @@ span.help {
   .checkbox-list label,
   .radio-list label {
     width: 100%;
+    text-align: left;
   }
   .checkbox-list label input,
   .radio-list label input {
@@ -1501,10 +1503,9 @@ div.modalBodyFoot {
   border-radius:6px;
   color:black;
   background:white;
-  margin-top:12px;
-  margin-left:32px;
+  margin: 0;
   overflow: visible;
-  padding:8px;
+  padding: 0;
   width:320px;
 }
 .tooltip span.left
@@ -1535,7 +1536,9 @@ div.modalBodyFoot {
     box-shadow 0.4s,
     z-index 0s ease 0.4s,
     max-height 0s ease 0.4s,
-    max-width 0s ease 0.4s;
+    max-width 0s ease 0.4s,
+    margin 0s ease 0.4s,
+    padding 0s ease 0.4s;
 }
 
 .tooltip:hover span {
@@ -1550,6 +1553,9 @@ div.modalBodyFoot {
   transition:
     opacity 0s,
     z-index 0s;
+  margin-top:12px;
+  margin-left:32px;
+  padding:8px;
 }
 
 
@@ -1563,11 +1569,11 @@ div.modalBodyFoot {
   opacity: 0;
   margin: 0;
   -webkit-transition:
-    max-height 0.5s ease,
-    opacity 0.5s ease;
+    max-height 0.5s ease-in,
+    opacity 0.5s ease-in;
   transition:
-    max-height 0.5s ease,
-    opacity 0.5s ease;
+    max-height 0.5s ease-in,
+    opacity 0.5s ease-in;
 }
 .slide.slide-toggling {
   max-height: 500px;
@@ -1608,6 +1614,9 @@ input[type="checkbox"].mysbValue-checkbox {
 }
 a.mysbValue-directlink-img {
   padding: .0rem .20rem;
+}
+a > img.mysbValue-directlink {
+  padding: .20rem .20rem;
 }
 @media (max-width: 480px) {
   a.mysbValue-directlink-img {
@@ -1658,6 +1667,13 @@ div.boxed p {
 **  GLOBAL STYLES
 ***********************************/
 
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #333333;
+}
+#mysbBody {
+  background-color: white;
+}
 a {
   color: black;
   -webkit-transition:
@@ -1697,6 +1713,9 @@ textarea {
   color: #444444;
   background-color: #ffffcc;
   border: 1px solid #cccccc;
+}
+select {
+  color: #444444;
 }
 input:focus,
 textarea:focus {
