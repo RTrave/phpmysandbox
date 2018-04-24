@@ -88,25 +88,50 @@ class MySBPluginUserOption extends MySBPlugin {
         global $app;
         $output = '';
         $output .= '
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_name" value="'.$this->value0.'"></div>
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_name">
     Option name
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_name" id="plg_optval_name"
+           value="'.$this->value0.'">
+  </div>
 </div>
-<div class="row">
-    <div class="rightA" style="displayA: inline-block; right: 0px; text-align: right;"><textarea name="plg_optval_text">'.$this->value1.'</textarea></div>
-    Option text<br>
+<div class="row label">
+  <label class="col-md-4" for="plg_optval_text">
+    Option text
+  </label>
+  <div class="col-md-8">
+    <textarea name="plg_optval_text"  id="plg_optval_text">'.$this->value1.'</textarea>
+  </div>
 </div>
-<div class="row">
-    <div class="right"><input type="checkbox" name="plg_optval_useredit" '.MySBUtil::form_ischecked($this->ivalue1,1).'></div>
+<div class="row label">
+  <label class="col-10" for="plg_optval_useredit">
     Option editable by users
+  </label>
+  <div class="col-2 t-right">
+    <input type="checkbox" name="plg_optval_useredit" id="plg_optval_useredit"
+           '.MySBUtil::form_ischecked($this->ivalue1,1).'>
+  </div>
 </div>
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_default" value="'.$this->value3.'"></div>
-    Option default value (1 for checkbox checked)
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_default">
+    Option default value<br>
+    <span class="help">1 for checked</span>
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_default" id="plg_optval_default"
+           value="'.$this->value3.'">
+  </div>
 </div>
-<div class="row">
-    <div class="right"><input type="text" name="plg_optval_mail" value="'.$this->value2.'"></div>
+<div class="row label">
+  <label class="col-sm-4" for="plg_optval_mail">
     Option mail contact
+  </label>
+  <div class="col-sm-8">
+    <input type="text" name="plg_optval_mail" id="plg_optval_mail"
+           value="'.$this->value2.'">
+  </div>
 </div>';
         return $output;
     }
