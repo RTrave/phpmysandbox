@@ -20,12 +20,24 @@ global $_GET;
 if ( !isset($_GET['page']) or $_GET['page']=='' )
   $_GET['page'] = 'main';
 
+global $matched_flag;
+$matched_flag = 0;
 function isActive($tpl_code) {
-  if( $_GET['page']==$tpl_code )
+  global $matched_flag;
+  if( $_GET['page']==$tpl_code ) {
+    $matched_flag = 1;
     return 'no-collapse';
+  } elseif( isset($_GET['module']) AND $_GET['page']==$tpl_code ) {
+    $matched_flag = 1;
+    return 'no-collapse';
+  } else return '';
+}
+function isForceCollapse() {
+  global $matched_flag;
+  if( $matched_flag==1 )
+    return ' force-collapse';
   else return '';
 }
-
 
 include(MySB_ROOTPATH.'/config.php');
 ?>

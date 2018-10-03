@@ -16,7 +16,7 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 ?>
 
-<div class="navbar expanded" id="NavBarColumn">
+<div class='navbar expanded' id="NavBarColumn">
 <ul>
   <li class="<?= isActive('main') ?>">
     <a href="index.php?tpl=admin/admin&page=main"
@@ -24,7 +24,7 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
       phpMySandbox</a>
   </li><li class="icon-responsive">
     <a href="javascript:void(0);"
-            onclick="responsiveToggle('NavBarColumn','navbar')">
+            onclick="responsiveToggle('NavBarColumn','navbar expanded')">
       <img src="images/icons/view-list.png" alt="view-list">
     </a>
   </li><li class="<?= isActive('users') ?>">
@@ -39,16 +39,16 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
     <a href="index.php?tpl=admin/admin&page=plugins"
        title="Title">
     <?= _G('SBGT_adminplugins') ?></a>
-  </li><li class="dropdown right" id="ModulesDropDown">
+  </li><li class='dropdown right<?= isForceCollapse() ?>' id="ModulesDropDown">
     <a href="javascript:void(0)" class="dropbtn secondary"
-       onclick="dropdownToggle('ModulesDropDown','dropdown right')">
+       onclick="dropdownToggle('ModulesDropDown','dropdown right<?= isForceCollapse() ?>')">
       <img src="images/icons/view-list.png" alt="view-list">Modules</a>
     <div class="dropdown-content">
 <?php
 $pluginsMenuItem = MySBPluginHelper::loadByType('MenuItem');
 foreach($pluginsMenuItem as $plugin)
     if( $plugin->displayA(3)!='' ) echo '
-      <div class="dropdown-item">
+      <div class="dropdown-item '.isActive($plugin->value1).'">
         '.$plugin->displayA(3).'
       </div>';
 ?>
