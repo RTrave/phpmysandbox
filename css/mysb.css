@@ -784,6 +784,12 @@ a[class*="col-"] > img {
   .navbar.responsive ul li.dropdown.dropped {
     height: auto;
   }
+  #NavBarColumn.navbar ul li.dropdown {
+    height: auto !important;
+  }
+  #NavBarColumn.navbar:not(.responsive) ul li.dropdown.force-collapse {
+    display: none;
+  }
   .dropdown.dropped .dropdown-content {
     box-shadow: none;
   }
@@ -1924,7 +1930,8 @@ input.is-invalid:focus {
 }
 
 #mysbMiddle .navbar li.icon-responsive a:not(:hover),
-#mysbMiddle .navbar ul li.no-collapse > a:not(:hover) {
+#mysbMiddle .navbar ul li.no-collapse > a:not(:hover),
+#mysbMiddle .navbar .dropdown-item.no-collapse > a:not(:hover)  {
   background-color: rgba(255,255,255,.25);
 }
 
