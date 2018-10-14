@@ -181,7 +181,7 @@ class MySBModule {
             $mod = MySBModuleHelper::getByName($modname);
             if( $mod==null )
                 $app->displayStopAlert('Module "'.$modname.'" required not found!');
-            if( $mod->module_helper->version!=$modvers )
+            if( $mod->module_helper->version <= $modvers )
                 $app->displayStopAlert( 'Module "'.$modname.'" required version not found
                                         ('.$modvers.' but '.$mod->module_helper->version.' found)!');
             if( !$mod->isloaded() )
