@@ -127,7 +127,7 @@ h3 {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
 
 }
 
@@ -260,7 +260,7 @@ span.help {
 /**  MIDDLE NAVBAR  **/
 /**********************************/
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   #NavBarColumn.navbar {
     position: relative;
   }
@@ -310,7 +310,7 @@ span.help {
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   #NavBarColumn.navbar {
     display: inline-block;
     width: auto;

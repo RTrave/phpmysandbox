@@ -126,7 +126,7 @@ div.modalBodyFoot {
 /**  MODAL MECHANICS  **/
 /**********************************/
 
-@media (min-width: 1124px) { /* +100px for closing cross */
+@media (min-width: 1125px) { /* +100px for closing cross */
   .modal {
     width: 760px;
   }

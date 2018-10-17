@@ -422,15 +422,15 @@ a[class*="col-"] > img {
 }
 
 
-@media (min-width: 480px) {
+@media (min-width: 481px) {
   .d-hide-sm { display: none !important; }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .d-hide-md { display: none !important; }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .d-hide-lg { display: none !important; }
 }
 
