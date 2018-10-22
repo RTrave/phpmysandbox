@@ -1,0 +1,79 @@
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  CARDS  **/
+/**********************************/
+
+.card > div {
+  border-top: 0px !important;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.card > div:last-child {
+  border-bottom: 1px solid black;
+}
+
+.card .list > row,
+.card div {
+  margin: 0 !important;
+}
+
+.card .card-title {
+  text-align: center;
+}
+
+.card .card-image > div {
+  display: block;
+  position: absolute;
+  top: 0px;
+  padding: 15px 10px;
+  text-align: left;
+  vertical-align: middle;
+  width: 100%;
+  opacity: 0;
+  -webkit-transition:
+    opacity .25s ease-in-out;
+  transition:
+    opacity .25s ease-in-out;
+}
+.card:hover .card-image > div,
+.card:focus .card-image > div {
+  opacity: 1;
+}
+
+.card .locked {
+  position: relative;
+  display: table;
+  border-collapse: separate;
+  padding: 10px 30px;
+  margin: 0px auto 0px auto;
+  border:0px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 480px) {
+
+  .card {
+    width: 100%;
+  }
+  .card > div {
+    width: auto;
+  }
+  .card .card-image img {
+    width: 80%;
+    height: auto;
+    max-height: 240px;
+  }
+
+}
+
+
+

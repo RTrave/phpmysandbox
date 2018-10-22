@@ -23,6 +23,7 @@ include('config.php');
     <link rel="stylesheet" type="text/css" href="css/_2grid.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/_4navbar.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/_5content.css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/_6card.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/_7modal.css" media="all">
     <link rel="stylesheet" type="text/css" href="css/_8extras.css" media="all">
 <?php } else { ?>
@@ -41,11 +42,11 @@ include('config.php');
 <?php
 
 $pluginsHeader = MySBPluginHelper::loadByType('Header');
-foreach($pluginsHeader as $plugin) 
+foreach($pluginsHeader as $plugin)
     $plugin->displayHeader();
 
 
-if(file_exists(MySB_ROOTPATH.'/custom/core.css')) 
+if(file_exists(MySB_ROOTPATH.'/custom/core.css'))
     echo '
     <link rel="stylesheet" type="text/css" href="custom/core.css" media="all">';
 $modules = MySBModuleHelper::load();
@@ -53,33 +54,33 @@ foreach($modules as $module) {
     $mod_conf = MySBConfigHelper::get('mod_'.$module->name.'_enabled','modules');
     if($mod_conf!=null and $mod_conf->getValue()>=1) {
         //for all media
-        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'.css')) 
+        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="modules/'.$module->name.'/'.$module->name.'.css" media="all">';
-        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'.css')) 
+        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'.css" media="all">';
         //for handheld media
-        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_handheld.css')) 
+        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_handheld.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="modules/'.$module->name.'/'.$module->name.'_handheld.css" media="(max-width: 520px)">';
-        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'_handheld.css')) 
+        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'_handheld.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'_handheld.css" media="(max-width: 520px)">';
         //for printers media
-        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_print.css')) 
+        if(file_exists(MySB_ROOTPATH.'/modules/'.$module->name.'/'.$module->name.'_print.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="modules/'.$module->name.'/'.$module->name.'_print.css" media="print">';
-        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'_print.css')) 
+        if(file_exists(MySB_ROOTPATH.'/custom/'.$module->name.'_print.css'))
             echo '
     <link rel="stylesheet" type="text/css" href="custom/'.$module->name.'_print.css" media="print">';
     }
 }
 
-foreach($app->custom_headers as $custom_header) 
+foreach($app->custom_headers as $custom_header)
     echo '
 '.$custom_header;
-if( $app->refresh_time!=0 ) 
+if( $app->refresh_time!=0 )
     echo '
     <meta http-equiv="refresh" content="'.$app->refresh_time.'; URL=index.php">';
 

@@ -106,7 +106,9 @@ div#mysbBody {
 div#mysbMiddle {
   min-height: 200px;
 }
-
+div#mysbBottom {
+  margin-top: 4px;
+}
 
 @media (max-width: 768px) {
 

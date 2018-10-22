@@ -334,6 +334,40 @@ h3.border-bottom {
 
 
 /**********************************/
+/**  CARDS STYLES **/
+/**********************************/
+
+.card > div {
+  width: 360px;
+  background-color: rgba(255,255,255,1);
+}
+.card .card-image > div,
+.card .card-image img {
+  height: 240px;
+}
+a.card {
+  display: inline-block;
+  color: black;
+  text-decoration-color: rgba(0,0,0,0);
+}
+.card .card-title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-size: 90%;
+}
+.card .card-image > div {
+  background: rgba(255,255,255,0.7);
+}
+.card:hover .card-image > div,
+.card:focus .card-image > div {
+  background: rgba(255,255,255,0.7);
+}
+.card .locked {
+  background-color: rgb(230, 232, 68, 0.8);
+}
+
+
+/**********************************/
 /**  MODAL STYLES  **/
 /**********************************/
 
