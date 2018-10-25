@@ -2,11 +2,11 @@
  * phpMySandBox - Simple Database Framework in PHP
  *
  * JavaScript library.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License', or
- * ('at your option) any later version. 
+ * ('at your option) any later version.
  * (Roman Travé <roman.trave@gmail.com>, 2012)
  *
  * @package    phpMySandBox
@@ -237,6 +237,9 @@ function resizeOverWin() {
   });
   [].forEach.call(document.getElementsByClassName("modalBody"), function(el) {
     el.setAttribute("style", "max-height: "+mhBody+"px;");
+  });
+  [].forEach.call(document.getElementsByClassName("modalBodyFoot"), function(el) {
+    el.setAttribute("style", "max-height: "+(mhBody)+"px;");
   });
 }
 window.addEventListener('resize', function(){resizeOverWin();}, true);
