@@ -36,15 +36,23 @@ if(isset($_POST['plugin_modif'])) {
 
 }
 
-if( isset($_POST['option_add']) and $_POST['option_name']!='' ) {
-    if( isset($_POST['option_useredit']) and $_POST['option_useredit']=='on' ) $useredit = 1;
-    else $useredit = 0;
-    $_POST['option_name'] = str_replace( ' ', '_', $_POST['option_name'] );
-    MySBPluginHelper::create($_POST['option_name'],'UserOption',
-            array($_POST['option_name'], MySBUtil::str2db($_POST['option_text']), $_POST['option_mail'],''),
-            array($_POST['option_type'],$useredit,0,0),
+if( isset($_POST['option_add']) ) {
+    if( isset($_POST['option_useredit']) and
+        $_POST['option_useredit']=='on' )
+        $useredit = 1;
+    else
+        $useredit = 0;
+    $new_id = MySBDB::lastID('plugins')+1;
+    //$_POST['option_name'] = str_replace( ' ', '_', $_POST['option_name'] );
+    $option_name = 'UserOption'.$new_id;
+    MySBPluginHelper::create($option_name,'UserOption',
+            array( $_POST['option_name'],
+                   MySBUtil::str2db($_POST['option_text']),
+                   $_POST['option_mail'],
+                   ''),
+            array( $_POST['option_type'],$useredit,0,0),
             5,"",'');
-    $app->pushMessage( _G('SBGT_adminuo_msg').':<br>'.$_POST['option_name'] );
+    $app->pushMessage( _G('SBGT_adminuo_msg').':<br>'.$option_name );
 }
 
 if( isset($_POST['option_export']) and $_POST['option_export']==1 ) {

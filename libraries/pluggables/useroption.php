@@ -3,11 +3,11 @@
  * phpMySandBox - Simple Database Framework in PHP
  *
  * UserOption plugin support library.
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License', or
- * ('at your option) any later version. 
+ * ('at your option) any later version.
  * (Roman Travé <roman.trave@gmail.com>, 2012)
  *
  * @package    phpMySandBox
@@ -141,7 +141,7 @@ class MySBPluginUserOption extends MySBPlugin {
      */
     public function html_valueprocess() {
         global $app, $_POST;
-        if( isset($_POST['plg_optval_useredit']) and $_POST['plg_optval_useredit']=='on' ) 
+        if( isset($_POST['plg_optval_useredit']) and $_POST['plg_optval_useredit']=='on' )
             $optval_useredit = 1;
         else $optval_useredit = '';
         $this->update(array(
@@ -161,7 +161,7 @@ class MySBPluginUserOption extends MySBPlugin {
     public function formDisplay($user=null) { //OBSOLETE ?
         global $app;
         if($user==null and $app->auth_user!=null) $user = $app->auth_user;
-        if($user==null and $app->auth_user==null) 
+        if($user==null and $app->auth_user==null)
             return $this->uo_value->htmlForm('uo_', $this->value3);
         $req_ou = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
             "WHERE id=".$user->id,
@@ -190,12 +190,12 @@ class MySBPluginUserOption extends MySBPlugin {
             "MySBPluginUserOption::formDisplay()" );
         $data_ou = MySBDB::fetch_array($req_ou);
         return $this->uo_value->innerRow( 'uo_', $data_ou[$this->value0], false,
-                                          _G($this->value1), $this->value0 );
+                                          _G($this->value0), _G($this->value1) );
     }
 
     /**
      * Html form process (value edition)
-     * 
+     *
      * @param   MySBUser    $user   user, or auth_user, or new user
      */
     public function formProcess($user=null) {

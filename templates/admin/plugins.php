@@ -120,7 +120,7 @@ $current_type = '';
 
 foreach($plugins as $plugin) {
     if( $current_type!=$plugin->type ) {
-        if( $current_type!='' ) 
+        if( $current_type!='' )
             echo '
     <div class="row border-bottom">
     <div class="col-sm-6"></div>
@@ -178,7 +178,6 @@ echo '
 <form action="'.$httpbase.'" method="post">
 
   <h2>'._G('SBGT_adminuo_new').'</h2>
-
   <div class="row label">
     <label class="col-sm-6" for="option_name">
       '._G('SBGT_uo_keyname').'
@@ -187,7 +186,6 @@ echo '
       <input type="text" name="option_name" id="option_name">
     </div>
   </div>
-
   <div class="row label">
     <label class="col-md-4" for="option_text">
       '._G('SBGT_uo_text').'
@@ -257,7 +255,7 @@ foreach($pluginsUserOption as $plugin) {
     <label class="col-12" for="uo_'.$plugin->id.'">';
     if($plugin->module!='') {
         $module = MySBModuleHelper::getByName($plugin->module);
-        if(!$module->isLoaded()) 
+        if(!$module->isLoaded())
             echo '
       <div class="mysbValue-checkbox">
         <i>(module '.$plugin->module.' not loaded)</i>
