@@ -131,10 +131,46 @@ div.modalBodyFoot {
     width: 760px;
   }
 }
+@media (max-width: 1124px) { /* +100px for closing cross */
+  .modal .f-right-lg,
+  .modal .f-left-lg {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-lg"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+}
 
 @media (max-width: 868px) { /* +100px for closing cross */
   .modal {
     width: 470px;
+  }
+  .modal .f-right-md,
+  .modal .f-left-md {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-md"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    padding-right: .2rem;
+    padding-left: .2rem;
   }
 }
 
@@ -154,6 +190,25 @@ div.modalBodyFoot {
     border-radius: 0;
     border: 0;
     text-align: right;
+  }
+  .modal .f-right-sm,
+  .modal .f-left-sm {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-sm"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-right: .1rem;
+    padding-left: .1rem;
+
   }
 }
 

@@ -348,22 +348,27 @@ h3.border-bottom {
 a.card {
   display: inline-block;
   color: black;
-  text-decoration-color: rgba(0,0,0,0);
+  text-decoration: none;
 }
 .card .card-title {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  font-size: 90%;
 }
 .card .card-image > div {
   background: rgba(255,255,255,0.7);
 }
-.card:hover .card-image > div,
-.card:focus .card-image > div {
-  background: rgba(255,255,255,0.7);
-}
-.card .locked {
-  background-color: rgb(230, 232, 68, 0.8);
+
+@media only screen and (max-width: 380px) {
+  .card {
+    width: 100%;
+  }
+  .card > div {
+    width: auto;
+  }
+  .card .card-image img {
+    height: auto;
+    max-height: 240px;
+  }
 }
 
 
@@ -372,7 +377,7 @@ a.card {
 /**********************************/
 
 #mysbOverlay {
-  background-color: rgba(30,30,30,0.8);
+  background-color: rgba(230,230,230,0.85);
 }
 div.modalTitle {
   background-color: #333;
@@ -385,8 +390,12 @@ div.modalBodyFoot {
 }
 .modal {
   /* border: 2px solid #111111; */
-  -webkit-box-shadow: 0 0 90px #000;
-  box-shadow:0 0 90px 5px #000;
+  -webkit-box-shadow: 0 0 50px 15px #000;
+  box-shadow:0 0 50px 15px #000;
+}
+.modal .close:hover {
+  background-color: rgba(220,30,30,0.5);
+  box-shadow: 0 0 .2rem .1rem rgba(220,30,30,.5);
 }
 
 @media (max-width: 580px) { /* +100px for closing cross */

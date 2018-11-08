@@ -136,7 +136,7 @@ h3 {
 /**  TEXTS, INPUTS AND OTHERS  **/
 /**********************************/
 
-input:not([type=image]):not([type=checkbox]):not([type=radio]):not([class*="mce-"]),
+input:not([type=image]):not([type=checkbox]):not([type=radio]):not([type=file]):not([class*="mce-"]),
 label:not([class*="mce-"]),
 p,
 textarea {
@@ -177,6 +177,11 @@ textarea {
 input[type=image] {
   width: auto;
   padding: 0;
+}
+input[type=file] {
+  display: inline-block;
+  width: 100%;
+  padding: .2rem .50rem;
 }
 input[type=checkbox],
 input[type=radio] {

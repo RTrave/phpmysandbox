@@ -345,8 +345,8 @@ a[class*="col-"] > img {
     width: 100% !important;
   }
   *[class*="col-"] {
-    padding-right: .1rem;
-    padding-left: .1rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
 
   }
 }
