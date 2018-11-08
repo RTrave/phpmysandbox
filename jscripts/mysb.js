@@ -384,6 +384,29 @@ function wrapLayerCalls() {
     return false;
   });
 
+  $("form.overlayed-formdata").off("submit");
+  $("form.overlayed-formdata").submit(function(event) {
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    if(mysbOverlay.classList.contains("active")) {
+      desactiveOverlay();
+    };
+    var data = new FormData(this);
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action')+"&overlay=1",
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      method: 'POST',
+      success: function(responseText) {
+        setTimeout(function(){ wrap.html(responseText); },100);
+      }
+    });
+    return false;
+  });
+
   $(".close").off("click");
   $(".close").click(function(event) {
     event.preventDefault();
@@ -412,7 +435,27 @@ function wrapLayerCalls() {
     $.ajax({
       type: $(this).attr('method'),
       url: $(this).attr('action')+"&hidelay=1",
+      method: 'POST',
       data: $(this).serialize(),
+      success: function(responseText) {
+        hwrap.html(responseText);
+      }
+    });
+    return false;
+  });
+  $("form.hidelayed-formdata").off("submit");
+  $("form.hidelayed-formdata").submit(function(event) {
+    if(!confirmOverWin($(this))) return false;
+    onSpin();
+    var data = new FormData(this);
+    $.ajax({
+      type: $(this).attr('method'),
+      url: $(this).attr('action')+"&hidelay=1",
+      data: data,
+      cache: false,
+      contentType: false,
+      processData: false,
+      method: 'POST',
       success: function(responseText) {
         hwrap.html(responseText);
       }
