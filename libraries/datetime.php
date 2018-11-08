@@ -147,13 +147,13 @@ class MySBDateTime extends DateTime {
         $cminute = (int) $this->str_get('%M');
         //echo $this->date_string.'/'.$cday.'--';
         $form = '<span style="white-space: nowrap;">';
-        $form .= '<select name="'.$prefix.'day" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+        $form .= '<select name="'.$prefix.'day" title="day" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
         for($i=1;$i<32;$i++)
             $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cday).'>'.$i.'</option>';
-        $form .= "\n"."</select>\n".'<select name="'.$prefix.'month" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+        $form .= "\n"."</select>\n".'<select name="'.$prefix.'month" title="month" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
         for($i=1;$i<13;$i++)
             $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cmonth).'>'.strftime("%b",strtotime('2000-'.$i.'-01')).'</option>';
-        $form .= "\n"."</select>\n".'<select name="'.$prefix.'year" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+        $form .= "\n"."</select>\n".'<select name="'.$prefix.'year" title="year" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
         for($i=$this->year_min;$i<=$this->year_max;$i++)
             $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cyear).'>'.$i.'</option>';
         $form .= "\n".'</select>'."\n";
@@ -164,10 +164,10 @@ class MySBDateTime extends DateTime {
             return $form;
         }
         $form .= ' &bull; <span style="white-space: nowrap;">';
-        $form .= '<select name="'.$prefix.'hour" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+        $form .= '<select name="'.$prefix.'hour" title="hour" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
         for($i=0;$i<24;$i++)
             $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$chour).'>'.$i.'</option>';
-        $form .= "\n".'</select>'._G('SBGT_datetime_h').'<select name="'.$prefix.'minute" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+        $form .= "\n".'</select>'._G('SBGT_datetime_h').'<select name="'.$prefix.'minute" title="minute" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
         for($i=0;$i<60;$i+=5)
             $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cminute).'>'.$i.'</option>';
         $form .= "\n".'</select>'."\n";
