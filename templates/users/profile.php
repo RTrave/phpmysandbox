@@ -25,8 +25,8 @@ defined('_MySBEXEC') or die;
       OnSubmit="return mysb_confirm('<?= _G('SBGT_profile_confirm') ?>')">
 
   <div class="row">
-    <div class="col-4"><p><?= _G('SBGT_login') ?></p></div>
-    <div class="col-8"><p><b><?= $app->auth_user->login ?></b></p></div>
+    <p class="col-4"><?= _G('SBGT_login') ?></p>
+    <p class="col-8"><b><?= $app->auth_user->login ?></b></p>
   </div>
 
   <div class="row label">
@@ -76,14 +76,6 @@ foreach($pluginsUserOption as $plugin) {
 ?>
   <div class="row label">
     <?= $plugin->innerFormRow($app->auth_user); ?>
- <!--
-    <label class="col-10" for="<?= $plugin->formDisplayId() ?>">
-      <?= _G($plugin->value1) ?>
-    </label>
-    <div class="col-2 t-right">
-      <?= $plugin->formDisplay() ?>
-    </div>
--->
   </div>
 <?php
 }
@@ -149,7 +141,7 @@ foreach($pluginsUserOption as $plugin) {
 </div>
 
 <div class="content w-sm-100">
-<form action="index.php?tpl=users/profile" method="post" 
+<form action="index.php?tpl=users/profile" method="post"
       OnSubmit="return mysb_confirm('<?= _G('SBGT_profile_confirmdeluser') ?>')">
 
   <input type="text" name="userid" style="display: none;"
@@ -181,4 +173,3 @@ foreach($pluginsUserOption as $plugin) {
 </div>
 
 </div>
-

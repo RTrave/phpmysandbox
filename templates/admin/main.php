@@ -34,7 +34,7 @@ $httpbase = 'index.php?tpl=admin/admin&amp;page=main';
   </div>
 <?php } ?>
   <div class="row">
-    <div class="col-md-4"><p>test mail on:</p></div>
+    <p class="col-md-4">test mail on:</p>
     <div class="col-md-8">
       <form action="<?= $httpbase ?>" method="post">
       <input type="hidden" name="test_mail" value="1">
@@ -151,9 +151,9 @@ module <b>disabled</b>:
       if(count($configs)==0) {
         echo '
   <div class="row">
-    <div class="col">
+    <p class="col">
       <p>No config values</p>
-    </div>
+    </p>
   </div>';
       } else {
         echo '
