@@ -55,7 +55,7 @@ class MySBPluginUserOption extends MySBPlugin {
         parent::__construct((array) ($plugin));
         $this->uo_value = new MySBValue(array(
             'type' => $this->ivalue0,
-            'keyname' => $this->value0 ));
+            'keyname' => $this->name ));
     }
 
     /**
@@ -64,7 +64,7 @@ class MySBPluginUserOption extends MySBPlugin {
     public function post_create() {
         global $app;
         MySBDB::query("ALTER TABLE ".MySB_DBPREFIX."users ".
-            "ADD COLUMN ".$this->value0." ".MySBValue::Val2SQLType($this->ivalue0)."",
+            "ADD COLUMN ".$this->name." ".MySBValue::Val2SQLType($this->ivalue0)."",
             "MySBPluginUserOption::post_create()",
             false );
     }
@@ -75,7 +75,7 @@ class MySBPluginUserOption extends MySBPlugin {
     public function pre_delete() {
         global $app;
         MySBDB::query("ALTER TABLE ".MySB_DBPREFIX."users ".
-            "DROP COLUMN ".$this->value0,
+            "DROP COLUMN ".$this->name,
             "MySBPluginUserOption::pre_delete()",
             false );
     }
@@ -184,12 +184,12 @@ class MySBPluginUserOption extends MySBPlugin {
         if($user==null and $app->auth_user!=null) $user = $app->auth_user;
         if($user==null and $app->auth_user==null)
             return $this->uo_value->innerRow( 'uo_', $this->value3, false,
-                                              _G($this->value1), $this->value0 );
+                                              _G($this->value0), _G($this->value1) );
         $req_ou = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
             "WHERE id=".$user->id,
             "MySBPluginUserOption::formDisplay()" );
         $data_ou = MySBDB::fetch_array($req_ou);
-        return $this->uo_value->innerRow( 'uo_', $data_ou[$this->value0], false,
+        return $this->uo_value->innerRow( 'uo_', $data_ou[$this->name], false,
                                           _G($this->value0), _G($this->value1) );
     }
 
@@ -203,11 +203,11 @@ class MySBPluginUserOption extends MySBPlugin {
         if($user==null) $user = $app->auth_user;
         $getvalue = $this->uo_value->htmlProcessValue('uo_');
         MySBDB::query("UPDATE ".MySB_DBPREFIX."users SET ".
-            $this->value0."='".$getvalue."'".
+            $this->name."='".$getvalue."'".
             " WHERE id=".$user->id,
             "MySBPluginUserOption::formProcess()" );
         if($this->value2!='') {
-            $valuename = $this->value0;
+            $valuename = $this->name;
             if( $user->$valuename!=$getvalue ) {
                 $uomail = new MySBMail('useroption');
                 $uomail->addTO($this->value2,'');

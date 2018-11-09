@@ -58,12 +58,12 @@ if( isset($_GET['plugin_id']) ) {
 
   <div class="row label">
     <label class="col-sm-4" for="plg_name">
-      '._G('SBGT_plugin_name').'
+      '._G('SBGT_uo_keyname').'
     </label>
-    <div class="col-sm-8">
-      <input type="text" maxlength="64" name="plg_name" id="plg_name"
-             value="'.$current_plugin->name.'">
-    </div>
+    <p class="col-sm-8">
+      <input type="hidden" name="plg_name" id="plg_name"
+             value="'.$current_plugin->name.'">'.$current_plugin->name.'
+    </p>
   </div>
 
   <div class="row label">
@@ -180,7 +180,7 @@ echo '
   <h2>'._G('SBGT_adminuo_new').'</h2>
   <div class="row label">
     <label class="col-sm-6" for="option_name">
-      '._G('SBGT_uo_keyname').'
+      '._G('SBGT_plugin_name').'
     </label>
     <div class="col-sm-6">
       <input type="text" name="option_name" id="option_name">
