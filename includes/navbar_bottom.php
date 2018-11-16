@@ -43,10 +43,11 @@ if(count($modules)!=0) {
     echo ' ( mod';
     foreach($modules as $module) {
         $cmod = $module->module_helper;
-        if( isset($cmod->homelink) and  isset($cmod->lname) )
-            echo '  <a  href="'.$cmod->homelink.'"
-                    target="_blank"
-                    title="module '.$cmod->lname.' v:'.$cmod->version.'">'.$module->name.'</a>';
+        if( isset($cmod->homelink) and  isset($cmod->lname)  and  isset($cmod->release_version))
+            echo '
+      <a href="'.$cmod->homelink.'"
+         target="_blank"
+         title="release:'.$cmod->release_version.' sql_version:'.$cmod->version.'">'.$module->name.'</a>';
         else
             echo ' '.$module->name;
     }
