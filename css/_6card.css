@@ -53,16 +53,6 @@
   opacity: 1;
 }
 
-.card .locked {
-  position: relative;
-  display: table;
-  border-collapse: separate;
-  padding: 10px 30px;
-  margin: 0px auto 0px auto;
-  border:0px;
-  text-align: center;
-}
-
 @media only screen and (max-width: 380px) {
 
   .card {
