@@ -217,10 +217,12 @@ select:focus {
   box-shadow: none;
 }
 
-input.is-invalid,
+input.is-invalid {
+  border-color: rgba(220, 53, 69, .75) !important;
+  box-shadow: 0 0 0 .1rem rgba(220, 53, 69, .5) !important;
+}
 input.is-invalid:focus {
-  border-color: rgba(220, 53, 69, .75);
-  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5);
+  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5) !important;
 }
 
 .content span.help {
