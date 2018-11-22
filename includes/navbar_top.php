@@ -46,7 +46,7 @@ foreach($pluginsMenuItem as $plugin)
 if( count($pluginsMenuItem2)!=0 ) {
     echo '
   <li class="dropdown" id="Menu2DropDown">
-    <a href="javascript:void(0)" class="dropbtn secondary"
+    <a href="javascript:void(0)" class="dropbtn secondary1"
        onclick="dropdownToggle(\'Menu2DropDown\',\'dropdown\')">
       <img src="images/icons/view-list.png" alt="view-list">'._G('SBGT_topmenu_more').'</a>
     <div class="dropdown-content">';
@@ -133,5 +133,4 @@ function dropdownToggle(navDIV,baseClass) {
     }
 }
 </script>
-
 
