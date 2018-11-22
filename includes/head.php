@@ -31,7 +31,13 @@ include('config.php');
 <?php } ?>
     <link rel="stylesheet" type="text/css" href="css/theme.css" media="all">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php if(file_exists(MySB_ROOTPATH.'/custom/favicon_32.png')) { ?>
+    <link rel="icon" href="custom/favicon_32.png" type="image/x-icon" >
+    <link rel="shortcut icon" href="custom/favicon_32.png" type="image/x-icon" >
+<?php } else { ?>
+    <link rel="icon" href="images/favicon_32.png" type="image/x-icon" >
     <link rel="shortcut icon" href="images/favicon_32.png" type="image/x-icon" >
+<?php } ?>
 <?php //if($app->display_data['refresh_seconds']!=0) echo '    <meta http-equiv="refresh" content="'.$refresh_time.'; URL=index.php">';
 ?>
 
