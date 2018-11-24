@@ -217,6 +217,7 @@ select:not([class*="mce-"]) {
 span.help {
   font-size: 80%;
   font-style: italic;
+  line-height: 0.8;
 }
 
 .row > div {
