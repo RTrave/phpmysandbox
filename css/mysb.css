@@ -106,7 +106,9 @@ div#mysbBody {
 div#mysbMiddle {
   min-height: 200px;
 }
-
+div#mysbBottom {
+  margin-top: 4px;
+}
 
 @media (max-width: 768px) {
 
@@ -465,8 +467,8 @@ a[class*="col-"] > img {
     width: 100% !important;
   }
   *[class*="col-"] {
-    padding-right: .1rem;
-    padding-left: .1rem;
+    padding-right: .5rem;
+    padding-left: .5rem;
 
   }
 }
@@ -542,15 +544,15 @@ a[class*="col-"] > img {
 }
 
 
-@media (min-width: 480px) {
+@media (min-width: 481px) {
   .d-hide-sm { display: none !important; }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   .d-hide-md { display: none !important; }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   .d-hide-lg { display: none !important; }
 }
 
@@ -932,7 +934,7 @@ h3 {
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
 
 }
 
@@ -941,7 +943,7 @@ h3 {
 /**  TEXTS, INPUTS AND OTHERS  **/
 /**********************************/
 
-input:not([type=image]):not([type=checkbox]):not([type=radio]):not([class*="mce-"]),
+input:not([type=image]):not([type=checkbox]):not([type=radio]):not([type=file]):not([class*="mce-"]),
 label:not([class*="mce-"]),
 p,
 textarea {
@@ -983,6 +985,11 @@ input[type=image] {
   width: auto;
   padding: 0;
 }
+input[type=file] {
+  display: inline-block;
+  width: 100%;
+  padding: .2rem .50rem;
+}
 input[type=checkbox],
 input[type=radio] {
   width: auto;
@@ -1017,6 +1024,7 @@ select:not([class*="mce-"]) {
 span.help {
   font-size: 80%;
   font-style: italic;
+  line-height: 0.8;
 }
 
 .row > div {
@@ -1065,7 +1073,7 @@ span.help {
 /**  MIDDLE NAVBAR  **/
 /**********************************/
 
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
   #NavBarColumn.navbar {
     position: relative;
   }
@@ -1115,7 +1123,7 @@ span.help {
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1024px) and (min-width: 769px) {
   #NavBarColumn.navbar {
     display: inline-block;
     width: auto;
@@ -1130,6 +1138,71 @@ span.help {
     right: auto;
   }
 }
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License', or
+ *   ('at your option) any later version.
+ *
+***************************************************************************/
+
+
+/**********************************/
+/**  CARDS  **/
+/**********************************/
+
+.card {
+  display: inline-block;
+  margin: 2px 2px;
+}
+.card > div {
+  border-top: 0px !important;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.card > div:last-child {
+  border-bottom: 1px solid black;
+}
+
+.card .list > row,
+.card div {
+  margin: 0 !important;
+}
+
+.card .card-title {
+  text-align: center;
+}
+
+.card .card-image > div {
+  display: block;
+  position: absolute;
+  top: 0px;
+  padding: 15px 10px;
+  text-align: left;
+  vertical-align: middle;
+  width: 100%;
+  opacity: 0;
+  -webkit-transition:
+    opacity .25s ease-in-out;
+  transition:
+    opacity .25s ease-in-out;
+}
+.card:hover .card-image > div,
+.card:focus .card-image > div {
+  opacity: 1;
+}
+
+@media only screen and (max-width: 380px) {
+
+  .card {
+    display: block;
+  }
+
+}
+
+
 
 /***************************************************************************
  *
@@ -1259,15 +1332,51 @@ div.modalBodyFoot {
 /**  MODAL MECHANICS  **/
 /**********************************/
 
-@media (min-width: 1124px) { /* +100px for closing cross */
+@media (min-width: 1125px) { /* +100px for closing cross */
   .modal {
     width: 760px;
+  }
+}
+@media (max-width: 1124px) { /* +100px for closing cross */
+  .modal .f-right-lg,
+  .modal .f-left-lg {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-lg"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
   }
 }
 
 @media (max-width: 868px) { /* +100px for closing cross */
   .modal {
     width: 470px;
+  }
+  .modal .f-right-md,
+  .modal .f-left-md {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-md"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    padding-right: .2rem;
+    padding-left: .2rem;
   }
 }
 
@@ -1287,6 +1396,25 @@ div.modalBodyFoot {
     border-radius: 0;
     border: 0;
     text-align: right;
+  }
+  .modal .f-right-sm,
+  .modal .f-left-sm {
+    float: none;
+    clear: both;
+    display: inline-block !important;
+  }
+  .modal *[class*="col-sm"] {
+    float: none;
+    clear: both;
+    display: inline-block;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding-right: .1rem;
+    padding-left: .1rem;
+
   }
 }
 
@@ -1675,7 +1803,7 @@ div.boxed p {
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #333333;
+  background-color: white;
 }
 #mysbBody {
   background-color: white;
@@ -1878,10 +2006,12 @@ select:focus {
   box-shadow: none;
 }
 
-input.is-invalid,
+input.is-invalid {
+  border-color: rgba(220, 53, 69, .75) !important;
+  box-shadow: 0 0 0 .1rem rgba(220, 53, 69, .5) !important;
+}
 input.is-invalid:focus {
-  border-color: rgba(220, 53, 69, .75);
-  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5);
+  box-shadow: 0 0 0 .2rem rgba(220, 53, 69, .5) !important;
 }
 
 .content span.help {
@@ -1893,15 +2023,22 @@ input.is-invalid:focus {
 **  NAVBAR STYLES
 ***********************************/
 
+#mysbTop .navbar > ul {
+/* background image
+  background-image: url("../custom/bandeau.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+*/
+}
 .navbar ul,
-.navbar li,
-.navbar a:not(:hover),
-.navbar1 li > span a:not(:hover),
 .dropdown-content,
-.dropdown-item1 > a:not(:hover),
-.dropdown-item > div,
-.dropdown-item > span {
+.navbar li.icon-responsive a:not(:hover) {
   background-color: #333;
+  color: white;
+}
+
+.navbar a:not(:hover),
+.dropdown-item > a:not(:hover) {
   color: white;
 }
 .navbar li > a:hover,
@@ -1929,7 +2066,6 @@ input.is-invalid:focus {
   color: white;
 }
 
-#mysbMiddle .navbar li.icon-responsive a:not(:hover),
 #mysbMiddle .navbar ul li.no-collapse > a:not(:hover),
 #mysbMiddle .navbar .dropdown-item.no-collapse > a:not(:hover)  {
   background-color: rgba(255,255,255,.25);
@@ -1995,11 +2131,50 @@ h3.border-bottom {
 
 
 /**********************************/
+/**  CARDS STYLES **/
+/**********************************/
+
+.card > div {
+  width: 360px;
+  background-color: rgba(255,255,255,1);
+}
+.card .card-image > div,
+.card .card-image > img {
+  height: 240px;
+}
+a.card {
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+}
+.card .card-title {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.card .card-image > div {
+  background: rgba(255,255,255,0.7);
+}
+
+@media only screen and (max-width: 380px) {
+  .card {
+    width: 100%;
+  }
+  .card > div {
+    width: auto;
+  }
+  .card .card-image img {
+    height: auto;
+    max-height: 240px;
+  }
+}
+
+
+/**********************************/
 /**  MODAL STYLES  **/
 /**********************************/
 
 #mysbOverlay {
-  background-color: rgba(30,30,30,0.8);
+  background-color: rgba(230,230,230,0.85);
 }
 div.modalTitle {
   background-color: #333;
@@ -2012,8 +2187,12 @@ div.modalBodyFoot {
 }
 .modal {
   /* border: 2px solid #111111; */
-  -webkit-box-shadow: 0 0 90px #000;
-  box-shadow:0 0 90px 5px #000;
+  -webkit-box-shadow: 0 0 50px 15px #000;
+  box-shadow:0 0 50px 15px #000;
+}
+.modal .close:hover {
+  background-color: rgba(220,30,30,0.5);
+  box-shadow: 0 0 .2rem .1rem rgba(220,30,30,.5);
 }
 
 @media (max-width: 580px) { /* +100px for closing cross */

@@ -16,11 +16,11 @@ class MySBCore {
 
     public $version = 7;
     public $mysb_major_version = '0';
-    public $mysb_minor_version = '9d';
+    public $mysb_minor_version = '9e';
 
     public function init1() {
         global $app;
-        
+
         // New install => skip stages merged (7)
         $app->init_skip = 1;
     }
@@ -30,11 +30,11 @@ class MySBCore {
 
         if($app->init_skip) return;
         MySBDB::query('
-CREATE TABLE '.MySB_DBPREFIX.'valueoptions ( 
+CREATE TABLE '.MySB_DBPREFIX.'valueoptions (
 value_keyname varchar(64),
-value0 varchar(1024), 
+value0 varchar(1024),
 value1 varchar(1024),
-value2 varchar(1024)) 
+value2 varchar(1024))
 DEFAULT CHARSET=utf8',
 "__init.php");
     }
@@ -72,7 +72,7 @@ ALTER TABLE '.MySB_DBPREFIX.'plugins ADD COLUMN childclass varchar(64)',
 
     public function init5() {
         global $app;
-        
+
         if($app->init_skip) return;
         $scriptpass = MySBConfigHelper::create(   'script_passwd','',MYSB_VALUE_TYPE_VARCHAR64,
                                     'SBGT_scriptpassword', '');
@@ -82,7 +82,7 @@ ALTER TABLE '.MySB_DBPREFIX.'plugins ADD COLUMN childclass varchar(64)',
 
     public function init6() {
         global $app;
-        
+
         if($app->init_skip) return;
         MySBDB::query(  'ALTER TABLE '.MySB_DBPREFIX.'users '.
                         'ADD COLUMN mailattempt_date datetime',
