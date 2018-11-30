@@ -206,6 +206,7 @@ class MySBPluginUserOption extends MySBPlugin {
             $this->name."='".$getvalue."'".
             " WHERE id=".$user->id,
             "MySBPluginUserOption::formProcess()" );
+/*
         if($this->value2!='') {
             $valuename = $this->name;
             if( $user->$valuename!=$getvalue ) {
@@ -221,6 +222,7 @@ class MySBPluginUserOption extends MySBPlugin {
                 $uomail->send();
             }
         }
+*/
     }
 
 }
