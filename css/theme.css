@@ -60,7 +60,7 @@ textarea {
   border: 1px solid #cccccc;
 }
 select {
-  color: #444444;
+  /*color: #444444;*/
 }
 input:focus,
 textarea:focus {
