@@ -450,10 +450,10 @@ class MySBValue extends MySBObject {
                 return $text._G($value).'';
             case MYSB_VALUE_TYPE_DATE:
                 $date = new MySBDateTime ($value);
-                return $date->strEMY_s();
+                return $date->strEBY_l();
             case MYSB_VALUE_TYPE_DATETIME:
                 $date = new MySBDateTime ($value);
-                return $date->html();
+                return $date->strEBY_l_whm();
             case MYSB_VALUE_TYPE_TEL:
                 if( $title!='' ) $text = $title.': ';
                 $img = '';
