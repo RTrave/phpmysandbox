@@ -26,6 +26,8 @@ define('MYSB_VALUE_TYPE_VARCHAR64', 3);
 define('MYSB_VALUE_TYPE_VARCHAR512', 4);
 define('MYSB_VALUE_TYPE_TEXT', 5);
 define('MYSB_VALUE_TYPE_VARCHAR64_SELECT', 6);
+define('MYSB_VALUE_TYPE_DATE', 7);
+define('MYSB_VALUE_TYPE_DATETIME', 8);
 define('MYSB_VALUE_TYPE_TEL', 10);
 define('MYSB_VALUE_TYPE_URL', 11);
 
@@ -56,6 +58,11 @@ class MySBValue extends MySBObject {
      */
     public $grp = null;
 
+    /**
+     * Optionnal Parameters ('', or 'MIN-MAX' for date years)
+     * @var    string
+     */
+    public $parameter = array();
 
     /**
      * Value object constructor.
@@ -97,6 +104,10 @@ class MySBValue extends MySBObject {
                 return 'varchar(512)';
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
                 return 'varchar(64)';
+            case MYSB_VALUE_TYPE_DATE:
+                return 'datetime';
+            case MYSB_VALUE_TYPE_DATETIME:
+                return 'datetime';
             case MYSB_VALUE_TYPE_TEL:
                 return 'varchar(64)';
             case MYSB_VALUE_TYPE_URL:
@@ -131,6 +142,10 @@ class MySBValue extends MySBObject {
                 return 'text';
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
                 return 'select';
+            case MYSB_VALUE_TYPE_DATE:
+                return 'date';
+            case MYSB_VALUE_TYPE_DATETIME:
+                return 'datetime';
             case MYSB_VALUE_TYPE_TEL:
                 return 'tel';
             case MYSB_VALUE_TYPE_URL:
@@ -183,6 +198,12 @@ class MySBValue extends MySBObject {
                 $form_str .= '
 </select>';
                 return $form_str;
+            case MYSB_VALUE_TYPE_DATE:
+                $date = new MySBDateTime ($value);
+                return $date->html_form($prefix,true);
+            case MYSB_VALUE_TYPE_DATETIME:
+                $date = new MySBDateTime ($value);
+                return $date->html_form($prefix,false);
             case MYSB_VALUE_TYPE_TEL:
                 $img = '';
 
@@ -293,6 +314,50 @@ class MySBValue extends MySBObject {
 </div>';
                 return $form_str;
 
+            case MYSB_VALUE_TYPE_DATE:
+                $date = new MySBDateTime ($value);
+                $resp_param = '-md';
+                $resp_align = '';
+                if( isset($this->parameter[0]) and isset($this->parameter[1]) )
+                    $date->setYearMaxMin( $this->parameter[0],
+                                          $this->parameter[1] );
+                if($disabled) {
+                    $date_html = '<p>'.$date->strAEBY_l().'</p>';
+                    $resp_param = '';
+                    $resp_align = ' t-right';
+                } else
+                    $date_html = $date->html_form($prefix.$this->keyname,true);
+                return '
+<label class="col'.$resp_param.'-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col'.$resp_param.'-8'.$resp_align.'">
+  '.$date_html.'
+</div>';
+
+            case MYSB_VALUE_TYPE_DATETIME:
+                $date = new MySBDateTime ($value);
+                $resp_param = '-md';
+                $resp_align = '';
+                if( isset($this->parameter[0]) and isset($this->parameter[1]) )
+                    $date->setYearMaxMin( $this->parameter[0],
+                                          $this->parameter[1] );
+                if($disabled) {
+                    $date_html = '<p>'.$date->strAEBY_l_whm().'</p>';
+                    $resp_param = '';
+                    $resp_align = ' t-right';
+                } else
+                    $date_html = $date->html_form($prefix.$this->keyname,false);
+                return '
+<label class="col'.$resp_param.'-4" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col'.$resp_param.'-8'.$resp_align.'">
+  '.$date_html.'
+</div>';
+
             case MYSB_VALUE_TYPE_TEL:
                 if( $value!='' and $directlink)
                   $wform = 7;
@@ -383,6 +448,12 @@ class MySBValue extends MySBObject {
                 $title = MySBUtil::str2abbrv($title,4,4);
                 if( $title!='' ) $text = '<b>'.$title.'</b>: ';
                 return $text._G($value).'';
+            case MYSB_VALUE_TYPE_DATE:
+                $date = new MySBDateTime ($value);
+                return $date->strEMY_s();
+            case MYSB_VALUE_TYPE_DATETIME:
+                $date = new MySBDateTime ($value);
+                return $date->html();
             case MYSB_VALUE_TYPE_TEL:
                 if( $title!='' ) $text = $title.': ';
                 $img = '';
@@ -401,7 +472,7 @@ class MySBValue extends MySBObject {
                 if($directlink)
                     return (string) '
                     <a href="tel:'.$value.'" title="'.$text.''.$valuetel.'">'.$img.$texturl.'</a>';
-                else 
+                else
                     return (string) '
                     '.$texturl;
             case MYSB_VALUE_TYPE_URL:
@@ -456,6 +527,12 @@ class MySBValue extends MySBObject {
                     "MySBValue::htmlProcessValue($prefix)");
                 $seloption = MySBDB::fetch_array($req_seloption);
                 return $seloption['value1'];
+            case MYSB_VALUE_TYPE_DATE:
+                $date = MySBDateTimeHelper::html_formLoad($prefix.$this->keyname);
+                return (string) $date->date_string;
+            case MYSB_VALUE_TYPE_DATETIME:
+                $date = MySBDateTimeHelper::html_formLoad($prefix.$this->keyname);
+                return (string) $date->date_string;
             case MYSB_VALUE_TYPE_TEL:
                 if( !MySBUtil::strverif($post_value) )
                     return '';
@@ -590,6 +667,38 @@ class MySBValue extends MySBObject {
 </div></div>
 </div>';
                 $output .= $form_str;
+                break;
+            case MYSB_VALUE_TYPE_DATE:
+                $output = '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+           maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
+</div>';
+                break;
+            case MYSB_VALUE_TYPE_DATETIME:
+                $output = '
+<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
+  '.$label.'<br>
+  <span class="help">'.$help.'</span>
+</label>
+<div class="col-sm-7">
+<div class="content list"><div class="row">
+  <div class="col-10 t-right">
+    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+           maxlength="32" value="">
+  </div>
+  '.$checknull.'
+</div></div>
+</div>';
                 break;
             case MYSB_VALUE_TYPE_TEL:
                 $output .= '
@@ -731,6 +840,16 @@ class MySBValue extends MySBObject {
                     "MySBValue::htmlProcessValue($prefix)");
                 $seloption = MySBDB::fetch_array($req_seloption);
                 return $this->keyname."='".MySBUtil::str2db($seloption['value1'])."'";
+            case MYSB_VALUE_TYPE_DATE:
+                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
+                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
+                return $this->keyname." RLIKE '".
+                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+            case MYSB_VALUE_TYPE_DATETIME:
+                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
+                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
+                return $this->keyname." RLIKE '".
+                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
             case MYSB_VALUE_TYPE_TEL:
                 if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
                 if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
@@ -813,6 +932,14 @@ class MySBValue extends MySBObject {
             MySBDB::query("DELETE from ".MySB_DBPREFIX."valueoptions WHERE (".
                 "value_keyname='".$this->grp."-".$this->keyname."' )",
                 "MySBValue::delValueOptions()");
+    }
+
+    /**
+     * Set parameters values
+     */
+    public function setParams($name,$value) {
+        global $app;
+        $this->params[$name] = $value;
     }
 
 }
