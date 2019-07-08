@@ -322,7 +322,8 @@ class MySBValue extends MySBObject {
                     $date->setYearMaxMin( $this->parameter[0],
                                           $this->parameter[1] );
                 if($disabled) {
-                    $date_html = '<p>'.$date->strAEBY_l().'</p>';
+                    if( $value=='' ) $date_html = '<p>-</p>';
+                    else $date_html = '<p>'.$date->strAEBY_l().'</p>';
                     $resp_param = '';
                     $resp_align = ' t-right';
                 } else
@@ -344,7 +345,8 @@ class MySBValue extends MySBObject {
                     $date->setYearMaxMin( $this->parameter[0],
                                           $this->parameter[1] );
                 if($disabled) {
-                    $date_html = '<p>'.$date->strAEBY_l_whm().'</p>';
+                    if( $value=='' ) $date_html = '<p>-</p>';
+                    else $date_html = '<p>'.$date->strAEBY_l_whm().'</p>';
                     $resp_param = '';
                     $resp_align = ' t-right';
                 } else
@@ -449,9 +451,11 @@ class MySBValue extends MySBObject {
                 if( $title!='' ) $text = '<b>'.$title.'</b>: ';
                 return $text._G($value).'';
             case MYSB_VALUE_TYPE_DATE:
+                if( $value=='' ) return '-';
                 $date = new MySBDateTime ($value);
                 return $date->strEBY_l();
             case MYSB_VALUE_TYPE_DATETIME:
+                if( $value=='' ) return '-';
                 $date = new MySBDateTime ($value);
                 return $date->strEBY_l_whm();
             case MYSB_VALUE_TYPE_TEL:
