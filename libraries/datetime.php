@@ -113,6 +113,14 @@ class MySBDateTime extends DateTime {
     }
 
     /**
+     * string format output
+     * @return   string                 output
+     */
+    public function strmark() {
+        return strftime("%Y%m%d-%H%M",strtotime($this->date_string));
+    }
+
+    /**
      * custom string format output
      * @param   string  $format         date() format
      * @return  string                  output
