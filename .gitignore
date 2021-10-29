@@ -4,7 +4,6 @@ phpmailer.conf.php
 modules/*
 !modules/blank
 !modules/example
-PHPMailer
 .htaccess
 log/*
 !log/index.html
