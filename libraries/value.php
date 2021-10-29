@@ -414,20 +414,19 @@ class MySBValue extends MySBObject {
                 return $form_str;
             
             case MYSB_VALUE_TYPE_PASSWORD:
-                return '
-                <label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+                $text = '<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
                   '.$label.'<br>
                   <span class="help">'.$help.'</span>
                 </label>
                 <div class="col-sm-8">
                   <input type="password" '.$disparam.'
-                         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
-                </div>';
-                /*<label class="col-sm-4" for="'.$prefix.$this->keyname.'repeat"></label>
-                <div class="col-sm-8">
-                  <input type="password" '.$disparam.'
-                         name="'.$prefix.$this->keyname.'repeat" id="'.$prefix.$this->keyname.'repeat" >
-                </div>';*/
+                         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"';
+
+                if(!empty($value))
+                    $text .= ' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"';
+
+                $text .= '></div>';
+                return $text;
         }
     }
 
@@ -827,7 +826,7 @@ class MySBValue extends MySBObject {
                 $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_PASSWORD:
-                $output = '';
+                return '';
         }
         $output .= ' ! <input type="checkbox" name="'.$prefix.$this->keyname.'_null">';
         return $output;
