@@ -905,7 +905,7 @@ class MySBValue extends MySBObject {
                 return $this->keyname." RLIKE '".
                     MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
             case MYSB_VALUE_TYPE_PASSWORD:
-                return 'WHERE FALSE';
+                return NULL;
         }
     }
 
