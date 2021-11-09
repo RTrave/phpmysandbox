@@ -13,7 +13,7 @@
 defined('_MySBEXEC') or die;
 
 //global $app;
-include('config.php');
+include(MySB_ROOTPATH.'/config.php');
 ?>
 
     <title><?php echo MySBConfigHelper::Value('website_name'); ?></title>
@@ -94,3 +94,4 @@ if( $app->refresh_time!=0 )
     <meta http-equiv="refresh" content="'.$app->refresh_time.'; URL=index.php">';
 
 ?>
+
