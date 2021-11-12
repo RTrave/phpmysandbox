@@ -31,6 +31,7 @@ $mysb_locale = "en_US.UTF-8";       // fr_FR.UTF-8
 $mysb_timezone = "Europe/London";   // Europe/Paris
 $mysb_DEBUG = false;                // true
 $mysb_DEBUGMASK = '';               // '' for all, 'core' or 'module_name'
+$mysb_datetime_oldschool = false;   // false for new HTML5 datetime handling, true for old select date picker
 
 // Extensions settings
 $mysb_ext_mail = 'Native'           // Mail extension ('Native'(def), 'PHPMailer')

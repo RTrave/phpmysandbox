@@ -50,10 +50,13 @@ class MySBDateTime extends DateTime {
      * @param   string  $cs_string      SQL date string to initialize
      */
     public function __construct( $cs_string=null ) {
-        if($cs_string==null or $cs_string=='' or $cs_string=='now')
+        if($cs_string==null or $cs_string=='' or $cs_string=='0')
+            $cs_string = '';
+        if($cs_string=='now')
             $cs_string = date('Y-m-d H:i:s');
         parent::__construct($cs_string);
-        $this->date_string = $cs_string;
+        if($cs_string!='') $this->date_string = $cs_string;
+        else $this->date_string = '0000-00-00 00:00:00';
     }
 
     /**
@@ -128,7 +131,8 @@ class MySBDateTime extends DateTime {
     public function str_get($format) {
         if( $this->date_string!='' )
             return strftime($format,strtotime($this->date_string));
-        else return strftime($format);
+        //else return strftime($format);
+        return '0';
     }
 
     /**
@@ -148,38 +152,57 @@ class MySBDateTime extends DateTime {
      * @return  string                  HTML form output
      */
     public function html_form($prefix='mysbdt_', $nohours=false) {
-        $cday = $this->str_get('%e');
-        $cmonth = (int) $this->str_get('%m');
-        $cyear = $this->str_get('%Y');
-        $chour = (int) $this->str_get('%H');
-        $cminute = (int) $this->str_get('%M');
-        //echo $this->date_string.'/'.$cday.'--';
-        $form = '<span style="white-space: nowrap;">';
-        $form .= '<select name="'.$prefix.'day" title="day" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
-        for($i=1;$i<32;$i++)
-            $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cday).'>'.$i.'</option>';
-        $form .= "\n"."</select>\n".'<select name="'.$prefix.'month" title="month" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
-        for($i=1;$i<13;$i++)
-            $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cmonth).'>'.strftime("%b",strtotime('2000-'.$i.'-01')).'</option>';
-        $form .= "\n"."</select>\n".'<select name="'.$prefix.'year" title="year" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
-        for($i=$this->year_min;$i<=$this->year_max;$i++)
-            $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cyear).'>'.$i.'</option>';
-        $form .= "\n".'</select>'."\n";
-        $form .= '</span>';
-        if($nohours==true) {
-            $form .= '<input type="hidden" name="'.$prefix.'hour" value="0">'."\n";
-            $form .= '<input type="hidden" name="'.$prefix.'minute" value="0">'."\n";
+        if($this->date_string != '0000-00-00 00:00:00') {
+            $cday = (int) $this->str_get('%e');
+            $cmonth = (int) $this->str_get('%m');
+            $cyear = (int) $this->str_get('%Y');
+            $chour = (int) $this->str_get('%H');
+            $cminute = (int) $this->str_get('%M');
+        } else {
+            $cday = '00';
+            $cmonth = '00';
+            $cyear = '0000';
+            $chour = '00';
+            $cminute = '00';
+        }
+
+        include (MySB_ROOTPATH.'/config.php');
+        if(isset($mysb_datetime_oldschool) && $mysb_datetime_oldschool==true) {
+            $form = '<span style="white-space: nowrap;">';
+            $form .= '<select name="'.$prefix.'day" title="day" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+            $form .= "\n".'<option value="00">--</option>';
+            for($i=1;$i<32;$i++)
+                $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cday).'>'.$i.'</option>';
+            $form .= "\n"."</select>\n".'<select name="'.$prefix.'month" title="month" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+            $form .= "\n".'<option value="00">--</option>';
+            for($i=1;$i<13;$i++)
+                $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cmonth).'>'.strftime("%b",strtotime('2000-'.$i.'-01')).'</option>';
+            $form .= "\n"."</select>\n".'<select name="'.$prefix.'year" title="year" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
+            $form .= "\n".'<option value="0000">--</option>';
+            for($i=$this->year_min;$i<=$this->year_max;$i++)
+                $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cyear).'>'.$i.'</option>';
+            $form .= "\n".'</select>'."\n";
+            $form .= '</span>';
+            if($nohours==true) {
+                $form .= '<input type="hidden" name="'.$prefix.'hour" value="0">'."\n";
+                $form .= '<input type="hidden" name="'.$prefix.'minute" value="0">'."\n";
+                return $form;
+            }
+            $form .= ' &bull; <span style="white-space: nowrap;">';
+            $form .= '<input type="text"  name="'.$prefix.'hour" maxlength="2" size="2" title="hour" class="w-auto" style="text-align: center; padding: .5rem 0;" value="'.$chour.'">:';
+            $form .= '<input type="text"  name="'.$prefix.'minute" maxlength="2" size="2" title="minute" class="w-auto" style="text-align: center; padding: .5rem 0;" value="'.$cminute.'">';
+            $form .= '</span>';
             return $form;
         }
-        $form .= ' &bull; <span style="white-space: nowrap;">';
-        $form .= '<select name="'.$prefix.'hour" title="hour" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
-        for($i=0;$i<24;$i++)
-            $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$chour).'>'.$i.'</option>';
-        $form .= "\n".'</select>'._G('SBGT_datetime_h').'<select name="'.$prefix.'minute" title="minute" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
-        for($i=0;$i<60;$i+=5)
-            $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cminute).'>'.$i.'</option>';
-        $form .= "\n".'</select>'."\n";
-        $form .= '</span>';
+        if($nohours) {
+            $dateexp = explode(' ', $this->date_string);
+            $form = '<input type="date" id="'.$prefix.'date" name="'.$prefix.'date" '.
+                    'value="'.$dateexp[0].'">';
+        } else {
+            $datestr = str_replace(' ', 'T', $this->date_string);
+            $form = '<input type="datetime-local" id="'.$prefix.'date" name="'.$prefix.'date" '.
+                    'value="'.$datestr.'">';
+        }
         return $form;
     }
 
@@ -246,8 +269,13 @@ class MySBDateTimeHelper {
      */
     public static function html_formLoad($prefix='mysbdt_') {
         global $_POST;
-        $str = $_POST[$prefix.'year'].'-'.$_POST[$prefix.'month'].'-'.$_POST[$prefix.'day'].
-            ' '.$_POST[$prefix.'hour'].':'.$_POST[$prefix.'minute'];
+        include (MySB_ROOTPATH.'/config.php');
+        if(isset($mysb_datetime_oldschool) && $mysb_datetime_oldschool==true) {
+            $str = $_POST[$prefix.'year'].'-'.$_POST[$prefix.'month'].'-'.$_POST[$prefix.'day'].
+                ' '.$_POST[$prefix.'hour'].':'.$_POST[$prefix.'minute'].':00';
+        } else {
+            $str = str_replace('T', ' ', $_POST[$prefix.'date']);
+        }
         return new MySBDateTime($str);
     }
 
