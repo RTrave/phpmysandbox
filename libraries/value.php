@@ -530,6 +530,8 @@ class MySBValue extends MySBObject {
                     "AND value0='".$post_value."' )",
                     "MySBValue::htmlProcessValue($prefix)");
                 $seloption = MySBDB::fetch_array($req_seloption);
+                if(!MySBDB::num_rows($req_seloption))
+                    return '';
                 return $seloption['value1'];
             case MYSB_VALUE_TYPE_DATE:
                 $date = MySBDateTimeHelper::html_formLoad($prefix.$this->keyname);
