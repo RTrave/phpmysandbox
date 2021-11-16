@@ -51,6 +51,25 @@ if(MySBDB::table_exists('users')) {
 </html>';
     die;
 }
+
+$pathtestfile = MySB_ROOTPATH.'/log/testfile';
+unlink($pathtestfile);
+$testfile = fopen($pathtestfile, "w");
+if(!$testfile) {
+  echo '
+<div class="content">
+  <h1 style="color: red;">!!! PERMISSIONS ALERT !!!</h1>
+  <div class="row">
+    <div class="col-sm-12">
+        The folder <b>log/</b> is read-only. <br>
+        Please fix this.
+    </div>
+  </div>
+</div>';
+}
+fclose($testfile);
+unlink($pathtestfile);
+
 ?>
 
 
