@@ -71,13 +71,24 @@ unlink($pathtestfile);
   </div>
 <?php } ?>
   <div class="row">
-    <p class="col-md-4">test mail on:</p>
+    <p class="col-md-4">Send test mail to:</p>
     <div class="col-md-8">
       <form action="<?= $httpbase ?>" method="post">
       <input type="hidden" name="test_mail" value="1">
       <input type="submit" class="btn-primary"
              value="<?= $app->auth_user->mail ?>">
       </form>
+    </div>
+  </div>
+  <div class="row">
+    <p class="col-md-4">Install/Update extensions:</p>
+    <div class="col-md-8">
+      <ul style="font-style:italic">
+        <li>get composer.phar from <a href="https://getcomposer.org/download/latest-stable/composer.phar" target="_blank">getcomposer.org</a></li>
+        <li>copy the file in the PHPMySandBox root folder.</li>
+        <li>to install dependencies: run "php ./composer.phar install"</li>
+        <li>to update dependencies: run "php ./composer.phar update"</li>
+      </ul>
     </div>
   </div>
   <h2 class="border-top">DataBase</h2>

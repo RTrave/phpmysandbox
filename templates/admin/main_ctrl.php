@@ -70,6 +70,11 @@ if(class_exists('MySBPDF')) {
     $mypdf = new MySBPDF();
     $infos_php[] = array( 'TCPDF class',$mypdf->mytcpdf_version.' present' );
 } else  $infos_php[] = array( 'TCPDF class','not present' );
+if(file_exists(MySB_ROOTPATH.'/vendor/mk-j/php_xlsxwriter/xlsxwriter.class.php')) {
+    $infos_php[] = array( 'XLSXWriter class', 'present');
+} else {
+    $infos_php[] = array( 'XLSXWriter class',' not present');
+}
 if(class_exists('PHPMailer')) {
     $mailerobj = new PHPMailer();
     //echo $mailerobj->Version;
@@ -78,6 +83,8 @@ if(class_exists('PHPMailer')) {
          <small>('.$mysb_mail.' on '.$phpmailer_Host.')</small>');
     else
         $infos_php[] = array( 'PHPMailer class','not used');
+} else if(file_exists(MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/class.phpmailer.php')) {
+    $infos_php[] = array( 'PHPMailer class','present but not configured<br>(see config.php and phpmailer.conf.php)');
 } else $infos_php[] = array( 'PHPMailer class','not present');
 $editor = new MySBEditor();
 if( $editor->tmce_present )

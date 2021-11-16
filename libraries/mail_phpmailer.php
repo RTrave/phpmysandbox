@@ -25,7 +25,11 @@ if( $mysb_ext_mail=='PHPMailer' and
     file_exists(MySB_ROOTPATH.'/phpmailer.conf.php') ) {
 
     include(MySB_ROOTPATH.'/phpmailer.conf.php');
-    require (MySB_ROOTPATH.'/'.$phpmailer_path.'/PHPMailerAutoload.php');
+    if(!file_exists(MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php')) {
+      echo 'PHPMailer not present, please unset it in config.php or install it with composer. 
+      <a href="https://github.com/RTrave/phpmysandbox">More infos here</a>';
+    }
+    require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
 
     /**
      * PHPMailer extention class (dealing with Imap folders).
@@ -94,9 +98,9 @@ class MySBMailPHPMailer implements MySBIMail {
         global $app;
         include(MySB_ROOTPATH.'/config.php');
         include(MySB_ROOTPATH.'/phpmailer.conf.php');
-        require_once (MySB_ROOTPATH.'/'.$phpmailer_path.'/class.phpmailer.php');
+        require_once (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/class.phpmailer.php');
         $this->mail = new PHPMailer_copysent(true);
-        $this->mail->SetLanguage("en",$phpmailer_path.'/language/');
+        $this->mail->SetLanguage("en",'vendor/phpmailer/phpmailer/language/');
         $this->mail->IsSMTP();
         $this->mail->SMTPDebug = false;
         $this->mail->Host = $phpmailer_Host;

@@ -22,17 +22,17 @@ defined('_MySBEXEC') or die;
 
 include(MySB_ROOTPATH.'/config.php');
 
-if( file_exists(MySB_ROOTPATH.'/tcpdf/tcpdf.php') ) {
+if( file_exists(MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php') ) {
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/tcpdf/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php');
 
-} elseif( file_exists(MySB_ROOTPATH.'/tcpdf_min/tcpdf.php') ) {
+} elseif( file_exists(MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php') ) {
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/tcpdf_min/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php');
 
 } else { 
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/tcpdf_min/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php');
     return;
 
 }

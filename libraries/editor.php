@@ -51,18 +51,18 @@ class MySBEditor {
      * Internal constructor
      */
     public function __construct() {
-        if(is_file(MySB_ROOTPATH.'/jscripts/tinymce/tinymce.min.js')) {
+        if(is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js')) {
             $this->tmce_present = true;
-            $vlines = file(MySB_ROOTPATH.'/jscripts/tinymce/tinymce.min.js');
+            $vlines = file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js');
             $versionl = explode('// ',$vlines[0]);
             $this->tmce_version = $versionl[1];
         }
-        if( is_file(MySB_ROOTPATH.'/jscripts/tinymce/plugins/moxiemanager/plugin.min.js') )
+        if( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js') )
             $this->tmce_moxie = true;
-        elseif( is_file(MySB_ROOTPATH.'/jscripts/tinymce/plugins/jbimages/plugin.min.js') )
+        elseif( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/jbimages/plugin.min.js') )
             $this->tmce_jbimages = true;
 
-        echo '<script type="text/javascript" src="jscripts/tinymce/tinymce.min.js"></script>';
+        echo '<script type="text/javascript" src="vendor/tinymce/tinymce/tinymce.min.js"></script>';
 
         // TODO: keep this until closing overlay remove all TinyMCE added code
         echo '
@@ -88,7 +88,7 @@ $(".mce-tooltip").remove();
         if( $this->tmce_present!=true ) return;
         $langconf = '';
         if( MySBLocales::getLanguage()!='C' and
-            is_file(MySB_ROOTPATH.'/jscripts/tinymce/langs/'.MySBLocales::getLanguage().'.js') )
+            is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/langs/'.MySBLocales::getLanguage().'.js') )
             $langconf = 'language : "'.MySBLocales::getLanguage().'",
     ';
         $code = '
@@ -101,7 +101,7 @@ $(".mce-tooltip").remove();
         $moxiecode = '';
         if( $this->tmce_moxie ) {
             $code .= '
-<script type="text/javascript" src="jscripts/tinymce/plugins/moxiemanager/plugin.min.js"></script>';
+<script type="text/javascript" src="vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js"></script>';
             $moxiecode = 'moxiemanager';
         }
 
