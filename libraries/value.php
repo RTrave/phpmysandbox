@@ -30,6 +30,7 @@ define('MYSB_VALUE_TYPE_DATE', 7);
 define('MYSB_VALUE_TYPE_DATETIME', 8);
 define('MYSB_VALUE_TYPE_TEL', 10);
 define('MYSB_VALUE_TYPE_URL', 11);
+define('MYSB_VALUE_TYPE_PASSWORD', 12);
 
 
 /**
@@ -112,6 +113,8 @@ class MySBValue extends MySBObject {
                 return 'varchar(64)';
             case MYSB_VALUE_TYPE_URL:
                 return 'varchar(128)';
+            case MYSB_VALUE_TYPE_PASSWORD:
+                return 'varchar(255)';
         }
     }
 
@@ -150,6 +153,8 @@ class MySBValue extends MySBObject {
                 return 'tel';
             case MYSB_VALUE_TYPE_URL:
                 return 'url';
+            case MYSB_VALUE_TYPE_PASSWORD:
+                return 'password';
         }
     }
 
@@ -213,6 +218,10 @@ class MySBValue extends MySBObject {
                 $img = '';
                 if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="'.$value.'" target="_blank" title="URL:'.$value.' '.$title.'"><img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24"></a></div>';
                 return $img.'<input type="url" name="'.$prefix.$this->keyname.'" size="20" maxlength="128" value="'.$value.'">';
+            case MYSB_VALUE_TYPE_PASSWORD:
+                return '<input type="password" '.
+                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
+                       '">';
         }
     }
 
@@ -403,6 +412,21 @@ class MySBValue extends MySBObject {
   <img src="images/icons/web-browser.png" alt="web-browser">
 </a>';
                 return $form_str;
+            
+            case MYSB_VALUE_TYPE_PASSWORD:
+                $text = '<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
+                  '.$label.'<br>
+                  <span class="help">'.$help.'</span>
+                </label>
+                <div class="col-sm-8">
+                  <input type="password" '.$disparam.'
+                         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"';
+
+                if(!empty($value))
+                    $text .= ' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"';
+
+                $text .= '></div>';
+                return $text;
         }
     }
 
@@ -493,6 +517,10 @@ class MySBValue extends MySBObject {
                 if( $value!='' ) return (string) '
                     <a href="'.$value.'" target="_blank" title="'.$text.': '.$value.'">'.$img.''.$texturl.'</a>';
                 return;
+            case MYSB_VALUE_TYPE_PASSWORD:
+                $title = MySBUtil::str2abbrv($title,4,4);
+                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
+                return $text.'******';
         }
     }
 
@@ -545,6 +573,11 @@ class MySBValue extends MySBObject {
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_URL:
                 return (string) $post_value;
+            case MYSB_VALUE_TYPE_PASSWORD:
+                if( !MySBUtil::strverif($post_value) || empty($post_value) )
+                    return '';
+                $hash = password_hash((string) $post_value, PASSWORD_DEFAULT);
+                return $hash;
         }
     }
 
@@ -736,6 +769,10 @@ class MySBValue extends MySBObject {
 </div></div>
 </div>';
                 break;
+            
+            case MYSB_VALUE_TYPE_PASSWORD:
+                $output = '';
+                break;
         }
 /*
         $output .= '
@@ -790,6 +827,8 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_URL:
                 $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
                 break;
+            case MYSB_VALUE_TYPE_PASSWORD:
+                return '';
         }
         $output .= ' ! <input type="checkbox" name="'.$prefix.$this->keyname.'_null">';
         return $output;
@@ -866,6 +905,8 @@ class MySBValue extends MySBObject {
                 if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
                 return $this->keyname." RLIKE '".
                     MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+            case MYSB_VALUE_TYPE_PASSWORD:
+                return NULL;
         }
     }
 
@@ -947,6 +988,15 @@ class MySBValue extends MySBObject {
         global $app;
         $this->params[$name] = $value;
     }
+
+    /**
+     * Do update when value is empty?
+     */
+    public function updateOnEmpty(){
+        if($this->type == MYSB_VALUE_TYPE_PASSWORD) return false;
+        return true;
+    }
+
 
 }
 

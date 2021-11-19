@@ -1,3 +1,11 @@
 config.php
 phpmailer.conf
-
+phpmailer.conf.php
+modules/*
+!modules/blank
+!modules/example
+.htaccess
+log/*
+!log/index.html
+custom/*
+jscripts/tinymce
