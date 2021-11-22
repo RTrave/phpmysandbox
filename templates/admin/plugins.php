@@ -207,6 +207,7 @@ echo '
         <option value="'.MYSB_VALUE_TYPE_VARCHAR512.'">VARCHAR512</option>
         <option value="'.MYSB_VALUE_TYPE_TEXT.'">TEXT</option>
         <option value="'.MYSB_VALUE_TYPE_VARCHAR64_SELECT.'">VARCHAR64_SELECT</option>
+        <option value="'.MYSB_VALUE_TYPE_PASSWORD.'">PASSWORD</option>
       </select>
     </div>
   </div>

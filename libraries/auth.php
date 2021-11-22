@@ -108,7 +108,28 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
     }
 
     /**
-     * Simple processto check password against MD5 login's one
+     * Internal password verification, handling hash update if needed
+     */
+    private function verify_password($password, $passhash, $user_id) {
+        global $app;
+        if (substr($passhash, 0, 1) == "$") {
+            // Password already converted, verify using password_verify
+            return password_verify($password, $passhash);
+        } else {
+            // User still using the old MD5, update it!
+            if (md5($password) == $passhash) {
+                MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".
+                "SET passwd='".password_hash($password,  PASSWORD_DEFAULT)."' ".
+                "WHERE id=".$user_id,
+                "MySBUser::verify_password('******',$user_id)" );
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Simple process to check password against MD5 login's one
      * @return  boolean              true if succes, false if not
      */
     static public function checkPassword($password) {
@@ -119,9 +140,13 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
             "WHERE login='".$app->auth_user->login."'",
             "MySBPluginAuthLayer::checkPassword()" );
         $data_getpass = MySBDB::fetch_array($req_getpass);
+        $passinbase = $data_getpass['passwd'];
+        return $this->verify_password($password, $passinbase, $app->auth_user->id);
+/*
         if(md5($password)==$data_getpass['passwd']) 
             return true;
         return false;
+*/
     }
 
     /**
@@ -142,7 +167,8 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
             "WHERE login='".$_POST['login']."'",
             "MySBPluginAuthLayer::formAuthbox_Process()" );
         $data_getpass = MySBDB::fetch_array($req_getpass);
-        if(md5($_POST['passwd'])==$data_getpass['passwd']) {
+        //if(md5($_POST['passwd'])==$data_getpass['passwd']) {
+        if($this->verify_password($_POST['passwd'], $data_getpass['passwd'], $data_getpass['id'])) {
             $_SESSION['mysb_login'] = $_POST['login'];
             $urandom = session_id();
             MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".

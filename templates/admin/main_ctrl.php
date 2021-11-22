@@ -19,8 +19,10 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 if(isset($_POST['config_modif'])) {
     $configs = MySBConfigHelper::loadByGrp('');
-    foreach($configs as $config)
-        $config->setValue($config->htmlProcessValue('config_'));
+    foreach($configs as $config){
+        $getvalue = $config->htmlProcessValue('config_');
+        if($config->updateOnEmpty() || !empty($getvalue)) $config->setValue($getvalue);
+    }
 }
 
 if(isset($_POST['set_mod'])) {
@@ -43,8 +45,10 @@ if(isset($_POST['unset_mod'])) {
 if(isset($_POST['moduleconfig_mod'])) {
     $module = MySBModuleHelper::getByName($_POST['moduleconfig_mod']);
     $configs = MySBConfigHelper::loadByGrp($module->name);
-    foreach($configs as $config)
-        $config->setValue($config->htmlProcessValue($module->name.'config_'));
+    foreach($configs as $config){
+        $getvalue = $config->htmlProcessValue($module->name.'config_');
+        if($config->updateOnEmpty() || !empty($getvalue)) $config->setValue($getvalue);
+    }
 }
 
 if(isset($_POST['test_mail'])) {

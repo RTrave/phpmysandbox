@@ -16,8 +16,10 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 if(isset($_POST['config_modif'])) {
     $configs = MySBConfigHelper::loadByGrp('');
-    foreach($configs as $config) 
-        $config->setValue($config->htmlProcessValue('config_'));
+    foreach($configs as $config){
+        $getvalue = $config->htmlProcessValue('config_');
+        if($config->updateOnEmpty() || !empty($getvalue)) $config->setValue($getvalue);
+    }
     echo '
 <script>
 loadItem("app_config","index.php?inc=admin/conf_display");

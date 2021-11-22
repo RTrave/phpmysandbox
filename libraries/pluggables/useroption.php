@@ -202,27 +202,12 @@ class MySBPluginUserOption extends MySBPlugin {
         global $app, $_POST;
         if($user==null) $user = $app->auth_user;
         $getvalue = $this->uo_value->htmlProcessValue('uo_');
-        MySBDB::query("UPDATE ".MySB_DBPREFIX."users SET ".
-            $this->name."='".$getvalue."'".
-            " WHERE id=".$user->id,
-            "MySBPluginUserOption::formProcess()" );
-/*
-        if($this->value2!='') {
-            $valuename = $this->name;
-            if( $user->$valuename!=$getvalue ) {
-                $uomail = new MySBMail('useroption');
-                $uomail->addTO($this->value2,'');
-                $uomail->data['geckos'] = '';
-                $uomail->data['lastname'] = $user->lastname;
-                $uomail->data['firstname'] = $user->firstname;
-                $uomail->data['mail'] = $user->mail;
-                $uomail->data['optioninfos'] = $this->value1.' ('.$this->value0.')';
-                if($getvalue=='') $uomail->data['status'] = 'NULL';
-                else $uomail->data['status'] = $getvalue;
-                $uomail->send();
-            }
+        if($this->uo_value->updateOnEmpty() || !empty($getvalue)){
+          MySBDB::query("UPDATE ".MySB_DBPREFIX."users SET ".
+              $this->name."='".$getvalue."'".
+              " WHERE id=".$user->id,
+              "MySBPluginUserOption::formProcess()" );
         }
-*/
     }
 
 }
