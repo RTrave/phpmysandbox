@@ -131,7 +131,7 @@ class MySBUser extends MySBObject {
         global $app;
         if($id=='') $id = $this->id;
         MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".
-            "SET passwd='".md5($password)."' ".
+            "SET passwd='".password_hash($password,  PASSWORD_DEFAULT)."' ".
             "WHERE id=".$id,
             "MySBUser::resetPassword('password',$id)" );
         MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".
