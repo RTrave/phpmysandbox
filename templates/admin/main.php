@@ -18,7 +18,8 @@ include(MySB_ROOTPATH.'/config.php');
 $httpbase = 'index.php?tpl=admin/admin&amp;page=main';
 
 $pathtestfile = MySB_ROOTPATH.'/log/testfile';
-unlink($pathtestfile);
+if(file_exists($pathtestfile))
+  unlink($pathtestfile);
 $testfile = fopen($pathtestfile, "w");
 if(!$testfile) {
   echo '
@@ -36,7 +37,8 @@ fclose($testfile);
 unlink($pathtestfile);
 
 $pathtestfile = MySB_ROOTPATH.'/tmp/testfile';
-unlink($pathtestfile);
+if(file_exists($pathtestfile))
+  unlink($pathtestfile);
 $testfile = fopen($pathtestfile, "w");
 if(!$testfile) {
   echo '
