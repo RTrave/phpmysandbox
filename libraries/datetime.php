@@ -47,12 +47,13 @@ class MySBDateTime extends DateTime {
 
     /**
      * Constructor
-     * @param   string  $cs_string      SQL date string to initialize
+     * @param   string  $cs_string      SQL date string to initialize ('now')
+     *                                  ('now' or 'NOW' for actual date)
      */
     public function __construct( $cs_string=null ) {
         if($cs_string==null or $cs_string=='' or $cs_string=='0')
             $cs_string = '';
-        if($cs_string=='now')
+        if($cs_string=='now' or $cs_string=='NOW')
             $cs_string = date('Y-m-d H:i:s');
         parent::__construct($cs_string);
         if($cs_string!='') $this->date_string = $cs_string;

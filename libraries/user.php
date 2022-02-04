@@ -228,7 +228,7 @@ class MySBUser extends MySBObject {
      */
     public function checkMailattempt() {
         global $app;
-        $dtoday = new MySBDateTime();
+        $dtoday = new MySBDateTime('NOW');
         if( !empty($this->mailattempt_date) ) {
             $ldate = new MySBDateTime($this->mailattempt_date);
             $ddiff = $ldate->absDiff('i');
@@ -438,7 +438,7 @@ class MySBUserHelper {
             "MySBUserHelper::checkLogattempt($login)" );
 
         if( $data_bylogin = MySBDB::fetch_array($req_bylogin) ) {
-            $dtoday = new MySBDateTime();
+            $dtoday = new MySBDateTime('NOW');
             $ldate = new MySBDateTime($data_bylogin['logattempt_date']);
             $ddiff = $ldate->absDiff('i');
             if( $data_bylogin['logattempt_nb']>=5 and $ddiff<=5 ) {
