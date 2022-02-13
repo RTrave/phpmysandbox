@@ -589,6 +589,8 @@ class MySBValue extends MySBObject {
     public function innerRowWhereClause($prefix,$label='',$help='',$colsize=12) {
         global $app;
         $output = '';
+        if($help!='' && $label!='')
+          $help = '<br>'.$help;
         $checknull = '
 <div class="col-2 t-right" style="padding-left: 0; padding-right: 0;">
   !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
@@ -598,7 +600,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_INT:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -617,7 +619,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_BOOL:
                 $output .= '
 <label class="col-'.($colsize-4).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-4">
@@ -633,7 +635,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_VARCHAR64:
                 $output = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -649,7 +651,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_VARCHAR512:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -665,7 +667,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_TEXT:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -686,7 +688,7 @@ class MySBValue extends MySBObject {
                     true, '', true);
                 $form_str = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -710,7 +712,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_DATE:
                 $output = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -726,7 +728,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_DATETIME:
                 $output = '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -742,7 +744,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_TEL:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
@@ -757,7 +759,7 @@ class MySBValue extends MySBObject {
             case MYSB_VALUE_TYPE_URL:
                 $output .= '
 <label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
+  '.$label.'
   <span class="help">'.$help.'</span>
 </label>
 <div class="col-sm-7">
