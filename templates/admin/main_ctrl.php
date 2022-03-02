@@ -14,6 +14,12 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
+use PHPMailer\PHPMailer\PHPMailer;
+//require (MySB_ROOTPATH.'/vendor/autoload.php');
+//require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/SMTP.php');
+require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/Exception.php');
+
 if(!MySBRoleHelper::checkAccess('admin')) return;
 
 
@@ -79,12 +85,14 @@ if(file_exists(MySB_ROOTPATH.'/vendor/mk-j/php_xlsxwriter/xlsxwriter.class.php')
 } else {
     $infos_php[] = array( 'XLSXWriter class',' not present');
 }
-if(class_exists('PHPMailer')) {
+if(class_exists('PHPMailer') or class_exists('PHPMailer\PHPMailer\PHPMailer')) {
     $mailerobj = new PHPMailer();
-    //echo $mailerobj->Version;
+    //echo $mailerobj::VERSION;
     if( $mysb_ext_mail=="PHPMailer" )
-         $infos_php[] = array( 'PHPMailer class','v:'.$mailerobj->Version.'<br>
-         <small>('.$mysb_mail.' on '.$phpmailer_Host.')</small>');
+         if($mailerobj::VERSION)
+            $infos_php[] = array( 
+                'PHPMailer class','v:'.$mailerobj::VERSION.'<br><small>('.
+                $mysb_mail.' on '.$phpmailer_Host.')</small>');
     else
         $infos_php[] = array( 'PHPMailer class','not used');
 } else if(file_exists(MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/class.phpmailer.php')) {

@@ -16,20 +16,33 @@
  * @author     Roman Travé <roman.trave@gmail.com>
  */
 
-
 // No direct access.
 defined('_MySBEXEC') or die;
+
+
+/**
+ * @var     integer           Major version number
+ */
+$version_phpmailer = null;
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 include(MySB_ROOTPATH.'/config.php');
 if( $mysb_ext_mail=='PHPMailer' and 
     file_exists(MySB_ROOTPATH.'/phpmailer.conf.php') ) {
 
     include(MySB_ROOTPATH.'/phpmailer.conf.php');
-    if(!file_exists(MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php')) {
-      echo 'PHPMailer not present, please unset it in config.php or install it with composer. 
-      <a href="https://github.com/RTrave/phpmysandbox">More infos here</a>';
+    // Version 6.*
+    if(file_exists(MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/PHPMailer.php')) {
+      //require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/PHPMailer.php');
+      require (MySB_ROOTPATH.'/vendor/autoload.php');
+      //echo 'OK';
+      $version_phpmailer = 6;
     }
-    require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/PHPMailerAutoload.php');
+    else {
+      echo 'PHPMailer 6 not present, please unset it in config.php or install it with composer. 
+      update dependencies: run "php ./composer.phar update"';
+    }
 
     /**
      * PHPMailer extention class (dealing with Imap folders).
@@ -98,7 +111,12 @@ class MySBMailPHPMailer implements MySBIMail {
         global $app;
         include(MySB_ROOTPATH.'/config.php');
         include(MySB_ROOTPATH.'/phpmailer.conf.php');
-        require_once (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/class.phpmailer.php');
+        /*
+        if($version_phpmailer==5)
+          require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/class.phpmailer.php');
+        else
+          require (MySB_ROOTPATH.'/vendor/autoload.php');
+        */
         $this->mail = new PHPMailer_copysent(true);
         $this->mail->SetLanguage("en",'vendor/phpmailer/phpmailer/language/');
         $this->mail->IsSMTP();
