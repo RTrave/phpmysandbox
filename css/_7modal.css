@@ -24,7 +24,7 @@
 
 .modal {
   display: inline-block;
-  z-index: 10000 !important;
+  /* z-index: 10000 !important; */
   width: 768px;
   top: 10px;
   bottom: 25%;
@@ -40,7 +40,7 @@ div#overlaySize { /* TODO */
 /* default close button positioned on upper right corner */
 .modal .close {
   position:absolute;
-  z-index: 10010;
+  z-index: 101;
   right: 5px;
   top: 10px;
   cursor: pointer;
@@ -89,7 +89,7 @@ div.modalBody {
 div.modalFoot {
   display: table;
   text-align: center;
-  z-index: 10001;
+  /* z-index: 10001; */
   border-collapse:separate;
   border-spacing:0px 0px;
   width: 100%;
@@ -242,7 +242,7 @@ div.modalBodyFoot {
 }
 #mysbOverlay.active {
   opacity: 1;
-  z-index: 9995;
+  z-index: 100;
   -webkit-transition: opacity 0.3s;
   transition: opacity 0.3s;
 }

@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "phpmailer/phpmailer": "5.*",
-        "tinymce/tinymce": "4.*",
+        "tinymce/tinymce": "5.*",
         "mk-j/php_xlsxwriter": "^0.38.0",
         "tecnickcom/tcpdf": "^6.4"
     },

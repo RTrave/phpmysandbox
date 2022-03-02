@@ -54,8 +54,14 @@ class MySBEditor {
         if(is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js')) {
             $this->tmce_present = true;
             $vlines = file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js');
-            $versionl = explode('// ',$vlines[0]);
-            $this->tmce_version = $versionl[1];
+            $versionl = explode('// ',$vlines[0]);  //Version 4.*
+            if(isset($versionl[1]))
+              $this->tmce_version = $versionl[1];
+            else {
+              $versionl = explode('Version: ',$vlines[6]);  //Version 5.*
+              if(isset($versionl[1]))
+                $this->tmce_version = $versionl[1];
+            }
         }
         if( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js') )
             $this->tmce_moxie = true;
@@ -92,7 +98,7 @@ $(".mce-tooltip").remove();
             $langconf = 'language : "'.MySBLocales::getLanguage().'",
     ';
         $code = '
-<!-- TinyMCE Init -->
+<!-- TinyMCE Init: '.$style.' -->
 ';
         $jbimagescode = '';
         if( $this->tmce_jbimages ) {
@@ -113,12 +119,11 @@ tinymce.init({
     '.$langconf.'
     menubar: false,
     toolbar_items_size: "small",
-    plugins: ["link image textcolor code '.$jbimagescode.' '.$moxiecode.'"],
+    plugins: ["link image code '.$jbimagescode.' '.$moxiecode.'"],
     toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
     branding: false,
-    forced_root_block: false
+    forced_root_block: false,
 });
-
 </script>';
         elseif($style=='normal')
             $code .= '
@@ -133,10 +138,11 @@ tinymce.init({
         "insertdatetime media nonbreaking save table contextmenu directionality",
         "emoticons template paste textcolor '.$jbimagescode.' '.$moxiecode.'"
     ],
-    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image '.$jbimagescode.'",
-    toolbar2: "print preview media | forecolor backcolor code emoticons",
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+    toolbar2: "link image '.$jbimagescode.' | print preview media | forecolor backcolor code emoticons",
     branding: false,
-    forced_root_block: false
+    height: "300",
+    forced_root_block: false,
 });
 </script>';
         elseif($style=='custom')
@@ -153,7 +159,7 @@ tinymce.init({
     toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
     toolbar2: "'.$toolbar2.'",
     branding: false,
-    forced_root_block: false
+    forced_root_block: false,
 });
 </script>';
         $code .= '
