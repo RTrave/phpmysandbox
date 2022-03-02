@@ -15,6 +15,14 @@ define('_MySBEXEC', 1);
 
 define('MySB_ROOTPATH', dirname(__FILE__));
 
+//Added for sql injections
+$url =  "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+$escaped_url = htmlspecialchars( $url, ENT_QUOTES, 'UTF-8' );
+if(preg_match("/SELECT/i", $escaped_url)) {
+    echo "--";
+    exit;
+}
+
 if(file_exists(MySB_ROOTPATH.'/install/install_helper.php')) {
   include MySB_ROOTPATH.'/install/install_helper.php';
   MySBInstallHelper::isConfigInit();
