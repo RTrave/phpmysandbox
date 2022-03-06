@@ -22,12 +22,21 @@ if( !isset($_GET['user_id']) )
 
 //$user = new MySBUser($_GET['user_id']);
 $user = $app->data['user'];
+if(!$user) {
+    echo '
+<script>
+hide("user'.$_GET['user_id'].'");
+desactiveOverlay();
+</script>';
+    return;
+}
 $groups = MySBGroupHelper::load();
 
 if( isset($_GET['user_delete']) and $_GET['user_delete']==1 ) {
     echo '
 <script>
 hide("user'.$_GET['user_id'].'");
+desactiveOverlay();
 </script>';
     return;
 }

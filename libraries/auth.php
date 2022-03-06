@@ -132,7 +132,7 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
      * Simple process to check password against MD5 login's one
      * @return  boolean              true if succes, false if not
      */
-    static public function checkPassword($password) {
+    public function checkPassword($password) {
         global $app;
         if(!isset($app->auth_user) or $app->auth_user==null)
             return false;

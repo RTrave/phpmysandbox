@@ -43,5 +43,6 @@ require (MySB_ROOTPATH.'/libraries/pluggables/menuitem.php');
 require (MySB_ROOTPATH.'/libraries/pluggables/header.php');
 require (MySB_ROOTPATH.'/libraries/pluggables/frontpage.php');
 require (MySB_ROOTPATH.'/libraries/pluggables/useroption.php');
+require (MySB_ROOTPATH.'/libraries/pluggables/pluginuser.php');
 
 ?>

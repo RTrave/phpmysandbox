@@ -55,13 +55,20 @@ if( isset($_POST['deluser_flag']) ) {
     if( isset($_POST['userdel_password']) and $_POST['userdel_password']!='' ) {
         if( !MySBUtil::strverif($_POST['userdel_password'],false) )
             $app->displayStopAlert(_G('SBGT_entry_badvaluessql'),3);
-        if( MySBPluginAuthLayer::checkPassword($_POST['userdel_password']) ) {
-            //$app->auth_user->resetPassword( MySBUtil::str2db($_POST['user_password']) );
-            MySBUserHelper::delete($app->auth_user->id);
-            $app->displayStopAlert(_G('SBGT_profile_userdeleted'),5,false);
-        } else {
-            $app->pushMessage(_G('SBGT_profile_passwordconfirm_nomatch'));
+        //if( MySBPluginAuthLayer::checkPassword($_POST['userdel_password']) ) {
+        $user_deleted = 0;
+        $pluginsAuthLayer = MySBPluginHelper::loadByType('AuthLayer');
+        foreach($pluginsAuthLayer as $plugin) {
+            if($plugin->checkPassword($_POST['userdel_password'])) {
+                MySBUserHelper::delete($app->auth_user->id);
+                $user_deleted++;
+            }
         }
+        if($user_deleted)
+            $app->displayStopAlert('('.$user_deleted.')'._G('SBGT_profile_userdeleted'),5,false);
+        else
+            $app->pushMessage(_G('SBGT_profile_passwordconfirm_nomatch'));
+
     } else {
         $app->pushMessage(_G('SBGT_profile_passwordconfirm_nomatch'));
     }

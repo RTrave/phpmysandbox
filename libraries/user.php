@@ -96,6 +96,10 @@ class MySBUser extends MySBObject {
     public function update($data_user=array()) {
         global $app;
         parent::__update('users', (array) ($data_user));
+        $pluginsUser = MySBPluginHelper::loadByType('User');
+        foreach($pluginsUser as $plugin) {
+            $plugin->post_userupdate($this);
+        }
     }
 
     /**
@@ -150,6 +154,10 @@ class MySBUser extends MySBObject {
         if($value==true) $ivalue = 1; else $ivalue = 0;
         $this->update( array( 'g'.MySBGroupHelper::getIDByName($group_name) => $ivalue ) );
         unset ($this->myrole);
+        $pluginsUser = MySBPluginHelper::loadByType('User');
+        foreach($pluginsUser as $plugin) {
+            $plugin->post_userchangegroup($this);
+        }
     }
 
    /**
@@ -163,6 +171,10 @@ class MySBUser extends MySBObject {
             $this->update( array( 'g'.$group[0]->id => $ivalue ) );
         }
         unset ($this->myrole);
+        $pluginsUser = MySBPluginHelper::loadByType('User');
+        foreach($pluginsUser as $plugin) {
+            $plugin->post_userchangegroup($this);
+        }
     }
 
     /**
@@ -264,7 +276,7 @@ class MySBUserHelper {
             "WHERE login='".$login."'",
             "MySBUserHelper::create($login)" );
         $data_checklogin = MySBDB::fetch_array($req_checklogin);
-        if($data_checklogin['login']!='') {
+        if(isset($data_checklogin['login']) and $data_checklogin['login']!='') {
             $app->ERR( 'MySBUserHelper::create(): login "'.$data_checklogin['login'].'" already exists !' );
             $new_user = null;
         } else {
@@ -301,6 +313,10 @@ class MySBUserHelper {
         if(!isset($app->cache_users)) $app->cache_users = array();
         $app->cache_users[$new_user->id] = $new_user;
 
+        $pluginsUser = MySBPluginHelper::loadByType('User');
+        foreach($pluginsUser as $plugin) {
+            $plugin->post_usercreate($new_user);
+        }
         return $new_user;
     }
 
@@ -315,10 +331,17 @@ class MySBUserHelper {
             $app->ERR("MySBUserHelper::delete(): user ID ".$id." not found.");
             return;
         }
+
+        $pluginsUser = MySBPluginHelper::loadByType('User');
+        foreach($pluginsUser as $plugin) {
+            $plugin->pre_userdelete($cuser);
+        }
         $app->LOG("MySBUserHelper::delete(): user with ID ".$id." deleted.");
+
         MySBDB::query("DELETE from ".MySB_DBPREFIX."users ".
             "WHERE id=".$id,
             "MySBUserHelper::delete($id)" );
+
     }
 
     /**
@@ -349,7 +372,7 @@ class MySBUserHelper {
 
     /**
      * Get user by mail
-     * @param   $login            Search user login
+     * @param   $mail            Search user mail
      * @return  MySBUser
      */
     public static function getByMail($mail) {
@@ -415,7 +438,7 @@ class MySBUserHelper {
         $users_whereclause = 'WHERE '.$users_whereclause;
 
         $req_bymail = MySBDB::query('SELECT * FROM '.MySB_DBPREFIX."users ".
-            $users_whereclause,
+            $users_whereclause." ORDER BY id",
             "MySBUserHelper::searchBy($pattern,$col)" );
         while( $data_bymail = MySBDB::fetch_array($req_bymail) ) {
             $userbymail = new MySBUser(-1,$data_bymail);
