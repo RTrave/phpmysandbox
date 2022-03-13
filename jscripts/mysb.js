@@ -484,3 +484,19 @@ function loadItem(iDiv,iRef) {
   setTimeout(function(){ iwrap.load(iRef+"&itemlay=1&iid="+iDiv); },520);
 }
 
+/**
+ * Load an item after an element by ID
+ */
+function loadItemAfter(iDiv,iRef) {
+  var iwrap = $("div#"+iDiv);
+  if(iwrap==null) return;
+  onSpin();
+  slide_hide(iDiv);
+  setTimeout(function(){ 
+    $.get(iRef+"&itemlay=1&iid="+iDiv, function(data, status){
+      iwrap.after(data);
+      //alert("Data: " + data + "\nStatus: " + status);
+    });
+  },520);
+}
+
