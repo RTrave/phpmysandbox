@@ -1,13 +1,19 @@
 <?php
-/***************************************************************************
+/**
+ * phpMySandBox - GitUpdate module
  *
- *   phpMySandBox - TRoman<abadcafe@free.fr> - 2012
- *   This program is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License as published by
- *   the Free Software Foundation; either version 2 of the License', or
- *   ('at your option) any later version.
+ * MVC handling library class and factory.
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License', or
+ * ('at your option) any later version. 
+ * (Roman Travé <roman.trave@abadcafe.org>, 2022)
  *
-***************************************************************************/
+ * @package    phpMySandBox\GUpd
+ * @license    http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author     Roman Travé <roman.trave@abadcafe.org>
+ */
 
 // No direct access.
 defined('_MySBEXEC') or die;
@@ -16,7 +22,7 @@ class MySBCore {
 
     public $version = 7;
     public $mysb_major_version = '0';
-    public $mysb_minor_version = '9g';
+    public $mysb_minor_version = '9e';
 
     public function init1() {
         global $app;

@@ -46,11 +46,12 @@ class MySBModule_gupd {
         global $app;
 
         MySBPluginHelper::create('admingupd_menutext','MenuItem',
-            array('Releases', "admin", 'Releases upgrades',''),
+            array('Upgrades', "admin", 'Releases upgrades',''),
             array(3,0,0,0),
             5,"admin",'gupd');
 
-        mkdir(MySB_GUPDFiles);
+        //mkdir(MySB_GUPDFiles);
+        MySBUtil::mkdir('gupd');
 
 /*
         $req = MySBDB::query('ALTER TABLE '.MySB_DBPREFIX.'dbmfblockrefs '.
@@ -90,6 +91,7 @@ class MySBModule_gupd {
     public function uninit() {
         global $app;
 
+        MySBUtil::delete('gupd');
         MySBPluginHelper::delete('admingupd_menutext','gupd');
 /*
         MySBRoleHelper::delete('dbmf_autosubs');

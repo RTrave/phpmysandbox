@@ -21,47 +21,49 @@ if(!MySBRoleHelper::checkAccess('admin')) return;
 
 
 $mysb_core = new MySBCore();
-$updater_core = new GUpdCore();
+$updater_core = new GUpdCore(true);
 
-if( isset($_GET["gupd_coreupdate"]) and
-    $_GET["gupd_coreupdate"]==1 ) {
-  $updater_core->update();
+if( isset($_GET["gupd_coremasterupdate"]) and
+    $_GET["gupd_coremasterupdate"]==1 ) {
+  //$updater_core->update(); PW check TODO
   echo '
 <script>
   loadItem(
     "gupd_updater",
-    "index.php?mod=gupd&inc=core&gupd_coreupdateok=1"
+    "index.php?mod=gupd&inc=coremaster&gupd_coremasterupdateok=1"
   );
 </script>';
   return;
 }
 
-if( isset($_GET["gupd_coreprepare"]) and
-    $_GET["gupd_coreprepare"]==1 ) {
+if( isset($_GET["gupd_coremasterprepare"]) and
+    $_GET["gupd_coremasterprepare"]==1 ) {
   if( !$updater_core->prepare()) {
     $app->displayStopAlert("Error during preparation.");
   }
-  $app->pushMessage('Zip of '.$updater_core->update_available().
-                    ' version<br>ready');
-  echo '
-<script>
-  loadItem("gupd_updater","index.php?mod=gupd&inc=core&gupd_coreprepareok=1");
-</script>';
-  return;
-}
-
-if( isset($_GET["gupd_coreupgrade"]) and
-    $_GET["gupd_coreupgrade"]==1 ) {
-  if( !$updater_core->upgrade()) {
-    $app->displayStopAlert("Error during upgrade.");
-  }
-  $app->pushMessage('Core components of PHPMySandBox<br>'.
-                    'updated on '.$updater_core->update_available().'.');
+  $app->pushMessage('Zip of HEAD master branch<br>ready');
   echo '
 <script>
   loadItem(
     "gupd_updater",
-    "index.php?mod=gupd&inc=core&gupd_coreupgradeok=1"
+    "index.php?mod=gupd&inc=coremaster&gupd_coremasterprepareok=1"
+  );
+</script>';
+  return;
+}
+
+if( isset($_GET["gupd_coremasterupgrade"]) and
+    $_GET["gupd_coremasterupgrade"]==1 ) {
+  if( !$updater_core->upgrade()) {
+    $app->displayStopAlert("Error during upgrade.");
+  }
+  $app->pushMessage('Core components of PHPMySandBox<br>'.
+                    'updated on master branch.');
+  echo '
+<script>
+  loadItem(
+    "gupd_updater",
+    "index.php?mod=gupd&inc=coremaster&gupd_coremasterupgradeok=1"
   );
 </script>';
   return;
@@ -71,7 +73,7 @@ if( isset($_GET["gupd_coreupgrade"]) and
 
 echo '
 <div class="content list">
-  <h2 class="bg-primary">Core update</h2>
+  <h2 class="bg-primary">Core update (master)</h2>
   <div class="row">
     <div class="col-3 btn-primary-light">
       <p>File:</p>
@@ -85,8 +87,7 @@ echo '
       <p>Actual version:</p>
     </div>
     <div class="col-9">
-      <p>rel'.$mysb_core->mysb_major_version.'.'.
-      $mysb_core->mysb_minor_version.'</p>
+      <p>'.$updater_core->actual_version().'</p>
     </div>
   </div>
   <div class="row">
@@ -99,29 +100,48 @@ echo '
         nl2br($updater_core->update_available_infos()).'
       </span></p>
     </div>
-  <a class="hidelayed col-2 t-center btn-secondary-light"
-     href="index.php?mod=gupd&amp;inc=core&amp;gupd_coreupdate=1"
-     title="Update Git API file">
-    <p>Update</p>
+  <a class="col-2 t-center btn-secondary-light"
+     href="https://github.com/RTrave/phpmysandbox/compare/'.$updater_core->actual_version().'...master"
+     title="Compare master with current version" target="gitcompare">
+    <p>Compare</p>
   </a>
   </div>';
+if( !isset($_GET["gupd_coremasterupdateok"]) and 
+    !isset($_GET["gupd_coremasterprepareok"]))
+  echo '
+<form action="index.php?mod=gupd&amp;inc=coremaster&amp;gupd_coremasterupdate=1"
+      method="post" class="hidelayed">
+  <div class="row label">
+    <label class="col-3 btn-primary-danger" for="unlockpw">
+      Password:
+    </label>
+    <div class="col-6">
+      <input type="password" name="pw" id="unlockpw"
+             value="">
+    </div>
+    <div class="col-3">
+      <input type="submit" class="btn-primary"
+             value="Unlock master upg">
+    </div>
+  </div>
+</form>';
 
-if(isset($_GET["gupd_coreupdateok"])and$_GET["gupd_coreupdateok"]==1) {
+if(isset($_GET["gupd_coremasterupdateok"])and$_GET["gupd_coremasterupdateok"]==1) {
   echo '
   <div class="row">
   <a class="hidelayed col-12 t-center btn-danger-light"
-     href="index.php?mod=gupd&amp;inc=core&amp;gupd_coreprepare=1"
+     href="index.php?mod=gupd&amp;inc=coremaster&amp;gupd_coremasterprepare=1"
      title="Prepare upgrade">
     <p>Prepare Core components</p>
   </a>
   </div>
 </div>';
 }
-if(isset($_GET["gupd_coreprepareok"])and$_GET["gupd_coreprepareok"]==1) {
+if(isset($_GET["gupd_coremasterprepareok"])and$_GET["gupd_coremasterprepareok"]==1) {
   echo '
   <div class="row">
-  <a class="hidelayed col-12 t-center btn-danger"
-     href="index.php?mod=gupd&amp;inc=core&amp;gupd_coreupgrade=1"
+  <a class="hidelayed col-12 t-center btn-danger-light"
+     href="index.php?mod=gupd&amp;inc=coremaster&amp;gupd_coremasterupgrade=1"
      title="Apply upgrade">
     <p>Upgrade Core components</p>
   </a>

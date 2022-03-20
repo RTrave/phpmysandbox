@@ -4,6 +4,7 @@ phpmailer.conf.php
 modules/*
 !modules/blank
 !modules/example
+!modules/gupd
 .htaccess
 log/*
 !log/index.html

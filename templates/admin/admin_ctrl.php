@@ -52,10 +52,15 @@ include(MySB_ROOTPATH.'/config.php');
 <div class="col-lg-9">
 
 <?php
-if( isset($_GET['module']) )
-  include( _pathT($_GET['page'].'_ctrl',$_GET['module']) );
-else
-  include( _pathT('admin/'.$_GET['page'].'_ctrl') );
+$ctrl_path = null;
+if( isset($_GET['module']) ) {
+  $ctrl_path = _pathT($_GET['page'].'_ctrl',$_GET['module']);
+}
+else {
+  $ctrl_path = _pathT('admin/'.$_GET['page'].'_ctrl');
+}
+if($ctrl_path)
+  include $ctrl_path;
 ?>
 
 </div>

@@ -21,48 +21,13 @@ global $app;
 
 if(!MySBRoleHelper::checkAccess('admin')) return;
 
-
-/*
-$urlforcast="https://api.github.com/repos/RTrave/phpmysandbox/releases";
-$opts = [
-        'http' => [
-                'method' => 'GET',
-                'header' => [
-                        'User-Agent: PHP'
-                ]
-        ]
-];
-$context = stream_context_create($opts);
-$content = file_get_contents($urlforcast, false, $context);
-
-//var_dump($content);
-
-
-//$json=file_get_contents($urlforcast);
-$data=json_decode($content,true);
-
-function dumpjson($name, $value, $i)
-{
-  echo $i.' '.$name.' => ';
-  if(is_array($value)) {
-    foreach($value as $name1 => $value1) {
-      echo '<br>'; 
-      dumpjson($name1, $value1, $i+1);
-    }
-  } else
-    echo $value.'<br>';
-}
-*/
-//$data1 = $data[0];
-/*
-foreach($data['list'] as $day => $value) { 
-  $desc = $value['weather'][0]['description'];
-  $max_temp = $value['temp']['max'];
-  $min_temp = $value['temp']['min'];
-  $pressure = $value['pressure'];
-}
-*/
-//var_dump($data);
+MySBUtil::mkdir('test');
+MySBUtil::mkdir('test/test');
+MySBUtil::delete('test/test1');
+MySBUtil::recurseCopy('libraries','files/test/libs','libs1');
+MySBUtil::rename('test/test','test1');
+MySBUtil::delete('test');
+MySBUtil::delete('test1');
 
 include(_pathT("admin","gupd"));
 

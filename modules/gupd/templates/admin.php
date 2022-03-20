@@ -19,13 +19,20 @@ defined('_MySBEXEC') or die;
 
 
 echo '
-<h1 class="bg-primary">Core update</h1>
+<h1 class="bg-primary">GitHub Updates</h1>
+<div id="gupd_updater">
 
 <div id="gupd_core">';
-
 include(_pathI('core_ctrl','gupd'));
-
 echo '
+</div>
+
+<div id="gupd_coremaster">';
+$master = true;
+include(_pathI('coremaster_ctrl','gupd'));
+echo '
+</div>
+
 </div>';
 
 ?>

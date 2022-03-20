@@ -28,6 +28,216 @@ defined('_MySBEXEC') or die;
 class MySBUtil {
 
     /**
+     * Create a folder in files/
+     * @param   string  $path      relative path to folder (in files/)
+	   * @return  string             relative path to folder (in ./)
+     */
+    public static function mkdir($folder) {
+        global $app;
+        $path = MySB_ROOTPATH.'/files/'.$folder;
+        if(file_exists($path)) {
+            if(is_dir($path)) {
+                $app->LOG("MySBUtil::mkdir(): folder yet exists \n".$path,'core');
+                return $path;
+            }
+            $app->ERR("MySBUtil::mkdir(): file yet exists \n".$path,'core');
+        }
+        if(!mkdir($path)) {
+            $app->ERR("MySBUtil::mkdir(): error creating \n".$path,'core');
+        }
+        $app->LOG("MySBUtil::mkdir(): folder created \n".$path,'core');
+        return 'files/'.$folder;
+    }
+
+    /**
+     * Delete a folder in files/
+     * @param   string  $folder      relative path to folder
+     * @param   string  $subdir      sub folder (default files/)
+	   * @return  bool                 true if deleted
+     */
+    public static function delete($folder,$subdir='files/') {
+        global $app;
+        $path = MySB_ROOTPATH.'/'.$subdir.$folder;
+        if (is_dir($path) === true) {
+            $files = new RecursiveIteratorIterator(
+                            new RecursiveDirectoryIterator($path), 
+                            RecursiveIteratorIterator::CHILD_FIRST);
+            foreach ($files as $file) {
+                if (in_array($file->getBasename(), array('.', '..')) !== true) {
+                    if ($file->isDir() === true) {
+                        rmdir($file->getPathName());
+                    }
+                    else if (($file->isFile() === true) || 
+                             ($file->isLink() === true)) {
+                        unlink($file->getPathname());
+                    }
+                }
+            }
+            //if(is_dir($path) === true) {
+            if(rmdir($path) == false) {
+                $app->ERR("MySBUtil::delete(): folder NOT deleted \n".$path,
+                          'core');
+                return false;
+            }
+            $app->LOG("MySBUtil::delete(): folder deleted \n".$path,'core');
+            return true;
+        }
+        else if ((is_file($path) === true) || (is_link($path) === true)) {
+            if(!unlink($path)) {
+                $app->ERR("MySBUtil::delete(): unable to delete \n".$path,
+                          'core');
+                return false;
+            }
+            $app->LOG("MySBUtil::delete(): file deleted \n".$path,'core');
+            return true;
+        }
+        $app->LOG("MySBUtil::delete(): file or folder dont exist \n".$path,
+                  'core');
+        return false;
+    }
+
+    /**
+     * Recursive copy from a folder to another
+     * @param   string  $sourceDir        relative path to folder
+     * @param   string  $destinationDir   relative path to folder
+     * @param   string  $childFolder        
+	   */
+    public static function recurseCopy(
+        string $sourceDir,
+        string $destinationDir,
+        string $childFolder = ''
+    ): void {
+        global $app;
+        //if (file_exists($sourceDirectory)!=true)
+        //    return;
+        $sourceDirectory = MySB_ROOTPATH.'/'.$sourceDir;
+        $destinationDirectory = MySB_ROOTPATH.'/'.$destinationDir;
+        $directory = opendir($sourceDirectory);
+        if (is_dir($destinationDirectory) === false) {
+            if(!mkdir($destinationDirectory)) {
+                $app->ERR("MySBUtil::recurseCopy(): cant create \n".
+                          $destinationDirectory,
+                          'core');
+            }
+        }
+        if ($childFolder !== '') {
+            if (is_dir("$destinationDirectory/$childFolder") === false) {
+                if(!mkdir("$destinationDirectory/$childFolder")) {
+                    $app->ERR("MySBUtil::recurseCopy(): cant create \n".
+                              "$destinationDirectory/$childFolder",
+                              'core');
+                }
+            }
+            while (($file = readdir($directory)) !== false) {
+                if ($file === '.' || $file === '..') {
+                    continue;
+                }
+
+                if (is_dir("$sourceDirectory/$file") === true) {
+                    MySBUtil::recurseCopy("$sourceDir/$file", 
+                                          "$destinationDir/$childFolder/$file");
+                } else {
+                    copy("$sourceDirectory/$file", 
+                         "$destinationDirectory/$childFolder/$file");
+                }
+            }
+            $app->LOG("MySBUtil::recurseCopy(): folder copy done \n".
+                      "$sourceDirectory to \n".
+                      "$destinationDirectory/$childFolder",
+                      'core');
+            closedir($directory);
+            return;
+        }
+        while (($file = readdir($directory)) !== false) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+
+            if (is_dir("$sourceDirectory/$file") === true) {
+                MySBUtil::recurseCopy("$sourceDir/$file", 
+                                      "$destinationDir/$file");
+            }
+            else {
+                copy("$sourceDirectory/$file", "$destinationDirectory/$file");
+            }
+        }
+        $app->LOG("MySBUtil::recurseCopy(): folder copy done \n".
+                  $sourceDirectory." to \n".
+                  $destinationDirectory,
+                  'core');
+        closedir($directory);
+    }
+
+
+    /**
+     * Move a folder/file 
+     * @param   string  $sourceDir        relative path to folder
+     * @param   string  $destinationDir   relative path to folder
+     * @param   string  $subdir           sub folder (default files/)
+     */
+    public static function rename(string $sourceDir,
+                                  string $destinationDir,
+                                  $subdir='files/') {
+        global $app;
+        $sourceDirectory = MySB_ROOTPATH.'/'.$subdir.$sourceDir;
+        $destinationDirectory = MySB_ROOTPATH.'/'.$subdir.$destinationDir;
+        //$path = MySB_ROOTPATH.'/'.$subdir.$folder;
+        if(!is_file($sourceDirectory) and !is_dir($sourceDirectory)) {
+            $app->ERR("MySBUtil::rename(): folder/file dont exists \n".
+                      $sourceDirectory,'core');
+        }
+        if(!rename($sourceDirectory,$destinationDirectory)) {
+            $app->ERR("MySBUtil::rename(): error renaming \n".
+                      $sourceDirectory,'core');
+        }
+        $app->LOG("MySBUtil::rename(): file/folder moved \n".
+                  $sourceDirectory." to \n".
+                  $destinationDirectory,
+                  'core');
+    }
+
+    /**
+     * Unzip an archive in a folder
+     * @param   string  $archive      absolute path to archive
+     * @param   string  $dest         absolute path to destination (in files/)
+     */
+    public static function unzip($archive,$dest) {
+        global $app;
+        $zip = new ZipArchive;
+        $res = $zip->open($archive);
+        if ($res === TRUE) {
+            $zip->extractTo(MySB_ROOTPATH.'/files/'.$dest);
+            $zip->close();
+        }
+    }
+
+    /**
+     * Download a file whit url
+     * @param   string  $archive      absolute path to archive
+     * @param   string  $dest         absolute path to destination (in files/)
+	   * @return  string                path file or null if failed
+     */
+    public static function geturl($archive, $dest) {
+        global $app;
+        $file_name = MySB_ROOTPATH.'/files/'.$dest.basename($archive);
+        $opts = [
+          'http' => [
+            'method' => 'GET',
+            'header' => [
+              'User-Agent: PHP'
+            ]
+          ]
+        ];
+        $context = stream_context_create($opts);
+        if (file_put_contents($file_name, file_get_contents($archive, false, $context)))
+        {
+            return $file_name;
+        }
+        return null;
+    }
+
+
+    /**
      * Verify string against injection
      * @param   string  $str        string to verify
      * @param   bool    $match_html verifiy string against HTML injection

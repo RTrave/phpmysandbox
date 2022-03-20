@@ -212,7 +212,7 @@ class MySBRender extends MySBLog {
         if(file_exists($l_file)) { return ($l_file); }
 
         if( $log==true ) {
-            $app->LOG("MySBRender::pathTemplate($name,$module): template not found");
+            $app->LOG("MySBRender::pathTemplate($name,$module): $l_file not found");
             $app->pushAlert("Fatal: template <i>$name</i> in module <i>$module</i> not found!");
         }
         return false;
