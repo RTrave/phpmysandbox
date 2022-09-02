@@ -34,7 +34,10 @@ $version = $appv->mysb_major_version.'.'.$appv->mysb_minor_version;
     <span>
       <a  href="https://github.com/RTrave/phpmysandbox"
           title="PhpMySandBox OpenSource Project on GitHub"
-          target="_blank">PhpMySandBox <?= $version ?></a>
+          target="_blank">PhpMySandBox <?= $version ?></a> by 
+      <a  href="https://github.com/RTrave"
+          title="Roman Trave on GitHub"
+          target="_blank">Roman Trave</a>
     </span>
     <span>
 <?php
