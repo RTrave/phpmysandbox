@@ -61,6 +61,11 @@ class MySBEditor {
               $versionl = explode('Version: ',$vlines[6]);  //Version 5.*
               if(isset($versionl[1]))
                 $this->tmce_version = $versionl[1];
+              else {
+                $versionl = explode('version ',$vlines[1]);  //Version 6.*
+                if(isset($versionl[1]))
+                  $this->tmce_version = $versionl[1];
+              }
             }
         }
         if( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js') )
@@ -119,10 +124,13 @@ tinymce.init({
     '.$langconf.'
     menubar: false,
     toolbar_items_size: "small",
-    plugins: ["link image code '.$jbimagescode.' '.$moxiecode.'"],
-    toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
+    plugins: "link image code '.$jbimagescode.' '.$moxiecode.'",
+    toolbar: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
     branding: false,
-    forced_root_block: false,
+    forced_root_block: "none",
+    promotion: false,
+    content_css : "default",
+    height: "300",
 });
 </script>';
         elseif($style=='normal')
@@ -132,17 +140,17 @@ tinymce.init({
     selector : "#'.$selector_id.'",
     '.$langconf.'
     toolbar_items_size: "small",
-    plugins: [
-        "autolink lists link image charmap print preview hr anchor pagebreak",
-        "searchreplace wordcount visualblocks visualchars code fullscreen",
-        "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor '.$jbimagescode.' '.$moxiecode.'"
-    ],
-    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-    toolbar2: "link image '.$jbimagescode.' | print preview media | forecolor backcolor code emoticons",
+    plugins:
+        "autolink lists link image charmap preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template '.$jbimagescode.' '.$moxiecode.'",
+    toolbar: [
+        "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+        "link image '.$jbimagescode.' | print preview media | forecolor backcolor code emoticons"
+             ],
     branding: false,
     height: "300",
-    forced_root_block: false,
+    forced_root_block: "none",
+    promotion: false,
+    content_css : "default",
 });
 </script>';
         elseif($style=='custom')
@@ -159,7 +167,10 @@ tinymce.init({
     toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
     toolbar2: "'.$toolbar2.'",
     branding: false,
-    forced_root_block: false,
+    forced_root_block: "none",
+    promotion: false,
+    content_css : "default",
+    height: "300",
 });
 </script>';
         $code .= '
