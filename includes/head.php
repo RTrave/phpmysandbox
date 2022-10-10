@@ -44,7 +44,7 @@ include(MySB_ROOTPATH.'/config.php');
 <?php } ?>
 
 <?php //if($app->display_data['refresh_seconds']!=0) echo '    <meta http-equiv="refresh" content="'.$refresh_time.'; URL=index.php">'; ?>
-    <script src="jscripts/jquery-1.12.4.min.js" type="text/javascript"></script>
+    <script src="jscripts/jquery-3.6.1.min.js" type="text/javascript"></script>
     <script src="jscripts/spin.min.js" type="text/javascript"></script>
     <script src="jscripts/mysb.js" type="text/javascript"></script>
 
