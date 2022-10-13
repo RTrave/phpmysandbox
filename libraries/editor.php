@@ -112,6 +112,10 @@ $(".mce-tooltip").remove();
             is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/langs/'.MySBLocales::getLanguage().'.js') )
             $langconf = 'language : "'.MySBLocales::getLanguage().'",
     ';
+        else if( MySBLocales::getLanguage()!='C' and
+            is_file(MySB_ROOTPATH.'/vendor/tweeb/tinymce-i18n/langs/'.MySBLocales::getLanguage().'.js') )
+            $langconf = 'language_url : "vendor/tweeb/tinymce-i18n/langs/'.MySBLocales::getLanguage().'.js",
+    language : "'.MySBLocales::getLanguage().'",';
         $code = '
 <!-- TinyMCE Init: '.$style.' -->
 ';

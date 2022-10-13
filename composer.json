@@ -6,7 +6,8 @@
         "phpmailer/phpmailer": "6.*",
         "tinymce/tinymce": "6.*",
         "mk-j/php_xlsxwriter": "^0.38.0",
-        "tecnickcom/tcpdf": "^6.4"
+        "tecnickcom/tcpdf": "^6.4",
+        "tweeb/tinymce-i18n": "^2.0"
     },
     "license": "GPL3",
     "authors": [
