@@ -65,7 +65,10 @@ class MySBEditor {
               $this->tmce_version = $versionl[1];
               $this->tmce_majversion = 4;
             } else {
-              $versionl = explode('Version: ',$vlines[6]);  //Version 5.*
+              if(isset($vlines[6]))
+                $versionl = explode('Version: ',$vlines[6]);  //Version 5.*
+              else
+                unset($versionl);
               if(isset($versionl[1])) {
                 $this->tmce_version = $versionl[1];
                 $this->tmce_majversion = 5;
