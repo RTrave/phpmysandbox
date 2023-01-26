@@ -108,6 +108,16 @@ class MySBDBLayer_pdo implements MySBIDBLayer {
     public $driver = '';
 
     /**
+     * @var    string           DataBase PdO object
+     */
+    public $db = NULL;
+
+    /**
+     * @var    string           PDOStatement object
+     */
+    public $query = NULL;
+
+    /**
      * @var    array            array containing errors
      */
     public $error = array();

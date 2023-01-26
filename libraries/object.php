@@ -26,6 +26,9 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Objects
  */
+
+#[\AllowDynamicProperties]
+
 abstract class MySBObject {
 
     /**

@@ -46,11 +46,18 @@ class MySBDateTime extends DateTime {
     protected $year_max = 2040;
 
     /**
+     * @var      DateFormatter          DateTime new formatter object
+     */
+    protected $fmt = null;
+
+
+    /**
      * Constructor
      * @param   string  $cs_string      SQL date string to initialize ('now')
      *                                  ('now' or 'NOW' for actual date)
      */
     public function __construct( $cs_string=null ) {
+        global $app;
         if($cs_string==null or $cs_string=='' or $cs_string=='0')
             $cs_string = '';
         if($cs_string=='now' or $cs_string=='NOW')
@@ -58,6 +65,13 @@ class MySBDateTime extends DateTime {
         parent::__construct($cs_string);
         if($cs_string!='') $this->date_string = $cs_string;
         else $this->date_string = '0000-00-00 00:00:00';
+        $this->fmt = new IntlDateFormatter($app->locales->t_locale,
+            IntlDateFormatter::FULL,
+            IntlDateFormatter::FULL
+            );
+        $this->fmt->setPattern("yyyy");
+        $refdate = $this->fmt->format(strtotime($this->date_string));
+        $this->setYearMaxMin(((int)$refdate)-20,((int)$refdate)+25);
     }
 
     /**
@@ -65,7 +79,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function html() {
-        return strftime("%A %e %B %Y &bull; %Hh%M",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("EEEE dd MMMM yyyy '&bull;' HH'h'mm");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('html: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -73,7 +91,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strEMY_s() {
-        return strftime("%e/%m/%Y",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("dd'/'MM'/'yyyy");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strEMY_s: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -81,7 +103,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strEBY_l() {
-        return strftime("%e %b %Y",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("dd MMM yyyy");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strEBY_l: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -89,7 +115,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strEBY_l_whm() {
-        return strftime("%e %b %Y - %Hh%M",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("dd MMM yyyy - HH'h'mm");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strEBY_l_whm: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -97,7 +127,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strAEBY() {
-        return strftime("%A %e %B %Y",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("EEEE dd MMMM yyyy");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strAEBY: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -105,7 +139,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strAEBY_l() {
-        return strftime("%a %e %b %Y",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("EEE dd MMM yyyy");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strAEBY_l: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -113,7 +151,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strAEBY_l_whm() {
-        return strftime("%a %e %b %Y - %Hh%M",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("EEE dd MMM yyyy - HH'h'mm");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('strAEBY_l_whm: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -121,7 +163,11 @@ class MySBDateTime extends DateTime {
      * @return   string                 output
      */
     public function strmark() {
-        return strftime("%Y%m%d-%H%M",strtotime($this->date_string));
+        global $app;
+        $this->fmt->setPattern("yyyyMMdd-HHmmss");
+        $resdate = $this->fmt->format(strtotime($this->date_string));
+        $app->LOG('STRMARK: '.$resdate);
+        return $resdate;
     }
 
     /**
@@ -130,8 +176,13 @@ class MySBDateTime extends DateTime {
      * @return  string                  output
      */
     public function str_get($format) {
-        if( $this->date_string!='' )
-            return strftime($format,strtotime($this->date_string));
+        global $app;
+        if( $this->date_string!='' ) {
+            $this->fmt->setPattern($format);
+            $resdate = $this->fmt->format(strtotime($this->date_string));
+            $app->LOG('STRGET: '.$this->fmt->format(strtotime($this->date_string)));
+            return $resdate;
+        }
         //else return strftime($format);
         return '0';
     }
@@ -154,11 +205,11 @@ class MySBDateTime extends DateTime {
      */
     public function html_form($prefix='mysbdt_', $nohours=false) {
         if($this->date_string != '0000-00-00 00:00:00') {
-            $cday = (int) $this->str_get('%e');
-            $cmonth = (int) $this->str_get('%m');
-            $cyear = (int) $this->str_get('%Y');
-            $chour = (int) $this->str_get('%H');
-            $cminute = (int) $this->str_get('%M');
+            $cday = (int) $this->str_get('dd');
+            $cmonth = (int) $this->str_get('MM');
+            $cyear = (int) $this->str_get('yyyy');
+            $chour = (int) $this->str_get('HH');
+            $cminute = (int) $this->str_get('mm');
         } else {
             $cday = '00';
             $cmonth = '00';
@@ -176,8 +227,9 @@ class MySBDateTime extends DateTime {
                 $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cday).'>'.$i.'</option>';
             $form .= "\n"."</select>\n".'<select name="'.$prefix.'month" title="month" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
             $form .= "\n".'<option value="00">--</option>';
+            $this->fmt->setPattern('MMM');
             for($i=1;$i<13;$i++)
-                $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cmonth).'>'.strftime("%b",strtotime('2000-'.$i.'-01')).'</option>';
+                $form .= '<option value="'.$i.'" '.MySBUtil::form_isselected($i,$cmonth).'>'.$this->fmt->format(strtotime('2000-'.$i.'-01')).'</option>';
             $form .= "\n"."</select>\n".'<select name="'.$prefix.'year" title="year" class="w-auto" style="text-align: right; padding: .25rem;">'."\n    ";
             $form .= "\n".'<option value="0000">--</option>';
             for($i=$this->year_min;$i<=$this->year_max;$i++)

@@ -129,7 +129,7 @@ class MySBPluginHelper {
      * @param   string  $module         module handling plugin
      * @param   string  $childclass     plugin sub class referenced (obsolete)
      */
-    public static function create($name,$type,$value=array(),$ivalue=array(),$priority,$role,$module,$childclass='') {
+    public static function create($name,$type,array $value,array $ivalue,$priority,$role,$module,$childclass='') {
         global $app;
 
         if( !isset($app->cache_plugins) or count($app->cache_plugins)==0)
@@ -288,3 +288,4 @@ class MySBPluginHelper {
 }
 
 ?>
+

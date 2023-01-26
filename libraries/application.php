@@ -27,6 +27,9 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Core
  */
+
+#[\AllowDynamicProperties]
+
 class MySBApplication extends MySBRender {
 
     /**
@@ -40,6 +43,16 @@ class MySBApplication extends MySBRender {
     public $dbcache = null;
 
     /**
+     * @var     array       SQL Queries cache (cache.php)
+     */
+    public $sql_queriesall = null;
+
+    /**
+     * @var     array       Mask queries to cache (cache.php)
+     */
+    public $querymask = null;
+
+    /**
      * @var     MySBUser        Réference to the authentified user
      */
     public $auth_user = null;
@@ -48,6 +61,11 @@ class MySBApplication extends MySBRender {
      * @var         integer           Skip __init.php stages merged.
      */
     public $init_skip = 0;
+
+    /**
+     * @var         array           PHP Session values
+     */
+    public $SESSION = NULL;
 
 
     /**
