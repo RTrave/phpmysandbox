@@ -1628,7 +1628,7 @@ div.modalBodyFoot {
 }
 
 
-.tooltip span
+.tooltip span.tooltip-msg
 {
   display:block;
   position:absolute;
@@ -1642,18 +1642,18 @@ div.modalBodyFoot {
   padding: 0;
   width:320px;
 }
-.tooltip span.left
+.tooltip span.tooltip-msg.left
 {
   right: 0px;
 }
 
-.tooltip span img
+.tooltip span.tooltip-msg img
 {
   float:left;
   margin:0px 8px 8px 0;
 }
 
-.tooltip span {
+.tooltip span.tooltip-msg {
   box-shadow: none;
   max-height: 0px;
   max-width: 0px;
@@ -1675,7 +1675,7 @@ div.modalBodyFoot {
     padding 0s ease 0.4s;
 }
 
-.tooltip:hover span {
+.tooltip:hover span.tooltip-msg {
   box-shadow: 0 0 .2rem .2rem rgba(50,50,50,.4);
   max-height: 500px;
   max-width: 500px;

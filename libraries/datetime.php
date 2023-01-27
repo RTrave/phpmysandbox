@@ -82,7 +82,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("EEEE dd MMMM yyyy '&bull;' HH'h'mm");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('html: '.$resdate);
+        //$app->LOG('html: '.$resdate);
         return $resdate;
     }
 
@@ -94,7 +94,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("dd'/'MM'/'yyyy");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strEMY_s: '.$resdate);
+        //$app->LOG('strEMY_s: '.$resdate);
         return $resdate;
     }
 
@@ -106,7 +106,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("dd MMM yyyy");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strEBY_l: '.$resdate);
+        //$app->LOG('strEBY_l: '.$resdate);
         return $resdate;
     }
 
@@ -118,7 +118,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("dd MMM yyyy - HH'h'mm");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strEBY_l_whm: '.$resdate);
+        //$app->LOG('strEBY_l_whm: '.$resdate);
         return $resdate;
     }
 
@@ -130,7 +130,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("EEEE dd MMMM yyyy");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strAEBY: '.$resdate);
+        //$app->LOG('strAEBY: '.$resdate);
         return $resdate;
     }
 
@@ -142,7 +142,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("EEE dd MMM yyyy");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strAEBY_l: '.$resdate);
+        //$app->LOG('strAEBY_l: '.$resdate);
         return $resdate;
     }
 
@@ -154,7 +154,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("EEE dd MMM yyyy - HH'h'mm");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('strAEBY_l_whm: '.$resdate);
+        //$app->LOG('strAEBY_l_whm: '.$resdate);
         return $resdate;
     }
 
@@ -166,7 +166,7 @@ class MySBDateTime extends DateTime {
         global $app;
         $this->fmt->setPattern("yyyyMMdd-HHmmss");
         $resdate = $this->fmt->format(strtotime($this->date_string));
-        $app->LOG('STRMARK: '.$resdate);
+        //$app->LOG('STRMARK: '.$resdate);
         return $resdate;
     }
 
@@ -180,7 +180,7 @@ class MySBDateTime extends DateTime {
         if( $this->date_string!='' ) {
             $this->fmt->setPattern($format);
             $resdate = $this->fmt->format(strtotime($this->date_string));
-            $app->LOG('STRGET: '.$this->fmt->format(strtotime($this->date_string)));
+            //$app->LOG('STRGET: '.$this->fmt->format(strtotime($this->date_string)));
             return $resdate;
         }
         //else return strftime($format);
