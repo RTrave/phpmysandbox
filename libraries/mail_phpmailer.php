@@ -99,9 +99,14 @@ class MySBMailPHPMailer implements MySBIMail {
 	public $mail = null;
 
     /**
-	 * @var     PHPMailer       mail have a TO recipient
+	 * @var     bool       mail have a TO recipient
 	 */
 	public $to_flag = false;
+
+    /**
+	 * @var     bool       Debug value for PHPMailer implementation
+	 */
+	public $SMTPDebug = false;
 
 
     /**
