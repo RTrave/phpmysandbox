@@ -85,9 +85,9 @@ class MySBGroupHelper {
 
     /**
      * Create new group
-     * @param   $name           Group name
-     * @param   $comments       Group explicit comment
-     * @param   $is_default     Are users assigned in group by default ?
+     * @param   $name           string  Group name
+     * @param   $comments       string  Group explicit comment
+     * @param   $is_default     bool    Are users assigned in group by default ?
      * @return  MySBGroup
      */
     public static function create($name,$comments,$is_default=false) {
@@ -103,10 +103,12 @@ class MySBGroupHelper {
             $gdata = array(
                 'id' => MySBDB::lastID('groups')+1,
                 'name' => $name, 'comments' => $comments );
+            /*
             $req_newgroup = MySBDB::query("INSERT INTO ".MySB_DBPREFIX."groups ".
                 "(id) VALUES ".
                 "(".$gdata['id'].")",
                 "MySBGroupHelper::create($name)", false );
+            */
             $new_group = new MySBGroup(-1,$gdata);
             $new_group->update($gdata);
 
@@ -135,7 +137,7 @@ class MySBGroupHelper {
 
     /**
      * Delete a group
-     * @param   $name               Group name to delete, or self group
+     * @param   $name               string  Group name to delete, or self group
      */
     public static function delete($name='') {
         global $app;
@@ -191,7 +193,7 @@ class MySBGroupHelper {
 
     /**
      * Get group id by name
-     * @param   interger    $id        Group Id
+     * @param   integer    $id        Group Id
      * @return  array           array of MySBGroup
      */
     public static function getByID($id) {

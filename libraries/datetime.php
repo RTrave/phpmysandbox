@@ -21,7 +21,6 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-
 /**
  * MySBDateTime class
  *
@@ -46,7 +45,7 @@ class MySBDateTime extends DateTime {
     protected $year_max = 2040;
 
     /**
-     * @var      DateFormatter          DateTime new formatter object
+     * @var      IntlDateFormatter          DateTime new formatter object
      */
     protected $fmt = null;
 

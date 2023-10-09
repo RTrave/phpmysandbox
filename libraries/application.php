@@ -33,12 +33,12 @@ defined('_MySBEXEC') or die;
 class MySBApplication extends MySBRender {
 
     /**
-     * @var     MySBDBLayer     MySBDB object (db.php)
+     * @var     MySBIDBLayer     MySBDB object (db.php)
      */
     public $dblayer = null;
 
     /**
-     * @var     MySBCache       MySBCache object (cache.php)
+     * @var     MySBDBCache       MySBCache object (cache.php)
      */
     public $dbcache = null;
 

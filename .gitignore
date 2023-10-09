@@ -9,3 +9,5 @@ log/*
 !log/index.html
 custom/*
 jscripts/tinymce
+vendor/*
+tmp/*

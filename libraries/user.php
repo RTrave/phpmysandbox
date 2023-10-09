@@ -235,7 +235,7 @@ class MySBUser extends MySBObject {
 
     /**
      * Get user by login
-     * @param   $login            Search user login
+     * @param   $login            string    Search user login
      * @return  MySBUser
      */
     public function checkMailattempt() {
@@ -322,7 +322,7 @@ class MySBUserHelper {
 
     /**
      * Delete user
-     * @param   $id         user id to delete, self if null
+     * @param   $id      MySBUser   user id to delete, self if null
      */
     public static function delete($id=null) {
         global $app;
@@ -346,7 +346,7 @@ class MySBUserHelper {
 
     /**
      * Get user by login
-     * @param   $login            Search user login
+     * @param   $login           string Search user login
      * @return  MySBUser
      */
     public static function getByLogin($login) {
@@ -372,7 +372,7 @@ class MySBUserHelper {
 
     /**
      * Get user by mail
-     * @param   $mail            Search user mail
+     * @param   $mail           string  Search user mail
      * @return  MySBUser
      */
     public static function getByMail($mail) {

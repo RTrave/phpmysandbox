@@ -91,7 +91,7 @@ class MySBDB {
 
     /**
      * DB Layer constructor.
-     * @return      MySBDBLayer     réference to DB connection
+     * @return      MySBIDBLayer     réference to DB connection
      */
     public static function connect() {
         global $app;
@@ -132,7 +132,7 @@ class MySBDB {
 
     /**
      * Get the last ID of a table (-1 if empty)
-     * @param   $table      symbolic name of the table
+     * @param   $table      array  symbolic name of the table
 	 * @return  integer
      */
     public static function lastID($table) {
@@ -147,7 +147,7 @@ class MySBDB {
 
     /**
      * Get the first free ID of a table
-     * @param   $table      symbolic name of the table
+     * @param   $table      array symbolic name of the table
 	 * @return  integer
      */
     public static function firstID($table) {

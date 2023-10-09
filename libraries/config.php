@@ -155,7 +155,7 @@ class MySBConfigHelper {
 
     /**
      * Load config values from specific group in array to return
-     * @param   $grp            Group of config
+     * @param   $grp           MySBGroup Group of config
      * @return  array
      */
     public static function loadByGrp($grp) {

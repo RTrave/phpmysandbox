@@ -31,7 +31,7 @@ class MySBPluginUser extends MySBPlugin {
 
     /**
      * Callback after user creation
-     * @param   DBMFUser  $user     user created
+     * @param   MySBUser  $user     user created
      */
     public function post_usercreate($user) {
         global $app;
@@ -42,7 +42,7 @@ class MySBPluginUser extends MySBPlugin {
 
     /**
      * Callback before user deletion
-     * @param   DBMFUser  $user     user deleted
+     * @param   MySBUser  $user     user deleted
      */
     public function pre_userdelete($user) {
         global $app;
@@ -53,7 +53,7 @@ class MySBPluginUser extends MySBPlugin {
 
     /**
      * Callback after user update
-     * @param   DBMFUser  $user     user updated
+     * @param   MySBUser  $user     user updated
      */
     public function post_userupdate($user) {
         global $app;
@@ -64,7 +64,7 @@ class MySBPluginUser extends MySBPlugin {
 
     /**
      * Callback after user change in group group
-     * @param   DBMFUser  $user     user updated
+     * @param   MySBUser  $user     user updated
      */
     public function post_userchangegroup($user) {
         global $app;
