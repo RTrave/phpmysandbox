@@ -96,19 +96,17 @@ class MySBGroupHelper {
             "WHERE name='".$name."'",
             "MySBGroupHelper::create($name)" );
         $data_checkname = MySBDB::fetch_array($req_checkname);
-        if($data_checkname['name']!='') {
+        if(isset($data_checkname['name'])) {
             $app->LOG( 'MySBGroupHelper::create(): name "'.$data_checkname['name'].'" already exists !' );
             $new_group = new MySBGroup(-1, $data_checkname);
         } else {
             $gdata = array(
                 'id' => MySBDB::lastID('groups')+1,
                 'name' => $name, 'comments' => $comments );
-            /*
             $req_newgroup = MySBDB::query("INSERT INTO ".MySB_DBPREFIX."groups ".
                 "(id) VALUES ".
                 "(".$gdata['id'].")",
                 "MySBGroupHelper::create($name)", false );
-            */
             $new_group = new MySBGroup(-1,$gdata);
             $new_group->update($gdata);
 
