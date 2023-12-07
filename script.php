@@ -9,6 +9,11 @@
  *
 ***************************************************************************/
 
+/*
+ * USAGE:
+ * php ./script.php tpl=ximport spw=lessix (load ./templates/ximport_ctrl.php)
+ * php ./script.php mod=mymod tpl=ximport spw=lessix (load ./modules/mymod/templates/ximport_ctrl.php)
+ */
 // Set flag that this is a parent file.
 define('_MySBEXEC', 1);
 define('_MySBSCRIPT', 1);
@@ -45,7 +50,6 @@ $app->authenticate();
 
 $app->scriptCheck();
 $app->auth_user = MySBUserHelper::getByID(1);
-
 if( isset($_GET['tpl']) ) {
   $app->ctrl_route();
 } else {

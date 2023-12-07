@@ -73,7 +73,8 @@ class MySBApplication extends MySBRender {
      */
     public function __construct() {
         parent::__construct();
-        session_start();
+        if($_SERVER['REMOTE_ADDR'] != 'script')
+            session_start();
         $this->dblayer = MySBDB::connect();
         $this->dbcache = new MySBDBCache($this);
     }

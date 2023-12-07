@@ -312,17 +312,21 @@ hideMessageTip();
     public function ctrl_route() {
         
         if( !empty($_GET['tpl']) ) {
+            if(!isset($_GET['mod']))
+                $_GET['mod'] = '';
             if( ( $file = $this->pathTemplate(  $_GET['tpl'].'_ctrl',
                                                 $_GET['mod'],
                                                 $this->debug ) ) != false) {
                 ob_start();
                 include($file);
+                //echo $file."\n";
                 $content = ob_get_clean();
                 echo $this->view_render($this->msgWrite().$content.$this->layerWrite());
                 return true;
-            } else
+            } else {
+                echo $file."\n";
                 return false;
-
+            }
         } elseif( !empty($_GET['inc']) ) {
             if( !($file = $this->pathInclude(   $_GET['inc'].'_ctrl',
                                                 $_GET['mod'],
