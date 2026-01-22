@@ -11,3 +11,10 @@ custom/*
 jscripts/tinymce
 vendor/*
 tmp/*
+1ereNL/*
+images/*.*
+images/dcom/*
+tags.*
+phpmailer.*
+composer.phar
+composer.lock
