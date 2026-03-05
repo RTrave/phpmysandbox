@@ -3,11 +3,11 @@
     "description": "PHPMySandBox, simple PHP DataBase framework",
     "type": "project",
     "require": {
-        "phpmailer/phpmailer": "6.*",
-        "tinymce/tinymce": "6.*",
-        "mk-j/php_xlsxwriter": "^0.38.0",
+        "phpmailer/phpmailer": "7.*",
+        "tinymce/tinymce": "8.*",
+        "mk-j/php_xlsxwriter": "^0.39.0",
         "tecnickcom/tcpdf": "^6.4",
-        "tweeb/tinymce-i18n": "^2.0"
+        "mklkj/tinymce-i18n": "26.*"
     },
     "license": "GPL3",
     "authors": [
