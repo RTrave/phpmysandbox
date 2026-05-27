@@ -26,7 +26,8 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Utils
  */
-class MySBEditor {
+class MySBEditor
+{
 
     /**
      * @var     boolean     Is TinyMCE present ?
@@ -56,37 +57,38 @@ class MySBEditor {
     /**
      * Internal constructor
      */
-    public function __construct() {
-        if(is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js')) {
+    public function __construct()
+    {
+        if (is_file(MySB_ROOTPATH . '/vendor/tinymce/tinymce/tinymce.min.js')) {
             $this->tmce_present = true;
-            $vlines = file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/tinymce.min.js');
-            $versionl = explode('// ',$vlines[0]);  //Version 4.*
-            if(isset($versionl[1])) {
-              $this->tmce_version = $versionl[1];
-              $this->tmce_majversion = 4;
-            } else {
-              if(isset($vlines[6]))
-                $versionl = explode('Version: ',$vlines[6]);  //Version 5.*
-              else
-                unset($versionl);
-              if(isset($versionl[1])) {
+            $vlines = file(MySB_ROOTPATH . '/vendor/tinymce/tinymce/tinymce.min.js');
+            $versionl = explode('// ', $vlines[0]);  //Version 4.*
+            if (isset($versionl[1])) {
                 $this->tmce_version = $versionl[1];
-                $this->tmce_majversion = 5;
-              } else {
-                $versionl = explode('version ',$vlines[1]);  //Version 6.*
-                if(isset($versionl[1])) {
-                  $this->tmce_version = $versionl[1];
-                  $this->tmce_majversion = 6;
+                $this->tmce_majversion = 4;
+            } else {
+                if (isset($vlines[6]))
+                    $versionl = explode('Version: ', $vlines[6]);  //Version 5.*
+                else
+                    unset($versionl);
+                if (isset($versionl[1])) {
+                    $this->tmce_version = $versionl[1];
+                    $this->tmce_majversion = 5;
+                } else {
+                    $versionl = explode('version ', $vlines[1]);  //Version 6.*
+                    if (isset($versionl[1])) {
+                        $this->tmce_version = $versionl[1];
+                        $this->tmce_majversion = 6;
+                    }
                 }
-              }
             }
         }
-        if( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js') )
+        if (is_file(MySB_ROOTPATH . '/vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js'))
             $this->tmce_moxie = true;
-        elseif( is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/plugins/jbimages/plugin.min.js') )
+        elseif (is_file(MySB_ROOTPATH . '/vendor/tinymce/tinymce/plugins/jbimages/plugin.min.js'))
             $this->tmce_jbimages = true;
 
-        echo '<script type="text/javascript" src="vendor/tinymce/tinymce/tinymce.min.js"></script>';
+        echo '<script type="text/javascript" src="vendor/tinymce/tinymce/tinymce.min.js" referrerpolicy="origin"></script>';
 
         // TODO: keep this until closing overlay remove all TinyMCE added code
         echo '
@@ -105,199 +107,213 @@ $(".mce-tooltip").remove();
      * @param   string  $plugins    plugins ('autolink lists link image charmap print preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table contextmenu directionality emoticons template paste textcolor')
      * @param   string  $toolbar1   toolbar1 ('insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image')
      * @param   string  $toolbar2   toolbar2 ('print preview media | forecolor backcolor code emoticons')
-     * @return  string              return HTML code for Editor inclusion
+     * @return  string|null         return HTML code for Editor inclusion
      */
-    public function init($selector_id, $style='normal',$menubar='true',$plugins='',$toolbar1='',$toolbar2='') {
+    public function init($selector_id, $style = 'normal', $menubar = 'true', $plugins = '', $toolbar1 = '', $toolbar2 = '')
+    {
         global $app;
-        if( $this->tmce_present!=true ) return;
+        if ($this->tmce_present != true)
+            return;
         $langconf = '';
-        if( MySBLocales::getLanguage()!='C' and
-            is_file(MySB_ROOTPATH.'/vendor/tinymce/tinymce/langs/'.MySBLocales::getLanguage().'.js') )
-            $langconf = 'language : "'.MySBLocales::getLanguage().'",
+        if (
+            MySBLocales::getLanguage() != 'C' and
+            is_file(MySB_ROOTPATH . '/vendor/tinymce/tinymce/langs/' . MySBLocales::getLanguage() . '.js')
+        )
+            $langconf = 'language : "' . MySBLocales::getLanguage() . '",
     ';
-        else if( MySBLocales::getLanguage()!='C' and
-            is_file(MySB_ROOTPATH.'/vendor/tweeb/tinymce-i18n/langs/'.MySBLocales::getLanguage().'.js') )
-            $langconf = 'language_url : "vendor/tweeb/tinymce-i18n/langs/'.MySBLocales::getLanguage().'.js",
-    language : "'.MySBLocales::getLanguage().'",';
+        else if (
+            MySBLocales::getLanguage() != 'C' and
+            is_file(MySB_ROOTPATH . '/vendor/tweeb/tinymce-i18n/langs/' . MySBLocales::getLanguage() . '.js')
+        )
+            $langconf = 'language_url : "vendor/tweeb/tinymce-i18n/langs/' . MySBLocales::getLanguage() . '.js",
+    language : "' . MySBLocales::getLanguage() . '",';
         $code = '
-<!-- TinyMCE Init: '.$style.' -->
+<!-- TinyMCE Init: ' . $style . ' -->
 ';
         $jbimagescode = '';
-        if( $this->tmce_jbimages ) {
+        if ($this->tmce_jbimages) {
             $jbimagescode = 'jbimages';
         }
         $moxiecode = '';
-        if( $this->tmce_moxie ) {
+        if ($this->tmce_moxie) {
             $code .= '
 <script type="text/javascript" src="vendor/tinymce/tinymce/plugins/moxiemanager/plugin.min.js"></script>';
             $moxiecode = 'moxiemanager';
         }
 
-        if($this->tmce_majversion==6) {
-          if($style=='simple')
-            $code .= '
+        if ($this->tmce_majversion == 6) {
+            if ($style == 'simple')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     menubar: false,
     toolbar_items_size: "small",
-    plugins: "link image code '.$jbimagescode.' '.$moxiecode.'",
-    toolbar: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
+    plugins: "link image code ' . $jbimagescode . ' ' . $moxiecode . '",
+    toolbar: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image ' . $jbimagescode . '",
     branding: false,
     forced_root_block: "div",
     promotion: false,
+    license_key: "gpl",
     content_css : "default",
     height: "300",
     skin1: "oxide-dark"
 });
 </script>';
-          elseif($style=='normal')
-            $code .= '
+            elseif ($style == 'normal')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     toolbar_items_size: "small",
     plugins:
-        "autolink lists link image charmap preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template '.$jbimagescode.' '.$moxiecode.'",
+        "autolink lists link image charmap preview hr anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template ' . $jbimagescode . ' ' . $moxiecode . '",
     toolbar: [
         "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-        "link image '.$jbimagescode.' | print preview media | forecolor backcolor code emoticons"
+        "link image ' . $jbimagescode . ' | print preview media | forecolor backcolor code emoticons"
              ],
     branding: false,
     height: "300",
     forced_root_block: "div",
     promotion: false,
+    license_key: "gpl",
     content_css : "default",
 });
 </script>';
-          elseif($style=='custom')
-            $code .= '
+            elseif ($style == 'custom')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
-    menubar: '.$menubar.',
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
+    menubar: ' . $menubar . ',
     toolbar_items_size: "small",
     plugins: [
-        "'.$plugins.' '.$jbimagescode.' '.$moxiecode.'"
+        "' . $plugins . ' ' . $jbimagescode . ' ' . $moxiecode . '"
     ],
-    toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
-    toolbar2: "'.$toolbar2.'",
+    toolbar1: "' . $toolbar1 . ' ' . $jbimagescode . '",
+    toolbar2: "' . $toolbar2 . '",
     branding: false,
     forced_root_block: "div",
     promotion: false,
+    license_key: "gpl",
     content_css : "default",
     height: "300",
 });
 </script>';
-        }
-        else if($this->tmce_majversion==5) {
-          if($style=='simple')
-            $code .= '
+        } else if ($this->tmce_majversion == 5) {
+            if ($style == 'simple')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     menubar: false,
     toolbar_items_size: "small",
-    plugins: ["link image code '.$jbimagescode.' '.$moxiecode.'"],
-    toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
+    plugins: ["link image code ' . $jbimagescode . ' ' . $moxiecode . '"],
+    toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image ' . $jbimagescode . '",
     branding: false,
+    license_key: "gpl",
     forced_root_block: false,
 });
 </script>';
-          elseif($style=='normal')
-            $code .= '
+            elseif ($style == 'normal')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     toolbar_items_size: "small",
     plugins: [
         "autolink lists link image charmap print preview hr anchor pagebreak",
         "searchreplace wordcount visualblocks visualchars code fullscreen",
         "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor '.$jbimagescode.' '.$moxiecode.'"
+        "emoticons template paste textcolor ' . $jbimagescode . ' ' . $moxiecode . '"
     ],
     toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
-    toolbar2: "link image '.$jbimagescode.' | print preview media | forecolor backcolor code emoticons",
+    toolbar2: "link image ' . $jbimagescode . ' | print preview media | forecolor backcolor code emoticons",
     branding: false,
+    license_key: "gpl",
     height: "300",
     forced_root_block: false,
 });
 </script>';
-          elseif($style=='custom')
-            $code .= '
+            elseif ($style == 'custom')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
-    menubar: '.$menubar.',
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
+    menubar: ' . $menubar . ',
     toolbar_items_size: "small",
     plugins: [
-        "'.$plugins.' '.$jbimagescode.' '.$moxiecode.'"
+        "' . $plugins . ' ' . $jbimagescode . ' ' . $moxiecode . '"
     ],
-    toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
-    toolbar2: "'.$toolbar2.'",
+    toolbar1: "' . $toolbar1 . ' ' . $jbimagescode . '",
+    toolbar2: "' . $toolbar2 . '",
     branding: false,
+    license_key: "gpl",
     forced_root_block: false,
 });
 </script>';
-        }
-        else if($this->tmce_majversion==4) {
-          if($style=='simple')
-            $code .= '
+        } else if ($this->tmce_majversion == 4) {
+            if ($style == 'simple')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     menubar: false,
     toolbar_items_size: "small",
-    plugins: ["link image textcolor code '.$jbimagescode.' '.$moxiecode.'"],
-    toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image '.$jbimagescode.'",
+    plugins: ["link image textcolor code ' . $jbimagescode . ' ' . $moxiecode . '"],
+    toolbar1: "bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist | code link image ' . $jbimagescode . '",
     branding: false,
+    license_key: "gpl",
     forced_root_block: false
 });
 
 </script>';
-          elseif($style=='normal')
-            $code .= '
+            elseif ($style == 'normal')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
     toolbar_items_size: "small",
     plugins: [
         "autolink lists link image charmap print preview hr anchor pagebreak",
         "searchreplace wordcount visualblocks visualchars code fullscreen",
         "insertdatetime media nonbreaking save table contextmenu directionality",
-        "emoticons template paste textcolor '.$jbimagescode.' '.$moxiecode.'"
+        "emoticons template paste textcolor ' . $jbimagescode . ' ' . $moxiecode . '"
     ],
-    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image '.$jbimagescode.'",
+    toolbar1: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image ' . $jbimagescode . '",
     toolbar2: "print preview media | forecolor backcolor code emoticons",
     branding: false,
+    license_key: "gpl",
     forced_root_block: false
 });
 </script>';
-          elseif($style=='custom')
-            $code .= '
+            elseif ($style == 'custom')
+                $code .= '
 <script type="text/javascript">
 tinymce.init({
-    selector : "#'.$selector_id.'",
-    '.$langconf.'
-    menubar: '.$menubar.',
+    selector : "#' . $selector_id . '",
+    ' . $langconf . '
+    menubar: ' . $menubar . ',
     toolbar_items_size: "small",
     plugins: [
-        "'.$plugins.' '.$jbimagescode.' '.$moxiecode.'"
+        "' . $plugins . ' ' . $jbimagescode . ' ' . $moxiecode . '"
     ],
-    toolbar1: "'.$toolbar1.' '.$jbimagescode.'",
-    toolbar2: "'.$toolbar2.'",
+    toolbar1: "' . $toolbar1 . ' ' . $jbimagescode . '",
+    toolbar2: "' . $toolbar2 . '",
     branding: false,
+    license_key: "gpl",
     forced_root_block: false
 });
-</script>';        }
+</script>';
+        }
 
         $code .= '
 <!-- /TinyMCE Init -->
@@ -310,16 +326,18 @@ tinymce.init({
      * @param   string  $area_id        Id of the area to handle
      * @return  string                  return HTML code for Editor inclusion
      */
-    public function active($area_id='Editor') { //DEPRECATED ?
+    public function active($area_id = 'Editor')
+    { //DEPRECATED ?
         global $app;
         return '';  // TODO: keep this until inline mode is implemented
-        if( $this->tmce_present!=true ) return;
+        if ($this->tmce_present != true)
+            return;
         $code = '
 <!-- TinyMCE Active -->
 ';
         $code .= '
 <script type="text/javascript">
-tinymce.execCommand("mceAddEditor", false, "'.$area_id.'");
+tinymce.execCommand("mceAddEditor", false, "' . $area_id . '");
 </script>';
         $code .= '
 <!-- /TinyMCE Active -->
