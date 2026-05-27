@@ -39,7 +39,8 @@ define('MYSB_VALUE_TYPE_PASSWORD', 12);
  * @package    phpMySandBox
  * @subpackage Libraries\Objects
  */
-class MySBValue extends MySBObject {
+class MySBValue extends MySBObject
+{
 
     /**
      * Value type
@@ -69,7 +70,8 @@ class MySBValue extends MySBObject {
      * Value object constructor.
      * @param   array   $data_value        Array of values to set
      */
-    public function __construct($data_value=array()) {
+    public function __construct($data_value = array())
+    {
         global $app;
         parent::__construct((array) ($data_value));
     }
@@ -81,7 +83,8 @@ class MySBValue extends MySBObject {
      * @param     integer   $id         id of the object
      * @param     string    $prefix     Prefix of the DB
      */
-    public function __update($table,$data_value=array(),$id=null,$prefix='') {
+    public function __update($table, $data_value = array(), $id = null, $prefix = '')
+    {
         parent::__update($table, (array) ($data_value), $id, $prefix);
     }
 
@@ -90,9 +93,9 @@ class MySBValue extends MySBObject {
      * @param   string  $type       Internal ID of the value's type.
      * @return  string              SQL type of the value.
      */
-    public static function Val2SQLType($type=null) {
-        if($type==null) return '';
-        switch($type) {
+    public static function Val2SQLType($type = null)
+    {
+        switch ($type) {
             case MYSB_VALUE_TYPE_INT:
                 return 'int';
             case MYSB_VALUE_TYPE_BOOL:
@@ -115,15 +118,17 @@ class MySBValue extends MySBObject {
                 return 'varchar(128)';
             case MYSB_VALUE_TYPE_PASSWORD:
                 return 'varchar(255)';
+            default:
+                return '';
         }
     }
 
     /**
      * Get the coresponding SQL type.
-     * @param   string $type    force type of the value.
      * @return  string   SQL type of the value.
      */
-    public function getSQLType() {
+    public function getSQLType()
+    {
         return $this->Val2SQLType($this->type);
     }
 
@@ -131,8 +136,9 @@ class MySBValue extends MySBObject {
      * Get the native MySB type.
      * @return  string     Type of the value.
      */
-    public function getType() {
-        switch($this->type) {
+    public function getType()
+    {
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
                 return 'int';
             case MYSB_VALUE_TYPE_BOOL:
@@ -155,6 +161,8 @@ class MySBValue extends MySBObject {
                 return 'url';
             case MYSB_VALUE_TYPE_PASSWORD:
                 return 'password';
+            default:
+                return '';
         }
     }
 
@@ -166,62 +174,71 @@ class MySBValue extends MySBObject {
      * @param   boolean $directlink     show the link for mail, tel or url
      * @return  string                  input form in HTML format.
      */
-    public function htmlForm($prefix,$value,$title='',$directlink=true) {
+    public function htmlForm($prefix, $value, $title = '', $directlink = true)
+    {
         global $app;
-        switch($this->type) {
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
-                return '<input type="text" '.
-                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '" maxlength="20" value="'.$value.'">';
+                return '<input type="text" ' .
+                    'name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname .
+                    '" maxlength="20" value="' . $value . '">';
             case MYSB_VALUE_TYPE_BOOL:
-                return '<input style="float: right;" type="checkbox" '.
-                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" '.
-                       MySBUtil::form_ischecked($value,1).'>';
+                return '<input style="float: right;" type="checkbox" ' .
+                    'name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '" ' .
+                    MySBUtil::form_ischecked($value, 1) . '>';
             case MYSB_VALUE_TYPE_VARCHAR64:
-                return '<input type="text" '.
-                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '" maxlength="62" value="'.$value.'">';
+                return '<input type="text" ' .
+                    'name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname .
+                    '" maxlength="62" value="' . $value . '">';
             case MYSB_VALUE_TYPE_VARCHAR512:
-                return '<input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '" maxlength="510" value="'.$value.'">';
+                return '<input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname .
+                    '" maxlength="510" value="' . $value . '">';
             case MYSB_VALUE_TYPE_TEXT:
-                return '<textarea name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '" rows="3">'.$value.'</textarea>';
+                return '<textarea name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname .
+                    '" rows="3">' . $value . '</textarea>';
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                $req_seloptions = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
                     "ORDER BY value0",
                     "MySBValue::htmlForm($prefix,$value)",
-                    true, '', true );
+                    true,
+                    '',
+                    true
+                );
                 $form_str = '
-<select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+<select name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '">
     <option value="">&nbsp;</option>';
-                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+                while ($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
-    <option value="'.$seloption['value0'].'" '.MySBUtil::form_isselected($value,$seloption['value1']).'>'._G($seloption['value1']).'</option>';
+    <option value="' . $seloption['value0'] . '" ' . MySBUtil::form_isselected($value, $seloption['value1']) . '>' . _G($seloption['value1']) . '</option>';
                 }
                 $form_str .= '
 </select>';
                 return $form_str;
             case MYSB_VALUE_TYPE_DATE:
-                $date = new MySBDateTime ($value);
-                return $date->html_form($prefix,true);
+                $date = new MySBDateTime($value);
+                return $date->html_form($prefix, true);
             case MYSB_VALUE_TYPE_DATETIME:
-                $date = new MySBDateTime ($value);
-                return $date->html_form($prefix,false);
+                $date = new MySBDateTime($value);
+                return $date->html_form($prefix, false);
             case MYSB_VALUE_TYPE_TEL:
                 $img = '';
 
-                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="tel:'.$value.'" title="Tel:'.$value.' '.$title.'"><img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24"></a></div>';
-                return $img.'<input type="tel" name="'.$prefix.$this->keyname.'" size="18" maxlength="62" value="'.$value.'" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">';
+                if ($value != '' and $directlink)
+                    $img = '<div style="float: left;"><a href="tel:' . $value . '" title="Tel:' . $value . ' ' . $title . '"><img src="images/icons/call-start.png" alt="phone call" class="mysbIcons_valuetel icon24"></a></div>';
+                return $img . '<input type="tel" name="' . $prefix . $this->keyname . '" size="18" maxlength="62" value="' . $value . '" pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">';
             case MYSB_VALUE_TYPE_URL:
                 $img = '';
-                if( $value!='' and $directlink) $img = '<div style="float: left;"><a href="'.$value.'" target="_blank" title="URL:'.$value.' '.$title.'"><img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24"></a></div>';
-                return $img.'<input type="url" name="'.$prefix.$this->keyname.'" size="20" maxlength="128" value="'.$value.'">';
+                if ($value != '' and $directlink)
+                    $img = '<div style="float: left;"><a href="' . $value . '" target="_blank" title="URL:' . $value . ' ' . $title . '"><img src="images/icons/web-browser.png" alt="url link" class="mysbIcons_valueurl icon24"></a></div>';
+                return $img . '<input type="url" name="' . $prefix . $this->keyname . '" size="20" maxlength="128" value="' . $value . '">';
             case MYSB_VALUE_TYPE_PASSWORD:
-                return '<input type="password" '.
-                       'name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.
-                       '">';
+                return '<input type="password" ' .
+                    'name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname .
+                    '">';
+            default:
+                return '';
         }
     }
 
@@ -234,89 +251,94 @@ class MySBValue extends MySBObject {
      * @param   string  $help           help comments
      * @return  string                  input form in HTML format.
      */
-    public function innerRow($prefix,$value,$directlink=true,$label='',$help='',$disabled=false) {
+    public function innerRow($prefix, $value, $directlink = true, $label = '', $help = '', $disabled = false)
+    {
         global $app;
-        if($disabled) {
-          $disclass = ' inactive';
-          $disparam = 'disabled="disabled"';
+        if ($disabled) {
+            $disclass = ' inactive';
+            $disparam = 'disabled="disabled"';
         } else {
-          $disclass = '';
-          $disparam = '';
+            $disclass = '';
+            $disparam = '';
         }
-        switch($this->type) {
+        switch ($this->type) {
 
             case MYSB_VALUE_TYPE_INT:
                 return '
-<label class="col-9'.$disclass.'" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-9' . $disclass . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-3">
-  <input type="text" maxlength="20" value="'.$value.'" '.$disparam.'
-         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+  <input type="text" maxlength="20" value="' . $value . '" ' . $disparam . '
+         name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '" >
 </div>';
 
             case MYSB_VALUE_TYPE_BOOL:
                 return '
-<label class="col-sm-12" for="'.$prefix.$this->keyname.'">
-  <input type="checkbox" class="mysbValue-checkbox" '.$disparam.'
-         '.MySBUtil::form_ischecked($value,1).'
-         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-12" for="' . $prefix . $this->keyname . '">
+  <input type="checkbox" class="mysbValue-checkbox" ' . $disparam . '
+         ' . MySBUtil::form_ischecked($value, 1) . '
+         name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>';
 
             case MYSB_VALUE_TYPE_VARCHAR64:
                 return '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-8">
-  <input type="text" maxlength="62" value="'.$value.'" '.$disparam.'
-         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+  <input type="text" maxlength="62" value="' . $value . '" ' . $disparam . '
+         name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '" >
 </div>';
 
             case MYSB_VALUE_TYPE_VARCHAR512:
                 return '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-8">
-  <input type="text" maxlength="510" value="'.$value.'" '.$disparam.'
-         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" >
+  <input type="text" maxlength="510" value="' . $value . '" ' . $disparam . '
+         name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '" >
 </div>';
 
             case MYSB_VALUE_TYPE_TEXT:
                 return '
-<label class="col-md-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-md-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-md-8">
-  <textarea name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-            rows="3" '.$disparam.'>'.$value.'</textarea>
+  <textarea name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
+            rows="3" ' . $disparam . '>' . $value . '</textarea>
 </div>';
 
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                $req_seloptions = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
                     "ORDER BY value0",
                     "MySBValue::htmlForm($prefix,$value)",
-                    true, '', true );
+                    true,
+                    '',
+                    true
+                );
                 $form_str = '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-8">
-  <select name="'.$prefix.$this->keyname.'" '.$disparam.'
-          id="'.$prefix.$this->keyname.'">
+  <select name="' . $prefix . $this->keyname . '" ' . $disparam . '
+          id="' . $prefix . $this->keyname . '">
     <option value="">&nbsp;</option>';
-                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+                while ($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
-    <option value="'.$seloption['value0'].'" '.MySBUtil::form_isselected($value,$seloption['value1']).'>'._G($seloption['value1']).'</option>';
+    <option value="' . $seloption['value0'] . '" ' . MySBUtil::form_isselected($value, $seloption['value1']) . '>' . _G($seloption['value1']) . '</option>';
                 }
                 $form_str .= '
   </select>
@@ -324,109 +346,119 @@ class MySBValue extends MySBObject {
                 return $form_str;
 
             case MYSB_VALUE_TYPE_DATE:
-                $date = new MySBDateTime ($value);
+                $date = new MySBDateTime($value);
                 $resp_param = '-md';
                 $resp_align = '';
-                if( isset($this->parameter[0]) and isset($this->parameter[1]) )
-                    $date->setYearMaxMin( $this->parameter[0],
-                                          $this->parameter[1] );
-                if($disabled) {
-                    if( $value=='' ) $date_html = '<p>-</p>';
-                    else $date_html = '<p>'.$date->strAEBY_l().'</p>';
+                if (isset($this->parameter[0]) and isset($this->parameter[1]))
+                    $date->setYearMaxMin(
+                        $this->parameter[0],
+                        $this->parameter[1]
+                    );
+                if ($disabled) {
+                    if ($value == '')
+                        $date_html = '<p>-</p>';
+                    else
+                        $date_html = '<p>' . $date->strAEBY_l() . '</p>';
                     $resp_param = '';
                     $resp_align = ' t-right';
                 } else
-                    $date_html = $date->html_form($prefix.$this->keyname,true);
+                    $date_html = $date->html_form($prefix . $this->keyname, true);
                 return '
-<label class="col'.$resp_param.'-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col' . $resp_param . '-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
-<div class="col'.$resp_param.'-8'.$resp_align.'">
-  '.$date_html.'
+<div class="col' . $resp_param . '-8' . $resp_align . '">
+  ' . $date_html . '
 </div>';
 
             case MYSB_VALUE_TYPE_DATETIME:
-                $date = new MySBDateTime ($value);
+                $date = new MySBDateTime($value);
                 $resp_param = '-md';
                 $resp_align = '';
-                if( isset($this->parameter[0]) and isset($this->parameter[1]) )
-                    $date->setYearMaxMin( $this->parameter[0],
-                                          $this->parameter[1] );
-                if($disabled) {
-                    if( $value=='' ) $date_html = '<p>-</p>';
-                    else $date_html = '<p>'.$date->strAEBY_l_whm().'</p>';
+                if (isset($this->parameter[0]) and isset($this->parameter[1]))
+                    $date->setYearMaxMin(
+                        $this->parameter[0],
+                        $this->parameter[1]
+                    );
+                if ($disabled) {
+                    if ($value == '')
+                        $date_html = '<p>-</p>';
+                    else
+                        $date_html = '<p>' . $date->strAEBY_l_whm() . '</p>';
                     $resp_param = '';
                     $resp_align = ' t-right';
                 } else
-                    $date_html = $date->html_form($prefix.$this->keyname,false);
+                    $date_html = $date->html_form($prefix . $this->keyname, false);
                 return '
-<label class="col'.$resp_param.'-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col' . $resp_param . '-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
-<div class="col'.$resp_param.'-8'.$resp_align.'">
-  '.$date_html.'
+<div class="col' . $resp_param . '-8' . $resp_align . '">
+  ' . $date_html . '
 </div>';
 
             case MYSB_VALUE_TYPE_TEL:
-                if( $value!='' and $directlink)
-                  $wform = 7;
+                if ($value != '' and $directlink)
+                    $wform = 7;
                 else
-                  $wform = 8;
+                    $wform = 8;
                 $form_str = '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
-<div class="col-sm-'.$wform.'">
-  <input type="tel" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="62" value="'.$value.'" '.$disparam.'
+<div class="col-sm-' . $wform . '">
+  <input type="tel" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
+         maxlength="62" value="' . $value . '" ' . $disparam . '
          pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{3,4})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$">
 </div>';
-                if( $value!='' and $directlink)
-                  $form_str .= '
-<a href="tel:'.$value.'" class="col-1 btn btn-primary-light mysbValue-directlink-img"
-   title="'.$label.':'.$value.'">
+                if ($value != '' and $directlink)
+                    $form_str .= '
+<a href="tel:' . $value . '" class="col-1 btn btn-primary-light mysbValue-directlink-img"
+   title="' . $label . ':' . $value . '">
   <img src="images/icons/call-start.png" alt="call-start">
 </a>';
                 return $form_str;
             case MYSB_VALUE_TYPE_URL:
-                if( $value!='' and $directlink)
-                  $wform = 7;
+                if ($value != '' and $directlink)
+                    $wform = 7;
                 else
-                  $wform = 8;
+                    $wform = 8;
                 $form_str = '
-<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-  '.$label.'<br>
-  <span class="help">'.$help.'</span>
+<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+  ' . $label . '<br>
+  <span class="help">' . $help . '</span>
 </label>
-<div class="col-sm-'.$wform.'">
-  <input type="url" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
-         maxlength="62" value="'.$value.'" '.$disparam.' >
+<div class="col-sm-' . $wform . '">
+  <input type="url" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
+         maxlength="62" value="' . $value . '" ' . $disparam . ' >
 </div>';
-                if( $value!='' and $directlink)
-                  $form_str .= '
-<a href="'.$value.'" class="col-1 btn btn-primary-light mysbValue-directlink-img"
-   title="'.$label.':'.$value.'" target="_blank">
+                if ($value != '' and $directlink)
+                    $form_str .= '
+<a href="' . $value . '" class="col-1 btn btn-primary-light mysbValue-directlink-img"
+   title="' . $label . ':' . $value . '" target="_blank">
   <img src="images/icons/web-browser.png" alt="web-browser">
 </a>';
                 return $form_str;
-            
+
             case MYSB_VALUE_TYPE_PASSWORD:
-                $text = '<label class="col-sm-4" for="'.$prefix.$this->keyname.'">
-                  '.$label.'<br>
-                  <span class="help">'.$help.'</span>
+                $text = '<label class="col-sm-4" for="' . $prefix . $this->keyname . '">
+                  ' . $label . '<br>
+                  <span class="help">' . $help . '</span>
                 </label>
                 <div class="col-sm-8">
-                  <input type="password" '.$disparam.'
-                         name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"';
+                  <input type="password" ' . $disparam . '
+                         name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"';
 
-                if(!empty($value))
+                if (!empty($value))
                     $text .= ' placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"';
 
                 $text .= '></div>';
                 return $text;
+            default:
+                return '';
         }
     }
 
@@ -438,89 +470,110 @@ class MySBValue extends MySBObject {
      * @param   boolean $onlyicon       return just an icon (default=false)
      * @return  string                      input form in HTML format.
      */
-    public function htmlFormNonEditable($prefix,$value,$title='',$onlyicon=false,$directlink=true) {
+    public function htmlFormNonEditable($prefix, $value, $title = '', $onlyicon = false, $directlink = true)
+    {
         global $app;
         $text = '';
-        switch($this->type) {
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
-                if( $value=='' ) $value = '0';
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text.$value.'';
+                if ($value == '')
+                    $value = '0';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . $value . '';
             case MYSB_VALUE_TYPE_BOOL:
                 //echo $value.' '.MySBUtil::form_ischecked($value,1).'<br>';
-                if( $title!='' ) {
-                    $title = MySBUtil::str2abbrv($title,10,10);
-                    if( $value==1 ) return '<b>'.$title.'</b>';
-                    else return '<span style="text-decoration: line-through;">'.$title.'</span>';
+                if ($title != '') {
+                    $title = MySBUtil::str2abbrv($title, 10, 10);
+                    if ($value == 1)
+                        return '<b>' . $title . '</b>';
+                    else
+                        return '<span style="text-decoration: line-through;">' . $title . '</span>';
                 }
-                if( $value==1 )
+                if ($value == 1)
                     return '<img src="images/icons/emblem-ok.png" alt="OK" class="mysbIcons_valueok">';
                 else
                     return '';
             case MYSB_VALUE_TYPE_VARCHAR64:
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text.$value.'';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . $value . '';
             case MYSB_VALUE_TYPE_VARCHAR512:
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text.$value.'';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . $value . '';
             case MYSB_VALUE_TYPE_TEXT:
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text.MySBUtil::str2html($value).'';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . MySBUtil::str2html($value) . '';
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text._G($value).'';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . _G($value) . '';
             case MYSB_VALUE_TYPE_DATE:
-                if( $value=='' ) return '-';
-                $date = new MySBDateTime ($value);
+                if ($value == '')
+                    return '-';
+                $date = new MySBDateTime($value);
                 return $date->strEBY_l();
             case MYSB_VALUE_TYPE_DATETIME:
-                if( $value=='' ) return '-';
-                $date = new MySBDateTime ($value);
+                if ($value == '')
+                    return '-';
+                $date = new MySBDateTime($value);
                 return $date->strEBY_l_whm();
             case MYSB_VALUE_TYPE_TEL:
-                if( $title!='' ) $text = $title.': ';
+                if ($title != '')
+                    $text = $title . ': ';
                 $img = '';
                 $valuetel = '';
                 $vallen = strlen($value);
-                for($i=1;$i<=$vallen;$i+=2) {
-                    if( $valuetel!='' and $i<=10 ) $valuetel = ' '.$valuetel;
-                    if( $vallen-$i>0 )
-                        $valuetel = $value[$vallen-$i-1].$value[$vallen-$i].$valuetel;
+                for ($i = 1; $i <= $vallen; $i += 2) {
+                    if ($valuetel != '' and $i <= 10)
+                        $valuetel = ' ' . $valuetel;
+                    if ($vallen - $i > 0)
+                        $valuetel = $value[$vallen - $i - 1] . $value[$vallen - $i] . $valuetel;
                     else
-                        $valuetel = $value[$vallen-$i].$valuetel;
+                        $valuetel = $value[$vallen - $i] . $valuetel;
                 }
                 $texturl = "";
-                if( $onlyicon!=true ) $texturl = '<span style="white-space: nowrap;">'.$valuetel.'</span>';
-                if( $value!='' ) $img = '<img src="images/icons/call-start.png" alt="call-start" class="btn btn-dark mysbValue-directlink">';
-                if($directlink)
+                if ($onlyicon != true)
+                    $texturl = '<span style="white-space: nowrap;">' . $valuetel . '</span>';
+                if ($value != '')
+                    $img = '<img src="images/icons/call-start.png" alt="call-start" class="btn btn-dark mysbValue-directlink">';
+                if ($directlink)
                     return (string) '
-                    <a href="tel:'.$value.'" title="'.$text.''.$valuetel.'">'.$img.$texturl.'</a>';
+                    <a href="tel:' . $value . '" title="' . $text . '' . $valuetel . '">' . $img . $texturl . '</a>';
                 else
                     return (string) '
-                    '.$texturl;
+                    ' . $texturl;
             case MYSB_VALUE_TYPE_URL:
-                if( $title!='' ) $text = $title;
+                if ($title != '')
+                    $text = $title;
                 $img = '';
                 $texturl = "";
-                if( $onlyicon!=true ) {
-                    $text_abbr = str_replace('http://','',$value);
-                    $text_abbr = str_replace('https://','',$text_abbr);
-                    $text_abbr = str_replace('www.','',$text_abbr);
-                    $texturl = '<span style="white-space: nowrap;">'.MySBUtil::str2abbrv($text_abbr,12,12).'</span>';
+                if ($onlyicon != true) {
+                    $text_abbr = str_replace('http://', '', $value);
+                    $text_abbr = str_replace('https://', '', $text_abbr);
+                    $text_abbr = str_replace('www.', '', $text_abbr);
+                    $texturl = '<span style="white-space: nowrap;">' . MySBUtil::str2abbrv($text_abbr, 12, 12) . '</span>';
                 }
-                if( $value!='' ) $img = '<img src="images/icons/web-browser.png" alt="web-browser" class="btn btn-dark mysbValue-directlink">';
-                if( $value!='' ) return (string) '
-                    <a href="'.$value.'" target="_blank" title="'.$text.': '.$value.'">'.$img.''.$texturl.'</a>';
-                return;
+                if ($value != '')
+                    $img = '<img src="images/icons/web-browser.png" alt="web-browser" class="btn btn-dark mysbValue-directlink">';
+                if ($value != '')
+                    return (string) '
+                    <a href="' . $value . '" target="_blank" title="' . $text . ': ' . $value . '">' . $img . '' . $texturl . '</a>';
+                return '';
             case MYSB_VALUE_TYPE_PASSWORD:
-                $title = MySBUtil::str2abbrv($title,4,4);
-                if( $title!='' ) $text = '<b>'.$title.'</b>: ';
-                return $text.'******';
+                $title = MySBUtil::str2abbrv($title, 4, 4);
+                if ($title != '')
+                    $text = '<b>' . $title . '</b>: ';
+                return $text . '******';
+            default:
+                return '';
         }
     }
 
@@ -529,55 +582,62 @@ class MySBValue extends MySBObject {
      * @param   string  $prefix             form name prefix
      * @return  string                      WHERE condition in SQL format.
      */
-    public function htmlProcessValue($prefix) {
+    public function htmlProcessValue($prefix)
+    {
         global $_POST;
-        if( isset($_POST[$prefix.$this->keyname]) ) $post_value = $_POST[$prefix.$this->keyname];
-        else $post_value = '';
-        switch($this->type) {
+        if (isset($_POST[$prefix . $this->keyname]))
+            $post_value = $_POST[$prefix . $this->keyname];
+        else
+            $post_value = '';
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
-                if( $post_value!=''and MySBUtil::strverif($post_value) )
+                if ($post_value != '' and MySBUtil::strverif($post_value))
                     return (string) $post_value;
                 return (string) 0;
             case MYSB_VALUE_TYPE_BOOL:
-                if( $post_value=='on' )
+                if ($post_value == 'on')
                     return (string) 1;
                 return (string) 0;
             case MYSB_VALUE_TYPE_VARCHAR64:
-                if( !MySBUtil::strverif($post_value) )
+                if (!MySBUtil::strverif($post_value))
                     return '';
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_VARCHAR512:
-                if( !MySBUtil::strverif($post_value) )
+                if (!MySBUtil::strverif($post_value))
                     return '';
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_TEXT:
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $req_seloption = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE ( value_keyname='".$this->grp."-".$this->keyname."' ".
-                    "AND value0='".$post_value."' )",
-                    "MySBValue::htmlProcessValue($prefix)");
+                $req_seloption = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE ( value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
+                    "AND value0='" . $post_value . "' )",
+                    "MySBValue::htmlProcessValue($prefix)"
+                );
                 $seloption = MySBDB::fetch_array($req_seloption);
-                if(!MySBDB::num_rows($req_seloption))
+                if (!MySBDB::num_rows($req_seloption))
                     return '';
                 return $seloption['value1'];
             case MYSB_VALUE_TYPE_DATE:
-                $date = MySBDateTimeHelper::html_formLoad($prefix.$this->keyname);
+                $date = MySBDateTimeHelper::html_formLoad($prefix . $this->keyname);
                 return (string) $date->date_string;
             case MYSB_VALUE_TYPE_DATETIME:
-                $date = MySBDateTimeHelper::html_formLoad($prefix.$this->keyname);
+                $date = MySBDateTimeHelper::html_formLoad($prefix . $this->keyname);
                 return (string) $date->date_string;
             case MYSB_VALUE_TYPE_TEL:
-                if( !MySBUtil::strverif($post_value) )
+                if (!MySBUtil::strverif($post_value))
                     return '';
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_URL:
                 return (string) $post_value;
             case MYSB_VALUE_TYPE_PASSWORD:
-                if( !MySBUtil::strverif($post_value) || empty($post_value) )
+                if (!MySBUtil::strverif($post_value) || empty($post_value))
                     return '';
                 $hash = password_hash((string) $post_value, PASSWORD_DEFAULT);
                 return $hash;
+            default:
+                return '';
         }
     }
 
@@ -586,253 +646,263 @@ class MySBValue extends MySBObject {
      * @param   string  $prefix             form name prefix
      * @return  string                      input form in HTML format.
      */
-    public function innerRowWhereClause($prefix,$label='',$help='',$colsize=12) {
+    public function innerRowWhereClause($prefix, $label = '', $help = '', $colsize = 12)
+    {
         global $app;
         $output = '';
-        if($help!='' && $label!='')
-          $help = '<br>'.$help;
+        if ($help != '' && $label != '')
+            $help = '<br>' . $help;
         $checknull = '
 <div class="col-2 t-right" style="padding-left: 0; padding-right: 0;">
-  !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
+  !<input type="checkbox" name="' . $prefix . $this->keyname . '_null"
           style="margin-left: 0;">
 </div>';
-        switch($this->type) {
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
                 $output .= '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'_min" style="width: auto;"
+    <input type="text" name="' . $prefix . $this->keyname . '_min" style="width: auto;"
            size="3" maxlength="15" value="">
     <small>&le;</small>val<small>&le;</small>
-    <input type="text" name="'.$prefix.$this->keyname.'_max" style="width: auto;"
+    <input type="text" name="' . $prefix . $this->keyname . '_max" style="width: auto;"
            size="3" maxlength="15" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_BOOL:
                 $output .= '
-<label class="col-'.($colsize-4).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-' . ($colsize - 4) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-4">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
     <input type="checkbox"
-           name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+           name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64:
                 $output = '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
            maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR512:
                 $output .= '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
            maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_TEXT:
                 $output .= '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
            maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                $req_seloptions = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
                     "ORDER BY value0",
                     "MySBValue::htmlFormWhereClause($prefix)",
-                    true, '', true);
+                    true,
+                    '',
+                    true
+                );
                 $form_str = '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10">
-    <select name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'">
+    <select name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '">
       <option value="">&nbsp;</option>
-      <option value="_any">'._G('SBGT_select_any').'</option>';
-                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+      <option value="_any">' . _G('SBGT_select_any') . '</option>';
+                while ($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
-      <option value="'.$seloption['value0'].'">'._G($seloption['value1']).'</option>';
+      <option value="' . $seloption['value0'] . '">' . _G($seloption['value1']) . '</option>';
                 }
                 $form_str .= '
     </select>
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 $output .= $form_str;
                 break;
             case MYSB_VALUE_TYPE_DATE:
                 $output = '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
            maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_DATETIME:
                 $output = '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10 t-right">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'"
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '"
            maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_TEL:
                 $output .= '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10">
-    <input type="text" name="'.$prefix.$this->keyname.'" id="'.$prefix.$this->keyname.'" maxlength="32" value="">
+    <input type="text" name="' . $prefix . $this->keyname . '" id="' . $prefix . $this->keyname . '" maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
             case MYSB_VALUE_TYPE_URL:
                 $output .= '
-<label class="col-sm-'.($colsize-7).'" for="'.$prefix.$this->keyname.'">
-  '.$label.'
-  <span class="help">'.$help.'</span>
+<label class="col-sm-' . ($colsize - 7) . '" for="' . $prefix . $this->keyname . '">
+  ' . $label . '
+  <span class="help">' . $help . '</span>
 </label>
 <div class="col-sm-7">
 <div class="content list"><div class="row">
   <div class="col-10">
-    <input type="text" name="'.$prefix.$this->keyname.'" maxlength="32" value="">
+    <input type="text" name="' . $prefix . $this->keyname . '" maxlength="32" value="">
   </div>
-  '.$checknull.'
+  ' . $checknull . '
 </div></div>
 </div>';
                 break;
-            
+
             case MYSB_VALUE_TYPE_PASSWORD:
                 $output = '';
                 break;
         }
-/*
-        $output .= '
-<div class="col-1 t-right" style="padding-left: 0; padding-right: 0;">
-  !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
-          style="margin-left: 0;">
-</div>';
-*/
+        /*
+                $output .= '
+        <div class="col-1 t-right" style="padding-left: 0; padding-right: 0;">
+          !<input type="checkbox" name="'.$prefix.$this->keyname.'_null"
+                  style="margin-left: 0;">
+        </div>';
+        */
         return $output;
     }
 
-    public function htmlFormWhereClause($prefix) {
+    public function htmlFormWhereClause($prefix)
+    {
         global $app;
         $output = '';
-        switch($this->type) {
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'_min" size="3" maxlength="3" value=""><small>&lt;=</small>value<small>&lt;=</small><input type="text" name="'.$prefix.$this->keyname.'_max" size="3" maxlength="3" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '_min" size="3" maxlength="3" value=""><small>&lt;=</small>value<small>&lt;=</small><input type="text" name="' . $prefix . $this->keyname . '_max" size="3" maxlength="3" value="">';
                 break;
             case MYSB_VALUE_TYPE_BOOL:
-                $output .= '<input type="checkbox" name="'.$prefix.$this->keyname.'">';
+                $output .= '<input type="checkbox" name="' . $prefix . $this->keyname . '">';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR512:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_TEXT:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                $req_seloptions = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+                $req_seloptions = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
                     "ORDER BY value0",
                     "MySBValue::htmlFormWhereClause($prefix)",
-                    true, '', true);
+                    true,
+                    '',
+                    true
+                );
                 $form_str = '
-<select name="'.$prefix.$this->keyname.'">
+<select name="' . $prefix . $this->keyname . '">
     <option value="">&nbsp;</option>
-    <option value="_any">'._G('SBGT_select_any').'</option>';
-                while($seloption = MySBDB::fetch_array($req_seloptions)) {
+    <option value="_any">' . _G('SBGT_select_any') . '</option>';
+                while ($seloption = MySBDB::fetch_array($req_seloptions)) {
                     $form_str .= '
-    <option value="'.$seloption['value0'].'">'._G($seloption['value1']).'</option>';
+    <option value="' . $seloption['value0'] . '">' . _G($seloption['value1']) . '</option>';
                 }
                 $form_str .= '
 </select>';
                 $output .= $form_str;
                 break;
             case MYSB_VALUE_TYPE_TEL:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_URL:
-                $output .= '<input type="text" name="'.$prefix.$this->keyname.'" size="16" maxlength="32" value="">';
+                $output .= '<input type="text" name="' . $prefix . $this->keyname . '" size="16" maxlength="32" value="">';
                 break;
             case MYSB_VALUE_TYPE_PASSWORD:
                 return '';
         }
-        $output .= ' ! <input type="checkbox" name="'.$prefix.$this->keyname.'_null">';
+        $output .= ' ! <input type="checkbox" name="' . $prefix . $this->keyname . '_null">';
         return $output;
     }
 
@@ -841,73 +911,96 @@ class MySBValue extends MySBObject {
      * @param   string  $prefix             form name prefix
      * @return  string                      WHERE condition in SQL format.
      */
-    public function htmlProcessWhereClause($prefix) {
+    public function htmlProcessWhereClause($prefix)
+    {
         global $_POST;
         //if($_POST[$prefix.$this->id]=='') return null;
-        if( isset($_POST[$prefix.$this->keyname.'_null']) and $_POST[$prefix.$this->keyname.'_null']=='on' )
-            return '('.$this->keyname.'=\'\' or '.$this->keyname.' is null)';
-        switch($this->type) {
+        if (isset($_POST[$prefix . $this->keyname . '_null']) and $_POST[$prefix . $this->keyname . '_null'] == 'on')
+            return '(' . $this->keyname . '=\'\' or ' . $this->keyname . ' is null)';
+        switch ($this->type) {
             case MYSB_VALUE_TYPE_INT:
                 $clause = '';
                 $cflag = 0;
-                if( isset($_POST[$prefix.$this->keyname.'_min']) and $_POST[$prefix.$this->keyname.'_min']!='' ) {
-                    $clause .= $this->keyname.'>='.$_POST[$prefix.$this->keyname.'_min'];
+                if (isset($_POST[$prefix . $this->keyname . '_min']) and $_POST[$prefix . $this->keyname . '_min'] != '') {
+                    $clause .= $this->keyname . '>=' . $_POST[$prefix . $this->keyname . '_min'];
                 }
-                if( isset($_POST[$prefix.$this->keyname.'_max']) and $_POST[$prefix.$this->keyname.'_max']!='' ) {
-                    if ($clause!='') $clause .= ' and ';
-                    $clause .= $this->keyname.'<='.$_POST[$prefix.$this->keyname.'_max'];
+                if (isset($_POST[$prefix . $this->keyname . '_max']) and $_POST[$prefix . $this->keyname . '_max'] != '') {
+                    if ($clause != '')
+                        $clause .= ' and ';
+                    $clause .= $this->keyname . '<=' . $_POST[$prefix . $this->keyname . '_max'];
                 }
-                if ($clause!='') return '('.$clause.')';
+                if ($clause != '')
+                    return '(' . $clause . ')';
                 return null;
             case MYSB_VALUE_TYPE_BOOL:
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='on' )
-                    return $this->keyname.'=' . (string) 1;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == 'on')
+                    return $this->keyname . '=' . (string) 1;
                 return null;
             case MYSB_VALUE_TYPE_VARCHAR64:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_VARCHAR512:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                        MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_TEXT:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                        MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_VARCHAR64_SELECT:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='_any' ) return $this->keyname."!=''";
-                $req_seloption = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-                    "WHERE ( value_keyname='".$this->grp."-".$this->keyname."' ".
-                    "AND value0='".$_POST[$prefix.$this->keyname]."' )",
-                    "MySBValue::htmlProcessValue($prefix)");
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '_any')
+                    return $this->keyname . "!=''";
+                $req_seloption = MySBDB::query(
+                    "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+                    "WHERE ( value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
+                    "AND value0='" . $_POST[$prefix . $this->keyname] . "' )",
+                    "MySBValue::htmlProcessValue($prefix)"
+                );
                 $seloption = MySBDB::fetch_array($req_seloption);
-                return $this->keyname."='".MySBUtil::str2db($seloption['value1'])."'";
+                return $this->keyname . "='" . MySBUtil::str2db($seloption['value1']) . "'";
             case MYSB_VALUE_TYPE_DATE:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_DATETIME:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_TEL:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_URL:
-                if( !isset($_POST[$prefix.$this->keyname]) or $_POST[$prefix.$this->keyname]=='' ) return null;
-                if( isset($_POST[$prefix.$this->keyname]) and $_POST[$prefix.$this->keyname]=='*' ) return $this->keyname."!=''";
-                return $this->keyname." RLIKE '".
-                    MySBUtil::str2whereclause((string) $_POST[$prefix.$this->keyname])."'";
+                if (!isset($_POST[$prefix . $this->keyname]) or $_POST[$prefix . $this->keyname] == '')
+                    return null;
+                if (isset($_POST[$prefix . $this->keyname]) and $_POST[$prefix . $this->keyname] == '*')
+                    return $this->keyname . "!=''";
+                return $this->keyname . " RLIKE '" .
+                    MySBUtil::str2whereclause((string) $_POST[$prefix . $this->keyname]) . "'";
             case MYSB_VALUE_TYPE_PASSWORD:
+                return NULL;
+            default:
                 return NULL;
         }
     }
@@ -916,28 +1009,36 @@ class MySBValue extends MySBObject {
      * Add a selection value option
      * @param   string  $option             option added
      */
-    public function addSelectOption($option) {
+    public function addSelectOption($option)
+    {
         global $app;
-        $req_lastnb = MySBDB::query("SELECT * from ".MySB_DBPREFIX."valueoptions ".
-            "WHERE value_keyname='".$this->grp."-".$this->keyname."' ".
+        $req_lastnb = MySBDB::query(
+            "SELECT * from " . MySB_DBPREFIX . "valueoptions " .
+            "WHERE value_keyname='" . $this->grp . "-" . $this->keyname . "' " .
             "ORDER BY value0 DESC",
-            "MySBValue::addSelectOption($option)");
-        while($sel_option=MySBDB::fetch_array($req_lastnb)) {
-            if($sel_option['value1']==MySBUtil::str2db($option))
+            "MySBValue::addSelectOption($option)"
+        );
+        while ($sel_option = MySBDB::fetch_array($req_lastnb)) {
+            if ($sel_option['value1'] == MySBUtil::str2db($option))
                 return;
         }
         MySBDB::data_seek($req_lastnb, 0);
         $last_option = MySBDB::fetch_array($req_lastnb);
         $new_nb = intval($last_option['value0']) + 1;
-        if($new_nb<10) $str_nb = "00$new_nb";
-        elseif($new_nb<100) $str_nb = "0$new_nb";
-        else $str_nb = "$new_nb";
-        MySBDB::query("INSERT into ".MySB_DBPREFIX."valueoptions ".
-            "(value_keyname,value0,value1) VALUES ( ".
-            "'".$this->grp."-".$this->keyname."',".
-            "'".$str_nb."', ".
-            "'".MySBUtil::str2db($option)."' )",
-            "MySBValue::addSelectOption($option)");
+        if ($new_nb < 10)
+            $str_nb = "00$new_nb";
+        elseif ($new_nb < 100)
+            $str_nb = "0$new_nb";
+        else
+            $str_nb = "$new_nb";
+        MySBDB::query(
+            "INSERT into " . MySB_DBPREFIX . "valueoptions " .
+            "(value_keyname,value0,value1) VALUES ( " .
+            "'" . $this->grp . "-" . $this->keyname . "'," .
+            "'" . $str_nb . "', " .
+            "'" . MySBUtil::str2db($option) . "' )",
+            "MySBValue::addSelectOption($option)"
+        );
     }
 
     /**
@@ -945,17 +1046,20 @@ class MySBValue extends MySBObject {
      * @param   integer  $sel_id            Id of the option
      * @param   string  $option             option deleted
      */
-    public function delSelectOption($sel_id,$option=null) {
+    public function delSelectOption($sel_id, $option = null)
+    {
         global $app;
-        if($option==null) {
-            $opt_where_clause = "value0='".$sel_id."'";
+        if ($option == null) {
+            $opt_where_clause = "value0='" . $sel_id . "'";
         } else {
-            $opt_where_clause = "value1='".$option."'";
+            $opt_where_clause = "value1='" . $option . "'";
         }
-        MySBDB::query("DELETE from ".MySB_DBPREFIX."valueoptions WHERE (".
-            "value_keyname='".$this->grp."-".$this->keyname."' AND ".
-            $opt_where_clause." )",
-            "MySBValue::delSelectOption($option)");
+        MySBDB::query(
+            "DELETE from " . MySB_DBPREFIX . "valueoptions WHERE (" .
+            "value_keyname='" . $this->grp . "-" . $this->keyname . "' AND " .
+            $opt_where_clause . " )",
+            "MySBValue::delSelectOption($option)"
+        );
     }
 
     /**
@@ -963,30 +1067,37 @@ class MySBValue extends MySBObject {
      * @param   integer  $sel_id            Id of the option
      * @param   string  $option             option deleted
      */
-    public function modSelectOption($sel_id,$option) {
+    public function modSelectOption($sel_id, $option)
+    {
         global $app;
-        MySBDB::query("UPDATE ".MySB_DBPREFIX."valueoptions SET ".
-            "value1='".MySBUtil::str2db($option)."' WHERE (".
-            "value_keyname='".$this->grp."-".$this->keyname."' AND ".
-            "value0='".$sel_id."' )",
-            "MySBValue::modSelectOption($sel_id,$option)");
+        MySBDB::query(
+            "UPDATE " . MySB_DBPREFIX . "valueoptions SET " .
+            "value1='" . MySBUtil::str2db($option) . "' WHERE (" .
+            "value_keyname='" . $this->grp . "-" . $this->keyname . "' AND " .
+            "value0='" . $sel_id . "' )",
+            "MySBValue::modSelectOption($sel_id,$option)"
+        );
     }
 
     /**
      * Delete all value options
      */
-    public function delValueOptions() {
+    public function delValueOptions()
+    {
         global $app;
-        if($this->type==MYSB_VALUE_TYPE_VARCHAR64_SELECT)
-            MySBDB::query("DELETE from ".MySB_DBPREFIX."valueoptions WHERE (".
-                "value_keyname='".$this->grp."-".$this->keyname."' )",
-                "MySBValue::delValueOptions()");
+        if ($this->type == MYSB_VALUE_TYPE_VARCHAR64_SELECT)
+            MySBDB::query(
+                "DELETE from " . MySB_DBPREFIX . "valueoptions WHERE (" .
+                "value_keyname='" . $this->grp . "-" . $this->keyname . "' )",
+                "MySBValue::delValueOptions()"
+            );
     }
 
     /**
      * Set parameters values
      */
-    public function setParams($name,$value) {
+    public function setParams($name, $value)
+    {
         global $app;
         $this->params[$name] = $value;
     }
@@ -994,8 +1105,10 @@ class MySBValue extends MySBObject {
     /**
      * Do update when value is empty?
      */
-    public function updateOnEmpty(){
-        if($this->type == MYSB_VALUE_TYPE_PASSWORD) return false;
+    public function updateOnEmpty()
+    {
+        if ($this->type == MYSB_VALUE_TYPE_PASSWORD)
+            return false;
         return true;
     }
 

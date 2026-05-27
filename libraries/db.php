@@ -26,7 +26,8 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\APIs
  */
-interface MySBIDBLayer {
+interface MySBIDBLayer
+{
 
     /**
      * Connection to the base through the layer
@@ -35,7 +36,7 @@ interface MySBIDBLayer {
      * @param   string      $dbpasswd       DB user password
      * @param   string      $dbname         DB base name
      */
-    public function connect($dbhost, $dbuser, $dbpasswd, $dbname );
+    public function connect($dbhost, $dbuser, $dbpasswd, $dbname);
 
     /**
      * Send a SQL query
@@ -46,21 +47,21 @@ interface MySBIDBLayer {
 
     /**
      * Fetch the SQL query result
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @return  array                           row as results array
      */
     public function fetch_array($query_result);
 
     /**
      * Return the result array size
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @return  integer                         result row count
      */
     public function num_rows($query_result);
 
     /**
      * Move internal pointer
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @param   int         $row_number         offset for result pointer
      */
     public function data_seek($query_result, $row_number);
@@ -87,20 +88,22 @@ interface MySBIDBLayer {
  * @package    phpMySandBox
  * @subpackage Libraries\Core
  */
-class MySBDB {
+class MySBDB
+{
 
     /**
      * DB Layer constructor.
      * @return      MySBIDBLayer     réference to DB connection
      */
-    public static function connect() {
+    public static function connect()
+    {
         global $app;
-        include(MySB_ROOTPATH.'/config.php');
-        $dblayer_t = explode(':',$mysb_dblayer);
-        $dblayer_class = 'MySBDBLayer_'.$dblayer_t[0];
-        if( !class_exists($dblayer_class) )
+        include(MySB_ROOTPATH . '/config.php');
+        $dblayer_t = explode(':', $mysb_dblayer);
+        $dblayer_class = 'MySBDBLayer_' . $dblayer_t[0];
+        if (!class_exists($dblayer_class))
             die('Bad DB layer .. exiting');
-        if( isset($dblayer_t[1]) )
+        if (isset($dblayer_t[1]))
             $dblayer = new $dblayer_class($dblayer_t[1]);
         else
             $dblayer = new $dblayer_class();
@@ -111,7 +114,8 @@ class MySBDB {
     /**
      * Close DB connection
      */
-    public static function close() {
+    public static function close()
+    {
         global $app;
         $app->dblayer->close();
         $app->dblayer = null;
@@ -122,42 +126,57 @@ class MySBDB {
      * @param   string      $table      Canonical name of the table
      * @return  bool                    true if exists
      */
-    public static function table_exists($table) {
+    public static function table_exists($table)
+    {
         global $app;
-        if( (   MySBDB::query("SELECT * FROM ".MySB_DBPREFIX.$table."",
-                "MySBDB::table_exists($table)", false) ) )
+        if (
+            (MySBDB::query(
+                "SELECT * FROM " . MySB_DBPREFIX . $table . "",
+                "MySBDB::table_exists($table)",
+                false
+            ))
+        )
             return true;
-        else return false;
+        else
+            return false;
     }
 
     /**
      * Get the last ID of a table (-1 if empty)
      * @param   $table      array  symbolic name of the table
-	 * @return  integer
+     * @return  integer
      */
-    public static function lastID($table) {
+    public static function lastID($table)
+    {
         global $app;
-        $req_lastid = MySBDB::query('SELECT id from '.MySB_DBPREFIX.$table.' '.
+        $req_lastid = MySBDB::query(
+            'SELECT id from ' . MySB_DBPREFIX . $table . ' ' .
             'ORDER BY id DESC',
-            "MySBDB::lastID($table)" );
+            "MySBDB::lastID($table)"
+        );
         $data_lastid = MySBDB::fetch_array($req_lastid);
-        if($data_lastid['id']=='') return -1;
+        if ($data_lastid['id'] == '')
+            return -1;
         return $data_lastid['id'];
     }
 
     /**
      * Get the first free ID of a table
      * @param   $table      array symbolic name of the table
-	 * @return  integer
+     * @return  integer
      */
-    public static function firstID($table) {
+    public static function firstID($table)
+    {
         global $app;
-        $req_firstid = MySBDB::query('SELECT id from '.MySB_DBPREFIX.$table.' '.
+        $req_firstid = MySBDB::query(
+            'SELECT id from ' . MySB_DBPREFIX . $table . ' ' .
             'ORDER BY id',
-            "MySBDB::firstID($table)" );
+            "MySBDB::firstID($table)"
+        );
         $current_id = 1;
-        while($data_firstid = MySBDB::fetch_array($req_firstid)) {
-            if($data_firstid['id']>$current_id) return $current_id;
+        while ($data_firstid = MySBDB::fetch_array($req_firstid)) {
+            if ($data_firstid['id'] > $current_id)
+                return $current_id;
 
             $current_id = $data_firstid['id'] + 1;
         }
@@ -173,19 +192,22 @@ class MySBDB {
      * @param   boolean     $cached             result can be cached or not
      * @return  object                          object result for the SQL query
      */
-    public static function query($sql_query,$function='???::???()',$die=true,$module='',$cached=false) {
+    public static function query($sql_query, $function = '???::???()', $die = true, $module = '', $cached = false)
+    {
         global $app;
-        if($module=='') $module = 'core';
-        $querymask = 'sql_queries_'.$module;
-        if(!isset($app->$querymask)) $app->$querymask = array();
+        if ($module == '')
+            $module = 'core';
+        $querymask = 'sql_queries_' . $module;
+        if (!isset($app->$querymask))
+            $app->$querymask = array();
         $sql_querymask = &$app->$querymask;
-        $app->sql_queriesall[] = '['.$module.'] <b>'.$function."</b>:\n";
-        $sql_querymask[] = '<b>'.$function."</b>:\n";
+        $app->sql_queriesall[] = '[' . $module . '] <b>' . $function . "</b>:\n";
+        $sql_querymask[] = '<b>' . $function . "</b>:\n";
 
-        if($cached==true) {
+        if ($cached == true) {
             $cache_result = $app->dbcache->get($sql_query);
-            if($cache_result!=null) {
-                $app->sql_queriesall[] = htmlspecialchars($sql_query).' <b>(from cache)</b>'; //MySBUtil::str2html
+            if ($cache_result != null) {
+                $app->sql_queriesall[] = htmlspecialchars($sql_query) . ' <b>(from cache)</b>'; //MySBUtil::str2html
                 return $cache_result;
             }
         }
@@ -193,16 +215,16 @@ class MySBDB {
         $app->sql_queriesnb++;
         //echo $sql_query;
         //print_r($app->sql_queriesall);
-        if ($die==true)
+        if ($die == true)
             $req_query = $app->dblayer->query($sql_query)
-                or $app->ERR($function.": ".htmlspecialchars($sql_query)."\nSQL Error: ".$app->dblayer->error(),$module);
+                or $app->ERR($function . ": " . htmlspecialchars($sql_query) . "\nSQL Error: " . $app->dblayer->error(), $module);
         else
             $req_query = $app->dblayer->query($sql_query)
-                or $app->LOG($function.": ".htmlspecialchars($sql_query)."\nSQL Error: ".$app->dblayer->error(),$module);
+                or $app->LOG($function . ": " . htmlspecialchars($sql_query) . "\nSQL Error: " . $app->dblayer->error(), $module);
 
-        if($cached==true) {
-            $app->dbcache->store($sql_query,$req_query);
-            $app->sql_queriesall[] = htmlspecialchars($sql_query).' <b>(saved in cache)</b>';
+        if ($cached == true) {
+            $app->dbcache->store($sql_query, $req_query);
+            $app->sql_queriesall[] = htmlspecialchars($sql_query) . ' <b>(saved in cache)</b>';
         } else {
             $app->sql_queriesall[] = htmlspecialchars($sql_query);
         }
@@ -211,32 +233,35 @@ class MySBDB {
 
     /**
      * Fetch the SQL query result
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @return  array                           row as results array
      */
-    public static function fetch_array($query_result) {
+    public static function fetch_array($query_result)
+    {
         global $app;
         return $app->dblayer->fetch_array($query_result);
     }
 
     /**
      * Return the result array size
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @return  integer                         result row count
      */
-    public static function num_rows($query_result) {
+    public static function num_rows($query_result)
+    {
         global $app;
         return $app->dblayer->num_rows($query_result);
     }
 
     /**
      * Move internal pointer
-     * @param   array       $query_result       query result object
+     * @param   object       $query_result       query result object
      * @param   int         $row_number         offset for result pointer
      */
-    public static function data_seek($query_result, $row_number) {
+    public static function data_seek($query_result, $row_number)
+    {
         global $app;
-        if( MySBDB::num_rows($query_result)>=1 )
+        if (MySBDB::num_rows($query_result) >= 1)
             $app->dblayer->data_seek($query_result, $row_number);
     }
 

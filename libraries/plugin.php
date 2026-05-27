@@ -26,7 +26,8 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Plugins
  */
-class MySBPlugin extends MySBObject {
+class MySBPlugin extends MySBObject
+{
 
     /**
      * @var    string       plugin name
@@ -68,7 +69,8 @@ class MySBPlugin extends MySBObject {
      * Constructor.
      * @param   array   $data_plugin        paremeters of plugin
      */
-    public function __construct($data_plugin) {
+    public function __construct($data_plugin)
+    {
         global $app;
         parent::__construct((array) ($data_plugin));
     }
@@ -77,7 +79,8 @@ class MySBPlugin extends MySBObject {
      * Update plugin parameters (instance and DB)
      * @param   array   $data_plugin        paremeters of plugin
      */
-    public function update($data_plugin=array()) {
+    public function update($data_plugin = array())
+    {
         global $app;
         parent::__update('plugins', (array) ($data_plugin));
     }
@@ -85,27 +88,31 @@ class MySBPlugin extends MySBObject {
     /**
      * Post creation callback.
      */
-    public function post_create() {
+    public function post_create()
+    {
     }
 
     /**
      * Pre deletion callback.
      */
-    public function pre_delete() {
+    public function pre_delete()
+    {
     }
 
     /**
      * Html form (plugin edition)
      * @return  string          HTML entity output
      */
-    public function html_valueform() {
+    public function html_valueform()
+    {
         return '';
     }
 
     /**
      * Html form process (plugin edition)
      */
-    public function html_valueprocess() {
+    public function html_valueprocess()
+    {
     }
 
 }
@@ -116,7 +123,8 @@ class MySBPlugin extends MySBObject {
  * @package    phpMySandBox
  * @subpackage Libraries\Plugins
  */
-class MySBPluginHelper {
+class MySBPluginHelper
+{
 
     /**
      * Create plugin object to return
@@ -129,46 +137,52 @@ class MySBPluginHelper {
      * @param   string  $module         module handling plugin
      * @param   string  $childclass     plugin sub class referenced (obsolete)
      */
-    public static function create($name,$type,array $value,array $ivalue,$priority,$role,$module,$childclass='') {
+    public static function create($name, $type, array $value, array $ivalue, $priority, $role, $module, $childclass = '')
+    {
         global $app;
 
-        if( !isset($app->cache_plugins) or count($app->cache_plugins)==0)
+        if (!isset($app->cache_plugins) or count($app->cache_plugins) == 0)
             MySBPluginHelper::load();
-            if(isset($app->cache_plugins[$module.'_'.$name])) {
-                $app->LOG("MySBPluginHelper::create(): ".
-                          "tplugins['".$name."'] ('".$type."' from '".$module."') exists: deletion",'');
-                MySBPluginHelper::delete($name,$module);
-                //unset( $app->cache_plugins[$module.'_'.$name]);
-                //return;
-            }
-        $className = 'MySBPlugin' . $type.$childclass;
-        if(!class_exists($className)) {
-            $app->pushAlert($className.' not found!');
+        if (isset($app->cache_plugins[$module . '_' . $name])) {
+            $app->LOG("MySBPluginHelper::create(): " .
+                "tplugins['" . $name . "'] ('" . $type . "' from '" . $module . "') exists: deletion", '');
+            MySBPluginHelper::delete($name, $module);
+            //unset( $app->cache_plugins[$module.'_'.$name]);
+            //return;
+        }
+        $className = 'MySBPlugin' . $type . $childclass;
+        if (!class_exists($className)) {
+            $app->pushAlert($className . ' not found!');
             return;
         }
-        $new_id = MySBDB::lastID('plugins')+1;
-        MySBDB::query("INSERT INTO ".MySB_DBPREFIX."plugins (".
-            "id,name,type,".
-            "value0,value1,value2,value3,".
-            "ivalue0,ivalue1,ivalue2,ivalue3,".
-            "priority,role,module,childclass ) VALUES (".
-            "$new_id,'$name', '$type', ".
-            "'$value[0]', '$value[1]', '$value[2]', '$value[3]', ".
-            "$ivalue[0], $ivalue[1], $ivalue[2], $ivalue[3], ".
+        $new_id = MySBDB::lastID('plugins') + 1;
+        MySBDB::query(
+            "INSERT INTO " . MySB_DBPREFIX . "plugins (" .
+            "id,name,type," .
+            "value0,value1,value2,value3," .
+            "ivalue0,ivalue1,ivalue2,ivalue3," .
+            "priority,role,module,childclass ) VALUES (" .
+            "$new_id,'$name', '$type', " .
+            "'$value[0]', '$value[1]', '$value[2]', '$value[3]', " .
+            "$ivalue[0], $ivalue[1], $ivalue[2], $ivalue[3], " .
             "$priority, '$role', '$module', '$childclass')",
             "MySBPluginHelper::create($name,$module)",
-            false);
-        $app->LOG("MySBPluginHelper::create(): tplugins['".$name."'] ('".$type."' from '".$module."') added",'');
+            false
+        );
+        $app->LOG("MySBPluginHelper::create(): tplugins['" . $name . "'] ('" . $type . "' from '" . $module . "') added", '');
         if (!class_exists($className))
-            if(isset($app))
-                $app->LOG('MySBPluginHelper::create(): class "'.$className.'" not found');
-        $req_plugin = MySBDB::query("SELECT * FROM ".MySB_DBPREFIX.'plugins '.
-            'WHERE id='.$new_id,
-            "MySBPluginHelper::create($name,$module)");
-        if(MySBDB::num_rows($req_plugin)==0) return;
+            if (isset($app))
+                $app->LOG('MySBPluginHelper::create(): class "' . $className . '" not found');
+        $req_plugin = MySBDB::query(
+            "SELECT * FROM " . MySB_DBPREFIX . 'plugins ' .
+            'WHERE id=' . $new_id,
+            "MySBPluginHelper::create($name,$module)"
+        );
+        if (MySBDB::num_rows($req_plugin) == 0)
+            return;
         $data_plugin = MySBDB::fetch_array($req_plugin);
-        $app->cache_plugins[$module.'_'.$name] = new $className((array) ($data_plugin));
-        $app->cache_plugins[$module.'_'.$name]->post_create();
+        $app->cache_plugins[$module . '_' . $name] = new $className((array) ($data_plugin));
+        $app->cache_plugins[$module . '_' . $name]->post_create();
     }
 
     /**
@@ -176,19 +190,22 @@ class MySBPluginHelper {
      * @param   string  $name           plugin name
      * @param   string  $module         module handling plugin
      */
-    public static function delete($name,$module) {
+    public static function delete($name, $module)
+    {
         global $app;
-        $plugin_obj = MySBPluginHelper::get($name,$module);
-        if($plugin_obj==null)
-            $app->LOG($name.' from '.$module.' not found');
-        MySBDB::query( "DELETE FROM ".MySB_DBPREFIX."plugins ".
+        $plugin_obj = MySBPluginHelper::get($name, $module);
+        if ($plugin_obj == null)
+            $app->LOG($name . ' from ' . $module . ' not found');
+        MySBDB::query(
+            "DELETE FROM " . MySB_DBPREFIX . "plugins " .
             "WHERE name='$name' AND module='$module'",
             "MySBPluginHelper::delete($name,$module)",
-            false);
-        $app->LOG("MySBPluginHelper::delete(): tplugins['".$name."'] (from '".$module."') deleted",'');
-        if( $plugin_obj!=null ) { //TODO: seems MySBPluginHelper::get() return null when called with plugin creation
+            false
+        );
+        $app->LOG("MySBPluginHelper::delete(): tplugins['" . $name . "'] (from '" . $module . "') deleted", '');
+        if ($plugin_obj != null) { //TODO: seems MySBPluginHelper::get() return null when called with plugin creation
             $plugin_obj->pre_delete();
-            unset( $app->cache_plugins[$plugin_obj->module.'_'.$plugin_obj->name] );
+            unset($app->cache_plugins[$plugin_obj->module . '_' . $plugin_obj->name]);
         }
     }
 
@@ -196,21 +213,25 @@ class MySBPluginHelper {
      * Load  plugins in array (cache)
      * @return  array               array of MySBPlugin[$plugtype]
      */
-    public static function load() {
+    public static function load()
+    {
         global $app;
-        if(isset($app->cache_plugins))
-            return $app->cache_plugins;
+        if (isset($app->cache_plugins))
+            if(!empty($app->cache_plugins))
+                return $app->cache_plugins;
         $app->cache_plugins = array();
-        $req_plugins = MySBDB::query( "SELECT * FROM ".MySB_DBPREFIX."plugins ".
+        $req_plugins = MySBDB::query(
+            "SELECT * FROM " . MySB_DBPREFIX . "plugins " .
             "ORDER BY type,priority DESC",
-            "MySBPluginHelper::load()" );
-        while($plugin = MySBDB::fetch_array($req_plugins)) {
-            $className = 'MySBPlugin' . $plugin['type']. $plugin['childclass'];
+            "MySBPluginHelper::load()"
+        );
+        while ($plugin = MySBDB::fetch_array($req_plugins)) {
+            $className = 'MySBPlugin' . $plugin['type'] . $plugin['childclass'];
             if (!class_exists($className)) {
-                if(isset($app))
-                    $app->LOG('MySBPluginHelper::load(): class "'.$className.'" not found');
+                if (isset($app))
+                    $app->LOG('MySBPluginHelper::load(): class "' . $className . '" not found');
             } else
-                $app->cache_plugins[$plugin['module'].'_'.$plugin['name']] = new $className((array) ($plugin));
+                $app->cache_plugins[$plugin['module'] . '_' . $plugin['name']] = new $className((array) ($plugin));
         }
         return $app->cache_plugins;
     }
@@ -220,12 +241,13 @@ class MySBPluginHelper {
      * @param   string  $type       plugin type
      * @return  array               array of MySBPlugin[$plugtype]
      */
-    public static function loadByType($type) {
+    public static function loadByType($type)
+    {
         global $app;
         $plugins = MySBPluginHelper::load();
         $plugins_bytype = array();
-        foreach($plugins as $plugin) {
-            if($plugin->type==$type)
+        foreach ($plugins as $plugin) {
+            if ($plugin->type == $type)
                 $plugins_bytype[] = $plugin;
         }
         return $plugins_bytype;
@@ -236,12 +258,13 @@ class MySBPluginHelper {
      * @param   string  $module     module handling plugin
      * @return  array               array of MySBPlugin[$plugtype]
      */
-    public static function loadByModule($module) {
+    public static function loadByModule($module)
+    {
         global $app;
         $plugins = MySBPluginHelper::load();
         $plugins_bymodule = array();
-        foreach($plugins as $plugin) {
-            if($plugin->module==$module)
+        foreach ($plugins as $plugin) {
+            if ($plugin->module == $module)
                 $plugins_bymodule[] = $plugin;
         }
         return $plugins_bymodule;
@@ -252,18 +275,20 @@ class MySBPluginHelper {
      * @param   string  $name           plugin name
      * @param   string  $module         module handling plugin (if $type='')
      * @param   string  $type           plugin type
-     * @return  MySBPlugin              plugin found (class MySBPlugin[$plugtype])
+     * @return  MySBPlugin|null         plugin found (class MySBPlugin[$plugtype])
      */
-    public static function get($name,$module,$type='') {
+    public static function get($name, $module, $type = '')
+    {
         global $app;
         $plugins = MySBPluginHelper::load();
-        if($type=='')
-            if( isset($plugins[$module.'_'.$name]) )
-                return $plugins[$module.'_'.$name];
-            else return null;
+        if ($type == '')
+            if (isset($plugins[$module . '_' . $name]))
+                return $plugins[$module . '_' . $name];
+            else
+                return null;
         else {
-            foreach($plugins as $plugin) {
-                if($plugin->name==$name and $plugin->type==$type)
+            foreach ($plugins as $plugin) {
+                if ($plugin->name == $name and $plugin->type == $type)
                     return $plugin;
             }
         }
@@ -273,13 +298,14 @@ class MySBPluginHelper {
     /**
      * Get a plugins with his ID
      * @param   integer $id             plugin ID
-     * @return  MySBPlugin              plugin found (class MySBPlugin[$plugtype])
+     * @return  MySBPlugin|null         plugin found (class MySBPlugin[$plugtype])
      */
-    public static function getByID($id) {
+    public static function getByID($id)
+    {
         global $app;
         $plugins = MySBPluginHelper::load();
-        foreach($plugins as $plugin) {
-            if($plugin->id==$id)
+        foreach ($plugins as $plugin) {
+            if ($plugin->id == $id)
                 return $plugin;
         }
         return null;
@@ -288,4 +314,3 @@ class MySBPluginHelper {
 }
 
 ?>
-

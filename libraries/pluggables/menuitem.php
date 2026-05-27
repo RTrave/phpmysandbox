@@ -29,13 +29,15 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Plugins
  */
-class MySBPluginMenuItem extends MySBPlugin {
+class MySBPluginMenuItem extends MySBPlugin
+{
 
     /**
      * Plugin constructor.
      * @param   array   $plugin            Parameters of plugin
      */
-    public function __construct($plugin = array()) {
+    public function __construct($plugin = array())
+    {
         parent::__construct((array) ($plugin));
     }
 
@@ -43,20 +45,23 @@ class MySBPluginMenuItem extends MySBPlugin {
      * Display Menuitem HTML entity (<A>..</A>)
      * @param   integer $level      Level of menu: 0=admin menu,1=lvl1, 2=lvl2, 
      */
-    public function displayA($level) {
+    public function displayA($level)
+    {
         global $app;
         $code = '';
-        if( isset($app->auth_user) and 
-            MySBRoleHelper::checkAccess($this->role,false) and 
-            $level==$this->ivalue0) {
-            if( $this->ivalue0==3 ) 
+        if (
+            isset($app->auth_user) and
+            MySBRoleHelper::checkAccess($this->role, false) and
+            $level == $this->ivalue0
+        ) {
+            if ($this->ivalue0 == 3)
                 $code .= '
-<a href="index.php?module='.$this->module.'&amp;tpl=admin/admin&amp;page='.$this->value1.'"
-   title="'._G($this->value2).'">'._G($this->value0).'</a>';
-            else 
+<a href="index.php?module=' . $this->module . '&amp;tpl=admin/admin&amp;page=' . $this->value1 . '"
+   title="' . _G($this->value2) . '">' . _G($this->value0) . '</a>';
+            else
                 $code .= '
-<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'" 
-   title="'._G($this->value2).'">'._G($this->value0).'</a>';
+<a href="index.php?mod=' . $this->module . '&amp;tpl=' . $this->value1 . '" 
+   title="' . _G($this->value2) . '">' . _G($this->value0) . '</a>';
         }
         return $code;
     }
@@ -65,20 +70,23 @@ class MySBPluginMenuItem extends MySBPlugin {
      * Display Menuitem HTML entity (<A>..</A>)
      * @param   integer $level      Level of menu: 0=admin menu,1=lvl1, 2=lvl2,
      */
-    public function displayMenuItem($level) {
+    public function displayMenuItem($level)
+    {
         global $app;
         $code = '';
-        if( isset($app->auth_user) and
-            MySBRoleHelper::checkAccess($this->role,false) and
-            $level==$this->ivalue0) {
-            if( $level==1 )
+        if (
+            isset($app->auth_user) and
+            MySBRoleHelper::checkAccess($this->role, false) and
+            $level == $this->ivalue0
+        ) {
+            if ($level == 1)
                 $code .= '
-<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'"
-   title="'._G($this->value2).'">'._G($this->value0).'</a>';
+<a href="index.php?mod=' . $this->module . '&amp;tpl=' . $this->value1 . '"
+   title="' . _G($this->value2) . '">' . _G($this->value0) . '</a>';
             else
                 $code .= '
-<a href="index.php?mod='.$this->module.'&amp;tpl='.$this->value1.'"
-   class="dropdown-item" title="'._G($this->value2).'">'._G($this->value0).'</a>';
+<a href="index.php?mod=' . $this->module . '&amp;tpl=' . $this->value1 . '"
+   class="dropdown-item" title="' . _G($this->value2) . '">' . _G($this->value0) . '</a>';
         }
         return $code;
     }
@@ -87,7 +95,8 @@ class MySBPluginMenuItem extends MySBPlugin {
      * Html form (plugin edition)
      * @return  string          HTML entity output
      */
-    public function html_valueform() {
+    public function html_valueform()
+    {
         global $app;
         $output = '';
         $output .= '
@@ -97,7 +106,7 @@ class MySBPluginMenuItem extends MySBPlugin {
   </label>
   <div class="col-sm-8">
     <input type="text" name="plg_optval_level" id="plg_optval_level"
-           value="'.$this->ivalue0.'">
+           value="' . $this->ivalue0 . '">
   </div>
 </div>
 <div class="row label">
@@ -106,7 +115,7 @@ class MySBPluginMenuItem extends MySBPlugin {
   </label>
   <div class="col-sm-8">
     <input type="text" name="plg_optval_text" id="plg_optval_text"
-           value="'.$this->value0.'">
+           value="' . $this->value0 . '">
   </div>
 </div>
 <div class="row label">
@@ -115,7 +124,7 @@ class MySBPluginMenuItem extends MySBPlugin {
   </label>
   <div class="col-sm-8">
     <input type="text" name="plg_optval_tiptext" id="plg_optval_tiptext"
-           value="'.$this->value2.'">
+           value="' . $this->value2 . '">
   </div>
 </div>';
         return $output;
@@ -124,12 +133,14 @@ class MySBPluginMenuItem extends MySBPlugin {
     /**
      * Html form process (plugin edition)
      */
-    public function html_valueprocess() {
+    public function html_valueprocess()
+    {
         global $app, $_POST;
         $this->update(array(
             'ivalue0' => $_POST['plg_optval_level'],
             'value0' => $_POST['plg_optval_text'],
-            'value2' => $_POST['plg_optval_tiptext'] ));
+            'value2' => $_POST['plg_optval_tiptext']
+        ));
     }
 
 }

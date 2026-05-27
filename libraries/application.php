@@ -30,7 +30,8 @@ defined('_MySBEXEC') or die;
 
 #[\AllowDynamicProperties]
 
-class MySBApplication extends MySBRender {
+class MySBApplication extends MySBRender
+{
 
     /**
      * @var     MySBIDBLayer     MySBDB object (db.php)
@@ -65,15 +66,60 @@ class MySBApplication extends MySBRender {
     /**
      * @var         array           PHP Session values
      */
+
+    /**
+     * @var         MySBLocales           PHP Session values
+     */
+    public $locales = 0;
+
+    /**
+     * @var         array           PHP Session values
+     */
+    public $nagr_tpldatas = [];
+
+    /** 
+     * @var array User cache
+     */
+    public $cache_users = [];
+
+    /** 
+     * @var array Group cache
+     */
+    public $cache_groups = [];
+
+    /** 
+     * @var array Role cache
+     */
+    public $cache_roles = [];
+
+    /** 
+     * @var array Role cache
+     */
+    public $cache_modules = [];
+
+    /** 
+     * @var array Role cache
+     */
+    public $cache_plugins = NULL;
+
+    /** 
+     * @var array Role cache
+     */
+    public $cache_configs = NULL;
+
+    /** 
+     * @var  array SESSION values array cache_groups
+     */
     public $SESSION = NULL;
 
 
     /**
      * App constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        if($_SERVER['REMOTE_ADDR'] != 'script')
+        if ($_SERVER['REMOTE_ADDR'] != 'script')
             session_start();
         $this->dblayer = MySBDB::connect();
         $this->dbcache = new MySBDBCache($this);
@@ -82,13 +128,14 @@ class MySBApplication extends MySBRender {
     /**
      * Reset the PHP user session.
      */
-    public function resetSession() {
+    public function resetSession()
+    {
         global $_COOKIE;
         session_unset();
         session_destroy();
         session_write_close();
         unset($_COOKIE['PHPSESSID']);
-        setcookie(session_name(),'',0,'/');
+        setcookie(session_name(), '', 0, '/');
         unset($this->auth_user);
         $this->auth_user = null;
     }
@@ -98,35 +145,38 @@ class MySBApplication extends MySBRender {
      * @param   string   $locale    Language used.
      * @param   string   $timezone  TimeZone used.
      */
-    public function setlocale($locale=null,$timezone=null) {
-        if($locale==null) {
-            include( MySB_ROOTPATH.'/config.php' );
+    public function setlocale($locale = null, $timezone = null)
+    {
+        if ($locale == null) {
+            include(MySB_ROOTPATH . '/config.php');
             $locale = $mysb_locale;
             $timezone = $mysb_timezone;
         }
-        $this->locales = new MySBLocales($locale,$timezone);
+        $this->locales = new MySBLocales($locale, $timezone);
         $this->locales->loadINIFile('core');
         $modules = MySBModuleHelper::load();
-        foreach($modules as $module) {
-            $mod_conf = MySBConfigHelper::get('mod_'.$module->name.'_enabled','modules');
-            if($mod_conf!=null and $mod_conf->getValue()>=1) 
-                $this->locales->loadINIFile($module->name,$module->name);
+        foreach ($modules as $module) {
+            $mod_conf = MySBConfigHelper::get('mod_' . $module->name . '_enabled', 'modules');
+            if ($mod_conf != null and $mod_conf->getValue() >= 1)
+                $this->locales->loadINIFile($module->name, $module->name);
         }
     }
 
     /**
      * Upgrade core system.
      */
-    public function upgrade() {
-        $core_conf = MySBConfigHelper::get('core_version','modules');
-        $initfile = MySB_ROOTPATH.'/__init.php';
-        if(file_exists($initfile)) {
+    public function upgrade()
+    {
+        $core_conf = MySBConfigHelper::get('core_version', 'modules');
+        $initfile = MySB_ROOTPATH . '/__init.php';
+        if (file_exists($initfile)) {
             include_once($initfile);
             $core = new MySBCore;
             $version = $core_conf->getValue();
-            if($version==$core->version) return;
-            for($i=$version+1;$i<=$core->version;$i++) {
-                $meth = 'init'.$i;
+            if ($version == $core->version)
+                return;
+            for ($i = $version + 1; $i <= $core->version; $i++) {
+                $meth = 'init' . $i;
                 $core->$meth();
             }
             $core_conf->setValue($core->version);
@@ -136,12 +186,13 @@ class MySBApplication extends MySBRender {
     /**
      * Upgrade modules.
      */
-    public function upgrade_modules() {
+    public function upgrade_modules()
+    {
         $modules = MySBModuleHelper::load();
-        foreach($modules as $module) 
-            if($module->isloaded()) {
-                $includefile = MySB_ROOTPATH.'/modules/'.$module->name.'/framework.php';
-                if(file_exists($includefile))
+        foreach ($modules as $module)
+            if ($module->isloaded()) {
+                $includefile = MySB_ROOTPATH . '/modules/' . $module->name . '/framework.php';
+                if (file_exists($includefile))
                     include_once($includefile);
                 $module->upgrade();
             }
@@ -150,14 +201,16 @@ class MySBApplication extends MySBRender {
     /**
      * Authentication process and auth_user setting.
      */
-    public function authenticate() {
+    public function authenticate()
+    {
         $this->auth_user = MySBUserHelper::checkAuth();
     }
 
     /**
      * Close DB connection and write session
      */
-    public function close() {
+    public function close()
+    {
         MySBDB::close();
         session_write_close();
     }
@@ -165,23 +218,24 @@ class MySBApplication extends MySBRender {
     /**
      * Check script access conditions: password, attempts, ..
      */
-    public function scriptCheck() {
+    public function scriptCheck()
+    {
         global $app, $_GET;
         $scriptconf = MySBConfigHelper::get('script_passwd');
-        $scriptattempts = MySBConfigHelper::get('script_attempts','scripts');
+        $scriptattempts = MySBConfigHelper::get('script_attempts', 'scripts');
         $passwd = $scriptconf->getValue();
         $attempts = $scriptattempts->getValue();
-        if( !isset($_GET['spw']) ) {
+        if (!isset($_GET['spw'])) {
             $app->close();
             die("ERROR: Password script access needed (spw=)\n");
         }
-        if( $passwd=='' ) {
+        if ($passwd == '') {
             $app->close();
             die("ERROR: Init a password for script access\n");
         }
-        if( $passwd!=$_GET['spw'] )
-            if( $attempts<6 ) {
-                $scriptattempts->setValue($attempts+1);
+        if ($passwd != $_GET['spw'])
+            if ($attempts < 6) {
+                $scriptattempts->setValue($attempts + 1);
                 $app->close();
                 die("ERROR: Bad pass for script access\n");
             } else {

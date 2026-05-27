@@ -20,13 +20,13 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-    /**
-     * @def         HTML Render constant
-     */
+/**
+ * @def         HTML Render constant
+ */
 define('MYSB_RENDER_HTML', 0);
-    /**
-     * @def         BLANK Render constant
-     */
+/**
+ * @def         BLANK Render constant
+ */
 define('MYSB_RENDER_BLANK', 1);
 
 /**
@@ -35,7 +35,8 @@ define('MYSB_RENDER_BLANK', 1);
  * @package    phpMySandBox
  * @subpackage Libraries\Core
  */
-class MySBRender extends MySBLog {
+class MySBRender extends MySBLog
+{
 
     /**
      * @var         bool         true for overlay display.
@@ -76,7 +77,7 @@ class MySBRender extends MySBLog {
      * @var         array           Optional queries logger
      */
     public $content = array();
-    
+
     /**
      * @var         string          Notifications to user
      */
@@ -91,29 +92,31 @@ class MySBRender extends MySBLog {
     /**
      * App constructor.
      */
-    public function __construct() {
+    public function __construct()
+    {
 
         global $_GET;
         parent::__construct();
-        if( (isset($_GET['overlay']) and $_GET['overlay']==1 ) )
+        if ((isset($_GET['overlay']) and $_GET['overlay'] == 1))
             $this->overlay = true;
-        if( (isset($_GET['hidelay']) and $_GET['hidelay']==1 ) )
+        if ((isset($_GET['hidelay']) and $_GET['hidelay'] == 1))
             $this->hidelay = true;
-        if( (isset($_GET['itemlay']) and $_GET['itemlay']==1 ) )
+        if ((isset($_GET['itemlay']) and $_GET['itemlay'] == 1))
             $this->itemlay = true;
-        if( (isset($_GET['blanklay']) and $_GET['blanklay']==1 ) )
+        if ((isset($_GET['blanklay']) and $_GET['blanklay'] == 1))
             $this->blanklay = true;
     }
 
     /**
      * Store a data in 
      * @param   string  $name       name of the template (mytpl for templates/mytpl.php)
-     * @param   string  $module     module containing the template
-     * @param   string  $log        log of the *_process* par loading
+     * @param   string  $value      module containing the template
+     * @param   string  $template   log of the *_process* par loading
      */
-    public static function setData($name,$value,$template='main') {
+    public function setData($name, $value, $template = 'main')
+    {
         global $app;
-        if(!isset($this->$template))
+        if (!isset($this->$template))
             $this->$template = array();
         $this->$template[$name] = $value;
     }
@@ -124,27 +127,37 @@ class MySBRender extends MySBLog {
      * @param   string  $module     module containing the template
      * @param   string  $log        log of the *_process* par loading
      */
-    public static function loadTemplate($name,$module='',$log=true) {
+    public static function loadTemplate($name, $module = '', $log = true)
+    {
         global $app;
-        if($module=='') $prefix = 'core';
-        else $prefix = $module;
-        $name = str_replace( '.', '', $name );
+        if ($module == '')
+            $prefix = 'core';
+        else
+            $prefix = $module;
+        $name = str_replace('.', '', $name);
 
         // custom file (custom/*_*.php eg.:custom/core_admin/users.php)
-        $l_file = MySB_ROOTPATH.'/custom/'.$prefix.'_'.$name.'.php';
+        $l_file = MySB_ROOTPATH . '/custom/' . $prefix . '_' . $name . '.php';
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { include ($l_file); return true; };
+        if (file_exists($l_file)) {
+            include($l_file);
+            return true;
+        }
+        ;
 
         // initial file
-        if($module!='') {   // module file (modules/$module/templates/*.php)
-            $l_file = MySB_ROOTPATH.'/modules/'.$module.'/templates/'.$name.'.php';
+        if ($module != '') {   // module file (modules/$module/templates/*.php)
+            $l_file = MySB_ROOTPATH . '/modules/' . $module . '/templates/' . $name . '.php';
         } else {            // file (templates/*.php)
-            $l_file = MySB_ROOTPATH.'/templates/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/templates/' . $name . '.php';
         }
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { include ($l_file); return true; }
+        if (file_exists($l_file)) {
+            include($l_file);
+            return true;
+        }
 
-        if( $log==true ) {
+        if ($log == true) {
             $app->LOG("MySBRender::loadTemplate($name,$module): template not found");
             $app->pushAlert("Fatal: template <i>$name</i> in module <i>$module</i> not found!");
         }
@@ -157,29 +170,39 @@ class MySBRender extends MySBLog {
      * @param   string  $module     module containing the include
      * @param   string  $log        log of the *_process* par loading
      */
-    public static function loadInclude($name,$module='',$log=true) {
+    public static function loadInclude($name, $module = '', $log = true)
+    {
         global $app;
-        if($module=='') $prefix = 'core_includes';
-        else $prefix = $module.'_includes';
-        $name = str_replace( '.', '', $name );
+        if ($module == '')
+            $prefix = 'core_includes';
+        else
+            $prefix = $module . '_includes';
+        $name = str_replace('.', '', $name);
 
         // custom file (custom/*_*.php eg.:custom/core_include/user_display.php)
-        $l_file = MySB_ROOTPATH.'/custom/'.$prefix.'/'.$name.'.php';
+        $l_file = MySB_ROOTPATH . '/custom/' . $prefix . '/' . $name . '.php';
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { include ($l_file); return; };
+        if (file_exists($l_file)) {
+            include($l_file);
+            return;
+        }
+        ;
 
         // initial file
-        if($module!='') {
+        if ($module != '') {
             // module file (modules/$module/*.php)
-            $l_file = MySB_ROOTPATH.'/modules/'.$module.'/includes/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/modules/' . $module . '/includes/' . $name . '.php';
         } else {
             // file (templates/*.php)
-            $l_file = MySB_ROOTPATH.'/includes/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/includes/' . $name . '.php';
         }
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { include ($l_file); return; }
+        if (file_exists($l_file)) {
+            include($l_file);
+            return;
+        }
 
-        if( $log==true )
+        if ($log == true)
             $app->LOG("MySBRender::loadInclude($name,$module): include not found");
         //return false;
     }
@@ -191,27 +214,35 @@ class MySBRender extends MySBLog {
      * @param   string  $log        log of the *_process* par loading
      * @return  string              path to the template
      */
-    public static function pathTemplate($name,$module='',$log=true) {
+    public static function pathTemplate($name, $module = '', $log = true)
+    {
         global $app;
-        if($module=='') $prefix = 'core';
-        else $prefix = $module;
-        $name = str_replace( '.', '', $name );
+        if ($module == '')
+            $prefix = 'core';
+        else
+            $prefix = $module;
+        $name = str_replace('.', '', $name);
 
         // custom file (custom/*_*.php eg.:custom/core_admin/users.php)
-        $l_file = MySB_ROOTPATH.'/custom/'.$prefix.'_'.$name.'.php';
+        $l_file = MySB_ROOTPATH . '/custom/' . $prefix . '_' . $name . '.php';
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { return ($l_file); };
+        if (file_exists($l_file)) {
+            return ($l_file);
+        }
+        ;
 
         // initial file
-        if($module!='') {   // module file (modules/$module/templates/*.php)
-            $l_file = MySB_ROOTPATH.'/modules/'.$module.'/templates/'.$name.'.php';
+        if ($module != '') {   // module file (modules/$module/templates/*.php)
+            $l_file = MySB_ROOTPATH . '/modules/' . $module . '/templates/' . $name . '.php';
         } else {            // file (templates/*.php)
-            $l_file = MySB_ROOTPATH.'/templates/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/templates/' . $name . '.php';
         }
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { return ($l_file); }
+        if (file_exists($l_file)) {
+            return ($l_file);
+        }
 
-        if( $log==true ) {
+        if ($log == true) {
             $app->LOG("MySBRender::pathTemplate($name,$module): template not found");
             $app->pushAlert("Fatal: template <i>$name</i> in module <i>$module</i> not found!");
         }
@@ -225,29 +256,37 @@ class MySBRender extends MySBLog {
      * @param   string  $log        log of the *_process* par loading
      * @return  string              path to the include
      */
-    public static function pathInclude($name,$module='',$log=true) {
+    public static function pathInclude($name, $module = '', $log = true)
+    {
         global $app;
-        if($module=='') $prefix = 'core_includes';
-        else $prefix = $module.'_includes';
-        $name = str_replace( '.', '', $name );
+        if ($module == '')
+            $prefix = 'core_includes';
+        else
+            $prefix = $module . '_includes';
+        $name = str_replace('.', '', $name);
 
         // custom file (custom/*_*.php eg.:custom/core_include/user_display.php)
-        $l_file = MySB_ROOTPATH.'/custom/'.$prefix.'/'.$name.'.php';
+        $l_file = MySB_ROOTPATH . '/custom/' . $prefix . '/' . $name . '.php';
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { return ($l_file); };
+        if (file_exists($l_file)) {
+            return ($l_file);
+        }
+        ;
 
         // initial file
-        if($module!='') {
+        if ($module != '') {
             // module file (modules/$module/*.php)
-            $l_file = MySB_ROOTPATH.'/modules/'.$module.'/includes/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/modules/' . $module . '/includes/' . $name . '.php';
         } else {
             // file (templates/*.php)
-            $l_file = MySB_ROOTPATH.'/includes/'.$name.'.php';
+            $l_file = MySB_ROOTPATH . '/includes/' . $name . '.php';
         }
         //echo $l_file.'<br>';
-        if(file_exists($l_file)) { return ($l_file); }
+        if (file_exists($l_file)) {
+            return ($l_file);
+        }
 
-        if( $log==true )
+        if ($log == true)
             $app->LOG("MySBRender::pathInclude($name,$module): include not found");
         return '';
     }
@@ -258,10 +297,11 @@ class MySBRender extends MySBLog {
     /**
      * Layers writing.
      */
-    protected function layerWrite() {
+    protected function layerWrite()
+    {
         $output = '';
 
-        if( $this->overlay )
+        if ($this->overlay)
             $output .= '
 <script type="text/javascript">
 resizeOverWin();
@@ -269,14 +309,15 @@ activeOverlay();
 offSpin();
 </script>';
 
-        if( $this->itemlay )
+        if ($this->itemlay)
             $output .= '
 <script type="text/javascript">
-slide_show(\''.$_GET['iid'].'\');
+slide_show(\'' . $_GET['iid'] . '\');
 wrapLayerCalls();
 offSpin();
 </script>';
-        elseif( !$this->blanklay ) $output .= '
+        elseif (!$this->blanklay)
+            $output .= '
 <script type="text/javascript">
 wrapLayerCalls();
 offSpin();
@@ -287,21 +328,22 @@ offSpin();
     /**
      * Messages and Alerts (die) writing.
      */
-    protected function msgWrite() {
+    protected function msgWrite()
+    {
         global $app;
         $output = '';
-        if(!empty($this->Messages)) {
-            $message = str_replace("\n","\\\n", $this->Messages);
-            $message = str_replace("'","\'", $message);
-            $output =  '
+        if (!empty($this->Messages)) {
+            $message = str_replace("\n", "\\\n", $this->Messages);
+            $message = str_replace("'", "\'", $message);
+            $output = '
 <script>
-insertAndExecute("mysbMessages", \''.$message.'\');
+insertAndExecute("mysbMessages", \'' . $message . '\');
 hideMessageTip();
 </script>';
             $this->Messages = '';
         }
-        if(!empty($this->Alerts)) {
-            $output .= '<div id="mysbAlerts">'.$this->Alerts.'</div>';
+        if (!empty($this->Alerts)) {
+            $output .= '<div id="mysbAlerts">' . $this->Alerts . '</div>';
         }
         return $output;
     }
@@ -309,43 +351,52 @@ hideMessageTip();
     /**
      * Routing for controler call
      */
-    public function ctrl_route() {
-        
-        if( !empty($_GET['tpl']) ) {
-            if(!isset($_GET['mod']))
+    public function ctrl_route()
+    {
+
+        if (!empty($_GET['tpl'])) {
+            if (!isset($_GET['mod']))
                 $_GET['mod'] = '';
-            if( ( $file = $this->pathTemplate(  $_GET['tpl'].'_ctrl',
-                                                $_GET['mod'],
-                                                $this->debug ) ) != false) {
+            if (
+                ($file = $this->pathTemplate(
+                    $_GET['tpl'] . '_ctrl',
+                    $_GET['mod'],
+                    $this->debug
+                )) != false
+            ) {
                 ob_start();
                 include($file);
                 //echo $file."\n";
                 $content = ob_get_clean();
-                echo $this->view_render($this->msgWrite().$content.$this->layerWrite());
+                echo $this->view_render($this->msgWrite() . $content . $this->layerWrite());
                 return true;
             } else {
-                echo $file."\n";
+                echo $file . "\n";
                 return false;
             }
-        } elseif( !empty($_GET['inc']) ) {
-            if( !($file = $this->pathInclude(   $_GET['inc'].'_ctrl',
-                                                $_GET['mod'],
-                                                false) ) )
+        } elseif (!empty($_GET['inc'])) {
+            if (
+                !($file = $this->pathInclude(
+                    $_GET['inc'] . '_ctrl',
+                    $_GET['mod'],
+                    false
+                ))
+            )
                 return false;
             ob_start();
             include($file);
             $content = ob_get_clean();
-            echo $this->msgWrite().$content.$this->layerWrite().$this->logsqlWrite();
+            echo $this->msgWrite() . $content . $this->layerWrite() . $this->logsqlWrite();
             return true;
 
         } else {
             $pluginsFrontPage = MySBPluginHelper::loadByType('FrontPage');
             $content = '';
-            foreach($pluginsFrontPage as $plugin) {
+            foreach ($pluginsFrontPage as $plugin) {
                 $content .= $plugin->callControler();
             }
             //if( $content=='' ) return false;
-            $this->view_render($this->msgWrite().$content.$this->layerWrite());
+            $this->view_render($this->msgWrite() . $content . $this->layerWrite());
             return true;
         }
         //throw new Exception("Action non valide");
@@ -356,8 +407,9 @@ hideMessageTip();
      * register local custom header line
      * @param   string     $header      Header line to append in <head section> (null to reset)
      */
-    public function headerADD($header=null) {
-        if( $header==null )
+    public function headerADD($header = null)
+    {
+        if ($header == null)
             $this->custom_headers = array();
         else
             $this->custom_headers[] = $header;
@@ -366,7 +418,8 @@ hideMessageTip();
     /**
      * Rendering view
      */
-    public function view_refresh($refresh_time) {
+    public function view_refresh($refresh_time)
+    {
         //global $app;
         $this->refresh_time = $refresh_time;
     }
@@ -374,7 +427,8 @@ hideMessageTip();
     /**
      * Rendering view
      */
-    public function view_menu($show_menu) {
+    public function view_menu($show_menu)
+    {
         //global $app;
         $this->show_menu = $show_menu;
     }
@@ -382,40 +436,43 @@ hideMessageTip();
     /**
      * Rendering view
      */
-    public function view_render($content) {
+    public function view_render($content)
+    {
         global $app;
-        if($this->overlay==1 or $this->hidelay==1 or $this->itemlay==1) {
-            echo $content.$this->logsqlWrite();
+        if ($this->overlay == 1 or $this->hidelay == 1 or $this->itemlay == 1) {
+            echo $content . $this->logsqlWrite();
             return;
         }
-        if($this->blanklay==1) {
+        if ($this->blanklay == 1) {
             echo $content;
             return;
         }
         $this->content['template'] = $content;
         ob_start();
-        include( $this->pathTemplate('template','',true));
+        include($this->pathTemplate('template', '', true));
         echo ob_get_clean();
     }
 
     /**
      * SQL log writing.
      */
-    public function logsqlWrite() {
+    public function logsqlWrite()
+    {
         global $app;
-        include MySB_ROOTPATH.'/config.php';
-        if( !isset($mysb_DEBUG) or !$mysb_DEBUG ) return '';
+        include MySB_ROOTPATH . '/config.php';
+        if (!isset($mysb_DEBUG) or !$mysb_DEBUG)
+            return '';
         $output = $this->getlLogSQL();
-        if( $this->overlay or $this->itemlay or $this->hidelay ) {
-            $clean_output = str_replace("'","\\'",$output);
-            $clean_output = str_replace("\n"," ",$clean_output);
+        if ($this->overlay or $this->itemlay or $this->hidelay) {
+            $clean_output = str_replace("'", "\\'", $output);
+            $clean_output = str_replace("\n", " ", $clean_output);
             return '
 <script type="text/javascript">
-insertAndExecute("mysbLogSql", \''.$clean_output.'\');
+insertAndExecute("mysbLogSql", \'' . $clean_output . '\');
 </script>';
-        } elseif( $this->blanklay ) {
-            $clean_output = str_replace("'","\\'",$output);
-            $clean_output = str_replace("\n"," ",$clean_output);
+        } elseif ($this->blanklay) {
+            $clean_output = str_replace("'", "\\'", $output);
+            $clean_output = str_replace("\n", " ", $clean_output);
             //TODO: push log in a file ?
             return '';
         }
@@ -429,9 +486,12 @@ insertAndExecute("mysbLogSql", \''.$clean_output.'\');
  * @param   string  $module     module containing the template
  * @param   string  $log        log of the *_process* par loading
  * @return  string              path to the template
-*/
-function _pathT($name,$module='',$log=true) 
-    { global $app; return $app->pathTemplate($name,$module,$log); }
+ */
+function _pathT($name, $module = '', $log = true)
+{
+    global $app;
+    return $app->pathTemplate($name, $module, $log);
+}
 
 /**
  * Load a customisable include (sequential form of MySBUtil::loadInclude())
@@ -439,24 +499,35 @@ function _pathT($name,$module='',$log=true)
  * @param   string  $module     module containing the include
  * @param   string  $log        log of the *_process* par loading
  * @return  string              path to the include
-*/
-function _pathI($name,$module='',$log=true) 
-    { global $app; return $app->pathInclude($name,$module,$log); }
+ */
+function _pathI($name, $module = '', $log = true)
+{
+    global $app;
+    return $app->pathInclude($name, $module, $log);
+}
 
 /**
  * Load a customisable template (sequential form of MySBUtil::loadTemplate())
  * @param   string  $name       name of the template (mytpl for templates/mytpl.php)
  * @param   string  $module     module containing the template
  * @param   string  $log        log of the *_process* par loading
-*/
+ */
 //function _incT($name,$module='',$log=true) { global $app; return $app->loadTemplate($name,$module,$log); }
-function _incT($name,$module='',$log=true) { global $app; include ($app->pathTemplate($name,$module,$log)); }
+function _incT($name, $module = '', $log = true)
+{
+    global $app;
+    include($app->pathTemplate($name, $module, $log));
+}
 /**
  * Load a customisable include (sequential form of MySBUtil::loadInclude())
  * @param   string  $name       name of the include (mytpl for includes/myinc.php)
  * @param   string  $module     module containing the include
  * @param   string  $log        log of the *_process* par loading
-*/
+ */
 //function _incI($name,$module='',$log=true) { global $app; return $app->loadInclude($name,$module,$log); }
-function _incI($name,$module='',$log=true) { global $app; include ($app->pathInclude($name,$module,$log)); }
+function _incI($name, $module = '', $log = true)
+{
+    global $app;
+    include($app->pathInclude($name, $module, $log));
+}
 ?>

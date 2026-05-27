@@ -70,7 +70,7 @@ if( $mysb_ext_mail=='PHPMailer' and
             $sent_msg = $this->MIMEHeader.$this->MIMEBody;
             $ImapStream = imap_open(    "{".$phpmailer_ImapHost.":".$phpmailer_ImapPort."}",
                                         $this->Username,
-                                        $this->Password, NULL, 1 );
+                                        $this->Password, 0, 1 );
             $folder = "{".$phpmailer_ImapHost."}".$phpmailer_ImapFolder;
             imap_append($ImapStream, $folder, $sent_msg, "\\Seen");
             imap_close($ImapStream);

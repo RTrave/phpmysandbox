@@ -28,11 +28,12 @@ defined('_MySBEXEC') or die;
  * @package    phpMySandBox
  * @subpackage Libraries\Core
  */
-class MySBDBCache {
+class MySBDBCache
+{
 
     /**
-	 * @var    boolean      active cache flag
-	 */
+     * @var    boolean      active cache flag
+     */
     public $enabled = false;
 
 
@@ -40,23 +41,25 @@ class MySBDBCache {
      * Constructor.
      * @param   MySBApplication     $app        application object
      */
-    public function __construct($app) {
+    public function __construct($app)
+    {
         $this->enabled = true;
-        if( !isset($app->SESSION) ) 
+        if (!isset($app->SESSION))
             $app->SESSION = array();
     }
 
     /**
      * Get query result from cache
      * @param   string      $query              SQL query referenced in cache
-     * @return  array                           query result object
+     * @return  object|null                     query result object
      */
-    public function get($query) {
+    public function get($query)
+    {
         global $app;
-        if( $this->enabled ) {
+        if ($this->enabled) {
             $result = &$app->SESSION[$query];
-            if( isset($result) and !empty($result) ) {
-                MySBDB::data_seek($result,0);
+            if (isset($result) and !empty($result)) {
+                MySBDB::data_seek($result, 0);
                 return $result;
             }
         }
@@ -66,11 +69,12 @@ class MySBDBCache {
     /**
      * Store query result in cache
      * @param   string      $query              SQL query to reference in cache
-     * @param   array       $result             query result object to store in cache
+     * @param   object       $result             query result object to store in cache
      */
-    public function store($query,$result) {
+    public function store($query, $result)
+    {
         global $app;
-        if( $this->enabled ) 
+        if ($this->enabled)
             $app->SESSION[$query] = $result;
     }
 

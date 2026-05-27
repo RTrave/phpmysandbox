@@ -29,7 +29,8 @@ defined('_MySBEXEC') or die;
 
 #[\AllowDynamicProperties]
 
-abstract class MySBObject {
+abstract class MySBObject
+{
 
     /**
      * Unique ID
@@ -43,10 +44,11 @@ abstract class MySBObject {
      * @param   array   $data_object        Array of values to set
      * @param   string  $prefix             Prefix of instance properties
      */
-    protected function __construct($data_object=array(),$prefix='') {
-        foreach($data_object as $index => $value) {
-            if(!is_int($index)) { //we dont use int indexes from fetch_array
-                $pre_index = $prefix.$index;
+    protected function __construct($data_object = array(), $prefix = '')
+    {
+        foreach ($data_object as $index => $value) {
+            if (!is_int($index)) { //we dont use int indexes from fetch_array
+                $pre_index = $prefix . $index;
                 $this->$pre_index = $value;
             }
         }
@@ -59,22 +61,29 @@ abstract class MySBObject {
      * @param   int     $id                 Overwrite the ID of object
      * @param   string  $prefix             Prefix of instance properties
      */
-    public function __update($table,$data_object=array(),$id=null,$prefix='') {
+    public function __update($table, $data_object = array(), $id = null, $prefix = '')
+    {
         global $app;
-        if(count($data_object)==0) return;
-        if($id==null) $id = $this->id;
+        if (count($data_object) == 0)
+            return;
+        if ($id == null)
+            $id = $this->id;
         $coma_flag = 0;
-        $sql_updobj = "UPDATE ".MySB_DBPREFIX.$table." SET ";
-        foreach($data_object as $index => $value) {
-            if($coma_flag==0) $coma_flag = 1;
-            else $sql_updobj .= ", ";
-            $sql_updobj .= $index."='".MySBUtil::str2db($value)."'";
-            $pre_index = $prefix.$index;
+        $sql_updobj = "UPDATE " . MySB_DBPREFIX . $table . " SET ";
+        foreach ($data_object as $index => $value) {
+            if ($coma_flag == 0)
+                $coma_flag = 1;
+            else
+                $sql_updobj .= ", ";
+            $sql_updobj .= $index . "='" . MySBUtil::str2db($value) . "'";
+            $pre_index = $prefix . $index;
             $this->$pre_index = $value;
         }
-        $sql_updobj .= " WHERE id=".$id;
-        MySBDB::query($sql_updobj,
-            "MySBObject::__update()" );
+        $sql_updobj .= " WHERE id=" . $id;
+        MySBDB::query(
+            $sql_updobj,
+            "MySBObject::__update()"
+        );
     }
 
 }

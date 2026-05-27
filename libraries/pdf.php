@@ -20,19 +20,19 @@
 // No direct access.
 defined('_MySBEXEC') or die;
 
-include(MySB_ROOTPATH.'/config.php');
+include(MySB_ROOTPATH . '/config.php');
 
-if( file_exists(MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php') ) {
+if (file_exists(MySB_ROOTPATH . '/vendor/tecnickcom/tcpdf/tcpdf.php')) {
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH . '/vendor/tecnickcom/tcpdf/tcpdf.php');
 
-} elseif( file_exists(MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php') ) {
+} elseif (file_exists(MySB_ROOTPATH . '/vendor/tecnickcom/tcpdf_min/tcpdf.php')) {
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH . '/vendor/tecnickcom/tcpdf_min/tcpdf.php');
 
-} else { 
+} else {
 
-    define('MySB_TCPDF', MySB_ROOTPATH.'/vendor/tecnickcom/tcpdf_min/tcpdf.php');
+    define('MySB_TCPDF', MySB_ROOTPATH . '/vendor/tecnickcom/tcpdf_min/tcpdf.php');
     return;
 
 }
@@ -46,28 +46,30 @@ include(MySB_TCPDF);
  * @package    phpMySandBox
  * @subpackage Libraries\Core
  */
-class MySBPDF extends TCPDF {
+class MySBPDF extends TCPDF
+{
 
     /**
-	 * @var     string          HTML input to write to PDF
-	 */
-	private $pdf_htmlcontent = '';
+     * @var     string          HTML input to write to PDF
+     */
+    private $pdf_htmlcontent = '';
 
     /**
-	 * @var     string          CSS added to HTML write
-	 */
-	private $pdf_css = '';
+     * @var     string          CSS added to HTML write
+     */
+    private $pdf_css = '';
 
     /**
-	 * @var     string          TCPDF version
-	 */
-	public $mytcpdf_version = '';
+     * @var     string          TCPDF version
+     */
+    public $mytcpdf_version = '';
 
 
     /**
      * Constructor.
      */
-    public function __construct($title='No title', $subject='No subject') {
+    public function __construct($title = 'No title', $subject = 'No subject')
+    {
         global $app;
         parent::__construct(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         // set document information
@@ -84,10 +86,11 @@ class MySBPDF extends TCPDF {
     /**
      * Get TCPDF version from lib comments.
      */
-    private function getLibVersion() {
+    private function getLibVersion()
+    {
         $vlines = file(MySB_TCPDF);
-        $versionl = explode('// ',$vlines[3]);
-        $versionl1 = explode(' : ',$versionl[1]);
+        $versionl = explode('// ', $vlines[3]);
+        $versionl1 = explode(' : ', $versionl[1]);
         $this->mytcpdf_version = $versionl1[1];
     }
 
@@ -95,29 +98,32 @@ class MySBPDF extends TCPDF {
      * Add a header CSS to PDF.
      * @param   string      $css_file         Header to add (null to reset)
      */
-    public function addCSS($css_file=null) {
-        if( $css_file==null )
+    public function addCSS($css_file = null)
+    {
+        if ($css_file == null)
             $this->pdf_css = '';
         else
-            $this->pdf_css .= '<link rel="stylesheet" type="text/css" href="'.$css_file.'">';
+            $this->pdf_css .= '<link rel="stylesheet" type="text/css" href="' . $css_file . '">';
     }
 
     /**
      * Append HTML code for PDF generation.
      * @param   string      $html           
      */
-    public function HTML($html) {
+    public function HTML($html)
+    {
         $this->pdf_htmlcontent .= $html;
     }
 
     /**
      * Write HTML code for PDF generation.
      */
-    private function real_writeHTML() {
+    private function real_writeHTML()
+    {
         $html_input = '
 <head>
-    '.$this->pdf_css.'
-</head> '.$this->pdf_htmlcontent.'
+    ' . $this->pdf_css . '
+</head> ' . $this->pdf_htmlcontent . '
 ';
         $this->writeHTML($html_input, false, false, true, false, '');
         $this->pdf_htmlcontent = '';
@@ -127,8 +133,9 @@ class MySBPDF extends TCPDF {
     /**
      * Add a new page.
      */
-    public function NewPage() {
-        if( $this->pdf_htmlcontent!='' )
+    public function NewPage()
+    {
+        if ($this->pdf_htmlcontent != '')
             $this->real_writeHTML();
         parent::AddPage();
     }
@@ -140,20 +147,21 @@ class MySBPDF extends TCPDF {
      * @param   boolean     $store              Store generated PDF
      * @return  string                          Path to the stored file
      */
-    public function OutputBrowser($filename,$force_download=false,$store=false) {
-        if( $this->pdf_htmlcontent!='' )
+    public function OutputBrowser($filename, $force_download = false, $store = false)
+    {
+        if ($this->pdf_htmlcontent != '')
             $this->real_writeHTML();
-        if( $store ) {
+        if ($store) {
             $storecode = 'F';
-            $filepath = MySB_ROOTPATH.'/tmp/'.$filename;
+            $filepath = MySB_ROOTPATH . '/tmp/' . $filename;
         } else {
             $storecode = '';
             $filepath = $filename;
         }
-        if( $force_download )
-            $this->Output($filepath, $storecode.'D');
-        else 
-            $this->Output($filepath, $storecode.'I');
+        if ($force_download)
+            $this->Output($filepath, $storecode . 'D');
+        else
+            $this->Output($filepath, $storecode . 'I');
         return $filepath;
     }
 
@@ -162,10 +170,11 @@ class MySBPDF extends TCPDF {
      * @param   string      $filename           PDF File name
      * @return  string                          Path to the stored file
      */
-    public function OutputFile($filename) {
-        if( $this->pdf_htmlcontent!='' )
+    public function OutputFile($filename)
+    {
+        if ($this->pdf_htmlcontent != '')
             $this->real_writeHTML();
-        $filepath = MySB_ROOTPATH.'/tmp/'.$filename;
+        $filepath = MySB_ROOTPATH . '/tmp/' . $filename;
         $this->Output($filepath, 'F');
         return $filepath;
     }

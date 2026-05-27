@@ -27,7 +27,8 @@ defined('_MySBEXEC') or die;
  * @subpackage Libraries\APIs
  */
 
-interface MySBIAuthLayer {
+interface MySBIAuthLayer
+{
 
     /**
      * Check authentication process.
@@ -62,13 +63,15 @@ interface MySBIAuthLayer {
  * @package    phpMySandBox
  * @subpackage Libraries\Plugins
  */
-class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
+class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer
+{
 
     /**
      * Constructor.
      * @param   array   $plugin     parameters of plugin
      */
-    public function __construct($plugin = array()) {
+    public function __construct($plugin = array())
+    {
         parent::__construct((array) ($plugin));
     }
 
@@ -76,7 +79,8 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
      * HTML form (authbox call)
      * @return  string              HTML entity output
      */
-    public function formAuthbox() {
+    public function formAuthbox()
+    {
         global $app;
         $output = '
 <form method="post">
@@ -96,13 +100,13 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
   <div class="row" style="text-align: center; position: relative;">
     <input type="hidden" name="native_login" value="1">
     <input type="submit" class="btn-secondary"
-           value="'._G('SBGT_log_in').'">
+           value="' . _G('SBGT_log_in') . '">
   </div>
 </div>
 </form>
 <span style="text-align: center;">
   <a href="index.php?tpl=users/reset_pw" class="resetpw">
-    '._G('SBGT_forgot_password').'?</a>
+    ' . _G('SBGT_forgot_password') . '?</a>
 </span>';
         return $output;
     }
@@ -110,7 +114,8 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
     /**
      * Internal password verification, handling hash update if needed
      */
-    private function verify_password($password, $passhash, $user_id) {
+    private function verify_password($password, $passhash, $user_id)
+    {
         global $app;
         if (substr($passhash, 0, 1) == "$") {
             // Password already converted, verify using password_verify
@@ -118,10 +123,12 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
         } else {
             // User still using the old MD5, update it!
             if (md5($password) == $passhash) {
-                MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".
-                "SET passwd='".password_hash($password,  PASSWORD_DEFAULT)."' ".
-                "WHERE id=".$user_id,
-                "MySBUser::verify_password('******',$user_id)" );
+                MySBDB::query(
+                    "UPDATE " . MySB_DBPREFIX . "users " .
+                    "SET passwd='" . password_hash($password, PASSWORD_DEFAULT) . "' " .
+                    "WHERE id=" . $user_id,
+                    "MySBUser::verify_password('******',$user_id)"
+                );
                 return true;
             }
         }
@@ -132,49 +139,59 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
      * Simple process to check password against MD5 login's one
      * @return  boolean              true if succes, false if not
      */
-    public function checkPassword($password) {
+    public function checkPassword($password)
+    {
         global $app;
-        if(!isset($app->auth_user) or $app->auth_user==null)
+        if (!isset($app->auth_user) or $app->auth_user == null)
             return false;
-        $req_getpass = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
-            "WHERE login='".$app->auth_user->login."'",
-            "MySBPluginAuthLayer::checkPassword()" );
+        $req_getpass = MySBDB::query(
+            "SELECT * from " . MySB_DBPREFIX . "users " .
+            "WHERE login='" . $app->auth_user->login . "'",
+            "MySBPluginAuthLayer::checkPassword()"
+        );
         $data_getpass = MySBDB::fetch_array($req_getpass);
         $passinbase = $data_getpass['passwd'];
         return $this->verify_password($password, $passinbase, $app->auth_user->id);
-/*
-        if(md5($password)==$data_getpass['passwd']) 
-            return true;
-        return false;
-*/
+        /*
+                if(md5($password)==$data_getpass['passwd']) 
+                    return true;
+                return false;
+        */
     }
 
     /**
      * Html form process, die with bad authentication message if failed
      * @return  boolean              true if authentication is a succes, false for malformed credentials
      */
-    private function formAuthbox_Process() {
+    private function formAuthbox_Process()
+    {
         global $app, $_SESSION, $_POST;
-        if( !isset($_POST['native_login']) ) //{ // LOGIN check
+        if (!isset($_POST['native_login'])) //{ // LOGIN check
             return false;
-        if( $_POST['login']=='' or $_POST['passwd']=='' )
+        if ($_POST['login'] == '' or $_POST['passwd'] == '')
             return false;
-        if( !MySBUtil::strverif($_POST['login']) or
-            !MySBUtil::strverif($_POST['passwd'],false) )
+        if (
+            !MySBUtil::strverif($_POST['login']) or
+            !MySBUtil::strverif($_POST['passwd'], false)
+        )
             return false;
         MySBUserHelper::checkLogattempt($_POST['login']);
-        $req_getpass = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
-            "WHERE login='".$_POST['login']."'",
-            "MySBPluginAuthLayer::formAuthbox_Process()" );
+        $req_getpass = MySBDB::query(
+            "SELECT * from " . MySB_DBPREFIX . "users " .
+            "WHERE login='" . $_POST['login'] . "'",
+            "MySBPluginAuthLayer::formAuthbox_Process()"
+        );
         $data_getpass = MySBDB::fetch_array($req_getpass);
         //if(md5($_POST['passwd'])==$data_getpass['passwd']) {
-        if($this->verify_password($_POST['passwd'], $data_getpass['passwd'], $data_getpass['id'])) {
+        if ($this->verify_password($_POST['passwd'], $data_getpass['passwd'], $data_getpass['id'])) {
             $_SESSION['mysb_login'] = $_POST['login'];
             $urandom = session_id();
-            MySBDB::query("UPDATE ".MySB_DBPREFIX."users ".
-                "SET auth_rand='".$urandom."' ".
-                "WHERE login='".$_POST['login']."'",
-                "MySBPluginAuthLayer::formAuthbox_Process()" );
+            MySBDB::query(
+                "UPDATE " . MySB_DBPREFIX . "users " .
+                "SET auth_rand='" . $urandom . "' " .
+                "WHERE login='" . $_POST['login'] . "'",
+                "MySBPluginAuthLayer::formAuthbox_Process()"
+            );
             return true;
         }
         return false;
@@ -182,37 +199,41 @@ class MySBPluginAuthLayer extends MySBPlugin implements MySBIAuthLayer {
 
     /**
      * Authentication check procedure
-     * @return  MySBUser        return User object, false if wrong credentials
+     * @return  MySBUser|bool|null        return User object, false if wrong credentials
      */
-    public function checkAuth() {
-        global $app,$_SESSION;
-        if(!isset($_SESSION['mysb_login']) ) {
-            if(!$this->formAuthbox_Process())
-                if( isset($_POST['login']) and $_POST['login']!='' )
+    public function checkAuth()
+    {
+        global $app, $_SESSION;
+        if (!isset($_SESSION['mysb_login'])) {
+            if (!$this->formAuthbox_Process())
+                if (isset($_POST['login']) and $_POST['login'] != '')
                     return false;
                 else
                     return null;
         }
         $ulogin = $_SESSION['mysb_login'];
-        $req_checkrand = MySBDB::query("SELECT * from ".MySB_DBPREFIX."users ".
-            "WHERE login='".$ulogin."'",
-            "MySBPluginAuthLayer::checkAuth()" );
+        $req_checkrand = MySBDB::query(
+            "SELECT * from " . MySB_DBPREFIX . "users " .
+            "WHERE login='" . $ulogin . "'",
+            "MySBPluginAuthLayer::checkAuth()"
+        );
         $data_checkrand = MySBDB::fetch_array($req_checkrand);
         $urandom = $_COOKIE[session_name()];
-        if($data_checkrand['auth_rand']!=$urandom or $data_checkrand['auth_rand']=='') {
+        if ($data_checkrand['auth_rand'] != $urandom or $data_checkrand['auth_rand'] == '') {
             $this->logout();
             $app->resetSession();
-            $app->displayStopAlert(_G('SBGT_logged_off'),2,false);
+            $app->displayStopAlert(_G('SBGT_logged_off'), 2, false);
         }
-        $uuser = new MySBUser(-1,$data_checkrand);
+        $uuser = new MySBUser(-1, $data_checkrand);
         return $uuser;
     }
 
     /**
      * Logout procedure
      */
-    public function logout() {
-        global $app,$_SESSION;
+    public function logout()
+    {
+        global $app, $_SESSION;
         unset($_SESSION['mysb_login']);
     }
 }
