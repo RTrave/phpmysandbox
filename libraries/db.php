@@ -129,16 +129,16 @@ class MySBDB
     public static function table_exists($table)
     {
         global $app;
-        if (
-            (MySBDB::query(
-                "SELECT * FROM " . MySB_DBPREFIX . $table . "",
-                "MySBDB::table_exists($table)",
-                false
-            ))
-        )
-            return true;
-        else
-            return false;
+        // Try a select statement against the table
+        // Run it in try-catch in case PDO is in ERRMODE_EXCEPTION.
+        try {
+            $result = $app->dblayer->query("SELECT 1 FROM " . MySB_DBPREFIX . $table . " LIMIT 1");
+        } catch (Exception $e) {
+            // We got an exception (table not found)
+            return FALSE;
+        }
+        // Result is either boolean FALSE (no table found) or PDOStatement Object (table found)
+        return $result !== FALSE;
     }
 
     /**
