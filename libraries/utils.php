@@ -348,31 +348,44 @@ class MySBCSValues
     public $values = array();
 
     /**
+     * @var     bool     Is an array of chars
+     */
+    public $is_chars = false;
+
+    /**
      * Init the values array
      * @param   string  $cs_string      string to transform
      */
-    public function __construct($cs_string = null)
+    public function __construct($cs_string = null, $is_chars = false)
     {
         if ($cs_string != null and $cs_string != '') {
             $c_values = explode(',', $cs_string);
             foreach ($c_values as $value)
-                $this->values[] = (float) $value;
+                if ($is_chars) 
+                    $this->values[] = (string) $value;
+                else
+                    $this->values[] = (float) $value;
         }
+        if ($is_chars) 
+            $this->is_chars = true;
     }
 
     /**
      * Add a value in array
-     * @param   integer  $value      Value to add
+     * @param   integer|string  $value      Value to add
      */
     public function add($value)
     {
         $value = str_replace(',', '.', $value);
-        $this->values[] = (float) $value;
+        if ($this->is_chars) 
+            $this->values[] = $value;
+        else
+            $this->values[] = (float) $value;
     }
 
     /**
      * Del a value in array
-     * @param   integer  $value      Value to delete
+     * @param   integer|string  $value      Value to delete
      * @param   bool  $multiple   Delete all occurences ? (default=true)
      */
     public function del($value, $multiple = true)
@@ -401,7 +414,10 @@ class MySBCSValues
             else
                 $new_string .= ',';
             //$new_string .= floatval((float)$value);
-            $new_string .= preg_replace("[^-0-9\.]", ".", $value);
+            if($this->is_chars)
+                $new_string .= $value;
+            else
+                $new_string .= preg_replace("[^-0-9\.]", ".", $value);
         }
         return $new_string;
     }
@@ -419,15 +435,19 @@ class MySBCSValues
 
     /**
      * Return true if $search_value is found in values
-     * @param    integer  $search_value      Value to search
+     * @param    integer|string  $search_value      Value to search
      * @return   boolean
      */
     public function have($search_value)
     {
         $search_value = str_replace(',', '.', $search_value);
         foreach ($this->values as $value)
-            if ($search_value == $value)
-                return true;
+            if($this->is_chars)
+                if ($search_value === $value)
+                    return true;
+            else
+                if ($search_value == $value)
+                    return true;
         return false;
     }
 
