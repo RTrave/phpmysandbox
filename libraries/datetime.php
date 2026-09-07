@@ -271,6 +271,7 @@ class MySBDateTime extends DateTime
             $form = '<input type="datetime-local" id="' . $prefix . 'date" name="' . $prefix . 'date" ' .
                 'value="' . $datestr . '">';
         }
+        $form .= '<br>RESET<input type="checkbox" name="' . $prefix . 'datereset" id="' . $prefix . 'datereset">';
         return $form;
     }
 
@@ -355,11 +356,15 @@ class MySBDateTimeHelper
     {
         global $_POST;
         include(MySB_ROOTPATH . '/config.php');
-        if (isset($mysb_datetime_oldschool) && $mysb_datetime_oldschool == true) {
-            $str = $_POST[$prefix . 'year'] . '-' . $_POST[$prefix . 'month'] . '-' . $_POST[$prefix . 'day'] .
-                ' ' . $_POST[$prefix . 'hour'] . ':' . $_POST[$prefix . 'minute'] . ':00';
+        if ($_POST[$prefix . 'datereset'] != 0) {
+            $str = '0000-00-00 00:00:00';
         } else {
-            $str = str_replace('T', ' ', $_POST[$prefix . 'date']);
+            if (isset($mysb_datetime_oldschool) && $mysb_datetime_oldschool == true) {
+                $str = $_POST[$prefix . 'year'] . '-' . $_POST[$prefix . 'month'] . '-' . $_POST[$prefix . 'day'] .
+                    ' ' . $_POST[$prefix . 'hour'] . ':' . $_POST[$prefix . 'minute'] . ':00';
+            } else {
+                $str = str_replace('T', ' ', $_POST[$prefix . 'date']);
+            }
         }
         return new MySBDateTime($str);
     }
