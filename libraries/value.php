@@ -218,10 +218,10 @@ class MySBValue extends MySBObject
                 return $form_str;
             case MYSB_VALUE_TYPE_DATE:
                 $date = new MySBDateTime($value);
-                return $date->html_form($prefix, true);
+                return $date->html_form($prefix . $this->keyname, true);
             case MYSB_VALUE_TYPE_DATETIME:
                 $date = new MySBDateTime($value);
-                return $date->html_form($prefix, false);
+                return $date->html_form($prefix . $this->keyname, false);
             case MYSB_VALUE_TYPE_TEL:
                 $img = '';
 
