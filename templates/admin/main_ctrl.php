@@ -14,11 +14,13 @@ defined('_MySBEXEC') or die;
 
 global $app;
 
+include(MySB_ROOTPATH.'/config.php');
+
 use PHPMailer\PHPMailer\PHPMailer;
-//require (MySB_ROOTPATH.'/vendor/autoload.php');
-//require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/PHPMailer.php');
+if( $mysb_ext_mail == 'PHPMailer' ){
 require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/SMTP.php');
 require (MySB_ROOTPATH.'/vendor/phpmailer/phpmailer/src/Exception.php');
+}
 
 if(!MySBRoleHelper::checkAccess('admin')) return;
 
@@ -66,7 +68,6 @@ if(isset($_POST['test_mail'])) {
     $app->pushMessage( _G('SBGT_admin_testmail').':<br>'.$app->auth_user->login.' &lt;'.$app->auth_user->mail.'&gt;' );
 }
 
-include(MySB_ROOTPATH.'/config.php');
 if( $mysb_ext_mail=='PHPMailer' and
     file_exists(MySB_ROOTPATH.'/phpmailer.conf.php') )
     include(MySB_ROOTPATH.'/phpmailer.conf.php');
